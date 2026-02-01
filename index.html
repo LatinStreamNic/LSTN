@@ -1,0 +1,2366 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0b1220" />
+
+  <title>LATIN STREAM — Tienda Digital</title>
+  <meta name="description" content="Tienda digital de suscripciones y servicios. Compra rápida, cupones, duraciones y pedido automático por WhatsApp." />
+  <meta property="og:title" content="LATIN STREAM — Tienda Digital" />
+  <meta property="og:description" content="Suscripciones y servicios digitales. Checkout rápido y pedido por WhatsApp." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='630'%3E%3Cdefs%3E%3CradialGradient id='g' cx='30%25' cy='20%25' r='80%25'%3E%3Cstop stop-color='%234f7cff' stop-opacity='.35'/%3E%3Cstop offset='1' stop-color='%230b1220'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='1200' height='630' fill='url(%23g)'/%3E%3Ctext x='70' y='190' font-size='74' fill='%23eaf0ff' font-family='Arial' font-weight='800'%3EPremium Latam%3C/text%3E%3Ctext x='70' y='260' font-size='34' fill='%2392a3c4' font-family='Arial'%3ETwitter, suscripciones y servicios digitales%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3CradialGradient id='g' cx='30%25' cy='30%25' r='70%25'%3E%3Cstop stop-color='%234f7cff'/%3E%3Cstop offset='1' stop-color='%2322c55e'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect x='8' y='8' width='48' height='48' rx='16' fill='url(%23g)'/%3E%3C/svg%3E" />
+
+  <style>
+    :root{
+      --bg:#0b1220; --card:#101a2e; --muted:#92a3c4; --text:#eaf0ff;
+      --brand:#4f7cff; --brand2:#22c55e; --warn:#f59e0b; --danger:#ef4444;
+      --border:rgba(255,255,255,.09); --shadow:0 20px 60px rgba(0,0,0,.35);
+      --radius:18px; --mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+      --font:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    }
+    [data-theme="light"]{
+      --bg:#f6f7fb; --card:#fff; --muted:#5b6b86; --text:#0b1220;
+      --border:rgba(11,18,32,.10); --shadow:0 18px 40px rgba(11,18,32,.12);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font:14px/1.45 var(--font); color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 20% 0%, rgba(79,124,255,.22), transparent 60%),
+        radial-gradient(900px 600px at 90% 10%, rgba(34,197,94,.16), transparent 55%),
+        var(--bg);
+    }
+    a{color:inherit;text-decoration:none}
+    .hidden{display:none!important}
+    .container{max-width:1180px;margin:0 auto;padding:0 18px}
+    .pill{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border:1px solid var(--border);border-radius:999px;background:rgba(255,255,255,.03)}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:11px 14px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);cursor:pointer;user-select:none;transition:.15s transform,.15s background,.15s border-color,.15s opacity;font-weight:700}
+    .btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.15)}
+    .btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+    .btn.primary{background:linear-gradient(135deg, rgba(79,124,255,.95), rgba(79,124,255,.65));border-color:rgba(79,124,255,.5)}
+    .btn.success{background:linear-gradient(135deg, rgba(34,197,94,.95), rgba(34,197,94,.65));border-color:rgba(34,197,94,.5)}
+    .btn.active{border-color:rgba(79,124,255,.55);background:rgba(79,124,255,.12)}
+    .btn.danger{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.35)}
+    .btn.small{padding:8px 10px;border-radius:10px;font-size:12px}
+    .select{appearance:none;padding:8px 34px 8px 12px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.03);color:var(--text);cursor:pointer}
+    [data-theme="light"] .pill,[data-theme="light"] .btn,[data-theme="light"] .select{background:rgba(11,18,32,.03)}
+    .topbar{border-bottom:1px solid var(--border);background:rgba(0,0,0,.18);backdrop-filter:blur(10px)}
+    [data-theme="light"] .topbar{background:rgba(255,255,255,.68)}
+    .topbar .row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0}
+    .topbar .left,.topbar .right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.2px}
+    .logo{width:38px;height:38px;border-radius:14px;background:conic-gradient(from 220deg,var(--brand),rgba(34,197,94,.9),rgba(79,124,255,.6));box-shadow:0 12px 30px rgba(79,124,255,.25);background-position:center;background-repeat:no-repeat;background-size:contain;background-color:transparent}
+    header.hero{padding:26px 0 10px}
+    .hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:stretch}
+    .hero-card{border:1px solid var(--border);background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+    [data-theme="light"] .hero-card{background:linear-gradient(180deg, rgba(255,255,255,1), rgba(255,255,255,.92))}
+    .hero-card:before{content:"";position:absolute;inset:-2px;background:radial-gradient(700px 240px at 20% 0%, rgba(79,124,255,.22), transparent 55%),radial-gradient(600px 220px at 80% 10%, rgba(34,197,94,.14), transparent 55%);pointer-events:none}
+    .hero-card>*{position:relative}
+    h1{margin:0 0 8px;font-size:30px;line-height:1.15}
+    .sub{color:var(--muted);margin:0 0 14px;max-width:60ch}
+    .divider{border-top:1px solid var(--border);margin:10px 0}
+    .hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .stat{padding:10px 12px;border-radius:14px;border:1px solid var(--border);background:rgba(0,0,0,.14)}
+    [data-theme="light"] .stat{background:rgba(11,18,32,.03)}
+    .stat b{display:block;font-size:14px}
+    .stat span{color:var(--muted);font-size:12px}
+    .badge{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.35);font-weight:800;width:fit-content}
+    .banner{margin-top:12px;padding:12px 14px;border-radius:16px;border:1px dashed rgba(255,255,255,.18);background:rgba(0,0,0,.14);color:var(--muted)}
+    [data-theme="light"] .banner{background:rgba(11,18,32,.03)}
+    .toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 0 8px}
+    .search{flex:1;min-width:240px;display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--border);border-radius:14px;background:rgba(255,255,255,.03)}
+    .search input{width:100%;border:0;outline:0;background:transparent;color:var(--text);font-size:14px}
+    .filters{display:flex;gap:10px;flex-wrap:wrap}
+    .chips{display:flex;gap:8px;flex-wrap:wrap}
+    .chip{padding:8px 10px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.03);cursor:pointer;user-select:none;font-weight:800;font-size:12px;color:var(--muted)}
+    .chip.active{color:var(--text);border-color:rgba(79,124,255,.45);background:rgba(79,124,255,.12)}
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:10px 0 22px}
+    @media (max-width:1020px){.grid{grid-template-columns:repeat(3,1fr)}.hero-grid{grid-template-columns:1fr}}
+    @media (max-width:720px){.grid{grid-template-columns:repeat(2,1fr)}h1{font-size:26px}}
+    @media (max-width:420px){.grid{grid-template-columns:1fr}}
+    .card{border:1px solid var(--border);background:rgba(255,255,255,.03);border-radius:18px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.22);display:flex;flex-direction:column;min-height:250px;position:relative}
+    [data-theme="light"] .card{background:#fff}
+    .thumb{height:92px;background:radial-gradient(380px 140px at 20% 30%, rgba(79,124,255,.28), transparent 60%),radial-gradient(300px 140px at 80% 10%, rgba(34,197,94,.20), transparent 55%),rgba(0,0,0,.12);border-bottom:1px solid var(--border);position:relative}
+    .tag{position:absolute;top:12px;left:12px;padding:6px 10px;border-radius:999px;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.12);font-size:12px;color:var(--muted);font-weight:900;backdrop-filter:blur(8px)}
+    [data-theme="light"] .tag{background:rgba(255,255,255,.75);border-color:rgba(11,18,32,.10)}
+    .card .body{padding:12px;display:flex;flex-direction:column;gap:8px;flex:1}
+    .title{font-weight:950}
+    .desc{color:var(--muted);font-size:12px;min-height:34px}
+    .meta{display:flex;gap:8px;flex-wrap:wrap}
+    .meta .pill{font-size:12px;padding:6px 10px;color:var(--muted)}
+    .price{display:flex;align-items:baseline;justify-content:space-between;margin-top:auto}
+    .price b{font-size:18px}
+    .price small{color:var(--muted)}
+    .card .actions{display:flex;gap:8px;padding:12px;border-top:1px solid var(--border)}
+    .offer-badge{position:absolute;top:10px;right:10px;padding:6px 10px;border-radius:999px;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.35);font-weight:900;font-size:12px;backdrop-filter:blur(8px)}
+    section.block{padding:8px 0 22px}
+    section.block h3{margin:0 0 10px;font-size:16px}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    @media (max-width:900px){.two-col{grid-template-columns:1fr}}
+    .info{border:1px solid var(--border);background:rgba(255,255,255,.03);border-radius:18px;padding:14px;box-shadow:0 10px 26px rgba(0,0,0,.14)}
+    [data-theme="light"] .info{background:#fff}
+    .info p{margin:8px 0;color:var(--muted)}
+    .list{margin:8px 0 0;padding-left:18px;color:var(--muted)}
+    .list li{margin:6px 0}
+    .tiny{font-size:12px;color:var(--muted)}
+    .kbd{font:12px var(--mono);padding:2px 6px;border:1px solid var(--border);border-radius:8px;background:rgba(255,255,255,.03);color:var(--muted)}
+    .footer{border-top:1px solid var(--border);padding:18px 0 26px;color:var(--muted);background:rgba(0,0,0,.12)}
+    [data-theme="light"] .footer{background:rgba(255,255,255,.7)}
+    .footer-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:14px}
+    @media (max-width:900px){.footer-grid{grid-template-columns:1fr}}
+    .skeleton{animation:shimmer 1.1s linear infinite;background:linear-gradient(90deg, rgba(255,255,255,.02), rgba(255,255,255,.10), rgba(255,255,255,.02));background-size:200% 100%}
+    @keyframes shimmer{0%{background-position:0 0}100%{background-position:200% 0}}
+
+    /* HERO collage */
+    .hero-collage{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+    @media (max-width:1020px){.hero-collage{grid-template-columns:repeat(3,1fr)}}
+    @media (max-width:720px){.hero-collage{grid-template-columns:repeat(2,1fr)}}
+    .collage-item{position:relative;border:1px solid var(--border);background:rgba(255,255,255,.03);border-radius:16px;overflow:hidden;cursor:pointer;padding:0;aspect-ratio: 16/11;display:block}
+    [data-theme="light"] .collage-item{background:rgba(11,18,32,.03)}
+    .collage-item img{width:100%;height:100%;object-fit:cover;display:block}
+    .collage-item:hover{transform:translateY(-1px)}
+    .collage-item:focus{outline:2px solid rgba(79,124,255,.55);outline-offset:2px}
+    .collage-cta{position:absolute;left:10px;bottom:10px;padding:6px 10px;border-radius:999px;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(8px);color:var(--text);font-weight:900;font-size:12px}
+    [data-theme="light"] .collage-cta{background:rgba(255,255,255,.75);color:var(--text);border-color:rgba(11,18,32,.12)}
+
+    .overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:flex-end;justify-content:center;padding:18px;z-index:50}
+    .overlay.show{display:flex}
+    .modal{width:min(980px,100%);background:rgba(12,18,32,.92);border:1px solid rgba(255,255,255,.10);border-radius:22px;box-shadow:var(--shadow);overflow:hidden;backdrop-filter:blur(14px);max-height:88vh;display:flex;flex-direction:column;transform:translateY(10px);animation:pop .18s ease-out forwards}
+    [data-theme="light"] .modal{background:rgba(255,255,255,.92);border-color:rgba(11,18,32,.12)}
+    @keyframes pop{to{transform:translateY(0)}}
+    .modal .head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px;border-bottom:1px solid var(--border)}
+    .modal .head h4{margin:0;font-size:15px}
+    .modal .content{padding:14px;overflow:auto;display:grid;grid-template-columns:1.2fr .8fr;gap:14px}
+    /* Checkout: flujo en una sola columna */
+    #overlayCart .modal .content{grid-template-columns:1fr}
+    @media (max-width:860px){.modal .content{grid-template-columns:1fr}.overlay{align-items:stretch}}
+    .cart-item{display:grid;grid-template-columns:1fr auto;gap:10px;padding:12px;border:1px solid var(--border);border-radius:16px;background:rgba(255,255,255,.03);margin-bottom:10px}
+    [data-theme="light"] .cart-item{background:rgba(11,18,32,.03)}
+    .cart-item .name{font-weight:950}
+    .cart-item .subtxt{color:var(--muted);font-size:12px;margin-top:2px}
+    .qty{display:flex;align-items:center;gap:8px}
+    .qty b{min-width:36px;text-align:center}
+    .summary{border:1px solid var(--border);background:rgba(255,255,255,.03);border-radius:18px;padding:14px;height:fit-content}
+    [data-theme="light"] .summary{background:#fff}
+    .rowline{display:flex;justify-content:space-between;gap:10px;margin:8px 0;color:var(--muted)}
+    .rowline strong{color:var(--text)}
+    .note{margin-top:12px;padding:10px 12px;border-radius:14px;border:1px dashed rgba(255,255,255,.16);color:var(--muted);background:rgba(0,0,0,.12)}
+    [data-theme="light"] .note{background:rgba(11,18,32,.03)}
+    .field{display:grid;gap:6px;margin-top:10px}
+    .field label{font-weight:900;font-size:12px;color:var(--muted)}
+    .input, textarea.input{width:100%;padding:10px 12px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,.03);color:var(--text);outline:none;font:inherit}
+    [data-theme="light"] .input{background:#fff}
+    textarea.input{min-height:80px;resize:vertical}
+    .error{color:#ffd0d0;font-size:12px;display:none}
+    [data-theme="light"] .error{color:#b91c1c}
+    .paygrid{display:grid;grid-template-columns:1fr;gap:8px;margin-top:10px}
+
+    /* Updated pay method row: allow "Ver datos" button */
+    .payopt{
+      display:flex;justify-content:space-between;align-items:center;gap:10px;
+      padding:10px 12px;border-radius:14px;border:1px solid var(--border);
+      background:rgba(0,0,0,.12);cursor:pointer;
+    }
+    [data-theme="light"] .payopt{background:rgba(11,18,32,.03)}
+    .payopt.active{border-color:rgba(79,124,255,.55);background:rgba(79,124,255,.10)}
+    .payopt .rightActions{display:flex;align-items:center;gap:8px}
+    .payopt .mini{padding:7px 9px;border-radius:10px;font-size:12px}
+
+    .toast{position:fixed;right:16px;bottom:16px;background:rgba(0,0,0,.75);border:1px solid rgba(255,255,255,.14);padding:10px 12px;border-radius:14px;color:var(--text);display:none;z-index:80;backdrop-filter:blur(10px);max-width:min(520px, calc(100% - 32px));white-space:pre-line}
+    [data-theme="light"] .toast{background:rgba(11,18,32,.85)}
+    .toast.show{display:block}
+    .tabs{display:flex;gap:8px;flex-wrap:wrap}
+    .tab{padding:8px 10px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.03);font-weight:900;font-size:12px;color:var(--muted);cursor:pointer}
+    .tab.active{color:var(--text);border-color:rgba(79,124,255,.45);background:rgba(79,124,255,.12)}
+    .admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media (max-width:860px){.admin-grid{grid-template-columns:1fr}}
+    .table{width:100%;border-collapse:separate;border-spacing:0 10px}
+    .table td{padding:10px 10px;border:1px solid var(--border);background:rgba(255,255,255,.03)}
+    [data-theme="light"] .table td{background:#fff}
+    .table td:first-child{border-top-left-radius:14px;border-bottom-left-radius:14px}
+    .table td:last-child{border-top-right-radius:14px;border-bottom-right-radius:14px}
+    .uploadBox{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap;margin-top:10px}
+    .preview{width:116px;height:116px;border-radius:16px;border:1px solid var(--border);background:rgba(255,255,255,.03);display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .preview img{width:100%;height:100%;object-fit:cover}
+    .mutedBox{padding:10px 12px;border-radius:14px;border:1px solid var(--border);background:rgba(0,0,0,.12);color:var(--muted)}
+    [data-theme="light"] .mutedBox{background:rgba(11,18,32,.03)}
+    .pre{white-space:pre-wrap;word-break:break-word}
+  
+    .thumb{background-position:center;background-size:cover}
+    .prodImage{width:100%;height:180px;border-radius:16px;border:1px solid var(--border);overflow:hidden;background:rgba(255,255,255,.03)}
+    .prodImage img{width:100%;height:100%;object-fit:cover;display:block}
+
+  
+    .is-hidden{display:none}
+
+    @media (prefers-reduced-motion: reduce){
+      *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+    }
+
+    main#productos{margin-top:24px}
+
+
+
+/* ===== Mobile polish (v1) ===== */
+@media (max-width: 720px){
+  .container{padding:0 14px}
+  .topbar .row{flex-direction:column;align-items:stretch;gap:10px}
+  .topbar .left{width:100%;justify-content:space-between}
+  .topbar .right{
+    width:100%;
+    flex-wrap:nowrap;             /* evita salto feo de botones */
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    padding-bottom:4px;
+    gap:8px;
+  }
+  .topbar .right::-webkit-scrollbar{height:6px}
+  .topbar .right::-webkit-scrollbar-thumb{background:rgba(255,255,255,.10);border-radius:999px}
+  .btn.small{padding:10px 12px;border-radius:12px;font-size:13px}
+  .select{padding:10px 36px 10px 12px}
+  .search{min-width:0;width:100%}
+  .filters{width:100%}
+  .filters .btn, .filters .select{flex:1}
+  .filters{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  #chips{order:-1}
+  .chips{width:100%}
+  .chip{padding:10px 12px;font-size:13px}
+  .grid{gap:12px}
+  .card{min-height:unset}
+  .thumb{height:108px}
+  .card .actions{flex-direction:column}
+  .card .actions .btn{width:100%}
+}
+
+@media (max-width: 520px){
+  header.hero{padding:18px 0 8px}
+  h1{font-size:24px}
+  .sub{font-size:13px}
+  .overlay{padding:10px}
+  .modal{
+    width:100%;
+    max-height:96vh;
+    border-radius:18px;
+  }
+  .modal .head{
+    position:sticky;
+    top:0;
+    background:inherit;
+    backdrop-filter:inherit;
+    z-index:2;
+  }
+  .modal .content{padding:12px;gap:12px}
+  .info{padding:12px;border-radius:16px}
+  .summary{padding:12px;border-radius:16px}
+  .cart-item{grid-template-columns:1fr;gap:10px}
+  .qty{justify-content:flex-start}
+  .uploadBox{gap:10px}
+  .preview{width:86px;height:86px;border-radius:14px}
+  .tabs{gap:10px}
+  .tab{padding:10px 12px;font-size:13px}
+  .payopt{align-items:flex-start}
+  .payopt .rightActions{flex-wrap:wrap;justify-content:flex-end}
+  .payopt .mini{padding:9px 10px}
+  .field label{font-size:13px}
+  .input, textarea.input{padding:12px 12px;border-radius:14px}
+  .note{font-size:12px}
+  .footer{padding:16px 0 22px}
+}
+
+
+/* Hide Admin + Theme on mobile */
+@media (max-width: 720px){
+  #btnAdmin, #btnTheme{display:none!important}
+}
+
+
+/* Hide sorting and offers controls (requested) */
+#sortSelect, #btnOffers{display:none!important}
+
+</style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="container">
+      <div class="row">
+        <div class="left">
+          <div class="brand">
+            <div class="logo" aria-hidden="true"></div>
+            <div style="font-weight:900;letter-spacing:.2px">LATIN STREAM</div>
+          </div>
+        </div>
+
+        <div class="right">
+          <button class="btn small" id="btnAdmin">🛠️ Adm</button>
+          <a class="btn small" href="#legal" data-action="open-legal">📜 Legal</a>
+          <a class="btn small" href="#soporte" data-action="open-soporte">💬 Soporte</a>
+          <button class="btn small" id="btnTheme" title="Modo oscuro / claro">🌓 Tema</button>
+          <button class="btn small" id="btnCartTop">🛒 Carrito <span class="kbd" id="cartCount">0</span></button>
+          <select class="select" id="currencySelect" aria-label="Moneda">
+            <option value="USD" selected>USD</option>
+            <option value="NIO">NIO</option>
+            <option value="CRC">CRC</option>
+            <option value="EUR">EUR</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+
+
+  <main class="container" id="productos">
+    <div class="toolbar">
+      <div class="search" role="search">🔎
+        <input id="q" type="search" placeholder="Buscar (ej: Tele-Latino, GRAVICSOTV, 1 dispositivo, cuenta completa) — Ctrl/⌘ + K" />
+      </div>
+
+      <div class="filters">
+        <div class="chips" id="chips"></div>
+
+        <select class="select" id="sortSelect" aria-label="Ordenar">
+          <option value="popular">Orden: Popular</option>
+          <option value="price_asc">Precio: Menor a mayor</option>
+          <option value="price_desc" selected>Precio: Mayor a menor</option>
+          <option value="name">Nombre</option>
+        </select>
+
+        <button class="btn" id="btnOffers">⭐ Solo ofertas</button>
+        <button class="btn" id="btnClear">Limpiar</button>
+      </div>
+    </div>
+
+    <div class="banner tiny" id="emptyState" style="margin-top:10px;display:none">Selecciona una categoría para ver los productos.</div>
+
+    <div class="grid" id="grid"></div>
+
+    <section class="block is-hidden" id="legal">
+  <h3>📜 Términos y Condiciones</h3>
+  <div class="two-col">
+    <div class="info">
+      <b>Condiciones de uso</b>
+      <ul class="list">
+        <li>El acceso es <b>personal e intransferible</b>, según el plan contratado: <b>1 dispositivo</b>, <b>3 pantallas</b> o <b>cuenta completa</b>.</li>
+        <li>No está permitido modificar datos críticos de la cuenta (correo, contraseña u otros), salvo que el plan lo autorice expresamente.</li>
+        <li>El incumplimiento de las reglas puede ocasionar <b>suspensión o bloqueo del servicio</b>, sin derecho a garantía.</li>
+        <li>La entrega del servicio es <b>inmediata</b> o dentro del plazo indicado en la descripción del producto.</li>
+      </ul>
+    </div>
+    </div>
+</section>
+
+
+    <section class="block is-hidden" id="soporte">
+      <h3>💬 Soporte</h3>
+      <div class="two-col">
+        <div class="info">
+      <b>Garantía, soporte y reembolsos</b>
+      <ul class="list">
+        <li>La garantía cubre únicamente <b>fallas de acceso</b> durante el período especificado en el producto.</li>
+        <li>El soporte técnico se brinda vía <b>WhatsApp</b>, dentro del horario publicado.</li>
+        <li>Los reembolsos aplican <b>solo si el servicio no es entregado</b>, previa evaluación del caso.</li>
+      </ul>
+      <p class="tiny">Nota: Al realizar la compra, el cliente acepta automáticamente estos términos y condiciones.</p>
+    </div>
+
+        <div class="info">
+          <b>Canales</b>
+          <ul class="list">
+            <li>WhatsApp: entrega y soporte</li>
+            <li>Email: facturación/consultas</li>
+            <li>FAQ: dentro de cada producto</li>
+          </ul>
+          <p class="tiny">Define horario real y tiempos de respuesta.</p>
+        </div>
+        <div class="info">
+          <b>Horario de atencion </b>
+          <p class="tiny">Lunes a Domingo • 9:00 AM – 10:00 PM</p>
+          <button class="btn success" id="btnWhatsSupport">Escribir por WhatsApp</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand">
+            <div class="logo" aria-hidden="true"></div>
+            <div>
+              <div style="opacity:.95;font-weight:950" id="storeNameFoot">LATIN STREAM</div>
+              <div class="tiny">Servicio digital • Entrega inmediata • Compra segura</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <b>Enlaces</b>
+          <div class="tiny" style="display:grid;gap:8px;margin-top:10px">
+            <a href="#productos">Productos</a>
+            <a href="#legal" data-action="open-legal">Legal</a>
+            <a href="#soporte" data-action="open-soporte">Soporte</a>
+          </div>
+        </div>
+        <div>
+          <b>Contacto</b>
+          <div class="tiny" style="display:grid;gap:8px;margin-top:10px">
+            <a id="footerWhats" href="#" target="_blank" rel="noopener">WhatsApp</a>
+            <a href="#" onclick="toast('Demo: coloca tu correo real en Admin')">latinstreamnic@gmail.com</a>
+          </div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="tiny">© <span id="year"></span> <span id="storeNameYear">Latin Stream </span>.  Todos los derechos reservados.</div>
+
+    </div>
+  </footer>
+
+  <!-- PRODUCT MODAL -->
+  <div class="overlay" id="overlayProduct" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="prodTitle">
+      <div class="head">
+        <h4 id="prodTitle">Producto</h4>
+        <button class="btn small" id="btnCloseProduct">Cerrar</button>
+      </div>
+      <div class="content">
+        <div>
+          <div class="info">
+            <div id="prodImageWrap" style="margin-bottom:10px"></div>
+            <b id="prodName"></b>
+            <p class="tiny" id="prodDesc"></p>
+            <div class="divider"></div>
+
+            <b>Selecciona duración</b>
+            <div class="tabs" id="durationTabs"></div>
+
+            <div class="divider"></div>
+            <b>Detalles y reglas</b>
+            <ul class="list" id="prodRules"></ul>
+
+            <div class="divider"></div>
+            <b>Preguntas frecuentes</b>
+            <ul class="list" id="prodFaq"></ul>
+          </div>
+        </div>
+
+        <div class="summary">
+          <b>Comprar</b>
+          <div class="rowline"><span>Tipo</span><strong id="prodCat"></strong></div>
+          <div class="rowline"><span>Duración</span><strong id="prodDurLabel">1 mes</strong></div>
+          <div class="rowline"><span>Precio</span><strong id="prodPriceLabel"></strong></div>
+
+          <div class="note tiny">✅ Recomendación: pedir comprobante si paga por transferencia.</div>
+
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+            <button class="btn primary" id="btnAddSelected">Añadir al carrito</button>
+            <button class="btn success" id="btnBuyNow">Comprar ahora</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CART / CHECKOUT MODAL -->
+  <div class="overlay" id="overlayCart" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+      <div class="head">
+        <h4 id="cartTitle">🛒 Carrito y Checkout</h4>
+        <button class="btn small" id="btnCloseCart">Cerrar</button>
+      </div>
+
+      <div class="content">
+        <div class="tiny" style="margin-bottom:10px;color:var(--muted)">
+          Sigue los pasos: Carrito → Método de pago → Validación → Datos del cliente → Realizar orden.
+        </div>
+
+        <!-- 1) CARRITO -->
+        <div class="info" id="stepCart">
+          <b>1. Carrito</b>
+          <div class="divider"></div>
+          <div id="cartItems"></div>
+
+          <div class="divider"></div>
+          <b>Resumen</b>
+          <div class="rowline"><span>Subtotal</span><strong id="subtotal">$0.00</strong></div>
+          <div class="rowline"><span>Descuento</span><strong id="discount">$0.00</strong></div>
+          <div class="rowline" id="paypalFeeRow" style="display:none"><span>Comisión PayPal</span><strong id="paypalFee">$0.00</strong></div>
+          <div class="rowline"><span>Total</span><strong id="total">$0.00</strong></div>
+        </div>
+
+        <!-- 2) MÉTODOS DE PAGO -->
+        <div class="info" id="panelCompra" data-step="pay">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
+            <b>2. Métodos de Pago</b>
+            <div class="tabs" id="checkoutTabs">
+              <div class="tab active" data-pane="pay">Datos de pago</div>
+              <div class="tab" data-pane="coupon">Cupones</div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <b>Selecciona un método</b>
+          <div class="paygrid" id="paygrid"></div>
+          <div class="mutedBox tiny" id="payHint" style="margin-top:10px"></div>
+
+          <div class="divider"></div>
+
+          <!-- PAY PANE -->
+          <div id="panePay">
+            <div class="tiny">Método seleccionado:</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:6px">
+              <div style="font-weight:950" id="payPaneTitle">—</div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap">
+                <button class="btn small" id="btnTogglePayPane">Ocultar datos</button>
+                <button class="btn small" id="btnCopyPay">Copiar datos</button>
+                <button class="btn small" id="btnGoCoupons">Ir a cupones</button>
+              </div>
+            </div>
+
+            <div class="mutedBox pre" id="payPaneBody" style="margin-top:10px"></div>
+
+            <div class="note tiny" style="margin-top:10px">
+              💡 Tip: llena “Monto pagado” y “Referencia/ID” para validar más rápido.
+            </div>
+          </div>
+
+          <!-- COUPON PANE -->
+          <div id="paneCoupon" style="display:none">
+            <div class="field" style="margin-top:0">
+              <label for="coupon">Código</label>
+              <input id="coupon" class="input" placeholder="Ej: PROMO10 o LATIN" />
+              <div class="error" id="couponErr"></div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+                <button class="btn small" id="btnApplyCoupon">Aplicar</button>
+                <button class="btn small" id="btnRemoveCoupon">Quitar cupón</button>
+              </div>
+              <p class="tiny">Los cupones se pueden editar en Admin.</p>
+            </div>
+
+            <div class="divider"></div>
+            <button class="btn small" id="btnGoPay">Volver a datos de pago</button>
+          </div>
+        </div>
+
+        <!-- 3) VALIDACIÓN DE PAGO -->
+        <div class="info" id="stepValidation">
+          <b>3. Validación de pago</b>
+          <div class="divider"></div>
+
+          <div id="wrapPaid">
+            <div class="field" style="margin-top:8px">
+              <label>Monto pagado (en la moneda elegida) <span class="tiny" id="paidReq"></span></label>
+              <input id="paidAmount" class="input" type="number" step="0.01" placeholder="Ej: 150.00" />
+              <div class="error" id="ePaid">Escribe el monto pagado.</div>
+            </div>
+          </div>
+
+          <div id="wrapRef">
+            <div class="field">
+              <label>Referencia / ID / últimos 4 dígitos <span class="tiny" id="refReq"></span></label>
+              <input id="txRef" class="input" placeholder="Ej: #12345 / 6789 / ID Binance / Airtm" />
+              <div class="error" id="eTxRef">Escribe la referencia/ID (o últimos 4 dígitos).</div>
+            </div>
+          </div>
+
+          <div class="divider" id="divProof"></div>
+
+          <div id="wrapProof">
+            <b>Comprobante (foto/captura)</b>
+            <div class="field" style="margin-top:8px">
+              <label id="proofLabel">Subir imagen *</label>
+              <input id="proofFile" class="input" type="file" accept="image/*" />
+              <div class="error" id="eProof">Sube una foto/captura del comprobante para este método.</div>
+
+              <div class="uploadBox">
+                <div class="preview" id="proofPreview">
+                  <span class="tiny">Sin imagen</span>
+                </div>
+                <div style="flex:1;min-width:220px">
+                  <div class="tiny" id="proofInfo">No has seleccionado archivo.</div>
+                  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+                    <button class="btn small" id="btnClearProof">Quitar</button>
+                    <button class="btn small" id="btnCopyProofNote">Copiar texto para WhatsApp</button>
+                  </div>
+                  <div class="tiny" style="margin-top:8px">
+                    Nota: el navegador no puede adjuntar la imagen automáticamente en WhatsApp.
+                    Pero aquí queda lista para que la envíes al abrir el chat.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4) DATOS DEL CLIENTE -->
+        <div class="info" id="stepCustomer">
+          <b>4. Datos del Cliente</b>
+          <div class="divider"></div>
+
+          <div class="field">
+            <label>Nombre *</label>
+            <input id="cName" class="input" placeholder="Ej: Juan Pérez" />
+            <div class="error" id="eName">Escribe tu nombre.</div>
+          </div>
+
+          <div class="field">
+            <label>Teléfono / WhatsApp *</label>
+            <input id="cPhone" class="input" placeholder="Ej: +505 8888 8888" />
+            <div class="error" id="ePhone">Escribe tu teléfono.</div>
+          </div>
+
+          <div class="field">
+            <label>Cédula (opcional)</label>
+            <input id="cId" class="input" placeholder="Ej: 001-XXXXXX-XXXXA" />
+          </div>
+
+          <div class="field">
+            <label>Correo (opcional)</label>
+            <input id="cEmail" class="input" placeholder="Ej: correo@ejemplo.com" />
+            <div class="error" id="eEmail">Correo inválido.</div>
+          </div>
+
+          <div class="field">
+            <label>Dirección (si aplica)</label>
+            <input id="cAddress" class="input" placeholder="Opcional si es digital." />
+          </div>
+
+          <div class="field">
+            <label>Notas</label>
+            <textarea id="cNotes" class="input" placeholder="Ej: necesito entrega hoy / enviar a este WhatsApp / etc."></textarea>
+          </div>
+        </div>
+
+        <!-- 5) REALIZAR ORDEN -->
+        <div class="info" id="stepOrder">
+          <b>5. Realizar orden</b>
+          <div class="divider"></div>
+
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn primary" id="btnPlaceOrder">Finalizar pedido</button>
+            <button class="btn danger" id="btnEmpty">Vaciar</button>
+          </div>
+
+          <div class="note tiny">
+            📌 Si el pago requiere comprobante: súbelo y luego lo envías por WhatsApp cuando se abra el chat.<br/>
+            Pedido seguro. El pago se completa siguiendo las instrucciones indicadas.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN MODAL -->
+  <div class="overlay" id="overlayAdmin" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
+      <div class="head">
+        <h4 id="adminTitle">🛠️ Adm (catálogo + cupones + pagos)</h4>
+        <button class="btn small" id="btnCloseAdmin">Cerrar</button>
+      </div>
+      <div class="content">
+        <div>
+          <div class="info">
+            <b>Config general</b>
+            <div class="field">
+              <label>Nombre de tienda</label>
+              <input id="cfgStore" class="input" />
+            </div>
+            <div class="field">
+              <label>Logo (URL) — solo Adm</label>
+              <input id="cfgLogoUrl" class="input" placeholder="https://.../logo.png" />
+              <p class="tiny">Pega un enlace directo a tu logo (PNG/JPG/WebP). Se mostrará en la barra superior y el footer.</p>
+            </div>
+            <div class="field">
+              <label>WhatsApp</label>
+              <input id="cfgWa" class="input" />
+            </div>
+
+            
+            <div class="field">
+              <label>Tasa (NIO por 1 USD) — solo Adm</label>
+              <input id="cfgFx" class="input" type="number" step="0.01" />
+              <p class="tiny">Esta tasa controla la conversión cuando el cliente ve precios en C$.</p>
+            </div>
+            <div class="field">
+              <label>Tasa CRC (Colón por 1 USD) — solo Adm</label>
+              <input id="cfgFxCrc" class="input" type="number" step="0.01" />
+              <p class="tiny">Esta tasa controla la conversión cuando el cliente ve precios en ₡ (CRC).</p>
+            </div>
+
+            <div class="field">
+              <label>Tasa EUR (USD por 1 EUR) — solo Adm</label>
+              <input id="cfgFxEurUsd" class="input" type="number" step="0.01" />
+              <p class="tiny">Referencia: si 1 EUR = 1.20 USD, coloca 1.20. El precio en € se calcula como USD ÷ esta tasa.</p>
+            </div>
+
+
+            <div class="field">
+              <label>Contraseña Adm</label>
+              <input id="cfgPass" class="input" type="password" placeholder="Nueva contraseña" />
+              <p class="tiny">Cámbiala y guarda. No la compartas.</p>
+            </div>
+<div class="divider"></div>
+            <b>Datos de pago (instrucciones)</b>
+            <p class="tiny">Estos textos se muestran en el checkout según el método seleccionado.</p>
+
+            <div class="field"><label>Lafise Bancentro (Depósito/Transferencia)</label><textarea id="cfgPayLafise" class="input" placeholder="Ej: Banco Lafise, Cuenta ..., Nombre ..., Tipo de cuenta..., Referencia..."></textarea></div>
+            <div class="field"><label>Banpro (Billetera móvil)</label><textarea id="cfgPayBanproMovil" class="input" placeholder="Ej: Billetera Móvil Banpro, número..., nombre..., instrucciones..."></textarea></div>
+            <div class="field"><label>Banco Grupo Promerica</label><textarea id="cfgPayPromerica" class="input" placeholder="Ej: Promerica, Cuenta..., Nombre..., instrucciones..."></textarea></div>
+            <div class="field"><label>AirTM</label><textarea id="cfgPayAirtm" class="input" placeholder="Ej: AirTM: usuario/email..., link de pago si aplica, notas..."></textarea></div>
+            <div class="field"><label>Binance</label><textarea id="cfgPayBinance" class="input" placeholder="Ej: Binance Pay ID / correo / UID, red, wallet, notas..."></textarea></div>
+            <div class="field"><label>PayPal</label><textarea id="cfgPayPaypal" class="input" placeholder="Ej: PayPal: correo o paypal.me, notas..."></textarea></div>            <div class="field"><label>SINPE CR</label><textarea id="cfgPaySinpeCr" class="input" placeholder="Ej: SINPE Móvil, número, nombre, notas."></textarea></div>
+
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+              <button class="btn primary" id="btnSaveCfg">Guardar</button>
+              <button class="btn" id="btnResetAll">Reset total</button>
+            </div>
+          </div>
+
+          <div class="info" style="margin-top:12px">
+            <b>Cupones</b>
+            <p class="tiny">Formato: código, tipo, valor, mínimo, aplica_a_categoria (o "Todo").</p>
+            <table class="table" id="couponTable"></table>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+              <button class="btn small" id="btnAddCoupon">+ Nuevo cupón</button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="info">
+            <b>Productos</b>
+            <p class="tiny">Edita o crea productos. Se guarda en tu navegador (localStorage).</p>
+            <div class="admin-grid">
+              <div>
+                <div class="field">
+                  <label>Seleccionar producto</label>
+                  <select id="prodSelectAdmin" class="input"></select>
+                </div>
+
+                <div style="display:flex;gap:10px;flex-wrap:wrap">
+                  <button class="btn small" id="btnNewProd">+ Nuevo</button>
+                  <button class="btn small danger" id="btnDeleteProd">Eliminar</button>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="field"><label>Nombre</label><input id="aName" class="input" /></div>
+                <div class="field"><label>Categoría</label><input id="aCat" class="input" placeholder="Ej: 1 Dispositivo /  / Cuenta Completa" /></div>
+                <div class="field"><label>Etiqueta</label><input id="aTag" class="input" placeholder="Ej: Popular / Oferta" /></div>
+                <div class="field"><label>Descripción</label><textarea id="aDesc" class="input"></textarea></div>
+
+                <div class="field"><label>Imagen (URL)</label><input id="aImg" class="input" placeholder="https://...jpg/png/webp" /></div>
+
+                <div class="field">
+                  <label>Oferta (true/false)</label>
+                  <select id="aOffer" class="input">
+                    <option value="false" selected>false</option>
+                    <option value="true">true</option>
+                  </select>
+                </div>
+
+                <div class="divider"></div>
+
+                <b>Precios por duración (USD)</b>
+                <div class="field"><label>1 mes</label><input id="p1m" class="input" type="number" step="0.01" /></div>
+                <div class="field"><label>3 meses</label><input id="p3m" class="input" type="number" step="0.01" /></div>
+                <div class="field"><label>6 meses</label><input id="p6m" class="input" type="number" step="0.01" /></div>
+                <div class="field"><label>12 meses</label><input id="p12m" class="input" type="number" step="0.01" /></div>
+
+                <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+                  <button class="btn primary" id="btnSaveProd">Guardar producto</button>
+                </div>
+              </div>
+
+              <div>
+                <b>Reglas (una por línea)</b>
+                <textarea id="aRules" class="input" placeholder="Ej:\nNo cambiar contraseña\n1 dispositivo solamente\nSoporte por WhatsApp"></textarea>
+                <div class="divider"></div>
+                <b>FAQ (una por línea, formato: Pregunta | Respuesta)</b>
+                <textarea id="aFaq" class="input" placeholder="Ej:\n¿Cuándo entregan? | Inmediato\n¿Incluye garantía? | Sí, según plan"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="note tiny">Consejo: usa 3 categorías: (1 Dispositivo, Cuenta Completa).</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  
+  <!-- RESELLER LOGIN -->
+  <div class="overlay" id="overlayLogin" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+      <div class="head">
+        <h4 id="loginTitle">🔐 Acceso Adm</h4>
+        <button class="btn small" id="btnCloseLogin">Cerrar</button>
+      </div>
+      <div class="content" style="grid-template-columns:1fr;gap:12px">
+        <div class="info">
+          <b>Ingresa la contraseña</b>
+          <div class="field">
+            <label>Contraseña</label>
+            <input id="loginPass" class="input" type="password" placeholder="••••••••" />
+            <div class="error" id="eLogin">Contraseña incorrecta.</div>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+            <button class="btn primary" id="btnLogin">Entrar</button>
+            <button class="btn" id="btnLogout">Cerrar sesión</button>
+          </div>
+          <div class="note tiny">La sesión se guarda solo en esta pestaña. Cambia la contraseña dentro del panel Adm.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // =========================
+    // CONFIG DEFAULTS (EDITABLE)
+    // =========================
+    const DEFAULTS = {
+      STORE_NAME: "LATIN STREAM NIC",
+      LOGO_URL: "https://uploads.marea.menu/Products-Images/kO349DRUO5WnKZc0UNnQ7x0Km4p2/6230efac-3bb0-4cc2-b377-4bf4451ce0fa.jpg",
+      WHATSAPP_BASE: "https://wa.me/50588581031",
+      FX_USD_TO_NIO: 37.50,
+      FX_USD_TO_CRC: 530.00,
+      FX_EUR_TO_USD: 1.20,
+
+      RESELLER_PASS: "WainerCald1@",
+
+      PAY_LAFISE: "Banco Lafise Bancentro\n👤Usuario: Wainer Abraham Calderón Ampie\n💰 N° de la Cuenta Dólares: 119288048\n💰 N° de la Cuenta Córdoba: 134056181\n🌟 Importante: Al realizar el pago, asegúrese de incluir su Nombre en la descripción (Concepto de Débito y en Concepto de Crédito). Esto nos ayudará a identificar su pago de manera efectiva\nSubir comprobante/Para Validar el Pago.",
+      PAY_BANPRO_MOVIL: "Bampro / Billetera Movil\n👤Usuario: Wainer Abraham Calderón Ampie\n💰 N° de la Cuenta: 88342164\n🌟 Importante: Al realizar el pago, asegúrese de incluir su Nombre en la descripción (Concepto de Débito y en Concepto de Crédito). Esto nos ayudará a identificar su pago de manera efectiva\nSubir comprobante/Para Validar el Pago.",
+      PAY_PROMERICA: "Banco Grupo Promerica Bampro\n👤Usuario: Wainer Abraham Calderón Ampie\n💰 N° de la Cuenta Córdoba: 10021500520667\n🌟 Importante: Al realizar el pago, asegúrese de incluir su Nombre en la descripción (Concepto de Débito y en Concepto de Crédito). Esto nos ayudará a identificar su pago de manera efectiva\nSubir comprobante/Para Validar el Pago.",
+      PAY_AIRTM: "AIRTM\n👤Usuario: wagnercald\n🌟 Importante: Al realizar el pago, asegúrese de incluir su Nombre en la descripción (Concepto de Débito y en Concepto de Crédito). Esto nos ayudará a identificar su pago de manera efectiva\nSubir comprobante/Para Validar el Pago.",
+      PAY_BINANCE: "Binance\n👤 Pay ID: 541 924 705\nRed: Tether USDT\n🌟 Importante: Al realizar el pago, asegúrese de incluir su Nombre en la descripción (Concepto de Débito y en Concepto de Crédito). Esto nos ayudará a identificar su pago de manera efectiva\nSubir comprobante/Para Validar el Pago.",
+      PAY_PAYPAL: "Paypal\n👤 Pay me: paypal.me/Latinstreamni\nRed: USD\n🌟 Importante: Al realizar el pago, asegúrese de incluir su Nombre en la descripción (Concepto de Débito y en Concepto de Crédito). Esto nos ayudará a identificar su pago de manera efectiva\nSubir comprobante/Para Validar el Pago.",
+      PAY_SINPE: "SINPE (Nicaragua)\\nNúmero: ______\\nNombre: ______\\nNota: ______\\nEnviar captura/recibo por WhatsApp.",
+      PAY_SINPE_CR: "Sinpe Movil\n👤Usuario: Alvaro Josué Calderón ampie\n💰 N° de la Cuenta: 7041-8428\n🌟 Importante: Al realizar el pago, asegúrese de incluir su Nombre en la descripción (Concepto de Débito y en Concepto de Crédito). Esto nos ayudará a identificar su pago de manera efectiva\nSubir comprobante/Para Validar el Pago."
+    };
+
+    const K_CFG="pl_cfg_v3";
+    const K_PRODUCTS="pl_products_v2";
+    const K_COUPONS="pl_coupons_v1";
+    const K_THEME="pl_theme_v1";
+
+    const K_AUTH="pl_reseller_auth_v1";
+
+    // Auth storage (robusto): usa sessionStorage si está disponible; si falla, cae a localStorage.
+    function _authGet(){
+      try{ return sessionStorage.getItem(K_AUTH); }catch(e){
+        try{ return localStorage.getItem(K_AUTH); }catch(e2){ return null; }
+      }
+    }
+    function _authSet(v){
+      try{ sessionStorage.setItem(K_AUTH, v); }catch(e){
+        try{ localStorage.setItem(K_AUTH, v); }catch(e2){}
+      }
+    }
+
+    function isAuthed(){ return _authGet()==="1"; }
+    function setAuthed(v){ _authSet(v?"1":"0"); }
+function openLogin(){
+      $("#loginPass").value="";
+      $("#eLogin").style.display="none";
+      showModal("#overlayLogin");
+      setTimeout(()=>$("#loginPass").focus(),50);
+    }
+
+
+    const DEFAULT_PRODUCTS = [
+      {
+        id:"tele_latino_1d",
+        name:"🎥 Tele-Latino — Single-Device Plan",
+        cat:"1 Dispositivo",
+        tag:"Popular",
+        desc:"📱 Plan para 1 dispositivo\n🛰️ +1200 Canales en vivo (TV): HD, FHD, 4K\n🛰️ +500,000 horas en contenido (Series y películas)\n🛰️ Contenido para adulto\n🛰️ Canales exclusivos\n🛰️ Eventos deportivos\n🛰️ Estrenos.",
+        imageUrl:"https://androidfacil.org/wp-content/uploads/2022/07/Descargar-tele-latino-gratis-para-celulares-android.jpg",
+        offer:true,
+        prices:{ 1:4.05, 2:8.10, 3:12.15, 6:24.30, 9:36.45, 12:48.60},
+        rules:["1 dispositivo solamente.","No compartir accesos fuera de lo permitido.","Soporte por WhatsApp."],
+        faq:[{q:"¿Cuándo entregan?",a:"Normalmente inmediato o en pocos minutos."},{q:"¿Qué incluye?",a:"Acceso según el plan seleccionado (1 dispositivo)."}],
+        popularity:140
+      },
+      {
+        id:"tele_latino_4tv",
+        name:"🎥 Tele-Latino — Plan Premium (4 Conexiones)",
+        cat:"Cuenta Completa",
+        tag:"Premium",
+        desc:"Beneficios - Plan Híbrido:\n🛰️ 3 TV Android 📺\n🛰️ 3 Celulares 📱\n🛰️ +1200 Canales\n🛰️ +26,000 Películas 🎬\n🛰️ +16,000 Series 🎞\n🛰️ Entrega inmediata\n🛰️ Calidad HD, FHD y 4K\n🛰️ Animes ㊗️\n🛰️ Canales Hot 🔞\n🛰️ Eventos PPV ⚽\n🛰️ Contenido para niños 🤹🏻‍♂️\n🛰️ Rápida conexión\n🛰️ Playback últimos 7 días.",
+        imageUrl:"https://d2yoo3qu6vrk5d.cloudfront.net/pulzo-lite/images-resized/PP4286502-h-o.jpg",
+        offer:true,
+        prices:{ 1:7.18, 2:14.36, 3:21.54, 6:40.20, 9:55.00, 12:75.90, 24:150, 36:225.99},
+        rules:["Uso según condiciones del plan premium.","No cambiar datos críticos sin autorización.","Soporte por WhatsApp."],
+        faq:[{q:"¿El de 12+2 cómo funciona?",a:"Pagas el plan y se entrega por 14 meses (12+2)."},
+             {q:"¿Es para 4 TVs?",a:"Sí, este plan está diseñado para 4 televisores."}],
+        popularity:120
+      },
+      {
+        id:"gravicsotv_3p",
+        name:"📺 GRAVICSOTV — 1 Cuenta (3 Dispositivo)",
+        cat:"Cuenta Completa",
+        tag:"Top",
+        desc:"🛰️ 3 Conexiones 📺 🛰️➕9,000 𝗖𝗮𝗻𝗮𝗹𝗲𝘀 𝗛𝗗,𝗙𝗛𝗗 🛰️➕42,000 𝗣𝗲𝗹𝗶𝗰𝘂𝗹𝗮𝘀 𝗙𝗛𝗗, 𝟰𝗞 🛰️➕2,900 𝗦𝗲𝗿𝗶𝗲𝘀 𝗛𝗗/𝗙𝗛𝗗 🎞 🛰️ Canales Nacionales 🇳🇮 🌀 Programación Infantil 🛰️ Todo el Deportes del 🌏 🛰️ Serie Animes ㊗️ 🛰️ Canales Adultos 🔞 🛰️ Eventos PPV ⚽ 🛰️ Contenido para Niño 🤹🏻‍♂️ 🛰️ Rápida Conexión.",
+        imageUrl:"https://image.roku.com/developer_channels/prod/4a125b72470648134e79eb29947e91446ed65626f92bb51267d64d08522340f9.png",
+        offer:true,
+        prices:{ 1:10, 2:20, 3:30, 6:50, 9:70, 12:90, 18:140 },
+        rules:["Hasta 3 pantallas simultáneas.","No compartir fuera de lo permitido.","Soporte por WhatsApp."],
+        faq:[{q:"¿Qué significan los +🔥?",a:"Bonos/promos incluidos según la duración (según tu política)."},
+             {q:"¿Cuándo entregan?",a:"Normalmente inmediato o en pocos minutos."}],
+        popularity:130
+      },
+      {
+        id:"gravicsotv_1d",
+        name:"📲 GRAVICSOTV — Plan x Conexión (1 Dispositivo)",
+        cat:"1 Dispositivo",
+        tag:"Económico",
+        desc:"🛰️ 1 Conexión o Dispositivo 📺📲 🛰️➕9,000 𝗖𝗮𝗻𝗮𝗹𝗲𝘀 𝗛𝗗,𝗙𝗛𝗗 🛰️➕42,000 𝗣𝗲𝗹𝗶𝗰𝘂𝗹𝗮𝘀 𝗙𝗛𝗗, 𝟰𝗞 🛰️➕3,900 𝗦𝗲𝗿𝗶𝗲𝘀 𝗛𝗗/𝗙𝗛𝗗 🎞 🛰️ Canales Nacionales 🌀 Programación Infantil 🛰️ Todo el Deportes del 🌏 🛰️ Eventos PPV ⚽ 🛰️ Contenido para Niño 🤹🏻‍♂️ 🛰️ Rápida Conexión.",
+        imageUrl:"https://image.roku.com/developer_channels/prod/4a125b72470648134e79eb29947e91446ed65626f92bb51267d64d08522340f9.png",
+        offer:false,
+        prices:{ 1:5, 2:10, 3:15, 6:30, 9:45, 12:60 },
+        rules:["1 dispositivo solamente.","No compartir accesos fuera de lo permitido.","Soporte por WhatsApp."],
+        faq:[{q:"¿Para cuántos dispositivos es?",a:"Para 1 pantalla o dispositivo."},{q:"¿Incluye garantía?",a:"Sí, según el plan y tus reglas de soporte."}],
+        popularity:105
+      }
+    ,
+      {
+        id:"netflix_perfil",
+        name:"🎬 Netflix — Perfil",
+        cat:"1 Dispositivo",
+        tag:"Configurar precio",
+        desc:"Producto listo para vender. Ajusta precios en Adm según tu lista.",
+        imageUrl:"https://m.media-amazon.com/images/I/31JfJ6dXD9L.png",
+        offer:false,
+        prices:{ 1:5, 3:0, 6:0, 12:0 },
+        rules:["No cambiar correo/contraseña.","Uso según el plan seleccionado.","Soporte por WhatsApp."],
+        faq:[{q:"¿Cuándo entregan?",a:"Entrega inmediata una vez confirmado el pago."},{q:"¿Incluye garantía?",a:"Sí, según el plan y las reglas del producto."}],
+        popularity:80
+      },
+      {
+        id:"netflix_full",
+        name:"🎬 Netflix — Cuenta completa",
+        cat:"Cuenta Completa",
+        tag:"Configurar precio",
+        desc:"Producto listo para vender. Ajusta precios en Adm según tu lista.",
+        imageUrl:"https://m.media-amazon.com/images/I/31JfJ6dXD9L.png",
+        offer:false,
+        prices:{ 1:15, 3:0, 6:0, 12:0 },
+        rules:["No cambiar correo/contraseña.","Uso según el plan seleccionado.","Soporte por WhatsApp."],
+        faq:[{q:"¿Cuándo entregan?",a:"Entrega inmediata una vez confirmado el pago."},{q:"¿Incluye garantía?",a:"Sí, según el plan y las reglas del producto."}],
+        popularity:80
+      },
+      {
+        id:"disney_perfil",
+        name:"🦊 Disney+ — Perfil",
+        cat:"1 Dispositivo",
+        tag:"Configurar precio",
+        desc:"Producto listo para vender. Ajusta precios en Adm según tu lista.",
+        imageUrl:"https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2023/05/disney-plus-logo_1.jpg?fit=1200%2C675&quality=70&strip=all&ssl=1",
+        offer:false,
+        prices:{ 1:5, 3:0, 6:0, 12:0 },
+        rules:["No cambiar correo/contraseña.","Uso según el plan seleccionado.","Soporte por WhatsApp."],
+        faq:[{q:"¿Cuándo entregan?",a:"Entrega inmediata una vez confirmado el pago."},{q:"¿Incluye garantía?",a:"Sí, según el plan y las reglas del producto."}],
+        popularity:80
+      },
+      {
+        id:"disney_full",
+        name:"🦊 Disney+ — Cuenta completa",
+        cat:"Cuenta Completa",
+        tag:"Configurar precio",
+        desc:"Producto listo para vender. Ajusta precios en Adm según tu lista.",
+        imageUrl:"https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2023/05/disney-plus-logo_1.jpg?fit=1200%2C675&quality=70&strip=all&ssl=1",
+        offer:false,
+        prices:{ 1:11.32, 3:0, 6:0, 12:0 },
+        rules:["No cambiar correo/contraseña.","Uso según el plan seleccionado.","Soporte por WhatsApp."],
+        faq:[{q:"¿Cuándo entregan?",a:"Entrega inmediata una vez confirmado el pago."},{q:"¿Incluye garantía?",a:"Sí, según el plan y las reglas del producto."}],
+        popularity:80
+      },
+      {
+        id:"hbomax_perfil",
+        name:"🎞️ HBO Max — Perfil",
+        cat:"1 Dispositivo",
+        tag:"Configurar precio",
+        desc:"Producto listo para vender. Ajusta precios en Adm según tu lista.",
+        imageUrl:"https://resizer.iproimg.com/unsafe/1200x674/filters:format=webp:quality(75):max_bytes(102400)/https://assets.iproup.com/assets/jpg/2021/05/18909_landscape.jpg",
+        offer:false,
+        prices:{ 1:3.5, 3:0, 6:0, 12:0 },
+        rules:["No ambiar correo/contraseña.","Uso según el plan seleccionado.","Soporte por WhatsApp."],
+        faq:[{q:"¿Cuándo entregan?",a:"Entrega inmediata una vez confirmado el pago."},{q:"¿Incluye garantía?",a:"Sí, según el plan y las reglas del producto."}],
+        popularity:80
+      },
+      {
+        id:"hbomax_full",
+        name:"🎞️ HBO Max — Cuenta completa",
+        cat:"Cuenta Completa",
+        tag:"Configurar precio",
+        desc:"Producto listo para vender. Ajusta precios en Adm según tu lista.",
+        imageUrl:"https://resizer.iproimg.com/unsafe/1200x674/filters:format=webp:quality(75):max_bytes(102400)/https://assets.iproup.com/assets/jpg/2021/05/18909_landscape.jpg",
+        offer:false,
+        prices:{ 1:6.5, 3:0, 6:0, 12:0 },
+        rules:["No cambiar correo/contraseña.","Uso según el plan seleccionado.","Soporte por WhatsApp."],
+        faq:[{q:"¿Cuándo entregan?",a:"Entrega inmediata una vez confirmado el pago."},{q:"¿Incluye garantía?",a:"Sí, según el plan y las reglas del producto."}],
+        popularity:80
+      },
+      {
+        id:"paramount_perfil",
+        name:"⭐ Paramount+ — Perfil",
+        cat:"1 Dispositivo",
+        tag:"Configurar precio",
+        desc:"Producto listo para vender. Ajusta precios en Adm según tu lista.",
+        imageUrl:"https://media.a24.com/p/ccf0b989d3e3fafb362ca7701cfa748d/adjuntos/296/imagenes/008/755/0008755491/1200x675/smart/paramount-plusjpg.jpg",
+        offer:false,
+        prices:{ 1:2.9, 3:0, 6:0, 12:0 },
+        rules:["No cambiar correo/contraseña.","Uso según el plan seleccionado.","Soporte por WhatsApp."],
+        faq:[{q:"¿Cuándo entregan?",a:"Entrega inmediata una vez confirmado el pago."},{q:"¿Incluye garantía?",a:"Sí, según el plan y las reglas del producto."}],
+        popularity:80
+      },
+      {
+        id:"paramount_full",
+        name:"⭐ Paramount+ — Cuenta completa",
+        cat:"Cuenta Completa",
+        tag:"Configurar precio",
+        desc:"Producto listo para vender. Ajusta precios en Adm según tu lista.",
+        imageUrl:"https://media.a24.com/p/ccf0b989d3e3fafb362ca7701cfa748d/adjuntos/296/imagenes/008/755/0008755491/1200x675/smart/paramount-plusjpg.jpg",
+        offer:false,
+        prices:{ 1:8, 3:0, 6:0, 12:0 },
+        rules:["No cambiar correo/contraseña.","Uso según el plan seleccionado.","Soporte por WhatsApp."],
+        faq:[{q:"¿Cuándo entregan?",a:"Entrega inmediata una vez confirmado el pago."},{q:"¿Incluye garantía?",a:"Sí, según el plan y las reglas del producto."}],
+        popularity:80
+      },
+      {
+        id:"veltix_perfil",
+        name:"📺 Veltix — Perfil",
+        cat:"1 Dispositivo",
+        tag:"Configurar precio",
+        desc:"VELTIX lo tienes TODO en un solo lugar 🤗 📺 Miles de canales, eventos en vivo de alta calidad 🎬 Películas y series en estreno ⚽ Deportes en vivo y más ⚡Contenido constantemente actualizado 🔥 ⚡Conexión rápida, confiable y a un precio accesible 🙌🏻.",
+        imageUrl:"https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1440,h=756,fit=crop,f=jpeg/9viQBFCRQqkw0XUJ/logo-veltix-original-3-9m13rOI2pyieOs0M.png",
+        offer:false,
+        prices:{ 1:5, 3:15, 6:30, 12:60 },
+        rules:["No cambiar correo/contraseña.","Uso según el plan seleccionado.","Soporte por WhatsApp."],
+        faq:[{q:"¿Cuándo entregan?",a:"Entrega inmediata una vez confirmado el pago."},{q:"¿Incluye garantía?",a:"Sí, según el plan y las reglas del producto."}],
+        popularity:80
+      },
+      {
+        id:"veltix_full",
+        name:"📺 Veltix — Cuenta completa",
+        cat:"Cuenta Completa",
+        tag:"Configurar precio",
+        desc:"🛰️3 Dispositivos 🛰️SD /HD/FHD/4K 🛜+1.300 canales con EPG 📡 +17.000 VOD 🔐 VIP Canales 🛡️ Tecnología anticongelante ⏳99.9% Tiempo de actividad del servidor 📎Soporte 24/7.",
+        imageUrl:"https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1440,h=756,fit=crop,f=jpeg/9viQBFCRQqkw0XUJ/logo-veltix-original-3-9m13rOI2pyieOs0M.png",
+        offer:false,
+        prices:{ 1:9,2:18,3:26, 6:50, 9:70, 12:85 },
+        rules:["No cambiar correo/contraseña.","Uso según el plan seleccionado.","Soporte por WhatsApp."],
+        faq:[{q:"¿Cuándo entregan?",a:"Entrega inmediata una vez confirmado el pago."},{q:"¿Incluye garantía?",a:"Sí, según el plan y las reglas del producto."}],
+        popularity:80
+      }
+    ];
+
+    const DEFAULT_COUPONS = [
+      { code:"LATIN", type:"PERCENT", value:10, min:0, category:"ALL", active:true },
+      { code:"CUPIDO", type:"PERCENT", value:15, min:0, category:"ALL", active:true },
+      { code:"Cupido", type:"PERCENT", value:15, min:0, category:"ALL", active:true },
+      { code:"MUNDIAL26", type:"PERCENT", value:20, min:0, category:"ALL", active:true },
+      { code:"3X2", type:"BOGO", value:0, min:800, category:"ALL", active:true }
+    ];
+
+    const $=(s,el=document)=>el.querySelector(s);
+    const $$=(s,el=document)=>Array.from(el.querySelectorAll(s));
+
+    // Enlaces que deben abrir secciones ocultas dentro del catálogo
+    document.addEventListener("click",(e)=>{
+      const a = e.target.closest('a[data-action]');
+      if(!a) return;
+      const act = a.getAttribute("data-action");
+      if(act==="open-legal"){ e.preventDefault(); showLegal(); }
+      if(act==="open-soporte"){ e.preventDefault(); showSoporte(); }
+    });
+
+    // Accesibilidad: permitir Enter/Espacio en el heroMedia
+    (function(){
+      const hm = document.getElementById("heroMedia");
+      if(!hm) return;
+      const pid = hm.getAttribute("data-open");
+      const open = ()=>{ try{ openProductSafe(pid); }catch(e){} };
+      hm.addEventListener("click", open);
+      hm.addEventListener("keydown", (ev)=>{
+        if(ev.key==="Enter" || ev.key===" "){ ev.preventDefault(); open(); }
+      });
+    })();
+
+
+    let cfg=loadCfg();
+    let products=loadProducts();
+    let coupons=loadCoupons();
+
+    let currency="USD";
+    let query="", activeCat=null, onlyOffers=false, sortMode="popular";
+
+    let cart=new Map();
+    let selectedProduct=null, selectedDuration=1;
+
+    // Métodos: lafise, banpro_movil, promerica, airtm, binance, paypal, sinpe_cr
+    let payMethod="lafise";
+
+    let appliedCoupon=null;
+
+    // Comprobante en memoria
+    let proof = { name:"", type:"", size:0, dataUrl:"" };
+
+    // Tabs checkout
+    let checkoutPane="pay";
+
+    // #1: Estado de colapso del panel de datos de pago
+    let payPaneCollapsed=false;
+
+    (function initTheme(){
+      const t=localStorage.getItem(K_THEME)||"dark";
+      document.documentElement.setAttribute("data-theme",t);
+    })();
+
+    function saveCfg(){ localStorage.setItem(K_CFG, JSON.stringify(cfg)); }
+    function loadCfg(){
+      try{
+        const saved = JSON.parse(localStorage.getItem(K_CFG)||"{}");
+        // Si el usuario no configuró logo (cadena vacía), usa el default del archivo.
+        if(saved && typeof saved.LOGO_URL==="string" && saved.LOGO_URL.trim()===""){ delete saved.LOGO_URL; }
+
+        // Migración: si el usuario tiene datos viejos/placeholder en localStorage, no los uses.
+        // Esto evita que se muestren textos tipo "Cuenta: ______" o literales "\n" cuando ya actualizaste los datos.
+        const payKeys=["PAY_LAFISE","PAY_PROMERICA","PAY_BANPRO_MOVIL","PAY_AIRTM","PAY_BINANCE","PAY_PAYPAL","PAY_SINPE_CR"];
+        payKeys.forEach(k=>{
+          const v = saved?.[k];
+          if(typeof v==="string"){
+            const s=v.trim();
+            const looksPlaceholder = /Cuenta:\s*_{2,}|Nombre:\s*_{2,}|Tipo:\s*_{2,}|Referencia:\s*_{2,}/i.test(s);
+            const hasLiteralNewlines = s.includes("\\n");
+            if(looksPlaceholder || hasLiteralNewlines){ delete saved[k]; }
+          }
+        });
+        return Object.assign({}, DEFAULTS, saved||{});
+      }catch(e){
+        return {...DEFAULTS};
+      }
+    }
+    function loadProducts(){
+      try{
+        const saved = JSON.parse(localStorage.getItem(K_PRODUCTS)||"null");
+        const base = [...DEFAULT_PRODUCTS];
+
+        // Si ya existe catálogo guardado, hacemos "migración" para:
+        // - añadir productos nuevos que falten
+        // - asegurar imageUrl y campos esenciales
+        if(Array.isArray(saved) && saved.length){
+          const map = new Map();
+          saved.forEach(x=>{
+            if(x && x.id) map.set(x.id, x);
+          });
+
+          let changed = false;
+
+          base.forEach(b=>{
+            if(!b || !b.id) return;
+
+            if(map.has(b.id)){
+              const cur = map.get(b.id);
+
+              if(!cur.imageUrl && b.imageUrl){ cur.imageUrl = b.imageUrl; changed = true; }
+              if(!cur.cat && b.cat){ cur.cat = b.cat; changed = true; }
+              if(!cur.tag && b.tag){ cur.tag = b.tag; changed = true; }
+              if(!cur.desc && b.desc){ cur.desc = b.desc; changed = true; }
+              if(typeof cur.offer !== "boolean"){ cur.offer = !!b.offer; changed = true; }
+              if(!cur.popularity && b.popularity){ cur.popularity = b.popularity; changed = true; }
+
+              if(!cur.prices && b.prices){ cur.prices = b.prices; changed = true; }
+              if(!Array.isArray(cur.rules) || !cur.rules.length){ cur.rules = b.rules || []; changed = true; }
+              if(!Array.isArray(cur.faq) || !cur.faq.length){ cur.faq = b.faq || []; changed = true; }
+
+              map.set(b.id, cur);
+            } else {
+              map.set(b.id, b);
+              changed = true;
+            }
+          });
+
+          const merged = Array.from(map.values());
+
+          if(changed){
+            localStorage.setItem(K_PRODUCTS, JSON.stringify(merged));
+          }
+          return merged;
+        }
+
+        return base;
+      }catch(e){
+        return [...DEFAULT_PRODUCTS];
+      }
+    }
+    function saveProducts(){ localStorage.setItem(K_PRODUCTS, JSON.stringify(products)); }
+    function loadCoupons(){
+      try{
+        const c=JSON.parse(localStorage.getItem(K_COUPONS)||"null");
+        return Array.isArray(c)&&c.length?c:[...DEFAULT_COUPONS];
+      }catch(e){ return [...DEFAULT_COUPONS]; }
+    }
+    function saveCoupons(){ localStorage.setItem(K_COUPONS, JSON.stringify(coupons)); }
+
+    function toast(msg){
+      const t=$("#toast");
+      t.textContent=msg;
+      t.classList.add("show");
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer=setTimeout(()=>t.classList.remove("show"),2600);
+    }
+
+    function round2(n){ return Math.round(n*100)/100; }
+    function convertPrice(usd){
+      if(currency==="USD") return usd;
+      if(currency==="NIO") return usd * cfg.FX_USD_TO_NIO;
+      if(currency==="CRC") return usd * cfg.FX_USD_TO_CRC;
+      if(currency==="EUR") return usd / cfg.FX_EUR_TO_USD;
+      return usd;
+    }
+
+    function formatMoney(usd){
+      const n = Number(usd)||0;
+      if(currency==="USD") return `$${n.toFixed(2)}`;
+      if(currency==="NIO"){
+        const v=round2(n*cfg.FX_USD_TO_NIO);
+        return `C$${v.toFixed(2)}`;
+      }
+      if(currency==="CRC"){
+        // CRC normalmente se muestra sin decimales
+        const v=Math.round(n*cfg.FX_USD_TO_CRC);
+        return `₡${v.toLocaleString("en-US")}`;
+      }
+      if(currency==="EUR"){
+        const v=round2(n/cfg.FX_EUR_TO_USD);
+        return `€${v.toFixed(2)}`;
+      }
+      return `$${n.toFixed(2)}`;
+    }
+
+    function keyFor(pid,dur){ return `${pid}|${dur}`; }
+    function parseKey(k){ const [pid,d]=k.split("|"); return {pid, dur:Number(d)}; }
+
+    function cartCount(){ let n=0; for(const q of cart.values()) n+=q; return n; }
+    function updateCartBadge(){ $("#cartCount").textContent=cartCount(); }
+
+    function getCats(){ return ["Todo","1 Dispositivo","Cuenta Completa"]; }
+
+    function productPriceUSD(p,dur){
+      const prices=p.prices||{};
+      return Number(prices[dur] ?? prices[1] ?? 0);
+    }
+
+    function subtotalUSD(){
+      let sum=0;
+      for(const [k,qty] of cart.entries()){
+        const {pid,dur}=parseKey(k);
+        const p=products.find(x=>x.id===pid);
+        if(!p) continue;
+        sum += productPriceUSD(p,dur)*qty;
+      }
+      return round2(sum);
+    }
+
+    function applyCouponToTotals(sub){
+      let discount=0, note="";
+      if(!appliedCoupon || !appliedCoupon.active) return {discount,note};
+
+      const c=appliedCoupon;
+      if(sub < (c.min||0)) return {discount:0, note:`Cupón requiere mínimo ${formatMoney(c.min||0)}.`};
+
+      if(c.type==="PERCENT"){
+        discount=round2(sub*(Number(c.value||0)/100));
+        note=`${c.code}: -${c.value}%`;
+      }
+      if(c.type==="BOGO"){
+        let eligible=[];
+        for(const [k,qty] of cart.entries()){
+          const {pid,dur}=parseKey(k);
+          const p=products.find(x=>x.id===pid);
+          if(!p || !p.offer) continue;
+          if(c.category && c.category!=="Todo" && p.cat!==c.category) continue;
+          for(let i=0;i<qty;i++) eligible.push(productPriceUSD(p,dur));
+        }
+        eligible.sort((a,b)=>a-b);
+        if(eligible.length>=2){
+          const freeCount=Math.floor(eligible.length/2);
+          discount=round2(eligible.slice(0,freeCount).reduce((s,v)=>s+v,0));
+          note=`${c.code}: 2x1 aplicado (${freeCount} gratis)`;
+        } else note=`${c.code}: agrega 2 productos en oferta para aplicar.`;
+      }
+      return {discount,note};
+    }
+
+    function escUrl(u){ return String(u||"").trim().replace(/"/g,"%22").replace(/\'/g,"%27"); }
+
+    function escapeHtml(str){
+      return String(str||"").replace(/[&<>"']/g, s=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[s]));
+    }
+
+    function renderHeader(){
+      const _sn=$("#storeNameLabel"); if(_sn) _sn.textContent=cfg.STORE_NAME;
+      const _sf=$("#storeNameFoot");  if(_sf) _sf.textContent=cfg.STORE_NAME;
+      const _sy=$("#storeNameYear");  if(_sy) _sy.textContent=cfg.STORE_NAME;
+
+      const waHi=encodeURIComponent(`Hola, necesito información de ${cfg.STORE_NAME}.`);
+      const _wh=$("#btnWhatsHero"); if(_wh) _wh.href=`${cfg.WHATSAPP_BASE}?text=${waHi}`;
+      const _fw=$("#footerWhats"); if(_fw) _fw.href=`${cfg.WHATSAPP_BASE}?text=${waHi}`;
+      const _bws=$("#btnWhatsSupport"); if(_bws) _bws.onclick=()=>window.open(`${cfg.WHATSAPP_BASE}?text=${waHi}`,"_blank","noopener");
+      // Logo dinámico (si se configura en Adm)
+      const url=(cfg.LOGO_URL||"").trim();
+      document.querySelectorAll(".logo").forEach(el=>{
+        if(url){ el.style.backgroundImage=`url(${url})`; }
+        else { el.style.backgroundImage=""; }
+      });
+
+    }
+
+    function renderChips(){
+      const chips=$("#chips"); chips.innerHTML="";
+      getCats().forEach(cat=>{
+        const b=document.createElement("div");
+        b.className="chip"+(activeCat===cat?" active":"");
+        b.textContent=cat;
+        b.onclick=()=>{ activeCat=cat; renderGrid(); renderChips(); };
+        chips.appendChild(b);
+      });
+    }
+
+    function matches(p){
+      const q=query.trim().toLowerCase();
+      if(activeCat===null) return false;
+      if(activeCat!=="Todo" && p.cat!==activeCat) return false;
+      if(onlyOffers && !p.offer) return false;
+      if(!q) return true;
+      return (p.name+" "+p.cat+" "+p.tag+" "+p.desc).toLowerCase().includes(q);
+    }
+
+    function sorted(list){
+      const arr=[...list];
+      if(sortMode==="popular") arr.sort((a,b)=>(b.popularity||0)-(a.popularity||0));
+      if(sortMode==="price_asc") arr.sort((a,b)=>productPriceUSD(a,1)-productPriceUSD(b,1));
+      if(sortMode==="price_desc") arr.sort((a,b)=>productPriceUSD(b,1)-productPriceUSD(a,1));
+      if(sortMode==="name") arr.sort((a,b)=>a.name.localeCompare(b.name));
+      return arr;
+    }
+
+    function renderSkeleton(){
+      $("#grid").innerHTML=Array.from({length:8}).map(()=>`
+        <article class="card">
+          <div class="thumb skeleton"></div>
+          <div class="body">
+            <div class="skeleton" style="height:14px;border-radius:10px;width:70%"></div>
+            <div class="skeleton" style="height:10px;border-radius:10px;width:90%"></div>
+            <div class="skeleton" style="height:10px;border-radius:10px;width:80%"></div>
+            <div class="skeleton" style="height:14px;border-radius:10px;width:40%;margin-top:10px"></div>
+          </div>
+          <div class="actions">
+            <div class="skeleton" style="height:34px;border-radius:12px;width:50%"></div>
+            <div class="skeleton" style="height:34px;border-radius:12px;width:40%"></div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function renderGrid(){
+      const es = $("#emptyState");
+      if(activeCat===null){
+        if(es) es.style.display="block";
+        const g=$("#grid"); if(g) g.innerHTML="";
+        return;
+      }
+      if(es) es.style.display="none";
+      const filtered=sorted(products.filter(matches));
+      $("#grid").innerHTML = filtered.map(p=>{
+        const base=productPriceUSD(p,1);
+        return `
+          <article class="card">
+            <div class="thumb" style="${p.imageUrl?`background-image: linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.45)), url(\'${escUrl(p.imageUrl)}\')`:''}">
+              <div class="tag">${escapeHtml(p.cat)} • ${escapeHtml(p.tag||"")}</div>
+              ${p.offer?`<div class="offer-badge">⭐ Oferta</div>`:""}
+            </div>
+            <div class="body">
+              <div class="title">${escapeHtml(p.name)}</div>
+              <div class="desc">${escapeHtml(p.desc||"")}</div>
+              <div class="meta">
+                <span class="pill">⚡ Entrega</span>
+                <span class="pill">🛡️ Garantía</span>
+              </div>
+              <div class="price">
+                <b>${formatMoney(base)}</b>
+                <small>${currency}</small>
+              </div>
+            </div>
+            <div class="actions">
+              <button class="btn small primary" onclick="openProduct('${p.id}')">Ver</button>
+              <button class="btn small" onclick="quickAdd('${p.id}')">➕ 1 mes</button>
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      if(filtered.length===0){
+        $("#grid").innerHTML=`
+          <div class="info" style="grid-column:1/-1">
+            <b>No encontramos resultados</b>
+            <p>Prueba con otra búsqueda o cambia la categoría.</p>
+          </div>
+        `;
+      }
+    }
+
+    // PRODUCT MODAL
+    
+    function renderProductPrices(){
+      if(!selectedProduct) return;
+      const p=selectedProduct;
+      const durKeys=Object.keys(p.prices||{}).map(Number).filter(n=>isFinite(n)).sort((a,b)=>a-b);
+      // Actualiza lista de precios dentro del modal si existe
+      const list=$("#prodPrices");
+      if(list){
+        list.innerHTML = durKeys.map(d=>{
+          const usd=productPriceUSD(p,d);
+          const label = (d===14) ? "12+2 meses" : `${d} ${d===1?"mes":"meses"}`;
+          return `<div class="row"><span>${label}</span><b>${formatMoney(usd)}</b></div>`;
+        }).join("");
+      }
+      const total=$("#prodTotal");
+      if(total){
+        total.textContent = formatMoney(productPriceUSD(p, selectedDuration||1));
+      }
+      const small=$("#prodCurrency");
+      if(small){ small.textContent = currency; }
+    }
+
+    function openProduct(pid){
+      const p=products.find(x=>x.id===pid);
+      if(!p) return;
+      selectedProduct=p;
+
+      const durKeys=Object.keys(p.prices||{}).map(Number).filter(n=>isFinite(n)).sort((a,b)=>a-b);
+      selectedDuration = durKeys.includes(1) ? 1 : (durKeys[0] || 1);
+
+      $("#prodTitle").textContent="🧾 Detalle de producto";
+      $("#prodName").textContent=p.name;
+      $("#prodDesc").textContent=p.desc||"";
+      $("#prodImageWrap").innerHTML = p.imageUrl ? `<div class="prodImage"><img alt="Imagen del producto" src="${escUrl(p.imageUrl)}"></div>` : ``;
+      $("#prodCat").textContent=p.cat;
+
+      const setDurLabel=(d)=>$("#prodDurLabel").textContent = (d===14) ? "12+2 meses" : `${d} ${d===1?"mes":"meses"}`;
+      setDurLabel(selectedDuration);
+
+      const tabs=$("#durationTabs");
+      tabs.innerHTML=durKeys.map(d=>`
+        <div class="tab ${d===selectedDuration?"active":""}" data-d="${d}">
+          ${d===14 ? "12+2 meses" : (d+" "+(d===1?"mes":"meses"))}
+        </div>
+      `).join("");
+
+      $$(".tab",tabs).forEach(el=>{
+        el.onclick=()=>{
+          $$(".tab",tabs).forEach(x=>x.classList.remove("active"));
+          el.classList.add("active");
+          selectedDuration=Number(el.dataset.d);
+          setDurLabel(selectedDuration);
+          $("#prodPriceLabel").textContent=formatMoney(productPriceUSD(p,selectedDuration));
+        };
+      });
+
+      $("#prodPriceLabel").textContent=formatMoney(productPriceUSD(p,selectedDuration));
+      $("#prodRules").innerHTML=(p.rules||[]).map(r=>`<li>${escapeHtml(r)}</li>`).join("") || "<li class='tiny'>Sin reglas configuradas.</li>";
+      $("#prodFaq").innerHTML=(p.faq||[]).map(f=>`<li><b>${escapeHtml(f.q)}</b> — ${escapeHtml(f.a)}</li>`).join("") || "<li class='tiny'>Sin FAQ.</li>";
+
+      $("#btnAddSelected").onclick=()=>{ addToCart(pid,selectedDuration,1); toast("Añadido ✅"); };
+      $("#btnBuyNow").onclick=()=>{ addToCart(pid,selectedDuration,1); openCart(); };
+
+      showModal("#overlayProduct");
+    }
+    function quickAdd(pid){ addToCart(pid,1,1); toast("Añadido (1 mes) ✅"); }
+
+    // CART
+    function addToCart(pid,dur,qty){
+      const k=keyFor(pid,dur);
+      cart.set(k,(cart.get(k)||0)+qty);
+      updateCartBadge();
+    }
+    function inc(k){ cart.set(k,(cart.get(k)||0)+1); renderCart(); updateCartBadge(); }
+    function dec(k){
+      const q=(cart.get(k)||0)-1;
+      if(q<=0) cart.delete(k); else cart.set(k,q);
+      renderCart(); updateCartBadge();
+    }
+    function removeItem(k){ cart.delete(k); renderCart(); updateCartBadge(); }
+    function emptyCart(){
+      cart.clear();
+      appliedCoupon=null;
+      $("#coupon").value="";
+      $("#couponErr").style.display="none";
+      clearProof();
+      $("#paidAmount").value="";
+      $("#txRef").value="";
+      renderCart();
+      updateCartBadge();
+      toast("Carrito vacío");
+    }
+
+    // === Métodos de pago ===
+    function payMethodLabel(){
+      return ({
+        lafise:"Depósito/Transferencia — Lafise Bancentro",
+        banpro_movil:"Billetera móvil — Banpro",
+        promerica:"Banco — Grupo Promerica",
+        airtm:"AirTM",
+        binance:"Binance",
+        paypal:"PayPal",        sinpe_cr:"SINPE CR"
+      })[payMethod] || payMethod;
+    }
+
+    function payMethodInstructions(){
+      if(payMethod==="lafise") return cfg.PAY_LAFISE;
+      if(payMethod==="banpro_movil") return cfg.PAY_BANPRO_MOVIL;
+      if(payMethod==="promerica") return cfg.PAY_PROMERICA;
+      if(payMethod==="airtm") return cfg.PAY_AIRTM;
+      if(payMethod==="binance") return cfg.PAY_BINANCE;
+      if(payMethod==="paypal") return cfg.PAY_PAYPAL;      if(payMethod==="sinpe_cr") return cfg.PAY_SINPE_CR;
+      return "";
+    }
+
+    // #3: Comprobante: solo requerido en métodos que NO sean PayPal.
+    function payRequiresProof(){
+      return payMethod !== "paypal";
+    }
+
+    // #3: Toggle automático de campos según método
+    function updateProofRequirementsUI(){
+      const req = payRequiresProof();
+
+      // Requerido/Opicional labels
+      $("#proofLabel").textContent = req ? "Subir imagen *" : "Subir imagen (opcional)";
+      $("#paidReq").textContent = "(requerido)";
+      $("#refReq").textContent  = "(requerido)";
+
+      // Mostrar/ocultar campos
+      $("#wrapPaid").style.display = "block";
+      $("#wrapRef").style.display  = "block";
+      $("#wrapProof").style.display = "block"; // siempre lo dejamos visible, pero opcional en PayPal
+      $("#divProof").style.display = "block";
+
+      // Si NO requiere comprobante: no obligar comprobante
+      if(!req){
+        $("#eProof").style.display="none";
+      }
+}
+
+    // #1: Función para abrir/cerrar el panel de datos de pago
+    function setPayPaneCollapsed(collapsed){
+      payPaneCollapsed = collapsed;
+      const body = $("#payPaneBody");
+      const btn = $("#btnTogglePayPane");
+      body.style.display = collapsed ? "none" : "block";
+      btn.textContent = collapsed ? "Ver datos" : "Ocultar datos";
+    }
+
+    function renderPayMethods(){
+      const pg=$("#paygrid");
+      const methods=[
+        {id:"lafise", label:"Lafise Bancentro", sub:"Depósito / Transferencia"},
+        {id:"banpro_movil", label:"Banpro", sub:"Billetera móvil"},
+        {id:"promerica", label:"Promerica", sub:"Banco Grupo Promerica"},
+        {id:"airtm", label:"AirTM", sub:"Pago digital"},
+        {id:"binance", label:"Binance", sub:"Cripto / Binance Pay"},
+        {id:"paypal", label:"PayPal", sub:"Pago PayPal"},        {id:"sinpe_cr", label:"SINPE CR", sub:"Transferencia (Costa Rica)"}
+      ];
+
+      // #1: botón “Ver datos” dentro de cada método
+      pg.innerHTML = methods.map(m=>{
+        const active = (m.id===payMethod) ? "active" : "";
+        const mark = active ? "✅" : "○";
+        return `
+          <div class="payopt ${active}" onclick="selectPay('${m.id}', false)">
+            <div>
+              <div style="font-weight:950">${escapeHtml(m.label)}</div>
+              <div class="tiny">${escapeHtml(m.sub)}</div>
+            </div>
+            <div class="rightActions">
+              <button class="btn small mini" onclick="selectPay('${m.id}', true); event.stopPropagation();">Ver datos</button>
+              <div>${mark}</div>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      updatePayUI();
+      renderPayPane();
+    }
+
+    // selectPay(id, forceOpenPayPane)
+    function selectPay(id, forceOpenPayPane){
+      payMethod=id;
+      updatePayUI();
+      updateProofRequirementsUI();
+      renderPayPane();
+
+      // Si tocó “Ver datos”, abre pestaña de datos y despliega panel
+      if(forceOpenPayPane){
+        setCheckoutPane("pay");
+        setPayPaneCollapsed(false);
+        // Scroll suave al panel (opcional)
+        setTimeout(()=>$("#panelCompra").scrollIntoView({behavior:"smooth", block:"start"}), 60);
+      }
+
+      if(payRequiresProof() && !proof.dataUrl){
+        toast("Este método requiere comprobante 📸");
+      } else if(!payRequiresProof()){
+        toast("PayPal: comprobante no requerido ✅");
+      }
+
+      // Re-render para refrescar estado activo
+      renderPayMethods();
+      renderCart();
+    }
+
+    function updatePayUI(){
+      const txt = payMethodInstructions() || "Configura los datos de pago en Admin.";
+      $("#payHint").textContent = "📌 Toca “Ver datos” o abre la pestaña “Datos de pago”.";
+      $("#payPaneTitle").textContent = payMethodLabel();
+      $("#payPaneBody").textContent = txt;
+    }
+
+    function renderPayPane(){
+      updatePayUI();
+      updateProofRequirementsUI();
+      // Mantener estado colapsado actual
+      setPayPaneCollapsed(payPaneCollapsed);
+    }
+
+    // Tabs (Datos / Cupones)
+    function setCheckoutPane(pane){
+      checkoutPane=pane;
+      $$("#checkoutTabs .tab").forEach(t=>t.classList.toggle("active", t.dataset.pane===pane));
+      $("#panePay").style.display = pane==="pay" ? "block" : "none";
+      $("#paneCoupon").style.display = pane==="coupon" ? "block" : "none";
+    }
+
+    async function copyPayData(){
+      const text = `${payMethodLabel()}\n\n${payMethodInstructions()}`;
+      try{
+        await navigator.clipboard.writeText(text);
+        toast("Datos de pago copiados ✅");
+      }catch(e){
+        toast("No se pudo copiar (permiso del navegador).");
+      }
+    }
+
+    function renderCart(){
+      const wrap=$("#cartItems");
+      const items=Array.from(cart.entries()).map(([k,qty])=>{
+        const {pid,dur}=parseKey(k);
+        const p=products.find(x=>x.id===pid);
+        if(!p) return "";
+        const price=productPriceUSD(p,dur);
+        const durLabel=(dur===14) ? "12+2 meses" : `${dur} ${dur===1?"mes":"meses"}`;
+        return `
+          <div class="cart-item">
+            <div>
+              <div class="name">${escapeHtml(p.name)}</div>
+              <div class="subtxt">${escapeHtml(p.cat)} • ${durLabel} • ${formatMoney(price)} c/u</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end">
+              <div class="qty">
+                <button class="btn small" onclick="dec('${k}')">−</button>
+                <b>${qty}</b>
+                <button class="btn small" onclick="inc('${k}')">+</button>
+              </div>
+              <button class="btn small danger" onclick="removeItem('${k}')">Quitar</button>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      wrap.innerHTML = items || `
+        <div class="info">
+          <b>Tu carrito está vacío</b>
+          <p>Agrega un producto para continuar.</p>
+        </div>
+      `;
+
+      const sub=subtotalUSD();
+      const {discount,note}=applyCouponToTotals(sub);
+
+      // Total base (USD) antes de comisiones
+      const baseTotal=round2(Math.max(0, sub-discount));
+
+      // Comisión PayPal: 5.4% + $0.30 (USD) cuando el método seleccionado es PayPal
+      let paypalFee=0;
+      if(payMethod==="paypal" && baseTotal>0){
+        paypalFee = round2(baseTotal*0.054 + 0.30);
+      }
+
+      const total=round2(baseTotal + paypalFee);
+
+      $("#subtotal").textContent=formatMoney(sub);
+      $("#discount").textContent=discount?`-${formatMoney(discount).replace("-","")}`:formatMoney(0);
+
+      // Mostrar/ocultar fila de comisión PayPal
+      const feeRow = $("#paypalFeeRow");
+      if(feeRow){
+        feeRow.style.display = (payMethod==="paypal" && baseTotal>0) ? "flex" : "none";
+      }
+      const feeEl = $("#paypalFee");
+      if(feeEl){
+        feeEl.textContent = formatMoney(paypalFee);
+      }
+
+      $("#total").textContent=formatMoney(total);
+
+      if(appliedCoupon && note){
+        $("#couponErr").style.display="block";
+        $("#couponErr").textContent=note;
+      }
+
+      // #3: Mantener UI correcta al re-render
+      updateProofRequirementsUI();
+    }
+
+    // COUPONS
+    function applyCoupon(){
+      const code=($("#coupon").value||"").trim().toUpperCase();
+      const err=$("#couponErr");
+      err.style.display="none"; err.textContent="";
+      if(!code){ appliedCoupon=null; toast("Escribe un cupón."); renderCart(); return; }
+
+      const c=coupons.find(x=>String(x.code||"").toUpperCase()===code && x.active);
+      if(!c){
+        appliedCoupon=null;
+        err.style.display="block";
+        err.textContent="Cupón inválido o inactivo.";
+        renderCart();
+        return;
+      }
+      appliedCoupon={...c};
+      toast(`Cupón aplicado: ${c.code}`);
+      renderCart();
+    }
+    function removeCoupon(){
+      appliedCoupon=null;
+      $("#coupon").value="";
+      $("#couponErr").style.display="none";
+      renderCart();
+      toast("Cupón quitado.");
+    }
+
+    // === Comprobante ===
+    function setProof(file, dataUrl){
+      proof = { name:file.name, type:file.type, size:file.size, dataUrl };
+      $("#proofInfo").textContent = `Archivo: ${proof.name} (${Math.round(proof.size/1024)} KB)`;
+      const pv=$("#proofPreview");
+      pv.innerHTML = `<img alt="Comprobante" src="${dataUrl}">`;
+      $("#eProof").style.display="none";
+    }
+    function clearProof(){
+      proof = { name:"", type:"", size:0, dataUrl:"" };
+      $("#proofInfo").textContent = "No has seleccionado archivo.";
+      $("#proofPreview").innerHTML = `<span class="tiny">Sin imagen</span>`;
+      $("#proofFile").value = "";
+      $("#eProof").style.display="none";
+    }
+
+    async function handleProofInput(e){
+      const file = e.target.files && e.target.files[0];
+      if(!file){ clearProof(); return; }
+      if(!file.type.startsWith("image/")){
+        toast("Solo imágenes (foto/captura).");
+        clearProof();
+        return;
+      }
+      if(file.size > 6*1024*1024){
+        toast("Imagen muy pesada. Usa una captura más ligera.");
+        clearProof();
+        return;
+      }
+      const dataUrl = await readAsDataURL(file);
+      setProof(file, dataUrl);
+      toast("Comprobante cargado ✅");
+    }
+
+    function readAsDataURL(file){
+      return new Promise((res, rej)=>{
+        const r = new FileReader();
+        r.onload = ()=>res(String(r.result||""));
+        r.onerror = rej;
+        r.readAsDataURL(file);
+      });
+    }
+
+    async function copyProofNote(){
+      const msg = proof.name
+        ? `Comprobante listo: ${proof.name}. (Lo enviaré como imagen en este chat).`
+        : `Aún no he subido el comprobante.`;
+      try{
+        await navigator.clipboard.writeText(msg);
+        toast("Texto copiado ✅");
+      }catch(e){
+        toast("No se pudo copiar (permiso del navegador).");
+      }
+    }
+
+    // CHECKOUT VALIDATION + WHATSAPP
+    function validateCheckout(){
+      let ok=true;
+
+      const name=$("#cName").value.trim();
+      const phone=$("#cPhone").value.trim();
+      const email=$("#cEmail").value.trim();
+
+      $("#eName").style.display=name?"none":"block";
+      $("#ePhone").style.display=phone?"none":"block";
+
+      if(!name) ok=false;
+      if(!phone) ok=false;
+
+      if(email){
+        const valid=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        $("#eEmail").style.display=valid?"none":"block";
+        if(!valid) ok=false;
+      } else $("#eEmail").style.display="none";
+
+      const req = payRequiresProof();
+
+      // comprobante requerido según método
+      if(req && !proof.dataUrl){
+        $("#eProof").style.display="block";
+        ok=false;
+      } else $("#eProof").style.display="none";
+
+      // monto + ref: SIEMPRE requeridos (todos los métodos)
+      const paid = Number($("#paidAmount").value || 0);
+      const ref  = $("#txRef").value.trim();
+
+      $("#ePaid").style.display = (paid>0) ? "none" : "block";
+      $("#eTxRef").style.display = ref ? "none" : "block";
+      if(!(paid>0)) ok=false;
+      if(!ref) ok=false;
+
+      return ok;
+    }
+
+    function orderId(){
+      const n=Math.floor(Math.random()*90000)+10000;
+      return `PL-${n}`;
+    }
+
+    
+    function resetCheckoutForm(){
+      // Limpia campos ingresados (validación + cliente + cupón + comprobante)
+      try{
+        // Validación
+        $("#paidAmount").value = "";
+        $("#txRef").value = "";
+        $("#ePaid").style.display = "none";
+        $("#eTxRef").style.display = "none";
+
+        // Comprobante
+        clearProof();
+
+        // Cliente
+        $("#cName").value = "";
+        $("#cPhone").value = "";
+        $("#cId").value = "";
+        $("#cEmail").value = "";
+        $("#cAddress").value = "";
+        $("#cNotes").value = "";
+
+        $("#eName").style.display = "none";
+        $("#ePhone").style.display = "none";
+        $("#eEmail").style.display = "none";
+        $("#eProof").style.display = "none";
+
+        // Cupón
+        appliedCoupon = null;
+        $("#coupon").value = "";
+        $("#couponErr").style.display = "none";
+        $("#couponErr").textContent = "";
+
+        // Re-render para reflejar totales sin cupón y UI limpia
+        renderCart();
+      }catch(e){}
+    }
+
+    function placeOrder(){
+      const sub=subtotalUSD();
+      if(sub<=0){ toast("Agrega productos primero."); return; }
+      if(!validateCheckout()){ toast("Revisa los campos marcados."); return; }
+
+      const oid=orderId();
+      const now=new Date();
+      const dateStr=now.toLocaleString();
+
+      const name=$("#cName").value.trim();
+      const phone=$("#cPhone").value.trim();
+      const cid=$("#cId").value.trim();
+      const email=$("#cEmail").value.trim();
+      const addr=$("#cAddress").value.trim();
+      const notes=$("#cNotes").value.trim();
+
+      const paidVal = $("#paidAmount").value.trim();
+      const txRef   = $("#txRef").value.trim();
+
+      const {discount,note}=applyCouponToTotals(sub);
+      const total=Math.round(Math.max(0, (sub-discount))*100)/100;
+
+      const lines=[];
+      lines.push(`✅ *Nuevo Pedido* — *${cfg.STORE_NAME}*`);
+      lines.push(`🧾 Orden: *${oid}*`);
+      lines.push(`🕒 Fecha: ${dateStr}`);
+      lines.push(``);
+      lines.push(`👤 Cliente: *${name}*`);
+      lines.push(`📱 WhatsApp: ${phone}`);
+      if(cid) lines.push(`🪪 Cédula: ${cid}`);
+      if(email) lines.push(`📧 Email: ${email}`);
+      if(addr) lines.push(`📍 Dirección: ${addr}`);
+      if(notes) lines.push(`📝 Notas: ${notes}`);
+      lines.push(``);
+      lines.push(`🧺 *Productos:*`);
+
+      for(const [k,qty] of cart.entries()){
+        const {pid,dur}=parseKey(k);
+        const p=products.find(x=>x.id===pid);
+        if(!p) continue;
+        const price=productPriceUSD(p,dur);
+        const durLabel=(dur===14) ? "12+2 meses" : `${dur} ${dur===1?"mes":"meses"}`;
+        lines.push(`• ${p.name} — ${durLabel} x${qty} = ${formatMoney(price*qty)} (${currency})`);
+      }
+
+      lines.push(``);
+      lines.push(`💳 Método de pago: *${payMethodLabel()}*`);
+
+      // Monto + Ref/ID (siempre)
+      if(paidVal) lines.push(`💰 Monto pagado: ${paidVal} (${currency})`);
+      if(txRef)   lines.push(`🔎 Ref/ID: ${txRef}`);
+
+      lines.push(``);
+      if(proof.name){
+        lines.push(`📸 Comprobante adjunto: *${proof.name}*`);
+        lines.push(`➡️ (Envío la imagen/captura en este chat).`);
+      } else if(payRequiresProof()){
+        lines.push(`📸 *Falta comprobante:* envíalo en este chat para validar.`);
+      } else {
+        lines.push(`📸 Comprobante: opcional (PayPal).`);
+      }
+
+      lines.push(``);
+      lines.push(`Subtotal: ${formatMoney(sub)} (${currency})`);
+      if(discount) lines.push(`Descuento: -${formatMoney(discount)} (${currency})`);
+      if(appliedCoupon) lines.push(`Cupón: ${appliedCoupon.code}${note?` (${note})`:""}`);
+      lines.push(`✅ TOTAL: *${formatMoney(total)}* (${currency})`);
+
+      const text=encodeURIComponent(lines.join("\n"));
+      const url=`${cfg.WHATSAPP_BASE}?text=${text}`;
+      window.open(url,"_blank","noopener");
+
+      toast(`Pedido generado ✅\nOrden: ${oid}\nRecuerda enviar el comprobante si aplica.`);
+      resetCheckoutForm();
+      // Limpiar carrito y cerrar checkout tras generar el WhatsApp
+      try{ emptyCart(); }catch(e){}
+      try{ hideModal("#overlayCart"); }catch(e){}
+    }
+
+    // MODALS
+    function showModal(sel){ $(sel).classList.add("show"); $(sel).setAttribute("aria-hidden","false"); }
+    function hideModal(sel){ $(sel).classList.remove("show"); $(sel).setAttribute("aria-hidden","true"); }
+
+
+    // ================
+    // SECCIONES OCULTAS
+    // ================
+    function showSection(id){
+      const el = document.getElementById(id);
+      if(!el) return;
+      el.classList.remove("is-hidden");
+      // Scroll suave al inicio de la sección
+      setTimeout(()=>{ el.scrollIntoView({behavior:"smooth", block:"start"}); }, 30);
+    }
+
+
+    // ADMIN
+    function openAdm(){
+      if(!isAuthed()){ openLogin(); return; }
+      $("#cfgStore").value=cfg.STORE_NAME;
+      const _lu=$("#cfgLogoUrl"); if(_lu) _lu.value=cfg.LOGO_URL||"";
+      $("#cfgWa").value=cfg.WHATSAPP_BASE;
+      $("#cfgFx").value=cfg.FX_USD_TO_NIO;
+      const _fxc=$("#cfgFxCrc"); if(_fxc) _fxc.value=cfg.FX_USD_TO_CRC;
+      const _fxe=$("#cfgFxEurUsd"); if(_fxe) _fxe.value=cfg.FX_EUR_TO_USD;
+      $("#cfgPass").value=cfg.RESELLER_PASS;
+
+      $("#cfgPayLafise").value=cfg.PAY_LAFISE;
+      $("#cfgPayBanproMovil").value=cfg.PAY_BANPRO_MOVIL;
+      $("#cfgPayPromerica").value=cfg.PAY_PROMERICA;
+      $("#cfgPayAirtm").value=cfg.PAY_AIRTM;
+      $("#cfgPayBinance").value=cfg.PAY_BINANCE;
+      $("#cfgPayPaypal").value=cfg.PAY_PAYPAL;
+      const _sinpeNi=$("#cfgPaySinpe"); if(_sinpeNi) _sinpeNi.value=cfg.PAY_SINPE||"";
+      const _sinpe=$("#cfgPaySinpeCr"); if(_sinpe) _sinpe.value=cfg.PAY_SINPE_CR||"";
+
+      renderAdminProductSelect();
+      renderAdminCouponsTable();
+      showModal("#overlayAdmin");
+    }
+
+    function renderAdminProductSelect(){
+      const sel=$("#prodSelectAdmin");
+      sel.innerHTML=products.map(p=>`<option value="${p.id}">${escapeHtml(p.name)}</option>`).join("");
+      sel.onchange=()=>loadAdminProduct(sel.value);
+      if(products[0]) loadAdminProduct(products[0].id);
+    }
+
+    function loadAdminProduct(pid){
+      const p=products.find(x=>x.id===pid);
+      if(!p) return;
+      $("#aName").value=p.name||"";
+      $("#aCat").value=p.cat||"";
+      $("#aTag").value=p.tag||"";
+      $("#aDesc").value=p.desc||"";
+      $("#aImg").value=p.imageUrl||"";
+      $("#aOffer").value=String(!!p.offer);
+
+      $("#p1m").value=productPriceUSD(p,1);
+      $("#p2m").value=productPriceUSD(p,2);
+      $("#p3m").value=productPriceUSD(p,3);
+      $("#p6m").value=productPriceUSD(p,6);
+      $("#p9m").value=productPriceUSD(p,9);
+      $("#p12m").value=productPriceUSD(p,12);
+      $("#p18m").value=productPriceUSD(p,18);
+      $("#p24m").value=productPriceUSD(p,24);
+
+      $("#aRules").value=(p.rules||[]).join("\n");
+      $("#aFaq").value=(p.faq||[]).map(x=>`${x.q} | ${x.a}`).join("\n");
+    }
+
+    function saveAdminProduct(){
+      const pid=$("#prodSelectAdmin").value;
+      const i=products.findIndex(x=>x.id===pid);
+      if(i<0) return;
+      const p=products[i];
+
+      p.name=$("#aName").value.trim()||p.name;
+      p.cat=$("#aCat").value.trim()||p.cat;
+      p.tag=$("#aTag").value.trim();
+      p.desc=$("#aDesc").value.trim();
+      p.imageUrl=$("#aImg").value.trim();
+      p.offer=$("#aOffer").value==="true";
+
+      p.prices={1:Number($("#p1m").value||0),2:Number($("#p2m").value||0),3:Number($("#p3m").value||0),6:Number($("#p6m").value||0),9:Number($("#p9m").value||0),12:Number($("#p12m").value||0),18:Number($("#p18m").value||0),24:Number($("#p24m").value||0)};
+      p.rules=($("#aRules").value||"").split("\n").map(s=>s.trim()).filter(Boolean);
+
+      const faqLines=($("#aFaq").value||"").split("\n").map(s=>s.trim()).filter(Boolean);
+      p.faq=faqLines.map(line=>{
+        const [q,a]=line.split("|").map(x=>x.trim());
+        return {q:q||line,a:a||""};
+      });
+
+      saveProducts();
+      renderChips(); renderGrid();
+      toast("Producto guardado ✅");
+      renderAdminProductSelect();
+      $("#prodSelectAdmin").value=pid;
+      loadAdminProduct(pid);
+    }
+
+    function newProduct(){
+      const id="p"+(Math.floor(Math.random()*90000)+10000);
+      products.unshift({
+        id, name:"Nuevo producto", cat:"1 Dispositivo", tag:"Nuevo",
+        desc:"Descripción del producto.", imageUrl:"", offer:false, prices:{1:0,2:0,3:0,6:0,9:0,12:0,18:0,24:0},
+        rules:["Define reglas aquí."], faq:[{q:"¿Entrega?",a:"Define aquí."}], popularity:50
+      });
+      saveProducts();
+      renderAdminProductSelect();
+      $("#prodSelectAdmin").value=id;
+      loadAdminProduct(id);
+      renderChips(); renderGrid();
+      toast("Producto creado ✅");
+    }
+
+    function deleteProduct(){
+      const pid=$("#prodSelectAdmin").value;
+      if(products.length<=1){ toast("Debe existir al menos 1 producto."); return; }
+      products=products.filter(p=>p.id!==pid);
+      saveProducts();
+      renderAdminProductSelect();
+      renderChips(); renderGrid();
+      toast("Producto eliminado ✅");
+    }
+
+    function renderAdminCouponsTable(){
+      const t=$("#couponTable");
+      const rows=coupons.map((c,idx)=>`
+        <tr>
+          <td style="width:18%"><b>${escapeHtml(c.code)}</b><div class="tiny">${c.active?"Activo":"Inactivo"}</div></td>
+          <td style="width:20%">${escapeHtml(c.type)}</td>
+          <td style="width:14%">${escapeHtml(String(c.value||0))}</td>
+          <td style="width:14%">${escapeHtml(String(c.min||0))}</td>
+          <td style="width:16%">${escapeHtml(c.category||"Todo")}</td>
+          <td style="width:18%">
+            <button class="btn small" onclick="toggleCoupon(${idx})">${c.active?"Desactivar":"Activar"}</button>
+            <button class="btn small danger" onclick="removeCouponAdmin(${idx})">Borrar</button>
+          </td>
+        </tr>
+      `).join("");
+
+      t.innerHTML=`
+        <tr><td><b>Código</b></td><td><b>Tipo</b></td><td><b>Valor</b></td><td><b>Mínimo</b></td><td><b>Categoría</b></td><td><b>Acción</b></td></tr>
+        ${rows || `<tr><td colspan="6">Sin cupones</td></tr>`}
+      `;
+    }
+
+    function toggleCoupon(i){ coupons[i].active=!coupons[i].active; saveCoupons(); renderAdminCouponsTable(); toast("Cupón actualizado ✅"); }
+    function removeCouponAdmin(i){ coupons.splice(i,1); saveCoupons(); renderAdminCouponsTable(); toast("Cupón eliminado ✅"); }
+    function addCouponAdmin(){ coupons.unshift({code:"NUEVO",type:"PERCENT",value:5,min:0,category:"ALL",active:true}); saveCoupons(); renderAdminCouponsTable(); toast("Cupón creado ✅"); }
+
+    function saveAdminCfg(){
+      cfg.STORE_NAME=$("#cfgStore").value.trim()||cfg.STORE_NAME;
+      cfg.WHATSAPP_BASE=$("#cfgWa").value.trim()||cfg.WHATSAPP_BASE;
+      cfg.FX_USD_TO_NIO=round2(Number($("#cfgFx").value||cfg.FX_USD_TO_NIO));
+      cfg.RESELLER_PASS=($("#cfgPass").value||cfg.RESELLER_PASS).trim()||cfg.RESELLER_PASS;
+
+      cfg.PAY_LAFISE=$("#cfgPayLafise").value.trim();
+      cfg.PAY_BANPRO_MOVIL=$("#cfgPayBanproMovil").value.trim();
+      cfg.PAY_PROMERICA=$("#cfgPayPromerica").value.trim();
+      cfg.PAY_AIRTM=$("#cfgPayAirtm").value.trim();
+      cfg.PAY_BINANCE=$("#cfgPayBinance").value.trim();
+      cfg.PAY_PAYPAL=$("#cfgPayPaypal").value.trim();
+      cfg.PAY_SINPE=($("#cfgPaySinpe")?$("#cfgPaySinpe").value.trim():"");
+      cfg.PAY_SINPE_CR=($("#cfgPaySinpeCr")?$("#cfgPaySinpeCr").value.trim():"");
+
+      saveCfg();
+      renderHeader();
+
+      // Si llegan con #productos, mostrar catálogo
+      if(location.hash==="#productos"){ try{ showCatalog(); }catch(e){} }
+      renderPayMethods();
+      toast("Config guardada ✅");
+    }
+
+    function resetAll(){
+      localStorage.removeItem(K_CFG);
+      localStorage.removeItem(K_PRODUCTS);
+      localStorage.removeItem(K_COUPONS);
+      localStorage.removeItem(K_THEME);
+      location.reload();
+    }
+
+    // INIT
+    function init(){
+      $("#year").textContent=new Date().getFullYear();
+      renderHeader();
+
+      renderSkeleton();
+      setTimeout(()=>{ renderChips(); renderGrid(); },200);
+
+      updateCartBadge();
+
+      $("#q").addEventListener("input",(e)=>{ query=e.target.value; renderGrid(); });
+      $("#btnClear").addEventListener("click",()=>{
+        query=""; $("#q").value="";
+        activeCat="Todos"; onlyOffers=false;
+        $("#btnOffers").textContent="⭐ Solo ofertas";
+        renderChips(); renderGrid();
+      });
+
+      $("#btnOffers").addEventListener("click",()=>{
+        onlyOffers=!onlyOffers;
+        $("#btnOffers").textContent=onlyOffers?"⭐ Viendo ofertas":"⭐ Solo ofertas";
+        renderGrid();
+      });
+
+      $("#sortSelect").addEventListener("change",(e)=>{ sortMode=e.target.value; renderGrid(); });
+      $("#currencySelect").addEventListener("change",(e)=>{ currency=e.target.value; renderGrid(); renderCart(); if(selectedProduct) renderProductPrices(); });
+
+      const _btnOpenCart=$("#btnOpenCart"); if(_btnOpenCart) _btnOpenCart.addEventListener("click", openCart);
+      $("#btnCartTop").addEventListener("click", openCart);
+      // Mostrar secciones ocultas al hacer click en Legal / Soporte
+      document.querySelectorAll('a[href="#legal"]').forEach(a=>{
+        a.addEventListener("click",(e)=>{ e.preventDefault(); showSection("legal"); });
+      });
+      document.querySelectorAll('a[href="#soporte"]').forEach(a=>{
+        a.addEventListener("click",(e)=>{ e.preventDefault(); showSection("soporte"); });
+      });
+
+      // Si llegan por URL con #legal o #soporte, mostrarlas
+      if(location.hash==="#legal") showSection("legal");
+      if(location.hash==="#soporte") showSection("soporte");
+
+      const _heroMedia=$("#heroMedia");
+      if(_heroMedia){
+        const go=()=>openProduct("gravicsotv_3p");
+        _heroMedia.addEventListener("click", go);
+        _heroMedia.addEventListener("keydown",(e)=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); go(); } });
+      }
+
+      $("#btnCloseCart").addEventListener("click", ()=>hideModal("#overlayCart"));
+      $("#btnCloseProduct").addEventListener("click", ()=>hideModal("#overlayProduct"));
+      $("#btnCloseAdmin").addEventListener("click", ()=>hideModal("#overlayAdmin"));
+
+      $("#btnApplyCoupon").addEventListener("click", applyCoupon);
+      $("#btnRemoveCoupon").addEventListener("click", removeCoupon);
+
+      $("#btnEmpty").addEventListener("click", emptyCart);
+      $("#btnPlaceOrder").addEventListener("click", placeOrder);
+
+      $("#btnAdmin").addEventListener("click", ()=>{ isAuthed()? openAdm() : openLogin(); });
+
+      $("#btnCloseLogin").addEventListener("click", ()=>hideModal("#overlayLogin"));
+      $("#btnLogin").addEventListener("click", ()=>{
+        const pass=($("#loginPass").value||"").trim();
+        if(pass===String(cfg.RESELLER_PASS||"").trim()){
+          setAuthed(true);
+          hideModal("#overlayLogin");
+          toast("Acceso Adm ✅");
+          setTimeout(()=>openAdm(), 80);
+        }else{
+          $("#eLogin").style.display="block";
+        }
+      });
+      $("#btnLogout").addEventListener("click", ()=>{
+        setAuthed(false);
+        toast("Sesión cerrada");
+      });
+      $("#loginPass").addEventListener("keydown",(e)=>{
+        if(e.key==="Enter") $("#btnLogin").click();
+      });
+
+      $("#loginPass").addEventListener("input", ()=>{ $("#eLogin").style.display="none"; });
+
+      $("#btnSaveProd").addEventListener("click", saveAdminProduct);
+      $("#btnNewProd").addEventListener("click", newProduct);
+      $("#btnDeleteProd").addEventListener("click", deleteProduct);
+      $("#btnSaveCfg").addEventListener("click", saveAdminCfg);
+      $("#btnResetAll").addEventListener("click", resetAll);
+      $("#btnAddCoupon").addEventListener("click", addCouponAdmin);
+
+      $("#btnTheme").addEventListener("click", ()=>{
+        const cur=document.documentElement.getAttribute("data-theme")||"dark";
+        const next=cur==="dark"?"light":"dark";
+        document.documentElement.setAttribute("data-theme",next);
+        localStorage.setItem(K_THEME,next);
+        toast(`Tema: ${next}`);
+      });
+
+      // comprobante
+      $("#proofFile").addEventListener("change", handleProofInput);
+      $("#btnClearProof").addEventListener("click", clearProof);
+      $("#btnCopyProofNote").addEventListener("click", copyProofNote);
+
+      // Tabs checkout (Datos de pago / Cupones)
+      $$("#checkoutTabs .tab").forEach(t=>{
+        t.addEventListener("click", ()=>setCheckoutPane(t.dataset.pane));
+      });
+      $("#btnGoCoupons").addEventListener("click", ()=>setCheckoutPane("coupon"));
+      $("#btnGoPay").addEventListener("click", ()=>setCheckoutPane("pay"));
+      $("#btnCopyPay").addEventListener("click", copyPayData);
+
+      // #1: Toggle ver/ocultar panel de datos de pago
+      $("#btnTogglePayPane").addEventListener("click", ()=>{
+        setPayPaneCollapsed(!payPaneCollapsed);
+      });
+
+      // Keyboard: Ctrl/⌘ + K para búsqueda
+      window.addEventListener("keydown",(e)=>{
+        const isMac = navigator.platform.toUpperCase().includes("MAC");
+        if((isMac?e.metaKey:e.ctrlKey) && e.key.toLowerCase()==="k"){
+          e.preventDefault();
+          $("#q").focus();
+        }
+        if(e.key==="Escape"){
+          hideModal("#overlayProduct");
+          hideModal("#overlayCart");
+          hideModal("#overlayAdmin");
+          hideModal("#overlayLogin");
+        }
+      });
+
+      // Cerrar modal al dar click fuera
+      ["#overlayProduct","#overlayCart","#overlayAdmin","#overlayLogin"].forEach(sel=>{
+        const ov=$(sel);
+        ov.addEventListener("click",(e)=>{
+          if(e.target===ov) hideModal(sel);
+        });
+      });
+
+      // Inicializar pestaña y pagos
+      setCheckoutPane("pay");
+      setPayPaneCollapsed(false);
+      renderPayMethods();
+      updateProofRequirementsUI();
+    }
+
+    
+    // Mostrar catálogo oculto (se activa desde el collage "Ver catálogo" o enlaces)
+    function showCatalog(){
+      const el = document.getElementById("productos");
+      if(!el) return;
+      el.classList.remove("hidden");
+      // Render por si estaba oculto y aún no se dibujó (seguro)
+      try{ renderChips(); renderGrid(); }catch(e){}
+      setTimeout(()=>el.scrollIntoView({behavior:"smooth", block:"start"}), 60);
+    }
+
+
+    // Mostrar secciones ocultas (Legal / Soporte) y asegurar que el catálogo esté visible
+    function showSection(sectionId){
+      showCatalog();
+      const el = document.getElementById(sectionId);
+      if(!el) return;
+      el.classList.remove("is-hidden");
+      setTimeout(()=>el.scrollIntoView({behavior:"smooth", block:"start"}), 80);
+    }
+    function showLegal(){ showSection("legal"); }
+    function showSoporte(){ showSection("soporte"); }
+
+function openCart(){
+      renderCart();
+      renderPayMethods();
+      showModal("#overlayCart");
+      renderPayPane();
+    }
+
+    
+    // Abrir producto desde collage (si existe el ID); si no, baja al catálogo
+    function openProductSafe(pid){
+      try{
+        const p = (products||[]).find(x=>x.id===pid);
+        if(p){ openProduct(pid); return; }
+      }catch(e){}
+      toast("Producto no disponible. Mostrando catálogo…");
+      document.querySelector("#productos")?.scrollIntoView({behavior:"smooth"});
+    }
+
+// Exponer funciones al scope global (por onclick inline)
+    window.openProduct=openProduct;
+    window.quickAdd=quickAdd;
+    window.inc=inc;
+    window.dec=dec;
+    window.removeItem=removeItem;
+    window.selectPay=selectPay;
+    window.showCatalog=showCatalog;
+    window.toggleCoupon=toggleCoupon;
+    window.removeCouponAdmin=removeCouponAdmin;
+
+    init();
+  </script>
+</body>
+</html>
