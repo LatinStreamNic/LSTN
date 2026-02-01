@@ -48,9 +48,9 @@
     .btn.small{padding:8px 10px;border-radius:10px;font-size:12px}
     .select{appearance:none;padding:8px 34px 8px 12px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.03);color:var(--text);cursor:pointer}
     [data-theme="light"] .pill,[data-theme="light"] .btn,[data-theme="light"] .select{background:rgba(11,18,32,.03)}
-    .topbar{border-bottom:1px solid var(--border);background:rgba(0,0,0,.18);backdrop-filter:blur(10px)}
+    .topbar{position:sticky;top:0;z-index:90;border-bottom:1px solid rgba(255,255,255,.10);background:linear-gradient(180deg, rgba(0,0,0,.40), rgba(0,0,0,.18));backdrop-filter:blur(12px)}
     [data-theme="light"] .topbar{background:rgba(255,255,255,.68)}
-    .topbar .row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0}
+    .topbar .row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0}
     .topbar .left,.topbar .right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
     .brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.2px}
     .logo{width:38px;height:38px;border-radius:14px;background:conic-gradient(from 220deg,var(--brand),rgba(34,197,94,.9),rgba(79,124,255,.6));box-shadow:0 12px 30px rgba(79,124,255,.25);background-position:center;background-repeat:no-repeat;background-size:contain;background-color:transparent}
@@ -282,6 +282,56 @@
 /* Hide sorting and offers controls (requested) */
 #sortSelect, #btnOffers{display:none!important}
 
+
+    /* Header category buttons */
+    .navcats{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .navcats .btn.small{padding:9px 12px;border-radius:999px;font-weight:900}
+    @media (max-width: 720px){
+      .topbar .row{flex-wrap:wrap;gap:10px;padding:10px 0}
+      .topbar .left{flex:1 1 100%;display:flex;justify-content:center}
+      .topbar .right{width:100%;display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
+      .topbar .right .navcats{grid-column:1 / -1;overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;padding-bottom:4px}
+      .topbar .right .navcats::-webkit-scrollbar{height:6px}
+      .topbar .right .navcats::-webkit-scrollbar-thumb{background:rgba(255,255,255,.10);border-radius:999px}
+      .navcats .btn.small{padding:8px 10px;font-size:12px}
+      #btnCartTop{width:100%;justify-content:center}
+      #currencySelect{max-width:120px}
+    }
+
+
+/* ===== Header mobile layout (v3) ===== */
+@media (max-width: 720px){
+  .topbar .brand{justify-content:center}
+  .topbar .brand .logo{width:32px;height:32px}
+  .topbar .right{
+    width:100%;
+    display:grid;
+    grid-template-columns: 1fr auto;
+    gap:8px;
+    align-items:center;
+  }
+  /* Categories become first full-width row with horizontal scroll */
+  .topbar .right .navcats{
+    grid-column:1 / -1;
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    flex-wrap:nowrap;
+    padding-bottom:4px;
+    -webkit-overflow-scrolling:touch;
+    scroll-snap-type:x mandatory;
+  }
+  .topbar .right .navcats .btn.small{
+    scroll-snap-align:start;
+    white-space:nowrap;
+  }
+  /* Second row: Cart full width, currency compact */
+  #btnCartTop{grid-column:1 / 2; width:100%; justify-content:center}
+  #currencySelect{grid-column:2 / 3; width:100%; max-width:120px}
+  /* Hide admin/theme on mobile to keep clean (already requested earlier) */
+  #btnAdmin, #btnTheme{display:none!important}
+}
+
 </style>
 </head>
 
@@ -298,9 +348,13 @@
 
         <div class="right">
           <button class="btn small" id="btnAdmin">🛠️ Adm</button>
-          <a class="btn small" href="#legal" data-action="open-legal">📜 Legal</a>
-          <a class="btn small" href="#soporte" data-action="open-soporte">💬 Soporte</a>
-          <button class="btn small" id="btnTheme" title="Modo oscuro / claro">🌓 Tema</button>
+
+          <div class="navcats" aria-label="Categorías">
+            <button class="btn small" id="btnCatAll" type="button">📦 Todo</button>
+            <button class="btn small" id="btnCat1D" type="button">📱 1 Dispositivo</button>
+            <button class="btn small" id="btnCatFull" type="button">🖥️ Cuenta Completa</button>
+          </div>
+<button class="btn small" id="btnTheme" title="Modo oscuro / claro">🌓 Tema</button>
           <button class="btn small" id="btnCartTop">🛒 Carrito <span class="kbd" id="cartCount">0</span></button>
           <select class="select" id="currencySelect" aria-label="Moneda">
             <option value="USD" selected>USD</option>
@@ -333,8 +387,7 @@
         </select>
 
         <button class="btn" id="btnOffers">⭐ Solo ofertas</button>
-        <button class="btn" id="btnClear">Limpiar</button>
-      </div>
+</div>
     </div>
 
     <div class="banner tiny" id="emptyState" style="margin-top:10px;display:none">Selecciona una categoría para ver los productos.</div>
@@ -936,6 +989,7 @@ function openLogin(){
     ,
       {
         id:"netflix_perfil",
+        available:false,
         name:"🎬 Netflix — Perfil",
         cat:"1 Dispositivo",
         tag:"Configurar precio",
@@ -949,6 +1003,7 @@ function openLogin(){
       },
       {
         id:"netflix_full",
+        available:false,
         name:"🎬 Netflix — Cuenta completa",
         cat:"Cuenta Completa",
         tag:"Configurar precio",
@@ -962,6 +1017,7 @@ function openLogin(){
       },
       {
         id:"disney_perfil",
+        available:false,
         name:"🦊 Disney+ — Perfil",
         cat:"1 Dispositivo",
         tag:"Configurar precio",
@@ -975,6 +1031,7 @@ function openLogin(){
       },
       {
         id:"disney_full",
+        available:false,
         name:"🦊 Disney+ — Cuenta completa",
         cat:"Cuenta Completa",
         tag:"Configurar precio",
@@ -988,6 +1045,7 @@ function openLogin(){
       },
       {
         id:"hbomax_perfil",
+        available:false,
         name:"🎞️ HBO Max — Perfil",
         cat:"1 Dispositivo",
         tag:"Configurar precio",
@@ -1001,6 +1059,7 @@ function openLogin(){
       },
       {
         id:"hbomax_full",
+        available:false,
         name:"🎞️ HBO Max — Cuenta completa",
         cat:"Cuenta Completa",
         tag:"Configurar precio",
@@ -1014,6 +1073,7 @@ function openLogin(){
       },
       {
         id:"paramount_perfil",
+        available:false,
         name:"⭐ Paramount+ — Perfil",
         cat:"1 Dispositivo",
         tag:"Configurar precio",
@@ -1027,6 +1087,7 @@ function openLogin(){
       },
       {
         id:"paramount_full",
+        available:false,
         name:"⭐ Paramount+ — Cuenta completa",
         cat:"Cuenta Completa",
         tag:"Configurar precio",
@@ -1100,8 +1161,8 @@ function openLogin(){
 
 
     let cfg=loadCfg();
-    let products=loadProducts();
-    let coupons=loadCoupons();
+    let products = normalizeProducts(loadProducts());
+      let coupons=loadCoupons();
 
     let currency="USD";
     let query="", activeCat=null, onlyOffers=false, sortMode="popular";
@@ -1152,6 +1213,13 @@ function openLogin(){
         return {...DEFAULTS};
       }
     }
+    function normalizeProducts(list){
+      return (list||[]).map(p=>{
+        if(typeof p.available==="undefined") p.available = true;
+        return p;
+      });
+    }
+
     function loadProducts(){
       try{
         const saved = JSON.parse(localStorage.getItem(K_PRODUCTS)||"null");
@@ -1330,7 +1398,8 @@ function openLogin(){
 
     function renderChips(){
       const chips=$("#chips"); chips.innerHTML="";
-      getCats().forEach(cat=>{
+      const hidden = new Set(["Todo","1 Dispositivo","Cuenta Completa"]);
+      getCats().filter(cat=>!hidden.has(cat)).forEach(cat=>{
         const b=document.createElement("div");
         b.className="chip"+(activeCat===cat?" active":"");
         b.textContent=cat;
@@ -1338,6 +1407,25 @@ function openLogin(){
         chips.appendChild(b);
       });
     }
+
+
+    // Header category quick filters
+    function setCategory(cat){
+      activeCat = cat;
+      renderGrid();
+      renderChips();
+      const es = document.getElementById("emptyState");
+      if(es) es.style.display = "none";
+      try{ document.getElementById("productos").scrollIntoView({behavior:"smooth", block:"start"}); }catch(e){}
+    }
+    (function(){
+      const bAll = $("#btnCatAll");
+      const b1d = $("#btnCat1D");
+      const bFull = $("#btnCatFull");
+      if(bAll) bAll.onclick = ()=>setCategory("Todo");
+      if(b1d) b1d.onclick = ()=>setCategory("1 Dispositivo");
+      if(bFull) bFull.onclick = ()=>setCategory("Cuenta Completa");
+    })();
 
     function matches(p){
       const q=query.trim().toLowerCase();
@@ -1391,6 +1479,7 @@ function openLogin(){
             <div class="thumb" style="${p.imageUrl?`background-image: linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.45)), url(\'${escUrl(p.imageUrl)}\')`:''}">
               <div class="tag">${escapeHtml(p.cat)} • ${escapeHtml(p.tag||"")}</div>
               ${p.offer?`<div class="offer-badge">⭐ Oferta</div>`:""}
+              ${p.available===false?`<div class="soldout-badge">⛔ Agotado</div>`:""}
             </div>
             <div class="body">
               <div class="title">${escapeHtml(p.name)}</div>
@@ -1483,8 +1572,14 @@ function openLogin(){
       $("#prodRules").innerHTML=(p.rules||[]).map(r=>`<li>${escapeHtml(r)}</li>`).join("") || "<li class='tiny'>Sin reglas configuradas.</li>";
       $("#prodFaq").innerHTML=(p.faq||[]).map(f=>`<li><b>${escapeHtml(f.q)}</b> — ${escapeHtml(f.a)}</li>`).join("") || "<li class='tiny'>Sin FAQ.</li>";
 
-      $("#btnAddSelected").onclick=()=>{ addToCart(pid,selectedDuration,1); toast("Añadido ✅"); };
-      $("#btnBuyNow").onclick=()=>{ addToCart(pid,selectedDuration,1); openCart(); };
+      const _sold = (selectedProduct && selectedProduct.available===false);
+      const _addBtn = $("#btnAddSelected");
+      const _buyBtn = $("#btnBuyNow");
+      if(_addBtn){ _addBtn.disabled = _sold; _addBtn.textContent = _sold ? "Agotado" : "Añadir al carrito"; }
+      if(_buyBtn){ _buyBtn.disabled = _sold; }
+
+      $("#btnAddSelected").onclick=()=>{ addToCart(pid,selectedDuration,1); if(!_sold) toast("Añadido ✅"); };
+      $("#btnBuyNow").onclick=()=>{ addToCart(pid,selectedDuration,1); if(!_sold) openCart(); };
 
       showModal("#overlayProduct");
     }
@@ -1492,6 +1587,8 @@ function openLogin(){
 
     // CART
     function addToCart(pid,dur,qty){
+      const p=products.find(x=>x.id===pid);
+      if(p && p.available===false){ toast("Agotado ❌"); return; }
       const k=keyFor(pid,dur);
       cart.set(k,(cart.get(k)||0)+qty);
       updateCartBadge();
@@ -2036,6 +2133,7 @@ function openLogin(){
       $("#aDesc").value=p.desc||"";
       $("#aImg").value=p.imageUrl||"";
       $("#aOffer").value=String(!!p.offer);
+      const av=$("#aAvail"); if(av) av.value=String(p.available!==false);
 
       $("#p1m").value=productPriceUSD(p,1);
       $("#p2m").value=productPriceUSD(p,2);
@@ -2062,6 +2160,7 @@ function openLogin(){
       p.desc=$("#aDesc").value.trim();
       p.imageUrl=$("#aImg").value.trim();
       p.offer=$("#aOffer").value==="true";
+      const av=$("#aAvail"); if(av) p.available = (av.value==="true");
 
       p.prices={1:Number($("#p1m").value||0),2:Number($("#p2m").value||0),3:Number($("#p3m").value||0),6:Number($("#p6m").value||0),9:Number($("#p9m").value||0),12:Number($("#p12m").value||0),18:Number($("#p18m").value||0),24:Number($("#p24m").value||0)};
       p.rules=($("#aRules").value||"").split("\n").map(s=>s.trim()).filter(Boolean);
@@ -2174,14 +2273,13 @@ function openLogin(){
       updateCartBadge();
 
       $("#q").addEventListener("input",(e)=>{ query=e.target.value; renderGrid(); });
-      $("#btnClear").addEventListener("click",()=>{
+      (function(){const bc=$("#btnClear"); if(!bc) return; bc.addEventListener("click",()=>{
         query=""; $("#q").value="";
         activeCat="Todos"; onlyOffers=false;
         $("#btnOffers").textContent="⭐ Solo ofertas";
         renderChips(); renderGrid();
-      });
-
-      $("#btnOffers").addEventListener("click",()=>{
+      });})();
+$("#btnOffers").addEventListener("click",()=>{
         onlyOffers=!onlyOffers;
         $("#btnOffers").textContent=onlyOffers?"⭐ Viendo ofertas":"⭐ Solo ofertas";
         renderGrid();
