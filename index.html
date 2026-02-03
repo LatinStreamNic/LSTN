@@ -888,9 +888,9 @@
       WHATSAPP_BASE: "https://wa.me/50588581031",
       FX_USD_TO_NIO: 37.50,
       FX_USD_TO_CRC: 530.00,
-      FX_EUR_TO_USD: 1.20,
+      FX_EUR_TO_USD: 1.00,
 
-      RESELLER_PASS: "WainerCald1@",
+      RESELLER_PASS: "W@inerC@ld10",
 
       PAY_LAFISE: "Banco Lafise Bancentro\n👤Usuario: Wainer Abraham Calderón Ampie\n💰 N° de la Cuenta Dólares: 119288048\n💰 N° de la Cuenta Córdoba: 134056181\n🌟 Importante: Al realizar el pago, asegúrese de incluir su Nombre en la descripción (Concepto de Débito y en Concepto de Crédito). Esto nos ayudará a identificar su pago de manera efectiva\nSubir comprobante/Para Validar el Pago.",
       PAY_BANPRO_MOVIL: "Bampro / Billetera Movil\n👤Usuario: Wainer Abraham Calderón Ampie\n💰 N° de la Cuenta: 88342164\n🌟 Importante: Al realizar el pago, asegúrese de incluir su Nombre en la descripción (Concepto de Débito y en Concepto de Crédito). Esto nos ayudará a identificar su pago de manera efectiva\nSubir comprobante/Para Validar el Pago.",
@@ -959,6 +959,33 @@ function openLogin(){
              {q:"¿Es para 4 TVs?",a:"Sí, este plan está diseñado para 4 televisores."}],
         popularity:120
       },
+
+    {
+        id:"veltix_perfil",
+        name:"📺 Veltix — Perfil",
+        cat:"1 Dispositivo",
+        tag:"Configurar precio",
+        desc:"VELTIX lo tienes TODO en un solo lugar 🤗 📺 Miles de canales, eventos en vivo de alta calidad 🎬 Películas y series en estreno ⚽ Deportes en vivo y más ⚡Contenido constantemente actualizado 🔥 ⚡Conexión rápida, confiable y a un precio accesible 🙌🏻.",
+        imageUrl:"https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1440,h=756,fit=crop,f=jpeg/9viQBFCRQqkw0XUJ/logo-veltix-original-3-9m13rOI2pyieOs0M.png",
+        offer:false,
+        prices:{ 1:5, 2:10, 3:15, 6:30, 9:45, 12:60 },
+        rules:["No cambiar correo/contraseña.","Uso según el plan seleccionado.","Soporte por WhatsApp."],
+        faq:[{q:"¿Cuándo entregan?",a:"Entrega inmediata una vez confirmado el pago."},{q:"¿Incluye garantía?",a:"Sí, según el plan y las reglas del producto."}],
+        popularity:80
+      },
+      {
+        id:"veltix_full",
+        name:"📺 Veltix — Cuenta completa",
+        cat:"Cuenta Completa",
+        tag:"Configurar precio",
+        desc:"🛰️3 Dispositivos 🛰️SD /HD/FHD/4K 🛜+1.300 canales con EPG 📡 +17.000 VOD 🔐 VIP Canales 🛡️ Tecnología anticongelante ⏳99.9% Tiempo de actividad del servidor 📎Soporte 24/7.",
+        imageUrl:"https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1440,h=756,fit=crop,f=jpeg/9viQBFCRQqkw0XUJ/logo-veltix-original-3-9m13rOI2pyieOs0M.png",
+        offer:false,
+        prices:{ 1:9,2:18,3:26, 6:50, 9:70, 12:85 },
+        rules:["No cambiar correo/contraseña.","Uso según el plan seleccionado.","Soporte por WhatsApp."],
+        faq:[{q:"¿Cuándo entregan?",a:"Entrega inmediata una vez confirmado el pago."},{q:"¿Incluye garantía?",a:"Sí, según el plan y las reglas del producto."}],
+        popularity:80
+      },
       {
         id:"gravicsotv_3p",
         name:"📺 GRAVICSOTV — 1 Cuenta (3 Dispositivo)",
@@ -985,8 +1012,7 @@ function openLogin(){
         rules:["1 dispositivo solamente.","No compartir accesos fuera de lo permitido.","Soporte por WhatsApp."],
         faq:[{q:"¿Para cuántos dispositivos es?",a:"Para 1 pantalla o dispositivo."},{q:"¿Incluye garantía?",a:"Sí, según el plan y tus reglas de soporte."}],
         popularity:105
-      }
-    ,
+      },
       {
         id:"netflix_perfil",
         available:false,
@@ -1098,40 +1124,16 @@ function openLogin(){
         rules:["No cambiar correo/contraseña.","Uso según el plan seleccionado.","Soporte por WhatsApp."],
         faq:[{q:"¿Cuándo entregan?",a:"Entrega inmediata una vez confirmado el pago."},{q:"¿Incluye garantía?",a:"Sí, según el plan y las reglas del producto."}],
         popularity:80
-      },
-      {
-        id:"veltix_perfil",
-        name:"📺 Veltix — Perfil",
-        cat:"1 Dispositivo",
-        tag:"Configurar precio",
-        desc:"VELTIX lo tienes TODO en un solo lugar 🤗 📺 Miles de canales, eventos en vivo de alta calidad 🎬 Películas y series en estreno ⚽ Deportes en vivo y más ⚡Contenido constantemente actualizado 🔥 ⚡Conexión rápida, confiable y a un precio accesible 🙌🏻.",
-        imageUrl:"https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1440,h=756,fit=crop,f=jpeg/9viQBFCRQqkw0XUJ/logo-veltix-original-3-9m13rOI2pyieOs0M.png",
-        offer:false,
-        prices:{ 1:5, 3:15, 6:30, 12:60 },
-        rules:["No cambiar correo/contraseña.","Uso según el plan seleccionado.","Soporte por WhatsApp."],
-        faq:[{q:"¿Cuándo entregan?",a:"Entrega inmediata una vez confirmado el pago."},{q:"¿Incluye garantía?",a:"Sí, según el plan y las reglas del producto."}],
-        popularity:80
-      },
-      {
-        id:"veltix_full",
-        name:"📺 Veltix — Cuenta completa",
-        cat:"Cuenta Completa",
-        tag:"Configurar precio",
-        desc:"🛰️3 Dispositivos 🛰️SD /HD/FHD/4K 🛜+1.300 canales con EPG 📡 +17.000 VOD 🔐 VIP Canales 🛡️ Tecnología anticongelante ⏳99.9% Tiempo de actividad del servidor 📎Soporte 24/7.",
-        imageUrl:"https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1440,h=756,fit=crop,f=jpeg/9viQBFCRQqkw0XUJ/logo-veltix-original-3-9m13rOI2pyieOs0M.png",
-        offer:false,
-        prices:{ 1:9,2:18,3:26, 6:50, 9:70, 12:85 },
-        rules:["No cambiar correo/contraseña.","Uso según el plan seleccionado.","Soporte por WhatsApp."],
-        faq:[{q:"¿Cuándo entregan?",a:"Entrega inmediata una vez confirmado el pago."},{q:"¿Incluye garantía?",a:"Sí, según el plan y las reglas del producto."}],
-        popularity:80
       }
+      
     ];
 
     const DEFAULT_COUPONS = [
       { code:"LATIN", type:"PERCENT", value:10, min:0, category:"ALL", active:true },
-      { code:"CUPIDO", type:"PERCENT", value:15, min:0, category:"ALL", active:true },
-      { code:"Cupido", type:"PERCENT", value:15, min:0, category:"ALL", active:true },
+      { code:"AMISTAD", type:"PERCENT", value:23, min:0, category:"ALL", active:true },
+      { code:"Amistad", type:"PERCENT", value:23, min:0, category:"ALL", active:true },
       { code:"MUNDIAL26", type:"PERCENT", value:20, min:0, category:"ALL", active:true },
+      { code:"Cliente", type:"PERCENT", value:20, min:0, category:"ALL", active:true },
       { code:"3X2", type:"BOGO", value:0, min:800, category:"ALL", active:true }
     ];
 
