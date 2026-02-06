@@ -579,6 +579,12 @@
 
             <div class="mutedBox pre" id="payPaneBody" style="margin-top:10px"></div>
 
+            <div id="paypalButtonsWrap" style="margin-top:12px; display:none">
+              <div class="tiny muted" style="margin-bottom:8px">Paga con PayPal (ventana segura).</div>
+              <div id="paypalButtons"></div>
+              <div class="tiny muted" id="paypalStatus" style="margin-top:8px; display:none"></div>
+            </div>
+
             <div class="note tiny" style="margin-top:10px">
               💡 Tip: llena “Monto pagado” y “Referencia/ID” para validar más rápido.
             </div>
@@ -886,11 +892,13 @@
       STORE_NAME: "LATIN STREAM NIC",
       LOGO_URL: "https://uploads.marea.menu/Products-Images/kO349DRUO5WnKZc0UNnQ7x0Km4p2/6230efac-3bb0-4cc2-b377-4bf4451ce0fa.jpg",
       WHATSAPP_BASE: "https://wa.me/50588581031",
+      PAYPAL_CLIENT_ID: "ARvBc_FLCLyhHrmR9LI3wG1PDGOrkIMLYETu5sYnnSk-K5oUeiIhr4lcQpmowlX8lxj0-N9FvgjvRHMQ",
+      PAYPAL_WORKER_URL: "https://yellow-lake-a920.latinstreamnic2021.workers.dev",
       FX_USD_TO_NIO: 37.50,
       FX_USD_TO_CRC: 530.00,
-      FX_EUR_TO_USD: 1.00,
+      FX_EUR_TO_USD: 1.20,
 
-      RESELLER_PASS: "W@inerC@ld10",
+      RESELLER_PASS: "WainerCald1@",
 
       PAY_LAFISE: "Banco Lafise Bancentro\n👤Usuario: Wainer Abraham Calderón Ampie\n💰 N° de la Cuenta Dólares: 119288048\n💰 N° de la Cuenta Córdoba: 134056181\n🌟 Importante: Al realizar el pago, asegúrese de incluir su Nombre en la descripción (Concepto de Débito y en Concepto de Crédito). Esto nos ayudará a identificar su pago de manera efectiva\nSubir comprobante/Para Validar el Pago.",
       PAY_BANPRO_MOVIL: "Bampro / Billetera Movil\n👤Usuario: Wainer Abraham Calderón Ampie\n💰 N° de la Cuenta: 88342164\n🌟 Importante: Al realizar el pago, asegúrese de incluir su Nombre en la descripción (Concepto de Débito y en Concepto de Crédito). Esto nos ayudará a identificar su pago de manera efectiva\nSubir comprobante/Para Validar el Pago.",
@@ -959,33 +967,6 @@ function openLogin(){
              {q:"¿Es para 4 TVs?",a:"Sí, este plan está diseñado para 4 televisores."}],
         popularity:120
       },
-
-    {
-        id:"veltix_perfil",
-        name:"📺 Veltix — Perfil",
-        cat:"1 Dispositivo",
-        tag:"Configurar precio",
-        desc:"VELTIX lo tienes TODO en un solo lugar 🤗 📺 Miles de canales, eventos en vivo de alta calidad 🎬 Películas y series en estreno ⚽ Deportes en vivo y más ⚡Contenido constantemente actualizado 🔥 ⚡Conexión rápida, confiable y a un precio accesible 🙌🏻.",
-        imageUrl:"https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1440,h=756,fit=crop,f=jpeg/9viQBFCRQqkw0XUJ/logo-veltix-original-3-9m13rOI2pyieOs0M.png",
-        offer:false,
-        prices:{ 1:5, 2:10, 3:15, 6:30, 9:45, 12:60 },
-        rules:["No cambiar correo/contraseña.","Uso según el plan seleccionado.","Soporte por WhatsApp."],
-        faq:[{q:"¿Cuándo entregan?",a:"Entrega inmediata una vez confirmado el pago."},{q:"¿Incluye garantía?",a:"Sí, según el plan y las reglas del producto."}],
-        popularity:80
-      },
-      {
-        id:"veltix_full",
-        name:"📺 Veltix — Cuenta completa",
-        cat:"Cuenta Completa",
-        tag:"Configurar precio",
-        desc:"🛰️3 Dispositivos 🛰️SD /HD/FHD/4K 🛜+1.300 canales con EPG 📡 +17.000 VOD 🔐 VIP Canales 🛡️ Tecnología anticongelante ⏳99.9% Tiempo de actividad del servidor 📎Soporte 24/7.",
-        imageUrl:"https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1440,h=756,fit=crop,f=jpeg/9viQBFCRQqkw0XUJ/logo-veltix-original-3-9m13rOI2pyieOs0M.png",
-        offer:false,
-        prices:{ 1:9,2:18,3:26, 6:50, 9:70, 12:85 },
-        rules:["No cambiar correo/contraseña.","Uso según el plan seleccionado.","Soporte por WhatsApp."],
-        faq:[{q:"¿Cuándo entregan?",a:"Entrega inmediata una vez confirmado el pago."},{q:"¿Incluye garantía?",a:"Sí, según el plan y las reglas del producto."}],
-        popularity:80
-      },
       {
         id:"gravicsotv_3p",
         name:"📺 GRAVICSOTV — 1 Cuenta (3 Dispositivo)",
@@ -1012,10 +993,10 @@ function openLogin(){
         rules:["1 dispositivo solamente.","No compartir accesos fuera de lo permitido.","Soporte por WhatsApp."],
         faq:[{q:"¿Para cuántos dispositivos es?",a:"Para 1 pantalla o dispositivo."},{q:"¿Incluye garantía?",a:"Sí, según el plan y tus reglas de soporte."}],
         popularity:105
-      },
+      }
+    ,
       {
         id:"netflix_perfil",
-        available:false,
         name:"🎬 Netflix — Perfil",
         cat:"1 Dispositivo",
         tag:"Configurar precio",
@@ -1029,7 +1010,6 @@ function openLogin(){
       },
       {
         id:"netflix_full",
-        available:false,
         name:"🎬 Netflix — Cuenta completa",
         cat:"Cuenta Completa",
         tag:"Configurar precio",
@@ -1043,7 +1023,6 @@ function openLogin(){
       },
       {
         id:"disney_perfil",
-        available:false,
         name:"🦊 Disney+ — Perfil",
         cat:"1 Dispositivo",
         tag:"Configurar precio",
@@ -1057,7 +1036,6 @@ function openLogin(){
       },
       {
         id:"disney_full",
-        available:false,
         name:"🦊 Disney+ — Cuenta completa",
         cat:"Cuenta Completa",
         tag:"Configurar precio",
@@ -1071,7 +1049,6 @@ function openLogin(){
       },
       {
         id:"hbomax_perfil",
-        available:false,
         name:"🎞️ HBO Max — Perfil",
         cat:"1 Dispositivo",
         tag:"Configurar precio",
@@ -1085,7 +1062,6 @@ function openLogin(){
       },
       {
         id:"hbomax_full",
-        available:false,
         name:"🎞️ HBO Max — Cuenta completa",
         cat:"Cuenta Completa",
         tag:"Configurar precio",
@@ -1099,7 +1075,6 @@ function openLogin(){
       },
       {
         id:"paramount_perfil",
-        available:false,
         name:"⭐ Paramount+ — Perfil",
         cat:"1 Dispositivo",
         tag:"Configurar precio",
@@ -1113,7 +1088,6 @@ function openLogin(){
       },
       {
         id:"paramount_full",
-        available:false,
         name:"⭐ Paramount+ — Cuenta completa",
         cat:"Cuenta Completa",
         tag:"Configurar precio",
@@ -1124,16 +1098,40 @@ function openLogin(){
         rules:["No cambiar correo/contraseña.","Uso según el plan seleccionado.","Soporte por WhatsApp."],
         faq:[{q:"¿Cuándo entregan?",a:"Entrega inmediata una vez confirmado el pago."},{q:"¿Incluye garantía?",a:"Sí, según el plan y las reglas del producto."}],
         popularity:80
+      },
+      {
+        id:"veltix_perfil",
+        name:"📺 Veltix — Perfil",
+        cat:"1 Dispositivo",
+        tag:"Configurar precio",
+        desc:"VELTIX lo tienes TODO en un solo lugar 🤗 📺 Miles de canales, eventos en vivo de alta calidad 🎬 Películas y series en estreno ⚽ Deportes en vivo y más ⚡Contenido constantemente actualizado 🔥 ⚡Conexión rápida, confiable y a un precio accesible 🙌🏻.",
+        imageUrl:"https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1440,h=756,fit=crop,f=jpeg/9viQBFCRQqkw0XUJ/logo-veltix-original-3-9m13rOI2pyieOs0M.png",
+        offer:false,
+        prices:{ 1:5, 3:15, 6:30, 12:60 },
+        rules:["No cambiar correo/contraseña.","Uso según el plan seleccionado.","Soporte por WhatsApp."],
+        faq:[{q:"¿Cuándo entregan?",a:"Entrega inmediata una vez confirmado el pago."},{q:"¿Incluye garantía?",a:"Sí, según el plan y las reglas del producto."}],
+        popularity:80
+      },
+      {
+        id:"veltix_full",
+        name:"📺 Veltix — Cuenta completa",
+        cat:"Cuenta Completa",
+        tag:"Configurar precio",
+        desc:"🛰️3 Dispositivos 🛰️SD /HD/FHD/4K 🛜+1.300 canales con EPG 📡 +17.000 VOD 🔐 VIP Canales 🛡️ Tecnología anticongelante ⏳99.9% Tiempo de actividad del servidor 📎Soporte 24/7.",
+        imageUrl:"https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1440,h=756,fit=crop,f=jpeg/9viQBFCRQqkw0XUJ/logo-veltix-original-3-9m13rOI2pyieOs0M.png",
+        offer:false,
+        prices:{ 1:9,2:18,3:26, 6:50, 9:70, 12:85 },
+        rules:["No cambiar correo/contraseña.","Uso según el plan seleccionado.","Soporte por WhatsApp."],
+        faq:[{q:"¿Cuándo entregan?",a:"Entrega inmediata una vez confirmado el pago."},{q:"¿Incluye garantía?",a:"Sí, según el plan y las reglas del producto."}],
+        popularity:80
       }
-      
     ];
 
     const DEFAULT_COUPONS = [
       { code:"LATIN", type:"PERCENT", value:10, min:0, category:"ALL", active:true },
-      { code:"AMISTAD", type:"PERCENT", value:23, min:0, category:"ALL", active:true },
-      { code:"Amistad", type:"PERCENT", value:23, min:0, category:"ALL", active:true },
+      { code:"CUPIDO", type:"PERCENT", value:15, min:0, category:"ALL", active:true },
+      { code:"Cupido", type:"PERCENT", value:15, min:0, category:"ALL", active:true },
       { code:"MUNDIAL26", type:"PERCENT", value:20, min:0, category:"ALL", active:true },
-      { code:"Cliente", type:"PERCENT", value:20, min:0, category:"ALL", active:true },
       { code:"3X2", type:"BOGO", value:0, min:800, category:"ALL", active:true }
     ];
 
@@ -1163,8 +1161,8 @@ function openLogin(){
 
 
     let cfg=loadCfg();
-    let products = normalizeProducts(loadProducts());
-      let coupons=loadCoupons();
+    let products=loadProducts();
+    let coupons=loadCoupons();
 
     let currency="USD";
     let query="", activeCat=null, onlyOffers=false, sortMode="popular";
@@ -1174,6 +1172,9 @@ function openLogin(){
 
     // Métodos: lafise, banpro_movil, promerica, airtm, binance, paypal, sinpe_cr
     let payMethod="lafise";
+    let paypalSdkPromise=null;
+    let paypalButtonsReady=false;
+    let paypalLastCapture=null; // {orderID,captureID,status}
 
     let appliedCoupon=null;
 
@@ -1215,13 +1216,6 @@ function openLogin(){
         return {...DEFAULTS};
       }
     }
-    function normalizeProducts(list){
-      return (list||[]).map(p=>{
-        if(typeof p.available==="undefined") p.available = true;
-        return p;
-      });
-    }
-
     function loadProducts(){
       try{
         const saved = JSON.parse(localStorage.getItem(K_PRODUCTS)||"null");
@@ -1481,7 +1475,6 @@ function openLogin(){
             <div class="thumb" style="${p.imageUrl?`background-image: linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.45)), url(\'${escUrl(p.imageUrl)}\')`:''}">
               <div class="tag">${escapeHtml(p.cat)} • ${escapeHtml(p.tag||"")}</div>
               ${p.offer?`<div class="offer-badge">⭐ Oferta</div>`:""}
-              ${p.available===false?`<div class="soldout-badge">⛔ Agotado</div>`:""}
             </div>
             <div class="body">
               <div class="title">${escapeHtml(p.name)}</div>
@@ -1574,14 +1567,8 @@ function openLogin(){
       $("#prodRules").innerHTML=(p.rules||[]).map(r=>`<li>${escapeHtml(r)}</li>`).join("") || "<li class='tiny'>Sin reglas configuradas.</li>";
       $("#prodFaq").innerHTML=(p.faq||[]).map(f=>`<li><b>${escapeHtml(f.q)}</b> — ${escapeHtml(f.a)}</li>`).join("") || "<li class='tiny'>Sin FAQ.</li>";
 
-      const _sold = (selectedProduct && selectedProduct.available===false);
-      const _addBtn = $("#btnAddSelected");
-      const _buyBtn = $("#btnBuyNow");
-      if(_addBtn){ _addBtn.disabled = _sold; _addBtn.textContent = _sold ? "Agotado" : "Añadir al carrito"; }
-      if(_buyBtn){ _buyBtn.disabled = _sold; }
-
-      $("#btnAddSelected").onclick=()=>{ addToCart(pid,selectedDuration,1); if(!_sold) toast("Añadido ✅"); };
-      $("#btnBuyNow").onclick=()=>{ addToCart(pid,selectedDuration,1); if(!_sold) openCart(); };
+      $("#btnAddSelected").onclick=()=>{ addToCart(pid,selectedDuration,1); toast("Añadido ✅"); };
+      $("#btnBuyNow").onclick=()=>{ addToCart(pid,selectedDuration,1); openCart(); };
 
       showModal("#overlayProduct");
     }
@@ -1589,8 +1576,6 @@ function openLogin(){
 
     // CART
     function addToCart(pid,dur,qty){
-      const p=products.find(x=>x.id===pid);
-      if(p && p.available===false){ toast("Agotado ❌"); return; }
       const k=keyFor(pid,dur);
       cart.set(k,(cart.get(k)||0)+qty);
       updateCartBadge();
@@ -1667,8 +1652,10 @@ function openLogin(){
     function setPayPaneCollapsed(collapsed){
       payPaneCollapsed = collapsed;
       const body = $("#payPaneBody");
+      const wrap = $("#paypalButtonsWrap");
       const btn = $("#btnTogglePayPane");
       body.style.display = collapsed ? "none" : "block";
+      if(wrap) wrap.style.display = (collapsed || payMethod!=="paypal") ? "none" : "block";
       btn.textContent = collapsed ? "Ver datos" : "Ocultar datos";
     }
 
@@ -1731,11 +1718,155 @@ function openLogin(){
       renderCart();
     }
 
+
+    // =========================
+    // PayPal Checkout REAL (botones)
+    // Requiere: cfg.PAYPAL_CLIENT_ID (público) y cfg.PAYPAL_WORKER_URL (tu Worker)
+    // =========================
+    function ensurePayPalSdkLoaded(){
+      if(paypalSdkPromise) return paypalSdkPromise;
+
+      // Validación mínima
+      if(!cfg.PAYPAL_CLIENT_ID || !cfg.PAYPAL_WORKER_URL){
+        const msg = "Falta configurar PAYPAL_CLIENT_ID o PAYPAL_WORKER_URL en Admin.";
+        $("#paypalStatus").style.display="block";
+        $("#paypalStatus").textContent = msg;
+        return Promise.reject(new Error(msg));
+      }
+
+      paypalSdkPromise = new Promise((resolve, reject)=>{
+        // Si ya existe
+        if(window.paypal && window.paypal.Buttons){
+          resolve(window.paypal);
+          return;
+        }
+        const s=document.createElement("script");
+        const params = new URLSearchParams({
+          "client-id": cfg.PAYPAL_CLIENT_ID,
+          "currency": "USD",
+          "intent": "capture",
+          "components": "buttons"
+        });
+        s.src = "https://www.paypal.com/sdk/js?" + params.toString();
+        s.async = true;
+        s.onload = ()=> resolve(window.paypal);
+        s.onerror = ()=> reject(new Error("No se pudo cargar el SDK de PayPal."));
+        document.head.appendChild(s);
+      });
+
+      return paypalSdkPromise;
+    }
+
+    async function initPayPalButtons(){
+      if(payMethod !== "paypal") return;
+
+      // Respeta panel colapsado
+      if(typeof payPaneCollapsed !== "undefined" && payPaneCollapsed){
+        return;
+      }
+
+      const wrap = $("#paypalButtonsWrap");
+      const status = $("#paypalStatus");
+      wrap.style.display = "block";
+
+      // Evitar render duplicado
+      if(paypalButtonsReady) return;
+
+      try{
+        const paypal = await ensurePayPalSdkLoaded();
+
+        // Limpia cualquier render anterior
+        $("#paypalButtons").innerHTML = "";
+
+        paypal.Buttons({
+          style: { layout: "vertical" },
+          createOrder: async () => {
+            status.style.display="none";
+
+            // Total en USD (incluye comisión PayPal que ya calculas en el carrito)
+            const sub = subtotalUSD();
+            const c = applyCouponToTotals(sub);
+            const base = round2(Math.max(0, sub - c.discount));
+            const fee = round2(base * 0.054 + 0.30);
+            const total = round2(base + fee);
+
+            const resp = await fetch(cfg.PAYPAL_WORKER_URL.replace(/\/+$/,"") + "/create-order", {
+              method: "POST",
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify({ amount: total, currency: "USD" })
+            });
+            if(!resp.ok){
+              const t = await resp.text();
+              throw new Error("create-order falló: " + t);
+            }
+            const data = await resp.json();
+            if(!data || !data.id) throw new Error("Respuesta inválida de create-order.");
+            return data.id;
+          },
+          onApprove: async (data) => {
+            const resp = await fetch(cfg.PAYPAL_WORKER_URL.replace(/\/+$/,"") + "/capture-order", {
+              method: "POST",
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify({ orderID: data.orderID })
+            });
+            if(!resp.ok){
+              const t = await resp.text();
+              throw new Error("capture-order falló: " + t);
+            }
+            const cap = await resp.json();
+
+            // Intenta extraer capture id (según estructura de PayPal)
+            const captureID =
+              cap?.purchase_units?.[0]?.payments?.captures?.[0]?.id
+              || cap?.id
+              || data.orderID;
+
+            paypalLastCapture = { orderID: data.orderID, captureID, status: "captured" };
+
+            // Auto-llenado en Validación
+            $("#paidAmount").value = String(cap?.purchase_units?.[0]?.payments?.captures?.[0]?.amount?.value || "");
+            $("#txRef").value = String(captureID).slice(0, 20); // no forzamos 5 dígitos en PayPal, solo referencia
+
+            toast("Pago PayPal capturado ✅ Ahora valida y envía la orden.");
+          },
+          onError: (err) => {
+            status.style.display="block";
+            status.textContent = "Error PayPal: " + (err?.message || err);
+          },
+          onCancel: () => {
+            status.style.display="block";
+            status.textContent = "Pago cancelado. Puedes intentar de nuevo.";
+          }
+        }).render("#paypalButtons");
+
+        paypalButtonsReady = true;
+      }catch(err){
+        status.style.display="block";
+        status.textContent = err?.message || String(err);
+      }
+    }
+
     function updatePayUI(){
       const txt = payMethodInstructions() || "Configura los datos de pago en Admin.";
       $("#payHint").textContent = "📌 Toca “Ver datos” o abre la pestaña “Datos de pago”.";
       $("#payPaneTitle").textContent = payMethodLabel();
-      $("#payPaneBody").textContent = txt;
+
+      // Instrucciones (texto)
+      const body = $("#payPaneBody");
+      body.textContent = txt;
+
+      // PayPal (botones reales)
+      const wrap = $("#paypalButtonsWrap");
+      const status = $("#paypalStatus");
+      if(wrap){
+        if(payMethod === "paypal"){
+          wrap.style.display = "block";
+          initPayPalButtons();
+        } else {
+          wrap.style.display = "none";
+          status.style.display = "none";
+        }
+      }
     }
 
     function renderPayPane(){
@@ -2018,7 +2149,9 @@ function openLogin(){
       const txRef   = $("#txRef").value.trim();
 
       const {discount,note}=applyCouponToTotals(sub);
-      const total=Math.round(Math.max(0, (sub-discount))*100)/100;
+      const baseTotal = round2(Math.max(0, (sub-discount)));
+      const paypalFee = (payMethod==="paypal") ? round2(baseTotal*0.054 + 0.30) : 0;
+      const total = round2(baseTotal + paypalFee);
 
       const lines=[];
       lines.push(`✅ *Nuevo Pedido* — *${cfg.STORE_NAME}*`);
@@ -2063,6 +2196,7 @@ function openLogin(){
       lines.push(``);
       lines.push(`Subtotal: ${formatMoney(sub)} (${currency})`);
       if(discount) lines.push(`Descuento: -${formatMoney(discount)} (${currency})`);
+      if(paypalFee) lines.push(`Comisión PayPal: +${formatMoney(paypalFee)} (${currency})`);
       if(appliedCoupon) lines.push(`Cupón: ${appliedCoupon.code}${note?` (${note})`:""}`);
       lines.push(`✅ TOTAL: *${formatMoney(total)}* (${currency})`);
 
@@ -2135,7 +2269,6 @@ function openLogin(){
       $("#aDesc").value=p.desc||"";
       $("#aImg").value=p.imageUrl||"";
       $("#aOffer").value=String(!!p.offer);
-      const av=$("#aAvail"); if(av) av.value=String(p.available!==false);
 
       $("#p1m").value=productPriceUSD(p,1);
       $("#p2m").value=productPriceUSD(p,2);
@@ -2162,7 +2295,6 @@ function openLogin(){
       p.desc=$("#aDesc").value.trim();
       p.imageUrl=$("#aImg").value.trim();
       p.offer=$("#aOffer").value==="true";
-      const av=$("#aAvail"); if(av) p.available = (av.value==="true");
 
       p.prices={1:Number($("#p1m").value||0),2:Number($("#p2m").value||0),3:Number($("#p3m").value||0),6:Number($("#p6m").value||0),9:Number($("#p9m").value||0),12:Number($("#p12m").value||0),18:Number($("#p18m").value||0),24:Number($("#p24m").value||0)};
       p.rules=($("#aRules").value||"").split("\n").map(s=>s.trim()).filter(Boolean);
