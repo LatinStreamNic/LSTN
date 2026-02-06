@@ -1787,7 +1787,7 @@ function openLogin(){
             const sub = subtotalUSD();
             const c = applyCouponToTotals(sub);
             const base = round2(Math.max(0, sub - c.discount));
-            const fee = round2(base * 0.054 + 0.30);
+            const fee = round2(base * 0.059 + 0.30);
             const total = round2(base + fee);
 
             const resp = await fetch(cfg.PAYPAL_WORKER_URL.replace(/\/+$/,"") + "/create-order", {
@@ -1933,10 +1933,10 @@ function openLogin(){
       // Total base (USD) antes de comisiones
       const baseTotal=round2(Math.max(0, sub-discount));
 
-      // Comisión PayPal: 5.4% + $0.30 (USD) cuando el método seleccionado es PayPal
+      // Comisión PayPal: 5.9% + $0.30 (USD) cuando el método seleccionado es PayPal
       let paypalFee=0;
       if(payMethod==="paypal" && baseTotal>0){
-        paypalFee = round2(baseTotal*0.054 + 0.30);
+        paypalFee = round2(baseTotal*0.059 + 0.30);
       }
 
       const total=round2(baseTotal + paypalFee);
