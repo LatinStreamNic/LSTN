@@ -2150,7 +2150,7 @@ function openLogin(){
 
       const {discount,note}=applyCouponToTotals(sub);
       const baseTotal = round2(Math.max(0, (sub-discount)));
-      const paypalFee = (payMethod==="paypal") ? round2(baseTotal*0.054 + 0.30) : 0;
+      const paypalFee = (payMethod==="paypal") ? round2(baseTotal*0.059 + 0.30) : 0;
       const total = round2(baseTotal + paypalFee);
 
       const lines=[];
