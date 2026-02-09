@@ -332,6 +332,33 @@
   #btnAdmin, #btnTheme{display:none!important}
 }
 
+
+/* ===== Checkout Wizard (5 pasos) ===== */
+#wizardHeader{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.wizardProgress{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.wizStep{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:10px 10px;border-radius:14px;border:1px solid var(--border);
+  background:rgba(255,255,255,.03);cursor:pointer;font-weight:900;font-size:12px;color:var(--muted);
+}
+[data-theme="light"] .wizStep{background:rgba(11,18,32,.03)}
+.wizStep.active{color:var(--text);border-color:rgba(79,124,255,.45);background:rgba(79,124,255,.12)}
+.wizStep.done{color:var(--text);border-color:rgba(34,197,94,.35);background:rgba(34,197,94,.10)}
+.wizStep.locked{opacity:.55;cursor:not-allowed}
+.wizDot{width:22px;height:22px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--border);font-size:12px;color:var(--muted);background:rgba(0,0,0,.10)}
+.wizStep.active .wizDot{border-color:rgba(79,124,255,.45);color:var(--text);background:rgba(79,124,255,.18)}
+.wizStep.done .wizDot{border-color:rgba(34,197,94,.35);color:var(--text);background:rgba(34,197,94,.18)}
+.wizardMeta{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.wizardMeta b{color:var(--text)}
+.wizardNav{
+  position:sticky;bottom:0;z-index:1;
+  margin-top:12px;padding-top:12px;
+  border-top:1px solid var(--border);
+  display:flex;gap:10px;align-items:center;background:inherit;
+}
+#wizardSteps .wizard-step{display:none}
+#wizardSteps .wizard-step.active{display:block}
+
 </style>
 </head>
 
@@ -516,6 +543,14 @@
             <button class="btn success" id="btnBuyNow">Comprar ahora</button>
           </div>
         </div>
+
+        </div><!-- /#wizardSteps -->
+
+        <div class="wizardNav" id="wizardNav">
+          <button class="btn" id="btnPrevStep" type="button">← Anterior</button>
+          <div style="flex:1"></div>
+          <button class="btn primary" id="btnNextStep" type="button">Siguiente →</button>
+        </div>
       </div>
     </div>
   </div>
@@ -533,8 +568,24 @@
           Sigue los pasos: Carrito → Método de pago → Validación → Datos del cliente → Realizar orden.
         </div>
 
-        <!-- 1) CARRITO -->
-        <div class="info" id="stepCart">
+        
+        <div id="wizardHeader">
+          <div class="wizardProgress" id="wizardProgress" aria-label="Progreso de checkout">
+            <button type="button" class="wizStep" data-wiz="0"><span class="wizDot">1</span><span>Carrito</span></button>
+            <button type="button" class="wizStep" data-wiz="1"><span class="wizDot">2</span><span>Pago</span></button>
+            <button type="button" class="wizStep" data-wiz="2"><span class="wizDot">3</span><span>Validación</span></button>
+            <button type="button" class="wizStep" data-wiz="3"><span class="wizDot">4</span><span>Cliente</span></button>
+            <button type="button" class="wizStep" data-wiz="4"><span class="wizDot">5</span><span>Orden</span></button>
+          </div>
+          <div class="wizardMeta tiny">
+            <span id="wizardMetaText">Paso 1 de 5</span>
+            <span class="kbd" id="wizardMetaHint">Completa este paso para continuar</span>
+          </div>
+        </div>
+
+        <div id="wizardSteps">
+<!-- 1) CARRITO -->
+        <div class="info wizard-step" id="stepCart">
           <b>1. Carrito</b>
           <div class="divider"></div>
           <div id="cartItems"></div>
@@ -545,16 +596,25 @@
           <div class="rowline"><span>Descuento</span><strong id="discount">$0.00</strong></div>
           <div class="rowline" id="paypalFeeRow" style="display:none"><span>Comisión PayPal</span><strong id="paypalFee">$0.00</strong></div>
           <div class="rowline"><span>Total</span><strong id="total">$0.00</strong></div>
+          <div class="divider"></div>
+          <b>Cupones</b>
+          <div class="field" style="margin-top:8px">
+            <label for="coupon">Código</label>
+            <input id="coupon" class="input" placeholder="Ej: PROMO10 o LATIN" />
+            <div class="error" id="couponErr"></div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+              <button class="btn small" id="btnApplyCoupon" type="button">Aplicar</button>
+              <button class="btn small" id="btnRemoveCoupon" type="button">Quitar cupón</button>
+            </div>
+            <p class="tiny">Los cupones se pueden editar en Admin.</p>
+          </div>
+
         </div>
 
         <!-- 2) MÉTODOS DE PAGO -->
-        <div class="info" id="panelCompra" data-step="pay">
+        <div class="info wizard-step" id="panelCompra" data-step="pay">
           <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
             <b>2. Métodos de Pago</b>
-            <div class="tabs" id="checkoutTabs">
-              <div class="tab active" data-pane="pay">Datos de pago</div>
-              <div class="tab" data-pane="coupon">Cupones</div>
-            </div>
           </div>
 
           <div class="divider"></div>
@@ -573,8 +633,7 @@
               <div style="display:flex;gap:10px;flex-wrap:wrap">
                 <button class="btn small" id="btnTogglePayPane">Ocultar datos</button>
                 <button class="btn small" id="btnCopyPay">Copiar datos</button>
-                <button class="btn small" id="btnGoCoupons">Ir a cupones</button>
-              </div>
+</div>
             </div>
 
             <div class="mutedBox pre" id="payPaneBody" style="margin-top:10px"></div>
@@ -589,27 +648,8 @@
               💡 Tip: llena “Monto pagado” y “Referencia/ID” para validar más rápido.
             </div>
           </div>
-
-          <!-- COUPON PANE -->
-          <div id="paneCoupon" style="display:none">
-            <div class="field" style="margin-top:0">
-              <label for="coupon">Código</label>
-              <input id="coupon" class="input" placeholder="Ej: PROMO10 o LATIN" />
-              <div class="error" id="couponErr"></div>
-              <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
-                <button class="btn small" id="btnApplyCoupon">Aplicar</button>
-                <button class="btn small" id="btnRemoveCoupon">Quitar cupón</button>
-              </div>
-              <p class="tiny">Los cupones se pueden editar en Admin.</p>
-            </div>
-
-            <div class="divider"></div>
-            <button class="btn small" id="btnGoPay">Volver a datos de pago</button>
-          </div>
-        </div>
-
-        <!-- 3) VALIDACIÓN DE PAGO -->
-        <div class="info" id="stepValidation">
+<!-- 3) VALIDACIÓN DE PAGO -->
+        <div class="info wizard-step" id="stepValidation">
           <b>3. Validación de pago</b>
           <div class="divider"></div>
 
@@ -659,7 +699,7 @@
         </div>
 
         <!-- 4) DATOS DEL CLIENTE -->
-        <div class="info" id="stepCustomer">
+        <div class="info wizard-step" id="stepCustomer">
           <b>4. Datos del Cliente</b>
           <div class="divider"></div>
 
@@ -698,7 +738,7 @@
         </div>
 
         <!-- 5) REALIZAR ORDEN -->
-        <div class="info" id="stepOrder">
+        <div class="info wizard-step" id="stepOrder">
           <b>5. Realizar orden</b>
           <div class="divider"></div>
 
@@ -1880,9 +1920,12 @@ function openLogin(){
     function setCheckoutPane(pane){
       checkoutPane=pane;
       $$("#checkoutTabs .tab").forEach(t=>t.classList.toggle("active", t.dataset.pane===pane));
-      $("#panePay").style.display = pane==="pay" ? "block" : "none";
-      $("#paneCoupon").style.display = pane==="coupon" ? "block" : "none";
+      const panePay = $("#panePay");
+      if(panePay) panePay.style.display = pane==="pay" ? "block" : "none";
+      const paneCoupon = $("#paneCoupon");
+      if(paneCoupon) paneCoupon.style.display = pane==="coupon" ? "block" : "none";
     }
+
 
     async function copyPayData(){
       const text = `${payMethodLabel()}\n\n${payMethodInstructions()}`;
@@ -2501,8 +2544,10 @@ $("#btnOffers").addEventListener("click",()=>{
       $$("#checkoutTabs .tab").forEach(t=>{
         t.addEventListener("click", ()=>setCheckoutPane(t.dataset.pane));
       });
-      $("#btnGoCoupons").addEventListener("click", ()=>setCheckoutPane("coupon"));
-      $("#btnGoPay").addEventListener("click", ()=>setCheckoutPane("pay"));
+      const _goCoupons = $("#btnGoCoupons");
+      if(_goCoupons) _goCoupons.addEventListener("click", ()=>setCheckoutPane("coupon"));
+      const _goPay = $("#btnGoPay");
+      if(_goPay) _goPay.addEventListener("click", ()=>setCheckoutPane("pay"));
       $("#btnCopyPay").addEventListener("click", copyPayData);
 
       // #1: Toggle ver/ocultar panel de datos de pago
@@ -2532,6 +2577,9 @@ $("#btnOffers").addEventListener("click",()=>{
           if(e.target===ov) hideModal(sel);
         });
       });
+
+      // Wizard (Checkout)
+      try{ initCheckoutWizard(); }catch(e){}
 
       // Inicializar pestaña y pagos
       setCheckoutPane("pay");
@@ -2563,7 +2611,179 @@ $("#btnOffers").addEventListener("click",()=>{
     function showLegal(){ showSection("legal"); }
     function showSoporte(){ showSection("soporte"); }
 
-function openCart(){
+    // ===== Checkout Wizard (5 pasos) =====
+    const WIZ = {
+      steps: ["stepCart","panelCompra","stepValidation","stepCustomer","stepOrder"],
+      labels: ["Carrito","Método de pago","Validación de pago","Datos del cliente","Realizar orden"],
+      idx: 0
+    };
+
+    function validateStep(i){
+      // 0) Carrito
+      if(i===0){
+        const sub=subtotalUSD();
+        if(sub<=0){ toast("Agrega productos primero."); return false; }
+        return true;
+      }
+      // 1) Método de pago
+      if(i===1){
+        if(!payMethod){ toast("Selecciona un método de pago."); return false; }
+        return true;
+      }
+      // 2) Validación de pago (solo pago)
+      if(i===2){
+        let ok=true;
+        const req = payRequiresProof();
+
+        // comprobante requerido según método
+        if(req && !proof.dataUrl){
+          $("#eProof").style.display="block";
+          ok=false;
+        } else $("#eProof").style.display="none";
+
+        // monto + ref: SIEMPRE requeridos (todos los métodos)
+        const paid = Number($("#paidAmount").value || 0);
+        const ref  = $("#txRef").value.trim();
+
+        $("#ePaid").style.display = (paid>0) ? "none" : "block";
+        $("#eTxRef").style.display = ref ? "none" : "block";
+
+        if(!(paid>0)) ok=false;
+        if(!ref) ok=false;
+
+        if(!ok) toast("Completa la validación de pago.");
+        return ok;
+      }
+      // 3) Datos del cliente (solo cliente)
+      if(i===3){
+        let ok=true;
+        const name=$("#cName").value.trim();
+        const phone=$("#cPhone").value.trim();
+        const email=$("#cEmail").value.trim();
+
+        $("#eName").style.display=name?"none":"block";
+        $("#ePhone").style.display=phone?"none":"block";
+
+        if(!name) ok=false;
+        if(!phone) ok=false;
+
+        if(email){
+          const valid=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+          $("#eEmail").style.display=valid?"none":"block";
+          if(!valid) ok=false;
+        } else $("#eEmail").style.display="none";
+
+        if(!ok) toast("Completa los datos del cliente.");
+        return ok;
+      }
+      // 4) Realizar orden
+      if(i===4){
+        // Aquí validamos TODO para no romper tu lógica actual
+        const ok = validateCheckout();
+        if(!ok) toast("Revisa los campos marcados.");
+        return ok;
+      }
+      return true;
+    }
+
+    function wizardRender(){
+      const stepsWrap=$("#wizardSteps");
+      if(!stepsWrap) return;
+
+      // show active panel
+      WIZ.steps.forEach((id, i)=>{
+        const el=$("#"+id);
+        if(!el) return;
+        el.classList.toggle("active", i===WIZ.idx);
+      });
+
+      // progress buttons
+      const btns = $$("#wizardProgress .wizStep");
+      btns.forEach((b)=>{
+        const i = Number(b.dataset.wiz||0);
+        b.classList.toggle("active", i===WIZ.idx);
+
+        // done si todos los pasos anteriores son válidos (evaluación conservadora)
+        let done=true;
+        for(let k=0;k<i;k++){ if(!validateStep(k)){ done=false; break; } }
+        b.classList.toggle("done", done && i!==WIZ.idx);
+
+        // bloquear saltos hacia adelante si los previos no están ok
+        let unlocked=true;
+        for(let k=0;k<i;k++){ if(!validateStep(k)){ unlocked=false; break; } }
+        b.classList.toggle("locked", i>WIZ.idx && !unlocked);
+      });
+
+      // meta
+      const meta=$("#wizardMetaText");
+      const hint=$("#wizardMetaHint");
+      if(meta) meta.textContent = `Paso ${WIZ.idx+1} de 5 — ${WIZ.labels[WIZ.idx]}`;
+      if(hint){
+        hint.textContent =
+          (WIZ.idx===0) ? "Agrega/ajusta tus productos" :
+          (WIZ.idx===1) ? "Elige el método y copia datos si aplica" :
+          (WIZ.idx===2) ? "Ingresa monto y referencia (y comprobante si aplica)" :
+          (WIZ.idx===3) ? "Nombre y WhatsApp son obligatorios" :
+          "Revisa y finaliza";
+      }
+
+      // nav buttons
+      const prev=$("#btnPrevStep"), next=$("#btnNextStep");
+      if(prev) prev.disabled = (WIZ.idx===0);
+      if(next){
+        next.style.display = (WIZ.idx===4) ? "none" : "inline-flex";
+        next.disabled = false;
+      }
+
+      // asegurar UI de comprobante correcta
+      try{ updateProofRequirementsUI(); }catch(e){}
+    }
+
+    function wizardGo(i){
+      i = Math.max(0, Math.min(4, i));
+      WIZ.idx = i;
+      wizardRender();
+      // scroll al inicio del modal content
+      try{
+        const c = $("#overlayCart .modal .content");
+        if(c) c.scrollTop = 0;
+      }catch(e){}
+    }
+
+    function wizardNext(){
+      if(!validateStep(WIZ.idx)) return;
+      wizardGo(WIZ.idx+1);
+    }
+    function wizardPrev(){ wizardGo(WIZ.idx-1); }
+
+    function initCheckoutWizard(){
+      const prev=$("#btnPrevStep"), next=$("#btnNextStep");
+      if(prev) prev.addEventListener("click", wizardPrev);
+      if(next) next.addEventListener("click", wizardNext);
+
+      // clicks en progreso: permite volver libremente; para avanzar, exige validación previa
+      $$("#wizardProgress .wizStep").forEach(b=>{
+        b.addEventListener("click", ()=>{
+          const i = Number(b.dataset.wiz||0);
+          if(i<=WIZ.idx){ wizardGo(i); return; }
+          for(let k=0;k<i;k++){
+            if(!validateStep(k)){ wizardGo(k); return; }
+          }
+          wizardGo(i);
+        });
+      });
+
+      // Re-render wizard cuando cambian datos clave
+      ["paidAmount","txRef","cName","cPhone","cEmail"].forEach(id=>{
+        const el=$("#"+id); if(!el) return;
+        el.addEventListener("input", ()=>{ try{ wizardRender(); }catch(e){} });
+      });
+
+      wizardGo(0);
+    }
+
+
+     function openCart(){
       renderCart();
       renderPayMethods();
       showModal("#overlayCart");
