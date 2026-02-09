@@ -456,9 +456,9 @@
 }
 
 
-/* ===== Checkout Wizard (5 pasos) ===== */
+/* ===== Checkout Wizard (6 pasos, incluye 2.5) ===== */
 #wizardHeader{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
-.wizardProgress{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.wizardProgress{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
 .wizStep{
   display:flex;align-items:center;justify-content:center;gap:8px;
   padding:10px 10px;border-radius:14px;border:1px solid var(--border);
@@ -892,6 +892,84 @@ body.modal-open{
 /* ===== Wizard cleanup: remove Previous / Next buttons ===== */
 #btnPrevStep, #btnNextStep { display:none !important; }
 
+
+/* ================================
+   ANIMACIONES ELEGANTES (TARJETAS)
+   ================================ */
+
+/* Base motion */
+.card{
+  transition:
+    transform .22s cubic-bezier(.2,.8,.2,1),
+    box-shadow .22s ease,
+    border-color .22s ease;
+  will-change: transform;
+
+  /* entrada */
+  opacity:0;
+  transform: translateY(14px);
+  animation: cardIn .45s ease forwards;
+}
+
+@keyframes cardIn{
+  to{ opacity:1; transform: translateY(0); }
+}
+
+/* Hover elegante (desktop) */
+.card:hover{
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 22px 60px rgba(0,0,0,.45);
+  border-color: rgba(79,124,255,.45);
+}
+
+/* Focus (teclado) */
+.card:focus-within{
+  outline:none;
+  transform: translateY(-4px);
+  border-color: rgba(79,124,255,.55);
+}
+
+/* Touch devices: sin salto */
+@media (hover:none){
+  .card:hover{
+    transform:none;
+    box-shadow:0 12px 40px rgba(0,0,0,.22);
+  }
+}
+
+/* Thumbnail con profundidad */
+.thumb{
+  transition: transform .35s ease, filter .35s ease;
+}
+.card:hover .thumb{
+  transform: scale(1.05);
+  filter: brightness(1.05);
+}
+
+/* Botones: micro-feedback */
+.card .actions .btn{
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.card .actions .btn:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(0,0,0,.25);
+}
+.card .actions .btn:active{
+  transform: scale(.97);
+}
+
+/* Feedback táctil */
+.card:active{ transform: scale(.985); }
+
+/* Accesibilidad */
+@media (prefers-reduced-motion: reduce){
+  .card, .card *{
+    animation:none!important;
+    transition:none!important;
+  }
+}
+
+
 </style>
 </head>
 
@@ -1113,12 +1191,13 @@ body.modal-open{
           <div class="wizardProgress" id="wizardProgress" aria-label="Progreso de checkout">
             <button type="button" class="wizStep" data-wiz="0"><span class="wizDot">1</span><span>Carrito</span></button>
             <button type="button" class="wizStep" data-wiz="1"><span class="wizDot">2</span><span>Pago</span></button>
-            <button type="button" class="wizStep" data-wiz="2"><span class="wizDot">3</span><span>Validación</span></button>
-            <button type="button" class="wizStep" data-wiz="3"><span class="wizDot">4</span><span>Cliente</span></button>
-            <button type="button" class="wizStep" data-wiz="4"><span class="wizDot">5</span><span>Orden</span></button>
+            <button type="button" class="wizStep" data-wiz="2"><span class="wizDot">2.5</span><span>Método</span></button>
+            <button type="button" class="wizStep" data-wiz="3"><span class="wizDot">3</span><span>Validación</span></button>
+            <button type="button" class="wizStep" data-wiz="4"><span class="wizDot">4</span><span>Cliente</span></button>
+            <button type="button" class="wizStep" data-wiz="5"><span class="wizDot">5</span><span>Orden</span></button>
           </div>
           <div class="wizardMeta tiny">
-            <span id="wizardMetaText">Paso 1 de 5</span>
+            <span id="wizardMetaText">Paso 1 de 6</span>
             <span class="kbd" id="wizardMetaHint">Completa este paso para continuar</span>
           </div>
         </div>
@@ -1166,6 +1245,17 @@ body.modal-open{
           <div class="divider"></div>
 
           <!-- PAY PANE -->
+          <!-- (2.5) Método seleccionado se muestra en el siguiente paso del wizard -->
+
+        </div>
+
+        <!-- 2.5) MÉTODO SELECCIONADO -->
+        <div class="info wizard-step" id="stepPayDetails">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
+            <b>2.5. Método seleccionado</b>
+          </div>
+          <div class="divider"></div>
+          <div class="tiny" style="margin-bottom:8px">Revisa/copias los datos del método antes de pagar.</div>
           <div id="panePay">
             <div class="tiny">Método seleccionado:</div>
             <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:6px">
@@ -1189,6 +1279,7 @@ body.modal-open{
             </div>
           </div>
         </div>
+
 <!-- 3) VALIDACIÓN DE PAGO -->
         <div class="info wizard-step" id="stepValidation">
           <b>3. Validación de pago</b>
@@ -1484,8 +1575,8 @@ body.modal-open{
       PAY_LAFISE: "Banco Lafise Bancentro\n👤Usuario: Wainer Abraham Calderón Ampie\n💰 N° de la Cuenta Dólares: 119288048\n💰 N° de la Cuenta Córdoba: 134056181 \nSubir comprobante/Para Validar el Pago.",
       PAY_BANPRO_MOVIL: "Bampro / Billetera Movil\n👤Usuario: Wainer Abraham Calderón Ampie\n💰 N° de la Cuenta: 88342164 \nSubir comprobante/Para Validar el Pago.",
       PAY_PROMERICA: "Banco Grupo Promerica Bampro\n👤Usuario: Wainer Abraham Calderón Ampie\n💰 N° de la Cuenta Córdoba: 10021500520667 \nSubir comprobante/Para Validar el Pago.",
-      PAY_AIRTM: "",
-      PAY_BINANCE: "",
+      PAY_AIRTM: "SIN DATOS PARA MOSTRAR",
+      PAY_BINANCE: "SIN DATOS PARA MOSTRAR",
       PAY_PAYPAL: "Una vez realizado el pago via Paypal, Regresa a Validar el Pago",
       PAY_SINPE_CR: "Sinpe Movil CRC\n👤Usuario: Alvaro Josué Calderón ampie\n💰 N° de la Cuenta: 7041-8428 \nSubir comprobante/Para Validar el Pago."
     };
@@ -1612,7 +1703,7 @@ function openLogin(){
         desc:"Producto listo para vender. Ajusta precios en Adm según tu lista.",
         imageUrl:"https://m.media-amazon.com/images/I/31JfJ6dXD9L.png",
         offer:false,
-        prices:{ 1:5, 3:0, 6:0, 12:0 },
+        prices:{ 1:0, 3:0, 6:0, 12:0 },
         rules:["No cambiar correo/contraseña.","Uso según el plan seleccionado.","Soporte por WhatsApp."],
         faq:[{q:"¿Cuándo entregan?",a:"Entrega inmediata una vez confirmado el pago."},{q:"¿Incluye garantía?",a:"Sí, según el plan y las reglas del producto."}],
         popularity:80
@@ -1625,7 +1716,7 @@ function openLogin(){
         desc:"Producto listo para vender. Ajusta precios en Adm según tu lista.",
         imageUrl:"https://m.media-amazon.com/images/I/31JfJ6dXD9L.png",
         offer:false,
-        prices:{ 1:15, 3:0, 6:0, 12:0 },
+        prices:{ 1:0, 3:0, 6:0, 12:0 },
         rules:["No cambiar correo/contraseña.","Uso según el plan seleccionado.","Soporte por WhatsApp."],
         faq:[{q:"¿Cuándo entregan?",a:"Entrega inmediata una vez confirmado el pago."},{q:"¿Incluye garantía?",a:"Sí, según el plan y las reglas del producto."}],
         popularity:80
@@ -1638,7 +1729,7 @@ function openLogin(){
         desc:"Producto listo para vender. Ajusta precios en Adm según tu lista.",
         imageUrl:"https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2023/05/disney-plus-logo_1.jpg?fit=1200%2C675&quality=70&strip=all&ssl=1",
         offer:false,
-        prices:{ 1:5, 3:0, 6:0, 12:0 },
+        prices:{ 1:0, 3:0, 6:0, 12:0 },
         rules:["No cambiar correo/contraseña.","Uso según el plan seleccionado.","Soporte por WhatsApp."],
         faq:[{q:"¿Cuándo entregan?",a:"Entrega inmediata una vez confirmado el pago."},{q:"¿Incluye garantía?",a:"Sí, según el plan y las reglas del producto."}],
         popularity:80
@@ -1651,7 +1742,7 @@ function openLogin(){
         desc:"Producto listo para vender. Ajusta precios en Adm según tu lista.",
         imageUrl:"https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2023/05/disney-plus-logo_1.jpg?fit=1200%2C675&quality=70&strip=all&ssl=1",
         offer:false,
-        prices:{ 1:11.32, 3:0, 6:0, 12:0 },
+        prices:{ 1:0, 3:0, 6:0, 12:0 },
         rules:["No cambiar correo/contraseña.","Uso según el plan seleccionado.","Soporte por WhatsApp."],
         faq:[{q:"¿Cuándo entregan?",a:"Entrega inmediata una vez confirmado el pago."},{q:"¿Incluye garantía?",a:"Sí, según el plan y las reglas del producto."}],
         popularity:80
@@ -1664,7 +1755,7 @@ function openLogin(){
         desc:"Producto listo para vender. Ajusta precios en Adm según tu lista.",
         imageUrl:"https://resizer.iproimg.com/unsafe/1200x674/filters:format=webp:quality(75):max_bytes(102400)/https://assets.iproup.com/assets/jpg/2021/05/18909_landscape.jpg",
         offer:false,
-        prices:{ 1:3.5, 3:0, 6:0, 12:0 },
+        prices:{ 1:0, 3:0, 6:0, 12:0 },
         rules:["No ambiar correo/contraseña.","Uso según el plan seleccionado.","Soporte por WhatsApp."],
         faq:[{q:"¿Cuándo entregan?",a:"Entrega inmediata una vez confirmado el pago."},{q:"¿Incluye garantía?",a:"Sí, según el plan y las reglas del producto."}],
         popularity:80
@@ -1677,7 +1768,7 @@ function openLogin(){
         desc:"Producto listo para vender. Ajusta precios en Adm según tu lista.",
         imageUrl:"https://resizer.iproimg.com/unsafe/1200x674/filters:format=webp:quality(75):max_bytes(102400)/https://assets.iproup.com/assets/jpg/2021/05/18909_landscape.jpg",
         offer:false,
-        prices:{ 1:6.5, 3:0, 6:0, 12:0 },
+        prices:{ 1:0, 3:0, 6:0, 12:0 },
         rules:["No cambiar correo/contraseña.","Uso según el plan seleccionado.","Soporte por WhatsApp."],
         faq:[{q:"¿Cuándo entregan?",a:"Entrega inmediata una vez confirmado el pago."},{q:"¿Incluye garantía?",a:"Sí, según el plan y las reglas del producto."}],
         popularity:80
@@ -1690,7 +1781,7 @@ function openLogin(){
         desc:"Producto listo para vender. Ajusta precios en Adm según tu lista.",
         imageUrl:"https://media.a24.com/p/ccf0b989d3e3fafb362ca7701cfa748d/adjuntos/296/imagenes/008/755/0008755491/1200x675/smart/paramount-plusjpg.jpg",
         offer:false,
-        prices:{ 1:2.9, 3:0, 6:0, 12:0 },
+        prices:{ 1:0, 3:0, 6:0, 12:0 },
         rules:["No cambiar correo/contraseña.","Uso según el plan seleccionado.","Soporte por WhatsApp."],
         faq:[{q:"¿Cuándo entregan?",a:"Entrega inmediata una vez confirmado el pago."},{q:"¿Incluye garantía?",a:"Sí, según el plan y las reglas del producto."}],
         popularity:80
@@ -1714,9 +1805,9 @@ function openLogin(){
     const DEFAULT_COUPONS = [
       { code:"LATIN", type:"PERCENT", value:10, min:0, category:"ALL", active:true },
       { code:"AMISTAD", type:"PERCENT", value:23, min:0, category:"ALL", active:true },
-      { code:"VERANO", type:"PERCENT", value:15, min:0, category:"ALL", active:true },
+      { code:"Cupido", type:"PERCENT", value:15, min:0, category:"ALL", active:true },
       { code:"MUNDIAL26", type:"PERCENT", value:20, min:0, category:"ALL", active:true },
-      { code:"3X2", type:"BOGO", value:0, min:20, category:"ALL", active:true },
+      { code:"3X2", type:"BOGO", value:0, min:800, category:"ALL", active:true },
       { code:"14FEB", type:"PERCENT", value:25, min:20, category:"ALL", active:true }
     ];
 
@@ -1947,8 +2038,8 @@ function openLogin(){
         if(eligible.length>=2){
           const freeCount=Math.floor(eligible.length/2);
           discount=round2(eligible.slice(0,freeCount).reduce((s,v)=>s+v,0));
-          note=`${c.code}: 2x1 aplicado (${freeCount} gratis)`;
-        } else note=`${c.code}: Contrata 2, recibes 1 extra.`;
+          note=`${c.code}: 3x2 aplicado (${freeCount} gratis)`;
+        } else note=`${c.code}: Contrata 2 meses y llevate 1 mes extra.`;
       }
       return {discount,note};
     }
@@ -2252,7 +2343,8 @@ function openLogin(){
         {id:"promerica", label:"Promerica", sub:"Banco Grupo Promerica"},
         {id:"airtm", label:"AirTM", sub:"Pago digital"},
         {id:"binance", label:"Binance", sub:"Cripto / Binance Pay"},
-        {id:"paypal", label:"PayPal", sub:"Pago PayPal"},        {id:"sinpe_cr", label:"SINPE CR", sub:"Transferencia (Costa Rica)"}
+        {id:"paypal", label:"PayPal", sub:"Pago PayPal"},      
+        {id:"sinpe_cr", label:"SINPE CR", sub:"Transferencia (Costa Rica)"}
       ];
 
       // #1: botón “Ver datos” dentro de cada método
@@ -2289,7 +2381,8 @@ function openLogin(){
         setCheckoutPane("pay");
         setPayPaneCollapsed(false);
         // Scroll suave al panel (opcional)
-        setTimeout(()=>$("#panelCompra").scrollIntoView({behavior:"smooth", block:"start"}), 60);
+        try{ wizardGo(2); }catch(e){}
+        setTimeout(()=>$("#stepPayDetails")?.scrollIntoView({behavior:"smooth", block:"start"}), 60);
       }
 
       if(payRequiresProof() && !proof.dataUrl){
@@ -3203,27 +3296,33 @@ $("#btnOffers").addEventListener("click",()=>{
     function showLegal(){ showSection("legal"); }
     function showSoporte(){ showSection("soporte"); }
 
-    // ===== Checkout Wizard (5 pasos) =====
+    // ===== Checkout Wizard (6 pasos, incluye 2.5) =====
     const WIZ = {
-      steps: ["stepCart","panelCompra","stepValidation","stepCustomer","stepOrder"],
-      labels: ["Carrito","Método de pago","Validación de pago","Datos del cliente","Realizar orden"],
+      steps: ["stepCart","panelCompra","stepPayDetails","stepValidation","stepCustomer","stepOrder"],
+      labels: ["Carrito","Métodos de pago","Método seleccionado","Validación de pago","Datos del cliente","Realizar orden"],
       idx: 0
     };
 
     function validateStep(i){
-      // 0) Carrito
+      // 1) Carrito
       if(i===0){
         const sub=subtotalUSD();
         if(sub<=0){ toast("Agrega productos primero."); return false; }
         return true;
       }
-      // 1) Método de pago
+      // 2) Método de pago
       if(i===1){
         if(!payMethod){ toast("Selecciona un método de pago."); return false; }
         return true;
       }
-      // 2) Validación de pago (solo pago)
+      // 2.5) Método seleccionado (informativo)
       if(i===2){
+        // Este paso no agrega validaciones nuevas; solo muestra/copias datos del método.
+        if(!payMethod){ toast("Selecciona un método de pago."); return false; }
+        return true;
+      }
+      // 3) Validación de pago
+      if(i===3){
         let ok=true;
         const req = payRequiresProof();
 
@@ -3246,8 +3345,8 @@ $("#btnOffers").addEventListener("click",()=>{
         if(!ok) toast("Completa la validación de pago.");
         return ok;
       }
-      // 3) Datos del cliente (solo cliente)
-      if(i===3){
+      // 4) Datos del cliente
+      if(i===4){
         let ok=true;
         const name=$("#cName").value.trim();
         const phone=$("#cPhone").value.trim();
@@ -3268,8 +3367,8 @@ $("#btnOffers").addEventListener("click",()=>{
         if(!ok) toast("Completa los datos del cliente.");
         return ok;
       }
-      // 4) Realizar orden
-      if(i===4){
+      // 5) Realizar orden
+      if(i===5){
         // Aquí validamos TODO para no romper tu lógica actual
         const ok = validateCheckout();
         if(!ok) toast("Revisa los campos marcados.");
@@ -3309,13 +3408,14 @@ $("#btnOffers").addEventListener("click",()=>{
       // meta
       const meta=$("#wizardMetaText");
       const hint=$("#wizardMetaHint");
-      if(meta) meta.textContent = `Paso ${WIZ.idx+1} de 5 — ${WIZ.labels[WIZ.idx]}`;
+      if(meta) meta.textContent = `Paso ${WIZ.idx+1} de 6 — ${WIZ.labels[WIZ.idx]}`;
       if(hint){
         hint.textContent =
           (WIZ.idx===0) ? "Agrega/ajusta tus productos" :
-          (WIZ.idx===1) ? "Elige el método y copia datos si aplica" :
-          (WIZ.idx===2) ? "Ingresa monto y referencia (y comprobante si aplica)" :
-          (WIZ.idx===3) ? "Nombre y WhatsApp son obligatorios" :
+          (WIZ.idx===1) ? "Elige el método (PayPal o sin tarjeta)" :
+          (WIZ.idx===2) ? "Aquí verás/copiarás los datos del método" :
+          (WIZ.idx===3) ? "Ingresa monto y referencia (y comprobante si aplica)" :
+          (WIZ.idx===4) ? "Nombre y WhatsApp son obligatorios" :
           "Revisa y finaliza";
       }
 
@@ -3323,7 +3423,7 @@ $("#btnOffers").addEventListener("click",()=>{
       const prev=$("#btnPrevStep"), next=$("#btnNextStep");
       if(prev) prev.disabled = (WIZ.idx===0);
       if(next){
-        next.style.display = (WIZ.idx===4) ? "none" : "inline-flex";
+        next.style.display = (WIZ.idx===5) ? "none" : "inline-flex";
         next.disabled = false;
       }
 
@@ -3332,7 +3432,7 @@ $("#btnOffers").addEventListener("click",()=>{
     }
 
     function wizardGo(i){
-      i = Math.max(0, Math.min(4, i));
+      i = Math.max(0, Math.min(5, i));
       WIZ.idx = i;
       wizardRender();
       // scroll al inicio del modal content
@@ -3445,5 +3545,32 @@ $("#btnOffers").addEventListener("click",()=>{
   document.addEventListener('DOMContentLoaded', updateMobileHeaderOffset);
 
 </script>
+
+<script>
+/* ===== Card stagger (automático al render / filtro) ===== */
+(function(){
+  function applyCardStagger(){
+    const grid = document.getElementById('grid');
+    if(!grid) return;
+    const cards = grid.querySelectorAll('.card');
+    cards.forEach((card, i) => {
+      // delay escalonado (suave)
+      card.style.animationDelay = (i * 40) + 'ms';
+    });
+  }
+
+  // Initial
+  window.addEventListener('load', applyCardStagger);
+
+  // Re-apply whenever the grid changes (categorías/filtros/búsqueda)
+  const grid = document.getElementById('grid');
+  if(grid && 'MutationObserver' in window){
+    const obs = new MutationObserver(() => applyCardStagger());
+    obs.observe(grid, { childList:true, subtree:false });
+  }
+})();
+</script>
+
+
 </body>
 </html>
