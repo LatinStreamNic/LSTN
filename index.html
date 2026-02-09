@@ -50,6 +50,129 @@
     [data-theme="light"] .pill,[data-theme="light"] .btn,[data-theme="light"] .select{background:rgba(11,18,32,.03)}
     .topbar{position:sticky;top:0;z-index:90;border-bottom:1px solid rgba(255,255,255,.10);background:linear-gradient(180deg, rgba(0,0,0,.40), rgba(0,0,0,.18));backdrop-filter:blur(12px)}
     [data-theme="light"] .topbar{background:rgba(255,255,255,.68)}
+
+    /* ===== Header (nuevo, tipo mobile) ===== */
+    .topbar .head{
+      display:grid;
+      grid-template-columns: 46px auto 1fr 110px;
+      gap:12px;
+      align-items:center;
+      padding:10px 0;
+    }
+    .topbar .brand{display:flex;align-items:center;gap:10px;min-width:0}
+    .topbar #storeNameTop{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px}
+    .hamb, .icon{
+      width:40px;height:40px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.03);
+      border-radius:12px;
+      cursor:pointer;
+      display:grid; place-items:center;
+      color:var(--text);
+      font-weight:900;
+    }
+    [data-theme="light"] .hamb,[data-theme="light"] .icon{background:rgba(11,18,32,.03)}
+    .iconWrap{position:relative}
+    .badge{
+      position:absolute; top:-6px; right:-6px;
+      min-width:18px; height:18px;
+      padding:0 5px;
+      border-radius:999px;
+      background:var(--brand);
+      color:#fff;
+      font-size:12px;
+      display:grid; place-items:center;
+      border:2px solid rgba(0,0,0,.0);
+      font-weight:900;
+    }
+    [data-theme="light"] .badge{border-color:#fff}
+    .hSearch{
+      display:flex;
+      align-items:stretch;
+      border:1px solid var(--border);
+      border-radius:14px;
+      overflow:hidden;
+      background:rgba(255,255,255,.03);
+      height:40px;
+      min-width:0;
+    }
+    [data-theme="light"] .hSearch{background:#fff}
+    .hSearch input{
+      flex:1;border:0;outline:0;
+      padding:0 12px;
+      font-size:14px;
+      color:var(--text);
+      background:transparent;
+      min-width:0;
+    }
+    [data-theme="light"] .hSearch input{color:#0b1220}
+    .hSearchBtn{
+      width:46px;border:0;
+      background:linear-gradient(135deg, rgba(79,124,255,.95), rgba(79,124,255,.65));
+      color:#fff;cursor:pointer;
+      display:grid;place-items:center;
+      font-weight:900;
+    }
+    .rightIcons{display:flex;justify-content:flex-end;gap:10px;align-items:center}
+    .navrow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:0 0 12px;
+      flex-wrap:wrap;
+    }
+
+    @media (max-width: 720px){
+      .topbar .head{
+        grid-template-columns: 46px 70px 1fr 110px;
+        gap:10px;
+        padding:10px 0;
+      }
+      .topbar #storeNameTop{display:none}
+      .topbar .logo{width:34px;height:34px;border-radius:14px}
+      .rightIcons{gap:8px}
+      /* Nav row colapsable */
+      .navrow{display:none;align-items:stretch}
+      .topbar.nav-open .navrow{display:flex;flex-direction:column;align-items:stretch}
+      .topbar.nav-open .navcats{overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;padding-bottom:4px}
+      .topbar.nav-open .navcats .btn.small{white-space:nowrap}
+      #currencySelect{max-width:160px}
+    }
+
+    @media (max-width: 520px){
+      .topbar .head{grid-template-columns: 46px 54px 1fr 96px}
+      .hamb,.icon{width:38px;height:38px;border-radius:12px}
+      .hSearch{height:38px;border-radius:12px}
+      .hSearch input{font-size:13px}
+      .hSearchBtn{width:44px}
+    }
+
+    /* ===== Carrito estilo drawer (sin perder wizard) ===== */
+    #overlayCart.overlay{
+      align-items:stretch;
+      justify-content:flex-end;
+      padding:0;
+    }
+    #overlayCart .modal{
+      width:520px;
+      max-width:100%;
+      max-height:100vh;
+      height:100vh;
+      border-radius:0;
+      border-left:1px solid var(--border);
+      border-top:0;border-right:0;border-bottom:0;
+      transform:translateX(14px);
+      animation:slideIn .18s ease-out forwards;
+    }
+    @keyframes slideIn{to{transform:translateX(0)}}
+    #overlayCart .modal .content{padding:14px;overflow:auto}
+    #overlayCart .modal .head{position:sticky;top:0;z-index:3}
+
+    @media (max-width: 520px){
+      #overlayCart .modal{width:100%}
+    }
+
     .topbar .row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0}
     .topbar .left,.topbar .right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
     .brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.2px}
@@ -359,50 +482,467 @@
 #wizardSteps .wizard-step{display:none}
 #wizardSteps .wizard-step.active{display:block}
 
+
+/* ===== Checkout mobile compact (drawer + wizard) ===== */
+@media (max-width: 720px){
+  /* tighter spacing inside cart/checkout only */
+  #overlayCart .modal{border-radius:16px}
+  #overlayCart .modal .content{padding:10px;gap:10px}
+  #overlayCart .info{padding:10px;border-radius:14px}
+  #overlayCart .summary{padding:10px;border-radius:14px}
+  #overlayCart .divider{margin:8px 0}
+  #overlayCart .rowline{margin:6px 0;font-size:12px}
+  #overlayCart .note{margin-top:10px;padding:10px;border-radius:12px;font-size:12px}
+  #overlayCart .field{margin-top:8px}
+  #overlayCart .field label{font-size:12px}
+  #overlayCart .input, #overlayCart textarea.input{padding:10px 12px;border-radius:12px}
+  #overlayCart .btn{padding:10px 12px;border-radius:12px}
+  #overlayCart .btn.small{padding:8px 10px;border-radius:10px;font-size:12px}
+
+  /* progress becomes scrollable, less tall */
+  #overlayCart .wizardProgress{
+    display:flex;
+    overflow-x:auto;
+    gap:6px;
+    padding-bottom:4px;
+    -webkit-overflow-scrolling:touch;
+    scroll-snap-type:x mandatory;
+  }
+  #overlayCart .wizardProgress::-webkit-scrollbar{height:6px}
+  #overlayCart .wizardProgress::-webkit-scrollbar-thumb{background:rgba(255,255,255,.10);border-radius:999px}
+
+  #overlayCart .wizStep{
+    flex:0 0 auto;
+    min-width:108px;
+    padding:8px 8px;
+    border-radius:12px;
+    font-size:11px;
+    scroll-snap-align:start;
+  }
+  #overlayCart .wizDot{width:18px;height:18px;font-size:11px}
+
+  /* hide long hint text to save vertical space */
+  #overlayCart #wizardMetaHint{display:none}
+
+  /* nav buttons take full width */
+  #overlayCart .wizardNav{gap:8px;margin-top:10px;padding-top:10px}
+  #overlayCart .wizardNav > div{display:none}
+  #overlayCart .wizardNav .btn{flex:1;justify-content:center}
+}
+
+@media (max-width: 520px){
+  #overlayCart .modal{max-height:96vh}
+  #overlayCart .modal .head h4{font-size:14px}
+  #overlayCart .wizardMeta{font-size:11px}
+}
+
+
+/* ===== Checkout mobile ultra-compact (v2) ===== */
+@media (max-width: 520px){
+  #overlayCart .modal{border-radius:14px}
+  #overlayCart .modal .head{padding:10px}
+  #overlayCart .modal .content{padding:8px;gap:8px}
+  #overlayCart .info, #overlayCart .summary{padding:8px;border-radius:12px}
+  #overlayCart .divider{margin:6px 0}
+  #overlayCart .rowline{margin:5px 0;font-size:11px}
+  #overlayCart .rowline strong{font-size:12px}
+  #overlayCart .note{margin-top:8px;padding:8px;border-radius:10px;font-size:11px}
+  #overlayCart .field{gap:5px;margin-top:6px}
+  #overlayCart .field label{font-size:11px}
+  #overlayCart .input, #overlayCart textarea.input{padding:9px 10px;border-radius:10px;font-size:13px}
+  #overlayCart .btn{padding:9px 10px;border-radius:10px;font-size:13px}
+  #overlayCart .btn.small{padding:7px 9px;border-radius:9px;font-size:12px}
+
+  /* cart items tighter */
+  #overlayCart .cart-item{padding:10px;border-radius:12px;gap:8px}
+  #overlayCart .cart-item .subtxt{font-size:11px}
+  #overlayCart .qty b{min-width:30px}
+
+  /* wizard progress even smaller */
+  #overlayCart .wizStep{min-width:96px;padding:7px 8px;font-size:10.5px;border-radius:11px}
+  #overlayCart .wizDot{width:16px;height:16px;font-size:10px}
+  #overlayCart .wizardMeta{font-size:10.5px}
+}
+
+@media (max-width: 420px){
+  #overlayCart .modal .head h4{font-size:13px}
+  #overlayCart .wizStep{min-width:92px;padding:7px 7px}
+  #overlayCart .btn{font-size:12.5px}
+  #overlayCart .input, #overlayCart textarea.input{font-size:12.5px}
+}
+
+
+/* ===== Ultra-compact Checkout (mobile only) ===== */
+@media (max-width: 720px){
+  /* Make the cart modal act like a true mobile sheet */
+  #overlayCart .modal{max-height:98vh;border-radius:16px}
+  #overlayCart .modal .head{padding:10px 12px}
+  #overlayCart .modal .content{padding:10px;gap:10px}
+  #overlayCart .tiny{font-size:11px}
+}
+
+@media (max-width: 520px){
+  /* Tighten typography and spacing inside the checkout only */
+  #overlayCart .info,
+  #overlayCart .summary{
+    padding:10px!important;
+    border-radius:14px!important;
+  }
+  #overlayCart .divider{margin:8px 0!important}
+  #overlayCart .rowline{margin:6px 0!important;font-size:11.5px}
+  #overlayCart .rowline strong{font-weight:900}
+  #overlayCart b{font-size:13px}
+  #overlayCart .note{padding:8px 10px!important;border-radius:12px!important;font-size:11px}
+  #overlayCart .mutedBox{padding:8px 10px!important;border-radius:12px!important;font-size:11px}
+
+  /* Wizard header: smaller + less vertical space */
+  #overlayCart #wizardHeader{gap:6px!important;margin-bottom:8px!important}
+  #overlayCart .wizardMeta{gap:8px}
+  #overlayCart #wizardMetaHint{display:none!important}
+  #overlayCart .wizardProgress{gap:6px!important}
+
+  /* Progress pills: icon-dot only (hide label) */
+  #overlayCart .wizStep{
+    padding:8px 8px!important;
+    border-radius:12px!important;
+    min-height:36px;
+  }
+  #overlayCart .wizStep span:last-child{display:none!important}
+  #overlayCart .wizDot{
+    width:20px!important;height:20px!important;
+    font-size:11px!important;
+  }
+
+  /* Cart items tighter */
+  #overlayCart .cart-item{
+    padding:10px!important;
+    border-radius:14px!important;
+    gap:8px!important;
+  }
+  #overlayCart .cart-item .subtxt{font-size:11px!important}
+  #overlayCart .qty{gap:6px!important}
+  #overlayCart .qty .btn.small{padding:8px 9px!important;font-size:12px!important;border-radius:10px!important}
+
+  /* Inputs more compact */
+  #overlayCart .field{gap:5px!important;margin-top:8px!important}
+  #overlayCart .field label{font-size:11.5px!important}
+  #overlayCart .input, #overlayCart textarea.input{
+    padding:10px 10px!important;
+    border-radius:12px!important;
+    font-size:13px!important;
+  }
+  #overlayCart textarea.input{min-height:68px!important}
+
+  /* Coupon buttons + small actions */
+  #overlayCart .btn.small{padding:9px 10px!important;font-size:12px!important;border-radius:10px!important}
+  #overlayCart .btn{padding:10px 12px!important;border-radius:12px!important;font-size:13px}
+
+  /* Wizard nav: compact sticky bar */
+  #overlayCart .wizardNav{
+    margin-top:10px!important;
+    padding-top:10px!important;
+    gap:8px!important;
+  }
+  #overlayCart #btnPrevStep,
+  #overlayCart #btnNextStep{
+    padding:11px 12px!important;
+    font-size:13px!important;
+    width:48%;
+  }
+  #overlayCart .wizardNav > div[style*="flex:1"]{display:none!important}
+  #overlayCart .wizardNav{justify-content:space-between}
+
+  /* Proof upload area tighter */
+  #overlayCart .uploadBox{gap:8px!important}
+  #overlayCart .preview{width:76px!important;height:76px!important;border-radius:12px!important}
+}
+
+@media (max-width: 420px){
+  /* Even tighter for very small screens */
+  #overlayCart .modal .head h4{font-size:14px}
+  #overlayCart .info, #overlayCart .summary{padding:9px!important}
+  #overlayCart .wizStep{padding:7px 7px!important;min-height:34px}
+  #overlayCart .wizDot{width:18px!important;height:18px!important;font-size:10.5px!important}
+  #overlayCart .btn{padding:9px 10px!important;font-size:12.5px}
+  #overlayCart #btnPrevStep, #overlayCart #btnNextStep{width:49%}
+}
+
+
+/* ===== Fix: avoid horizontal clipping in some Android/WebView builds ===== */
+@media (max-width: 720px){
+  #overlayCart.overlay{left:0;right:0}
+  #overlayCart .modal{width:100%!important;max-width:100%!important;transform:none!important}
+}
+
+
+/* ===== Fix v5: force full-width checkout sheet on mobile (prevents clipping on Android content://) ===== */
+@media (max-width: 720px){
+  #overlayCart.overlay{
+    padding:0!important;
+    align-items:stretch!important;
+    justify-content:stretch!important;
+  }
+  #overlayCart .modal{
+    width:100vw!important;
+    max-width:100vw!important;
+    height:100vh!important;
+    max-height:100vh!important;
+    margin:0!important;
+    border-radius:0!important;
+    transform:none!important;
+  }
+  #overlayCart .modal .head{border-radius:0!important}
+}
+
+
+/* ===== Fix v6: remove horizontal overflow + make wizard steps scroll cleanly on mobile ===== */
+@media (max-width: 720px){
+  /* prevent any horizontal scrollbars inside the cart sheet */
+  #overlayCart .modal,
+  #overlayCart .modal .content,
+  #overlayCart .modal .head{
+    overflow-x:hidden!important;
+  }
+  #overlayCart .modal *{max-width:100%}
+  /* Wizard progress: use horizontal scroll instead of grid that can clip */
+  #overlayCart .wizardProgress{
+    display:flex!important;
+    gap:8px!important;
+    overflow-x:auto!important;
+    -webkit-overflow-scrolling:touch;
+    scroll-snap-type:x mandatory;
+    padding-bottom:6px;
+  }
+  #overlayCart .wizardProgress::-webkit-scrollbar{height:6px}
+  #overlayCart .wizardProgress::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:999px}
+  #overlayCart .wizStep{
+    flex:0 0 auto!important;
+    scroll-snap-align:start;
+    min-width:52px;
+  }
+  /* Keep the first step visible (avoid starting scrolled) */
+  #overlayCart #wizardHeader{scroll-margin-top:8px}
+  /* Rowline: ensure totals never push outside */
+  #overlayCart .rowline{align-items:center}
+  #overlayCart .rowline strong{white-space:nowrap}
+}
+
+
+/* ===== Modal scroll lock (prevents background/header sliding when cart opens on mobile) ===== */
+body.modal-open{
+  overflow:hidden!important;
+  height:100vh;
+  touch-action:none;
+}
+
+
+/* ===== Header mobile: replace user icon with currency selector ===== */
+@media (max-width: 720px){
+  /* hide user icon */
+  #btnUser{display:none!important}
+  /* show currency selector prominently */
+  #currencySelect{
+    display:block!important;
+    width:auto;
+    min-width:88px;
+    padding:10px 14px;
+    border-radius:18px;
+    font-weight:900;
+  }
+}
+
+
+/* ===== Header: currency selector styled like an icon pill ===== */
+#header .rightIcons .currencySelect{
+  appearance:none;
+  padding:10px 12px;
+  border-radius:16px;
+  border:1px solid var(--border);
+  background:rgba(0,0,0,.12);
+  color:var(--text);
+  font-weight:900;
+  cursor:pointer;
+  min-width:88px;
+}
+[data-theme="light"] #header .rightIcons .currencySelect{
+  background:rgba(11,18,32,.03);
+}
+
+@media (max-width: 720px){
+  /* keep the select compact so it fits next to the cart */
+  #header .rightIcons .currencySelect{
+    padding:10px 12px;
+    border-radius:18px;
+    min-width:84px;
+  }
+}
+
+
+
+/* ===== Header: currency selector in top-right icon row (replaces user icon) ===== */
+.topbar .rightIcons{display:flex;align-items:center;gap:10px}
+.topbar .rightIcons .currencySelect{
+  appearance:none;
+  height:54px;
+  padding:0 14px;
+  border-radius:18px;
+  border:1px solid var(--border);
+  background:rgba(0,0,0,.12);
+  color:var(--text);
+  font-weight:950;
+  font-size:13px;
+  line-height:1;
+  cursor:pointer;
+  min-width:74px;           /* compact like icon pills */
+}
+[data-theme="light"] .topbar .rightIcons .currencySelect{background:rgba(11,18,32,.03)}
+@media (max-width: 720px){
+  .topbar .rightIcons{gap:8px}
+  .topbar .rightIcons .currencySelect{
+    height:52px;
+    min-width:70px;
+    padding:0 12px;
+    border-radius:18px;
+    font-size:13px;
+  }
+}
+@media (max-width: 420px){
+  .topbar .rightIcons .currencySelect{
+    height:50px;
+    min-width:66px;
+    padding:0 10px;
+    font-size:12.5px;
+  }
+}
+
+/* ===== Ultra compact currency selector (final) ===== */
+.topbar .rightIcons .currencySelect{
+  appearance:none;
+  height:44px;
+  min-width:56px;
+  padding:0 8px;
+  border-radius:14px;
+  border:0;
+  background:rgba(255,255,255,.06);
+  color:var(--text);
+  font-weight:900;
+  font-size:11px;
+  line-height:1;
+  text-align:center;
+}
+@media (max-width: 420px){
+  .topbar .rightIcons .currencySelect{
+    height:42px;
+    min-width:52px;
+    padding:0 6px;
+    font-size:10.5px;
+  }
+}
+
+
+/* ===== Header mobile layout fix: give room to currency + cart (prevents overlap) ===== */
+@media (max-width: 720px){
+  .topbar .head{
+    grid-template-columns: 46px 54px 1fr auto !important; /* last column auto grows */
+  }
+  .rightIcons{gap:8px!important}
+  .topbar .rightIcons .currencySelect{
+    flex:0 0 auto!important;
+    width:56px!important;     /* hard cap so it never grows */
+    min-width:56px!important;
+    max-width:56px!important;
+    padding:0!important;
+    text-align:center!important;
+  }
+  #btnCartTop{width:54px!important;height:54px!important}
+  .iconWrap{width:54px!important;position:relative}
+}
+@media (max-width: 420px){
+  .topbar .head{grid-template-columns: 44px 50px 1fr auto !important;}
+  .topbar .rightIcons .currencySelect{width:52px!important;min-width:52px!important;max-width:52px!important;height:42px!important}
+  #btnCartTop{width:50px!important;height:50px!important}
+  .iconWrap{width:50px!important}
+}
+
+
+/* ===== Fix: cart sheet must cover header (z-index / inset) ===== */
+#overlayCart.overlay{
+  position:fixed!important;
+  inset:0!important;
+  z-index:9999!important;
+}
+#overlayCart.overlay .modal{z-index:10000!important}
+.topbar{position:sticky; top:0; z-index:20;} /* keep header above content, below cart */
+
+
+/* ===== Fix: keep content below sticky header (prevents products being hidden under header) ===== */
+:root{ --mobileHeaderOffset: 0px; }
+@media (max-width: 720px){
+  /* apply top padding to the main content wrapper */
+  #app, main, .wrapMain, .containerMain{
+    padding-top: var(--mobileHeaderOffset);
+  }
+  /* ensure programmatic scrolls account for sticky header */
+  .card, .section, .products, #grid, #catalog{
+    scroll-margin-top: calc(var(--mobileHeaderOffset) + 10px);
+  }
+}
+
+
+/* ===== Wizard cleanup: remove Previous / Next buttons ===== */
+#btnPrevStep, #btnNextStep { display:none !important; }
+
 </style>
 </head>
 
 <body>
-  <div class="topbar">
+    <div class="topbar" role="banner">
     <div class="container">
-      <div class="row">
-        <div class="left">
-          <div class="brand">
-            <div class="logo" aria-hidden="true"></div>
-            <div style="font-weight:900;letter-spacing:.2px">LATIN STREAM</div>
-          </div>
+      <div class="head">
+        <button class="hamb" id="btnMenu" aria-label="Menú">☰</button>
+
+        <div class="brand">
+          <div class="logo" aria-hidden="true"></div>
+          <div style="font-weight:900;letter-spacing:.2px" id="storeNameTop">LATIN STREAM</div>
         </div>
 
-        <div class="right">
-          <button class="btn small" id="btnAdmin">🛠️ Adm</button>
+        <div class="hSearch" role="search">
+          <input id="q" type="search" placeholder="Buscar (ej: Tele-Latino, GRAVICSOTV, 1 dispositivo, cuenta completa)" />
+          <button class="hSearchBtn" id="btnSearch" aria-label="Buscar">🔍</button>
+        </div>
 
-          <div class="navcats" aria-label="Categorías">
-            <button class="btn small" id="btnCatAll" type="button">📦 Todo</button>
-            <button class="btn small" id="btnCat1D" type="button">📱 1 Dispositivo</button>
-            <button class="btn small" id="btnCatFull" type="button">🖥️ Cuenta Completa</button>
-          </div>
-<button class="btn small" id="btnTheme" title="Modo oscuro / claro">🌓 Tema</button>
-          <button class="btn small" id="btnCartTop">🛒 Carrito <span class="kbd" id="cartCount">0</span></button>
-          <select class="select" id="currencySelect" aria-label="Moneda">
+        <div class="rightIcons">
+
+<select class="select currencySelect" id="currencySelect" aria-label="Moneda">
             <option value="USD" selected>USD</option>
             <option value="NIO">NIO</option>
             <option value="CRC">CRC</option>
             <option value="EUR">EUR</option>
           </select>
+<div class="iconWrap">
+            <button class="icon" id="btnCartTop" aria-label="Carrito">🛒</button>
+            <span class="badge" id="cartCount">0</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="navrow" id="navRow" aria-label="Navegación">
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <button class="btn small" id="btnAdmin">🛠️ Adm</button>
+          <button class="btn small" id="btnTheme" title="Modo oscuro / claro">🌓 Tema</button>
+</div>
+
+        <div class="navcats" aria-label="Categorías">
+          <button class="btn small" id="btnCatAll" type="button">📦 Todo</button>
+          <button class="btn small" id="btnCat1D" type="button">📱 1 Dispositivo</button>
+          <button class="btn small" id="btnCatFull" type="button">🖥️ Cuenta Completa</button>
         </div>
       </div>
     </div>
   </div>
 
-  
-
-
   <main class="container" id="productos">
     <div class="toolbar">
-      <div class="search" role="search">🔎
-        <input id="q" type="search" placeholder="Buscar (ej: Tele-Latino, GRAVICSOTV, 1 dispositivo, cuenta completa) — Ctrl/⌘ + K" />
-      </div>
-
       <div class="filters">
         <div class="chips" id="chips"></div>
 
@@ -547,9 +1087,9 @@
         </div><!-- /#wizardSteps -->
 
         <div class="wizardNav" id="wizardNav">
-          <button class="btn" id="btnPrevStep" type="button">← Anterior</button>
+          
           <div style="flex:1"></div>
-          <button class="btn primary" id="btnNextStep" type="button">Siguiente →</button>
+          
         </div>
       </div>
     </div>
@@ -648,6 +1188,7 @@
               💡 Tip: llena “Monto pagado” y “Referencia/ID” para validar más rápido.
             </div>
           </div>
+        </div>
 <!-- 3) VALIDACIÓN DE PAGO -->
         <div class="info wizard-step" id="stepValidation">
           <b>3. Validación de pago</b>
@@ -689,8 +1230,7 @@
                     <button class="btn small" id="btnCopyProofNote">Copiar texto para WhatsApp</button>
                   </div>
                   <div class="tiny" style="margin-top:8px">
-                    Nota: el navegador no puede adjuntar la imagen automáticamente en WhatsApp.
-                    Pero aquí queda lista para que la envíes al abrir el chat.
+                    Nota: si el comprobante se sube, se generará un link y se incluirá en la orden. Si falla la subida, envía la imagen manualmente en WhatsApp.
                   </div>
                 </div>
               </div>
@@ -934,6 +1474,7 @@
       WHATSAPP_BASE: "https://wa.me/50588581031",
       PAYPAL_CLIENT_ID: "ARvBc_FLCLyhHrmR9LI3wG1PDGOrkIMLYETu5sYnnSk-K5oUeiIhr4lcQpmowlX8lxj0-N9FvgjvRHMQ",
       PAYPAL_WORKER_URL: "https://yellow-lake-a920.latinstreamnic2021.workers.dev",
+      PROOF_UPLOAD_URL: "https://yellow-lake-a920.latinstreamnic2021.workers.dev/upload-proof",
       FX_USD_TO_NIO: 37.50,
       FX_USD_TO_CRC: 530.00,
       FX_EUR_TO_USD: 1.20,
@@ -1219,7 +1760,7 @@ function openLogin(){
     let appliedCoupon=null;
 
     // Comprobante en memoria
-    let proof = { name:"", type:"", size:0, dataUrl:"" };
+    let proof = { name:"", type:"", size:0, dataUrl:"", url:"" };
 
     // Tabs checkout
     let checkoutPane="pay";
@@ -2037,14 +2578,14 @@ function openLogin(){
 
     // === Comprobante ===
     function setProof(file, dataUrl){
-      proof = { name:file.name, type:file.type, size:file.size, dataUrl };
+      proof = { name:file.name, type:file.type, size:file.size, dataUrl, url:"" };
       $("#proofInfo").textContent = `Archivo: ${proof.name} (${Math.round(proof.size/1024)} KB)`;
       const pv=$("#proofPreview");
       pv.innerHTML = `<img alt="Comprobante" src="${dataUrl}">`;
       $("#eProof").style.display="none";
     }
     function clearProof(){
-      proof = { name:"", type:"", size:0, dataUrl:"" };
+      proof = { name:"", type:"", size:0, dataUrl:"", url:"" };
       $("#proofInfo").textContent = "No has seleccionado archivo.";
       $("#proofPreview").innerHTML = `<span class="tiny">Sin imagen</span>`;
       $("#proofFile").value = "";
@@ -2066,7 +2607,15 @@ function openLogin(){
       }
       const dataUrl = await readAsDataURL(file);
       setProof(file, dataUrl);
-      toast("Comprobante cargado ✅");
+      const up = await uploadProofToCloud(file, dataUrl);
+      if(up.ok){
+        proof.url = up.url;
+        $("#proofInfo").textContent = `Comprobante subido ✅ (link listo)`;
+        toast("Comprobante subido ✅");
+      } else {
+        $("#proofInfo").textContent = `Archivo: ${proof.name} (${Math.round(proof.size/1024)} KB) — listo para enviar en WhatsApp`;
+        toast("Comprobante cargado ✅");
+      }
     }
 
     function readAsDataURL(file){
@@ -2078,10 +2627,40 @@ function openLogin(){
       });
     }
 
+
+    async function uploadProofToCloud(file, dataUrl){
+      const endpoint = String(cfg.PROOF_UPLOAD_URL||"").trim();
+      if(!endpoint) return { ok:false, reason:"NO_ENDPOINT" };
+
+      $("#proofInfo").textContent = "Subiendo comprobante…";
+      try{
+        const res = await fetch(endpoint, {
+          method:"POST",
+          headers:{ "Content-Type":"application/json" },
+          body: JSON.stringify({
+            filename: file.name,
+            mime: file.type,
+            dataUrl: dataUrl
+          })
+        });
+        if(!res.ok){
+          return { ok:false, reason:"HTTP_"+res.status };
+        }
+        const j = await res.json().catch(()=>null);
+        const url = j && (j.url || j.publicUrl || j.link);
+        if(!url) return { ok:false, reason:"NO_URL" };
+        return { ok:true, url:String(url) };
+      }catch(e){
+        return { ok:false, reason:"FETCH_FAIL" };
+      }
+    }
+
     async function copyProofNote(){
-      const msg = proof.name
-        ? `Comprobante listo: ${proof.name}. (Lo enviaré como imagen en este chat).`
-        : `Aún no he subido el comprobante.`;
+      const msg = proof.url
+        ? `Comprobante (link): ${proof.url}`
+        : (proof.name
+          ? `Comprobante listo: ${proof.name}. (Lo enviaré como imagen en este chat).`
+          : `Aún no he subido el comprobante.`);
       try{
         await navigator.clipboard.writeText(msg);
         toast("Texto copiado ✅");
@@ -2227,7 +2806,9 @@ function openLogin(){
       if(txRef)   lines.push(`🔎 Ref/ID: ${txRef}`);
 
       lines.push(``);
-      if(proof.name){
+      if(proof.url){
+        lines.push(`📸 Comprobante (link): ${proof.url}`);
+      } else if(proof.name){
         lines.push(`📸 Comprobante adjunto: *${proof.name}*`);
         lines.push(`➡️ (Envío la imagen/captura en este chat).`);
       } else if(payRequiresProof()){
@@ -2255,8 +2836,12 @@ function openLogin(){
     }
 
     // MODALS
-    function showModal(sel){ $(sel).classList.add("show"); $(sel).setAttribute("aria-hidden","false"); }
-    function hideModal(sel){ $(sel).classList.remove("show"); $(sel).setAttribute("aria-hidden","true"); }
+    function showModal(sel){ 
+document.body.classList.add('modal-open');
+$(sel).classList.add("show"); $(sel).setAttribute("aria-hidden","false"); }
+    function hideModal(sel){ 
+// If no overlays remain open, unlock background
+$(sel).classList.remove("show"); $(sel).setAttribute("aria-hidden","true"); }
 
 
     // ================
@@ -2268,6 +2853,8 @@ function openLogin(){
       el.classList.remove("is-hidden");
       // Scroll suave al inicio de la sección
       setTimeout(()=>{ el.scrollIntoView({behavior:"smooth", block:"start"}); }, 30);
+  if(!document.querySelector('.overlay.show')){ document.body.classList.remove('modal-open'); }
+
     }
 
 
@@ -2813,6 +3400,45 @@ $("#btnOffers").addEventListener("click",()=>{
     window.removeCouponAdmin=removeCouponAdmin;
 
     init();
-  </script>
+  
+
+/* ===== Header interactions (menu + search) ===== */
+(function(){
+  const topbar = document.querySelector('.topbar');
+  const btnMenu = document.getElementById('btnMenu');
+  if(btnMenu && topbar){
+    btnMenu.addEventListener('click', ()=> topbar.classList.toggle('nav-open'));
+  }
+  const btnSearch = document.getElementById('btnSearch');
+  const q = document.getElementById('q');
+  if(btnSearch && q){
+    btnSearch.addEventListener('click', (e)=>{
+      e.preventDefault();
+      q.focus();
+      q.dispatchEvent(new Event('input',{bubbles:true}));
+    });
+  }
+})();
+
+
+  // ===== Mobile sticky header offset (keep content visible below header) =====
+  function updateMobileHeaderOffset(){
+    try{
+      const root = document.documentElement;
+      const isMobile = window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
+      if(!isMobile){ root.style.setProperty('--mobileHeaderOffset','0px'); return; }
+      const topbar = document.querySelector('.topbar');
+      const navrow = document.getElementById('navRow');
+      const h1 = topbar ? topbar.getBoundingClientRect().height : 0;
+      const h2 = navrow ? navrow.getBoundingClientRect().height : 0;
+      // add a small breathing space
+      root.style.setProperty('--mobileHeaderOffset', Math.round(h1 + h2 + 8) + 'px');
+    }catch(e){}
+  }
+  window.addEventListener('resize', updateMobileHeaderOffset);
+  window.addEventListener('orientationchange', updateMobileHeaderOffset);
+  document.addEventListener('DOMContentLoaded', updateMobileHeaderOffset);
+
+</script>
 </body>
 </html>
