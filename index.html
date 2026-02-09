@@ -2938,8 +2938,27 @@ function openLogin(){
 document.body.classList.add('modal-open');
 $(sel).classList.add("show"); $(sel).setAttribute("aria-hidden","false"); }
     function hideModal(sel){ 
-// If no overlays remain open, unlock background
-$(sel).classList.remove("show"); $(sel).setAttribute("aria-hidden","true"); }
+  $(sel).classList.remove("show");
+  $(sel).setAttribute("aria-hidden","true");
+  // Unlock background if no overlays remain open
+  if(!document.querySelector('.overlay.show')){
+    document.body.classList.remove('modal-open');
+  }
+}
+
+
+// Fix: al volver con botón Atrás (BFCache), asegura que no quede el scroll bloqueado
+window.addEventListener('pageshow', (e)=>{
+  // En algunos navegadores, el estado de clases queda cacheado
+  if(e.persisted){
+    document.body.classList.remove('modal-open');
+    document.querySelectorAll('.overlay.show').forEach(o=>{
+      o.classList.remove('show');
+      o.setAttribute('aria-hidden','true');
+    });
+  }
+});
+
 
 
     // ================
