@@ -1703,7 +1703,7 @@ function openLogin(){
         desc:"Producto listo para vender. Ajusta precios en Adm según tu lista.",
         imageUrl:"https://media.a24.com/p/ccf0b989d3e3fafb362ca7701cfa748d/adjuntos/296/imagenes/008/755/0008755491/1200x675/smart/paramount-plusjpg.jpg",
         offer:false,
-        prices:{ 1:8, 3:0, 6:0, 12:0 },
+        prices:{ 1:0, 3:0, 6:0, 12:0 },
         rules:["No cambiar correo/contraseña.","Uso según el plan seleccionado.","Soporte por WhatsApp."],
         faq:[{q:"¿Cuándo entregan?",a:"Entrega inmediata una vez confirmado el pago."},{q:"¿Incluye garantía?",a:"Sí, según el plan y las reglas del producto."}],
         popularity:80
@@ -1714,9 +1714,9 @@ function openLogin(){
     const DEFAULT_COUPONS = [
       { code:"LATIN", type:"PERCENT", value:10, min:0, category:"ALL", active:true },
       { code:"AMISTAD", type:"PERCENT", value:23, min:0, category:"ALL", active:true },
-      { code:"Cupido", type:"PERCENT", value:15, min:0, category:"ALL", active:true },
+      { code:"VERANO", type:"PERCENT", value:15, min:0, category:"ALL", active:true },
       { code:"MUNDIAL26", type:"PERCENT", value:20, min:0, category:"ALL", active:true },
-      { code:"3X2", type:"BOGO", value:0, min:800, category:"ALL", active:true },
+      { code:"3X2", type:"BOGO", value:0, min:20, category:"ALL", active:true },
       { code:"14FEB", type:"PERCENT", value:25, min:20, category:"ALL", active:true }
     ];
 
@@ -1948,7 +1948,7 @@ function openLogin(){
           const freeCount=Math.floor(eligible.length/2);
           discount=round2(eligible.slice(0,freeCount).reduce((s,v)=>s+v,0));
           note=`${c.code}: 2x1 aplicado (${freeCount} gratis)`;
-        } else note=`${c.code}: agrega 2 productos en oferta para aplicar.`;
+        } else note=`${c.code}: Contrata 2, recibes 1 extra.`;
       }
       return {discount,note};
     }
