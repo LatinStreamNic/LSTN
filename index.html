@@ -894,10 +894,125 @@ body.modal-open{
 
 
 /* ================================
-   ANIMACIONES ELEGANTES (TARJETAS)
+   CAMPAÑA SAN VALENTÍN (GLOBAL)
+   Se activa con: body[data-campaign="valentine"]
    ================================ */
 
-/* Base motion */
+
+
+/* ================================
+   San Valentín: quitar azul oscuro (override de base)
+   ================================ */
+body[data-campaign="valentine"]{
+  /* reemplaza el azul oscuro por un vino/rosa profundo */
+  --bg:#16070f;
+  --card:#1b0a13;
+  --text:#fff1f2;
+  --muted:#fecdd3;
+  --border:rgba(255,255,255,.14);
+}
+body[data-campaign="valentine"][data-theme="light"]{
+  --bg:#fff1f2;
+  --card:#ffffff;
+  --text:#3b0a1a;
+  --muted:#8b2a3f;
+  --border:rgba(59,10,26,.14);
+}
+
+body[data-campaign="valentine"]{
+  /* Fondo romántico */
+  background:
+    radial-gradient(1200px 700px at 20% 0%, rgba(244,63,94,.18), transparent 60%),
+    radial-gradient(900px 600px at 90% 10%, rgba(251,113,133,.14), transparent 55%),
+    radial-gradient(800px 520px at 50% 100%, rgba(244,63,94,.10), transparent 55%),
+    var(--bg);
+}
+
+/* Override de marca SOLO en campaña */
+body[data-campaign="valentine"]{
+  --brand:#e11d48;
+  --brand2:#fb7185;
+}
+
+/* Topbar */
+body[data-campaign="valentine"] .topbar{
+  border-bottom:1px solid rgba(244,63,94,.18);
+  background:linear-gradient(180deg, rgba(244,63,94,.10), rgba(0,0,0,.18));
+}
+
+/* Botones */
+body[data-campaign="valentine"] .btn.primary{
+  background:linear-gradient(135deg,#fb7185,#e11d48);
+  border-color:rgba(244,63,94,.55);
+}
+body[data-campaign="valentine"] .btn.success{
+  background:linear-gradient(135deg,#fda4af,#fb7185);
+  border-color:rgba(251,113,133,.55);
+}
+
+/* Badges */
+body[data-campaign="valentine"] .badge,
+body[data-campaign="valentine"] .offer-badge{
+  background:linear-gradient(135deg,#fb7185,#e11d48);
+  box-shadow:0 10px 26px rgba(244,63,94,.35);
+}
+
+/* Cards glow romántico */
+body[data-campaign="valentine"] .card:hover{
+  box-shadow:
+    0 22px 60px rgba(244,63,94,.28),
+    0 0 0 1px rgba(244,63,94,.25);
+  border-color:rgba(244,63,94,.40);
+}
+
+/* Pills del banner */
+body[data-campaign="valentine"] .valPill{
+  border-color:rgba(244,63,94,.35)!important;
+  background:rgba(244,63,94,.06)!important;
+}
+
+/* ================================
+   Corazones flotantes (solo Hero)
+   ================================ */
+body[data-campaign="valentine"] .valHearts{
+  position:absolute; inset:0;
+  pointer-events:none;
+  z-index:0;
+  overflow:hidden;
+}
+body[data-campaign="valentine"] .valHearts span{
+  position:absolute;
+  bottom:-20px;
+  font-weight:900;
+  color:rgba(244,63,94,.22);
+  filter: drop-shadow(0 8px 18px rgba(244,63,94,.18));
+  animation: valFloat 7.5s linear infinite;
+  user-select:none;
+}
+body[data-campaign="valentine"] .valHearts span:nth-child(1){left:6%;  font-size:16px; animation-delay:0s;   animation-duration:7.2s}
+body[data-campaign="valentine"] .valHearts span:nth-child(2){left:14%; font-size:13px; animation-delay:1.1s; animation-duration:8.4s}
+body[data-campaign="valentine"] .valHearts span:nth-child(3){left:24%; font-size:18px; animation-delay:2.0s; animation-duration:7.8s}
+body[data-campaign="valentine"] .valHearts span:nth-child(4){left:33%; font-size:12px; animation-delay:0.6s; animation-duration:9.1s}
+body[data-campaign="valentine"] .valHearts span:nth-child(5){left:42%; font-size:15px; animation-delay:2.7s; animation-duration:8.7s}
+body[data-campaign="valentine"] .valHearts span:nth-child(6){left:55%; font-size:12px; animation-delay:1.7s; animation-duration:9.6s}
+body[data-campaign="valentine"] .valHearts span:nth-child(7){left:63%; font-size:17px; animation-delay:3.1s; animation-duration:8.1s}
+body[data-campaign="valentine"] .valHearts span:nth-child(8){left:72%; font-size:13px; animation-delay:0.9s; animation-duration:9.3s}
+body[data-campaign="valentine"] .valHearts span:nth-child(9){left:83%; font-size:16px; animation-delay:2.2s; animation-duration:8.0s}
+body[data-campaign="valentine"] .valHearts span:nth-child(10){left:92%;font-size:12px; animation-delay:3.6s; animation-duration:9.8s}
+
+@keyframes valFloat{
+  0%{ transform: translateY(0) translateX(0) rotate(0deg); opacity:0 }
+  10%{ opacity:.55 }
+  100%{ transform: translateY(-420px) translateX(18px) rotate(14deg); opacity:0 }
+}
+
+@media (prefers-reduced-motion: reduce){
+  body[data-campaign="valentine"] .valHearts{display:none!important}
+}
+
+/* ================================
+   ANIMACIONES ELEGANTES (TARJETAS)
+   ================================ */
 .card{
   transition:
     transform .22s cubic-bezier(.2,.8,.2,1),
@@ -905,70 +1020,201 @@ body.modal-open{
     border-color .22s ease;
   will-change: transform;
 
-  /* entrada */
   opacity:0;
   transform: translateY(14px);
   animation: cardIn .45s ease forwards;
 }
-
-@keyframes cardIn{
-  to{ opacity:1; transform: translateY(0); }
-}
-
-/* Hover elegante (desktop) */
+@keyframes cardIn{ to{ opacity:1; transform: translateY(0); } }
 .card:hover{
   transform: translateY(-6px) scale(1.01);
   box-shadow: 0 22px 60px rgba(0,0,0,.45);
-  border-color: rgba(79,124,255,.45);
 }
-
-/* Focus (teclado) */
 .card:focus-within{
   outline:none;
   transform: translateY(-4px);
-  border-color: rgba(79,124,255,.55);
 }
-
-/* Touch devices: sin salto */
 @media (hover:none){
-  .card:hover{
-    transform:none;
-    box-shadow:0 12px 40px rgba(0,0,0,.22);
-  }
+  .card:hover{ transform:none; box-shadow:0 12px 40px rgba(0,0,0,.22); }
 }
-
-/* Thumbnail con profundidad */
-.thumb{
-  transition: transform .35s ease, filter .35s ease;
-}
-.card:hover .thumb{
-  transform: scale(1.05);
-  filter: brightness(1.05);
-}
-
-/* Botones: micro-feedback */
-.card .actions .btn{
-  transition: transform .15s ease, box-shadow .15s ease;
-}
-.card .actions .btn:hover{
-  transform: translateY(-1px);
-  box-shadow: 0 8px 18px rgba(0,0,0,.25);
-}
-.card .actions .btn:active{
-  transform: scale(.97);
-}
-
-/* Feedback táctil */
+.thumb{ transition: transform .35s ease, filter .35s ease; }
+.card:hover .thumb{ transform: scale(1.05); filter: brightness(1.05); }
+.card .actions .btn{ transition: transform .15s ease, box-shadow .15s ease; }
+.card .actions .btn:hover{ transform: translateY(-1px); box-shadow: 0 8px 18px rgba(0,0,0,.25); }
+.card .actions .btn:active{ transform: scale(.97); }
 .card:active{ transform: scale(.985); }
 
-/* Accesibilidad */
 @media (prefers-reduced-motion: reduce){
-  .card, .card *{
-    animation:none!important;
-    transition:none!important;
-  }
+  .card, .card *{ animation:none!important; transition:none!important; }
 }
 
+
+/* ================================
+   San Valentín: Estilo GLOBAL (todas las secciones)
+   Activo cuando: body[data-campaign="valentine"]
+   ================================ */
+
+/* Superficies */
+body[data-campaign="valentine"] .hero-card,
+body[data-campaign="valentine"] .info,
+body[data-campaign="valentine"] .summary,
+body[data-campaign="valentine"] .mutedBox,
+body[data-campaign="valentine"] .stat,
+body[data-campaign="valentine"] .banner,
+body[data-campaign="valentine"] .note{
+  border-color: rgba(244,63,94,.22)!important;
+  box-shadow: 0 14px 40px rgba(244,63,94,.10);
+}
+
+/* Inputs / selects / search */
+body[data-campaign="valentine"] .input,
+body[data-campaign="valentine"] textarea.input,
+body[data-campaign="valentine"] .select,
+body[data-campaign="valentine"] .search,
+body[data-campaign="valentine"] .hSearch{
+  border-color: rgba(244,63,94,.22)!important;
+}
+body[data-campaign="valentine"] .input:focus,
+body[data-campaign="valentine"] textarea.input:focus{
+  border-color: rgba(244,63,94,.45)!important;
+  box-shadow: 0 0 0 4px rgba(244,63,94,.12);
+}
+
+/* Chips / tabs */
+body[data-campaign="valentine"] .chip,
+body[data-campaign="valentine"] .tab{
+  border-color: rgba(244,63,94,.18);
+}
+body[data-campaign="valentine"] .chip.active,
+body[data-campaign="valentine"] .tab.active{
+  border-color: rgba(244,63,94,.55)!important;
+  background: rgba(244,63,94,.12)!important;
+}
+
+/* Wizard */
+body[data-campaign="valentine"] .wizStep{
+  border-color: rgba(244,63,94,.18);
+}
+body[data-campaign="valentine"] .wizStep.active{
+  border-color: rgba(244,63,94,.55)!important;
+  background: rgba(244,63,94,.12)!important;
+}
+body[data-campaign="valentine"] .wizStep.done{
+  border-color: rgba(251,113,133,.45)!important;
+  background: rgba(251,113,133,.10)!important;
+}
+body[data-campaign="valentine"] .wizStep.active .wizDot{
+  border-color: rgba(244,63,94,.55)!important;
+  background: rgba(244,63,94,.18)!important;
+}
+
+/* Métodos de pago */
+body[data-campaign="valentine"] .payopt{
+  border-color: rgba(244,63,94,.18)!important;
+  background: rgba(244,63,94,.06)!important;
+}
+body[data-campaign="valentine"] .payopt:hover{
+  border-color: rgba(244,63,94,.35)!important;
+  background: rgba(244,63,94,.09)!important;
+}
+body[data-campaign="valentine"] .payopt.active{
+  border-color: rgba(244,63,94,.55)!important;
+  background: rgba(244,63,94,.12)!important;
+}
+body[data-campaign="valentine"] #payPaneBody{
+  border-color: rgba(244,63,94,.22)!important;
+  background: rgba(244,63,94,.06)!important;
+}
+
+/* Botones secundarios y estado activo */
+body[data-campaign="valentine"] .btn.active{
+  border-color: rgba(244,63,94,.55)!important;
+  background: rgba(244,63,94,.12)!important;
+}
+
+/* Footer */
+body[data-campaign="valentine"] .footer{
+  border-top: 1px solid rgba(244,63,94,.18);
+  background:
+    radial-gradient(900px 420px at 30% 0%, rgba(244,63,94,.10), transparent 60%),
+    rgba(0,0,0,.12);
+}
+
+
+/* ================================
+   San Valentín: eliminar azul en superficies (carrito, modales, cards)
+   ================================ */
+body[data-campaign="valentine"]{
+  /* base surfaces */
+  --valSurface: rgba(255, 241, 242, .06);   /* rose-tinted glass */
+  --valSurface2: rgba(244, 63, 94, .10);   /* deeper rose */
+}
+
+/* Superficies principales */
+body[data-campaign="valentine"] .card,
+body[data-campaign="valentine"] .info,
+body[data-campaign="valentine"] .summary,
+body[data-campaign="valentine"] .mutedBox,
+body[data-campaign="valentine"] .stat,
+body[data-campaign="valentine"] .banner,
+body[data-campaign="valentine"] .note,
+body[data-campaign="valentine"] .cart-item,
+body[data-campaign="valentine"] .payopt,
+body[data-campaign="valentine"] .tab,
+body[data-campaign="valentine"] .chip{
+  background: var(--valSurface) !important;
+}
+
+/* Thumb / header blocks */
+/* Overlays / modales (aquí era donde más se notaba el azul) */
+body[data-campaign="valentine"] .overlay{
+  background: rgba(0,0,0,.58) !important;
+}
+body[data-campaign="valentine"] .modal{
+  background: rgba(35, 8, 16, .92) !important; /* vino translúcido */
+  border-color: rgba(244,63,94,.25) !important;
+}
+body[data-campaign="valentine"] #overlayCart .modal{
+  background: rgba(35, 8, 16, .95) !important;
+}
+body[data-campaign="valentine"] .topbar{
+  background: linear-gradient(180deg, rgba(244,63,94,.16), rgba(35,8,16,.70)) !important;
+}
+
+/* Light mode: todo claro romántico */
+body[data-campaign="valentine"][data-theme="light"] .card,
+body[data-campaign="valentine"][data-theme="light"] .info,
+body[data-campaign="valentine"][data-theme="light"] .summary,
+body[data-campaign="valentine"][data-theme="light"] .mutedBox,
+body[data-campaign="valentine"][data-theme="light"] .stat,
+body[data-campaign="valentine"][data-theme="light"] .banner,
+body[data-campaign="valentine"][data-theme="light"] .note,
+body[data-campaign="valentine"][data-theme="light"] .cart-item,
+body[data-campaign="valentine"][data-theme="light"] .payopt{
+  background: rgba(255,255,255,.92) !important;
+}
+body[data-campaign="valentine"][data-theme="light"] .modal{
+  background: rgba(255,255,255,.94) !important;
+}
+
+
+
+/* ================================
+   FIX v4: imágenes en tarjetas
+   - No tocamos el background de .thumb (ahí se pinta la imagen)
+   - Solo añadimos overlay romántico con ::after
+   ================================ */
+body[data-campaign="valentine"] .thumb{
+  position:relative; /* asegura que el overlay se posicione bien */
+}
+body[data-campaign="valentine"] .thumb::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(380px 140px at 20% 30%, rgba(244,63,94,.16), transparent 60%),
+    radial-gradient(300px 140px at 80% 10%, rgba(251,113,133,.14), transparent 55%);
+  pointer-events:none;
+}
 
 </style>
 </head>
@@ -1020,6 +1266,33 @@ body.modal-open{
   </div>
 
   <main class="container" id="productos">
+  <!-- ===== Campaña San Valentín (Hero + Countdown) ===== -->
+  <section class="hero" id="valentineHero" aria-label="Campaña San Valentín" style="display:none">
+    <div class="hero-card" style="margin-top:10px">
+      <div class="valHearts" aria-hidden="true">
+        <span>♥</span><span>♥</span><span>♥</span><span>♥</span><span>♥</span>
+        <span>♥</span><span>♥</span><span>♥</span><span>♥</span><span>♥</span>
+      </div>
+
+      <h1 style="margin-bottom:6px">💖 Especial San Valentín</h1>
+      <p class="sub" style="margin:0 0 10px">
+        Regala entretenimiento premium. Cupón automático <b>14FEB</b> con <b>23% OFF</b>. Promoción por tiempo limitado.
+      </p>
+
+      <div class="banner tiny" id="valentineBanner" style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <span class="pill valPill">
+            ⏳ Termina en <b id="valCountdown" style="margin-left:6px">—</b>
+          </span>
+          <span class="pill valPill">
+            💝 Cupón: <b style="margin-left:6px">14FEB</b> (23% OFF)
+          </span>
+        </div>
+        <button class="btn primary small" type="button" id="btnGoCartVal">Ir al carrito</button>
+      </div>
+    </div>
+  </section>
+
     <div class="toolbar">
       <div class="filters">
         <div class="chips" id="chips"></div>
@@ -1412,8 +1685,18 @@ body.modal-open{
               <input id="cfgWa" class="input" />
             </div>
 
-            
+
+            <div class="divider"></div>
+            <b>Campaña</b>
             <div class="field">
+              <label style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                <input type="checkbox" id="cfgValentineCampaign" style="transform:scale(1.1)" />
+                <span>💖 Activar campaña San Valentín (auto se apaga después del 15)</span>
+              </label>
+              <p class="tiny" id="cfgValentineHint">Activa/desactiva el tema, banner y cupón automático.</p>
+            </div>
+
+                        <div class="field">
               <label>Tasa (NIO por 1 USD) — solo Adm</label>
               <input id="cfgFx" class="input" type="number" step="0.01" />
               <p class="tiny">Esta tasa controla la conversión cuando el cliente ve precios en C$.</p>
@@ -1804,11 +2087,11 @@ function openLogin(){
 
     const DEFAULT_COUPONS = [
       { code:"LATIN", type:"PERCENT", value:10, min:0, category:"ALL", active:true },
-      { code:"AMISTAD", type:"PERCENT", value:20, min:0, category:"ALL", active:true },
-      { code:"14FEB", type:"PERCENT", value:23, min:0, category:"ALL", active:true },
-      { code:"VERANO", type:"PERCENT", value:20, min:0, category:"ALL", active:true },
+      { code:"AMISTAD", type:"PERCENT", value:23, min:0, category:"ALL", active:true },
+      { code:"Cupido", type:"PERCENT", value:15, min:0, category:"ALL", active:true },
+      { code:"MUNDIAL26", type:"PERCENT", value:20, min:0, category:"ALL", active:true },
       { code:"3X2", type:"BOGO", value:0, min:800, category:"ALL", active:true },
-      { code:"NUEVO", type:"PERCENT", value:10, min:0, category:"ALL", active:true }
+      { code:"14FEB", type:"PERCENT", value:23, min:0, category:"ALL", active:true }
     ];
 
     const $=(s,el=document)=>el.querySelector(s);
@@ -2937,7 +3220,7 @@ function openLogin(){
     function showModal(sel){ 
 document.body.classList.add('modal-open');
 $(sel).classList.add("show"); $(sel).setAttribute("aria-hidden","false"); }
-    function hideModal(sel){ 
+    function hideModal(sel){
   $(sel).classList.remove("show");
   $(sel).setAttribute("aria-hidden","true");
   // Unlock background if no overlays remain open
@@ -2945,20 +3228,6 @@ $(sel).classList.add("show"); $(sel).setAttribute("aria-hidden","false"); }
     document.body.classList.remove('modal-open');
   }
 }
-
-
-// Fix: al volver con botón Atrás (BFCache), asegura que no quede el scroll bloqueado
-window.addEventListener('pageshow', (e)=>{
-  // En algunos navegadores, el estado de clases queda cacheado
-  if(e.persisted){
-    document.body.classList.remove('modal-open');
-    document.querySelectorAll('.overlay.show').forEach(o=>{
-      o.classList.remove('show');
-      o.setAttribute('aria-hidden','true');
-    });
-  }
-});
-
 
 
     // ================
@@ -3566,30 +3835,238 @@ $("#btnOffers").addEventListener("click",()=>{
 </script>
 
 <script>
-/* ===== Card stagger (automático al render / filtro) ===== */
+/* ================================
+   San Valentín (Campaña completa)
+   - Auto OFF después del 15
+   - Toggle en Admin
+   - Cupón auto 14FEB (23% OFF)
+   ================================ */
 (function(){
-  function applyCardStagger(){
-    const grid = document.getElementById('grid');
-    if(!grid) return;
-    const cards = grid.querySelectorAll('.card');
-    cards.forEach((card, i) => {
-      // delay escalonado (suave)
-      card.style.animationDelay = (i * 40) + 'ms';
+  const K_VAL = "pl_val_campaign_v1";
+  const AUTO_COUPON_CODE = "14FEB";
+  const AUTO_COUPON_FLAG = "pl_val_auto_coupon_applied_v1";
+
+  function endOfCampaign(){
+    const now = new Date();
+    const y = now.getFullYear();
+    // Fin: 15 Feb 23:59:59 hora local
+    let t = new Date(y, 1, 15, 23, 59, 59, 0);
+    // si ya pasó, usa el siguiente año (para que el contador no quede negativo)
+    if(now > t) t = new Date(y+1, 1, 15, 23, 59, 59, 0);
+    return t;
+  }
+
+  function isAfterCampaignHardStop(){
+    const now = new Date();
+    const y = now.getFullYear();
+    const stop = new Date(y, 1, 15, 23, 59, 59, 0);
+    return now > stop;
+  }
+
+  function getStoredToggle(){
+    try{
+      const v = localStorage.getItem(K_VAL);
+      if(v === null) return true; // default ON si está en fecha
+      return v === "1";
+    }catch(e){ return true; }
+  }
+  function setStoredToggle(on){
+    try{ localStorage.setItem(K_VAL, on ? "1" : "0"); }catch(e){}
+  }
+
+  function setCampaignActive(on){
+    const hero = document.getElementById("valentineHero");
+    if(on){
+      document.body.setAttribute("data-campaign","valentine");
+      if(hero) hero.style.display = "";
+    }else{
+      document.body.removeAttribute("data-campaign");
+      if(hero) hero.style.display = "none";
+    }
+  }
+
+  function fmt2(n){ return String(n).padStart(2,"0"); }
+
+  function renderCountdown(){
+    const el = document.getElementById("valCountdown");
+    const banner = document.getElementById("valentineBanner");
+    if(!el || !banner) return;
+
+    const t = endOfCampaign();
+    const now = new Date();
+    let diff = Math.max(0, t - now);
+    const sec = Math.floor(diff/1000);
+    const d = Math.floor(sec/86400);
+    const h = Math.floor((sec%86400)/3600);
+    const m = Math.floor((sec%3600)/60);
+    const s = sec%60;
+    el.textContent = `${d}d ${fmt2(h)}:${fmt2(m)}:${fmt2(s)}`;
+
+    // Si ya pasó la fecha real del año actual, el controller apagará la campaña.
+  }
+
+  function tryAutoCoupon(){
+    // Solo si campaña está activa
+    if(document.body.getAttribute("data-campaign") !== "valentine") return;
+
+    const couponInput = document.getElementById("coupon");
+    if(!couponInput) return;
+
+    // No sobreescribir si el usuario ya escribió otro
+    const current = (couponInput.value||"").trim();
+    if(current) return;
+
+    // Evitar re-aplicar muchas veces
+    try{
+      if(localStorage.getItem(AUTO_COUPON_FLAG)==="1") return;
+    }catch(e){}
+
+    couponInput.value = AUTO_COUPON_CODE;
+
+    if(typeof applyCoupon === "function"){
+      applyCoupon();
+      try{ localStorage.setItem(AUTO_COUPON_FLAG,"1"); }catch(e){}
+      if(typeof toast === "function"){
+        toast(`💝 Cupón ${AUTO_COUPON_CODE} (23% OFF) aplicado automáticamente.`);
+      }
+    }
+  }
+
+  function wireHeroCTA(){
+    const btn = document.getElementById("btnGoCartVal");
+    if(!btn) return;
+    btn.addEventListener("click", ()=>{
+      const cartBtn = document.getElementById("btnCartTop");
+      if(cartBtn) cartBtn.click();
+      setTimeout(()=>{ tryAutoCoupon(); }, 120);
     });
   }
 
-  // Initial
-  window.addEventListener('load', applyCardStagger);
+  function wireAutoCouponOnCartOpen(){
+    const cartBtn = document.getElementById("btnCartTop");
+    if(!cartBtn) return;
+    cartBtn.addEventListener("click", ()=>{
+      setTimeout(()=>{ tryAutoCoupon(); }, 120);
+    });
+  }
 
-  // Re-apply whenever the grid changes (categorías/filtros/búsqueda)
-  const grid = document.getElementById('grid');
-  if(grid && 'MutationObserver' in window){
-    const obs = new MutationObserver(() => applyCardStagger());
-    obs.observe(grid, { childList:true, subtree:false });
+  function wireAdminToggle(){
+    const chk = document.getElementById("cfgValentineCampaign");
+    const hint = document.getElementById("cfgValentineHint");
+    if(!chk) return;
+
+    const hardOff = isAfterCampaignHardStop();
+    if(hardOff){
+      // Fuerza OFF después del 15
+      setStoredToggle(false);
+      chk.checked = false;
+      chk.disabled = true;
+      if(hint) hint.textContent = "Fuera de fecha: la campaña se desactivó automáticamente.";
+      setCampaignActive(false);
+      return;
+    }
+
+    chk.checked = getStoredToggle();
+    chk.disabled = false;
+    if(hint) hint.textContent = "Activa/desactiva el tema, banner y cupón automático.";
+
+    chk.addEventListener("change", ()=>{
+      setStoredToggle(!!chk.checked);
+      // si se desactiva manualmente, también permitir que el cupón se reintente después
+      if(!chk.checked){
+        try{ localStorage.removeItem(AUTO_COUPON_FLAG); }catch(e){}
+      }
+      setCampaignActive(!!chk.checked);
+    });
+  }
+
+  function initCampaign(){
+    // Auto OFF (hard stop) después del 15
+    const hardOff = isAfterCampaignHardStop();
+    if(hardOff){
+      setStoredToggle(false);
+      setCampaignActive(false);
+      return;
+    }
+
+    // Dentro de fecha: respeta toggle del Admin
+    const on = getStoredToggle();
+    setCampaignActive(on);
+  }
+
+  // Init
+  initCampaign();
+  wireHeroCTA();
+  wireAutoCouponOnCartOpen();
+  wireAdminToggle();
+
+  // Countdown live (solo si campaña activa)
+  renderCountdown();
+  setInterval(()=>{ 
+    if(document.body.getAttribute("data-campaign")==="valentine"){
+      renderCountdown();
+    }
+  }, 1000);
+
+  // Intentar aplicar cupón en load si el usuario abre checkout directo
+  window.addEventListener("load", ()=>{ setTimeout(()=>{ tryAutoCoupon(); }, 240); });
+
+  // Fix BFCache: si vuelves atrás, limpia scroll-lock
+  window.addEventListener("pageshow", (e)=>{
+    if(e.persisted){
+      document.body.classList.remove("modal-open");
+      document.querySelectorAll(".overlay.show").forEach(o=>{
+        o.classList.remove("show");
+        o.setAttribute("aria-hidden","true");
+      });
+    }
+  });
+
+  // Re-aplicar stagger de tarjetas cuando cambia el grid
+  function applyCardStagger(){
+    const grid = document.getElementById("grid");
+    if(!grid) return;
+    grid.querySelectorAll(".card").forEach((card,i)=>{
+      card.style.animationDelay = (i*40) + "ms";
+    });
+  }
+  window.addEventListener("load", applyCardStagger);
+  const grid = document.getElementById("grid");
+  if(grid && "MutationObserver" in window){
+    new MutationObserver(()=>applyCardStagger()).observe(grid,{childList:true});
   }
 })();
 </script>
 
+
+<script>
+/* ================================
+   FIX navegación congelada (scroll lock)
+   - Garantiza que modal-open solo exista si hay overlays abiertos
+   ================================ */
+(function(){
+  function syncModalLock(){
+    const anyOpen = !!document.querySelector('.overlay.show');
+    document.body.classList.toggle('modal-open', anyOpen);
+  }
+
+  // Revisa después de cualquier click (cierre por backdrop/botón/x)
+  document.addEventListener('click', ()=>{ setTimeout(syncModalLock, 0); }, true);
+
+  // Escape: algunos cierres no pasan por hideModal
+  document.addEventListener('keyup', (e)=>{
+    if(e.key === 'Escape'){ setTimeout(syncModalLock, 0); }
+  });
+
+  // Volver / navegación
+  window.addEventListener('popstate', ()=>{ setTimeout(syncModalLock, 0); });
+  window.addEventListener('hashchange', ()=>{ setTimeout(syncModalLock, 0); });
+  window.addEventListener('pageshow', ()=>{ setTimeout(syncModalLock, 0); });
+
+  // Backup: si por alguna razón queda pegado, se autocorrige
+  setInterval(syncModalLock, 800);
+})();
+</script>
 
 </body>
 </html>
