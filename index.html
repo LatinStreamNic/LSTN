@@ -2061,14 +2061,14 @@ function openLogin(){
     ];
 
     const DEFAULT_COUPONS = [
-      { code:"LATIN", type:"PERCENT", value:5, min:0, category:"ALL", active:true },
+      { code:"LATIN", type:"PERCENT", value:25, min:20, category:"ALL", active:true },
       { code:"VERANO", type:"PERCENT", value:15, min:7, category:"ALL", active:false },
       { code:"AMISTAD", type:"PERCENT", value:10, min:7, category:"ALL", active:false },
-      { code:"amistad", type:"PERCENT", value:10, min:7, category:"ALL", active:true },
+      { code:"amistad", type:"PERCENT", value:0, min:7, category:"ALL", active:true },
       { code:"FEB", type:"PERCENT", value:10, min:7, category:"ALL", active:true },
       { code:"Verano", type:"PERCENT", value:15, min:7, category:"ALL", active:false },
-      { code:"MUNDIAL26", type:"PERCENT", value:20, min:0, category:"ALL", active:true },
-      { code:"3X2", type:"BOGO", value:0, min:800, category:"ALL", active:true },
+      { code:"MUNDIAL26", type:"PERCENT", value:20, min:8, category:"ALL", active:true },
+      { code:"3X2", type:"BOGO", value:0, min:20, category:"ALL", active:true },
       { code:"VAMOSNICARAGUA", type:"PERCENT", value:5, min:6, category:"ALL", active:true }
     ];
 
@@ -2106,11 +2106,11 @@ function openLogin(){
     const OFFER_DISCOUNT = 0.15; // 25%
     function offerStart(){
       const y = (new Date()).getFullYear();
-      return new Date(y, 1, 27, 0, 0, 0, 0); // 01 Marzo 00:00
+      return new Date(y, 1, 28, 8, 0, 0, 0); // 28 Febrero 08:00
     }
     function offerEnd(){
       const y = (new Date()).getFullYear();
-      return new Date(y, 3, 30, 23, 59, 59, 0); // 30 Abril 23:59:59
+      return new Date(y, 3, 30, 20, 59, 59, 0); // 30 Abril 20:59:59
     }
     function offerActive(){
       const now = new Date();
