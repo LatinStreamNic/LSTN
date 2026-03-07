@@ -293,9 +293,6 @@
     .payopt.active{border-color:rgba(79,124,255,.55);background:rgba(79,124,255,.10)}
     .payopt .rightActions{display:flex;align-items:center;gap:8px}
     .payopt .mini{padding:7px 9px;border-radius:10px;font-size:12px}
-    .paySubgroup{display:grid;gap:8px;margin:4px 0 0 14px;padding-left:14px;border-left:1px dashed var(--border)}
-    .payopt-sub{background:rgba(255,255,255,.04)}
-    .payopt-sub.active{border-color:rgba(34,197,94,.45);background:rgba(34,197,94,.10)}
 
     .toast{position:fixed;right:16px;bottom:16px;background:rgba(0,0,0,.75);border:1px solid rgba(255,255,255,.14);padding:10px 12px;border-radius:14px;color:var(--text);display:none;z-index:80;backdrop-filter:blur(10px);max-width:min(520px, calc(100% - 32px));white-space:pre-line}
     [data-theme="light"] .toast{background:rgba(11,18,32,.85)}
@@ -2124,8 +2121,9 @@ let query="", activeCat=null, onlyOffers=false, sortMode="popular";
     let cart=new Map();
     let selectedProduct=null, selectedDuration=1;
 
-    // Métodos agrupados: card, paypal, lafise, banpro_movil, promerica, sinpe_cr
-    let payMethod="paypal";
+    // Métodos: lafise, banpro_movil, promerica, airtm, binance, paypal, sinpe_cr
+    let payMethod="";
+    let payGroup="none";
     let paypalSdkPromise=null;
     let paypalButtonsReady=false;
     let paypalLastCapture=null; // {orderID,captureID,status}
@@ -2556,29 +2554,18 @@ let query="", activeCat=null, onlyOffers=false, sortMode="popular";
 
     // === Métodos de pago ===
     function isNoCardMethod(id){
-      return ["lafise","banpro_movil","promerica","sinpe_cr"].includes(id);
-    }
-
-    function getCurrentPayGroup(){
-      if(payMethod === "card") return "card";
-      if(payMethod === "paypal") return "paypal";
-      if(isNoCardMethod(payMethod)) return "no_card";
-      return "";
-    }
-
-    function getActiveNoCardMethod(){
-      return isNoCardMethod(payMethod) ? payMethod : "lafise";
+      return ["lafise","banpro_movil","sinpe_cr","promerica"].includes(id);
     }
 
     function payMethodLabel(){
       return ({
         card:"Pago con Tarjeta 💳",
-        paypal:"PayPal",
         lafise:"Depósito/Transferencia — Lafise Bancentro",
         banpro_movil:"Billetera móvil — Bampro",
         promerica:"Banco — Promerica",
+        paypal:"PayPal",
         sinpe_cr:"SINPE CR"
-      })[payMethod] || payMethod;
+      })[payMethod] || "Aún no has seleccionado un método";
     }
 
     function payMethodInstructions(){
@@ -2588,34 +2575,35 @@ let query="", activeCat=null, onlyOffers=false, sortMode="popular";
       if(payMethod==="promerica") return cfg.PAY_PROMERICA;
       if(payMethod==="paypal") return cfg.PAY_PAYPAL;
       if(payMethod==="sinpe_cr") return cfg.PAY_SINPE_CR;
-      return "";
+      if(payGroup==="no_card") return "Selecciona uno de los métodos disponibles y toca “Ver datos”.";
+      return "Selecciona un método de pago para ver los datos.";
     }
 
-    // #3: Comprobante: solo requerido en métodos que NO sean PayPal.
+    // #3: Comprobante: solo requerido en métodos manuales ya seleccionados.
     function payRequiresProof(){
-      return payMethod !== "paypal";
+      if(!payMethod) return false;
+      if(payMethod === "paypal") return false;
+      if(payMethod === "card") return false;
+      return true;
     }
 
     // #3: Toggle automático de campos según método
     function updateProofRequirementsUI(){
       const req = payRequiresProof();
 
-      // Requerido/Opicional labels
       $("#proofLabel").textContent = req ? "Subir imagen *" : "Subir imagen (opcional)";
-      $("#paidReq").textContent = "(requerido)";
-      $("#refReq").textContent  = "(requerido)";
+      $("#paidReq").textContent = payMethod ? "(requerido)" : "(pendiente)";
+      $("#refReq").textContent  = payMethod ? "(requerido)" : "(pendiente)";
 
-      // Mostrar/ocultar campos
       $("#wrapPaid").style.display = "block";
       $("#wrapRef").style.display  = "block";
-      $("#wrapProof").style.display = "block"; // siempre lo dejamos visible, pero opcional en PayPal
+      $("#wrapProof").style.display = "block";
       $("#divProof").style.display = "block";
 
-      // Si NO requiere comprobante: no obligar comprobante
       if(!req){
         $("#eProof").style.display="none";
       }
-}
+    }
 
     // #1: Función para abrir/cerrar el panel de datos de pago
     function setPayPaneCollapsed(collapsed){
@@ -2630,82 +2618,99 @@ let query="", activeCat=null, onlyOffers=false, sortMode="popular";
 
     function renderPayMethods(){
       const pg=$("#paygrid");
-      const activeGroup = getCurrentPayGroup();
-      const activeNoCard = getActiveNoCardMethod();
-      const noCardOpen = activeGroup === "no_card";
-      const noCardMethods = [
-        {id:"lafise", label:"Depósito y transferencia Lafise Bancentro", sub:"Transferencia bancaria"},
-        {id:"banpro_movil", label:"Billetera móvil Bampro", sub:"Pago móvil"},
-        {id:"sinpe_cr", label:"SINPE CR", sub:"Transferencia en Costa Rica"},
-        {id:"promerica", label:"Promerica", sub:"Banco Promerica"}
+      const topMethods=[
+        {id:"card", label:"Pago con Tarjeta 💳", sub:"Disponible próximamente"},
+        {id:"paypal", label:"PayPal", sub:"Pago directo con PayPal"},
+        {id:"no_card", label:"Pago sin Tarjeta", sub:"Muestra los métodos disponibles"}
+      ];
+      const noCardMethods=[
+        {id:"lafise", label:"Depósito y transferencia Lafise Bancentro", sub:"Manual"},
+        {id:"banpro_movil", label:"Billetera móvil Bampro", sub:"Manual"},
+        {id:"sinpe_cr", label:"SINPE CR", sub:"Costa Rica"},
+        {id:"promerica", label:"Promerica", sub:"Manual"}
       ];
 
-      pg.innerHTML = `
-        <div class="payopt ${activeGroup==='card' ? 'active' : ''}" onclick="selectPay('card', false)">
-          <div>
-            <div style="font-weight:950">Pago con Tarjeta 💳</div>
-            <div class="tiny">Próximamente disponible</div>
-          </div>
-          <div class="rightActions">
-            <button class="btn small mini" onclick="selectPay('card', true); event.stopPropagation();">Ver más</button>
-            <div>${activeGroup==='card' ? '✅' : '○'}</div>
-          </div>
-        </div>
-
-        <div class="payopt ${activeGroup==='paypal' ? 'active' : ''}" onclick="selectPay('paypal', false)">
-          <div>
-            <div style="font-weight:950">PayPal</div>
-            <div class="tiny">Pago PayPal</div>
-          </div>
-          <div class="rightActions">
-            <button class="btn small mini" onclick="selectPay('paypal', true); event.stopPropagation();">Ver datos</button>
-            <div>${activeGroup==='paypal' ? '✅' : '○'}</div>
-          </div>
-        </div>
-
-        <div class="payopt ${activeGroup==='no_card' ? 'active' : ''}" onclick="selectPay('no_card', false)">
-          <div>
-            <div style="font-weight:950">Pago sin Tarjeta</div>
-            <div class="tiny">Selecciona uno de los métodos disponibles</div>
-          </div>
-          <div class="rightActions">
-            <button class="btn small mini" onclick="selectPay('no_card', true); event.stopPropagation();">${noCardOpen ? 'Ocultar' : 'Ver métodos'}</button>
-            <div>${activeGroup==='no_card' ? '✅' : '○'}</div>
-          </div>
-        </div>
-
-        <div class="paySubgroup ${noCardOpen ? '' : 'hidden'}" id="payNoCardGroup">
-          ${noCardMethods.map(m => `
-            <div class="payopt payopt-sub ${activeNoCard===m.id ? 'active' : ''}" onclick="selectPay('${m.id}', false)">
-              <div>
-                <div style="font-weight:950">${escapeHtml(m.label)}</div>
-                <div class="tiny">${escapeHtml(m.sub)}</div>
-              </div>
-              <div class="rightActions">
-                <button class="btn small mini" onclick="selectPay('${m.id}', true); event.stopPropagation();">Ver datos</button>
-                <div>${activeNoCard===m.id ? '✅' : '○'}</div>
-              </div>
+      const topHtml = topMethods.map(m=>{
+        const active = (payGroup===m.id || (m.id==="no_card" && isNoCardMethod(payMethod))) ? "active" : "";
+        const mark = active ? "✅" : "○";
+        return `
+          <div class="payopt ${active}" onclick="selectPayGroup('${m.id}')">
+            <div>
+              <div style="font-weight:950">${escapeHtml(m.label)}</div>
+              <div class="tiny">${escapeHtml(m.sub)}</div>
             </div>
-          `).join('')}
-        </div>
-      `;
+            <div class="rightActions">
+              <button class="btn small mini" onclick="handlePayPrimaryAction('${m.id}'); event.stopPropagation();">${m.id==='no_card' ? 'Ver métodos' : 'Ver datos'}</button>
+              <div>${mark}</div>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      let subHtml = "";
+      if(payGroup === "no_card"){
+        subHtml = `
+          <div class="mutedBox tiny" style="margin-top:8px">Selecciona uno de los métodos disponibles. No se elegirá ninguno hasta que toques <b>Ver datos</b>.</div>
+          <div style="display:grid;gap:8px;margin-top:8px">
+            ${noCardMethods.map(m=>{
+              const active = (m.id===payMethod) ? "active" : "";
+              const mark = active ? "✅" : "○";
+              return `
+                <div class="payopt ${active}" style="margin-left:14px" onclick="event.stopPropagation();">
+                  <div>
+                    <div style="font-weight:950">${escapeHtml(m.label)}</div>
+                    <div class="tiny">${escapeHtml(m.sub)}</div>
+                  </div>
+                  <div class="rightActions">
+                    <button class="btn small mini" onclick="selectPay('${m.id}', true); event.stopPropagation();">Ver datos</button>
+                    <div>${mark}</div>
+                  </div>
+                </div>
+              `;
+            }).join("")}
+          </div>
+        `;
+      }
+
+      pg.innerHTML = topHtml + subHtml;
 
       updatePayUI();
       renderPayPane();
     }
 
+    function selectPayGroup(groupId){
+      payGroup = groupId;
+      if(groupId === "card"){
+        payMethod = "card";
+      } else if(groupId === "paypal"){
+        payMethod = "paypal";
+      } else if(groupId === "no_card"){
+        payMethod = "";
+      }
+      updatePayUI();
+      updateProofRequirementsUI();
+      renderPayPane();
+      renderPayMethods();
+      renderCart();
+    }
+
+    function handlePayPrimaryAction(groupId){
+      if(groupId === "no_card"){
+        selectPayGroup("no_card");
+        return;
+      }
+      selectPay(groupId, true);
+    }
+
     // selectPay(id, forceOpenPayPane)
     function selectPay(id, forceOpenPayPane){
-      if(id === "no_card"){
-        payMethod = isNoCardMethod(payMethod) ? payMethod : "lafise";
-      } else {
-        payMethod = id;
-      }
-
+      payMethod=id;
+      payGroup = isNoCardMethod(id) ? "no_card" : id;
       updatePayUI();
       updateProofRequirementsUI();
       renderPayPane();
 
+      // Si tocó “Ver datos”, abre pestaña de datos y despliega panel
       if(forceOpenPayPane){
         setCheckoutPane("pay");
         setPayPaneCollapsed(false);
@@ -2714,10 +2719,10 @@ let query="", activeCat=null, onlyOffers=false, sortMode="popular";
       }
 
       if(payMethod === "card"){
-        toast("Pago con tarjeta disponible próximamente 💳");
+        toast("Pago con tarjeta: disponible próximamente 💳");
       } else if(payRequiresProof() && !proof.dataUrl){
         toast("Este método requiere comprobante 📸");
-      } else if(!payRequiresProof()){
+      } else if(payMethod === "paypal"){
         toast("PayPal: comprobante no requerido ✅");
       }
 
@@ -2854,16 +2859,14 @@ let query="", activeCat=null, onlyOffers=false, sortMode="popular";
 
     function updatePayUI(){
       const txt = payMethodInstructions() || "Configura los datos de pago en Admin.";
-      $("#payHint").textContent = (getCurrentPayGroup()==="no_card")
-        ? "📌 Selecciona uno de los métodos dentro de Pago sin Tarjeta y luego toca “Ver datos”."
-        : "📌 Toca “Ver datos” para revisar la información del método seleccionado.";
+      $("#payHint").textContent = payGroup === "no_card"
+        ? "📌 Ya ves los métodos disponibles. Elige uno solo cuando toques “Ver datos”."
+        : "📌 Toca “Ver datos” para revisar las instrucciones del método.";
       $("#payPaneTitle").textContent = payMethodLabel();
 
-      // Instrucciones (texto)
       const body = $("#payPaneBody");
       body.textContent = txt;
 
-      // PayPal (botones reales)
       const wrap = $("#paypalButtonsWrap");
       const status = $("#paypalStatus");
       if(wrap){
@@ -2895,7 +2898,13 @@ let query="", activeCat=null, onlyOffers=false, sortMode="popular";
     }
 
     async function copyPayData(){
-      const text = `${payMethodLabel()}\n\n${payMethodInstructions()}`;
+      if(!payMethod){
+        toast("Primero selecciona un método y toca “Ver datos”.");
+        return;
+      }
+      const text = `${payMethodLabel()}
+
+${payMethodInstructions()}`;
       try{
         await navigator.clipboard.writeText(text);
         toast("Datos de pago copiados ✅");
@@ -3098,6 +3107,15 @@ let query="", activeCat=null, onlyOffers=false, sortMode="popular";
     function validateCheckout(){
       let ok=true;
 
+      if(!payMethod){
+        toast("Selecciona un método y toca “Ver datos”.");
+        return false;
+      }
+      if(payMethod==="card"){
+        toast("Pago con tarjeta estará disponible próximamente.");
+        return false;
+      }
+
       const name=$("#cName").value.trim();
       const phone=$("#cPhone").value.trim();
       const email=$("#cEmail").value.trim();
@@ -3178,6 +3196,8 @@ let query="", activeCat=null, onlyOffers=false, sortMode="popular";
     function placeOrder(){
       const sub=subtotalUSD();
       if(sub<=0){ toast("Agrega productos primero."); return; }
+      if(!payMethod){ toast("Selecciona un método de pago."); return; }
+      if(payMethod==="card"){ toast("Pago con tarjeta estará disponible próximamente."); return; }
       if(!validateCheckout()){ toast("Revisa los campos marcados."); return; }
 
       const oid=orderId();
@@ -3635,15 +3655,14 @@ $("#btnOffers").addEventListener("click",()=>{
       }
       // 2) Método de pago
       if(i===1){
-        if(!payMethod){ toast("Selecciona un método de pago."); return false; }
-        if(payMethod === "card"){ toast("Pago con tarjeta disponible próximamente 💳"); return false; }
+        if(!payMethod){ toast("Selecciona un método y toca “Ver datos”."); return false; }
+        if(payMethod==="card"){ toast("Pago con tarjeta estará disponible próximamente."); return false; }
         return true;
       }
       // 2.5) Método seleccionado (informativo)
       if(i===2){
-        // Este paso no agrega validaciones nuevas; solo muestra/copias datos del método.
-        if(!payMethod){ toast("Selecciona un método de pago."); return false; }
-        if(payMethod === "card"){ toast("Pago con tarjeta disponible próximamente 💳"); return false; }
+        if(!payMethod){ toast("Selecciona un método y toca “Ver datos”."); return false; }
+        if(payMethod==="card"){ toast("Pago con tarjeta estará disponible próximamente."); return false; }
         return true;
       }
       // 3) Validación de pago
@@ -3737,7 +3756,7 @@ $("#btnOffers").addEventListener("click",()=>{
       if(hint){
         hint.textContent =
           (WIZ.idx===0) ? "Agrega/ajusta tus productos" :
-          (WIZ.idx===1) ? "Elige entre tarjeta, PayPal o pago sin tarjeta" :
+          (WIZ.idx===1) ? "Elige el método (PayPal o sin tarjeta)" :
           (WIZ.idx===2) ? "Aquí verás/copiarás los datos del método" :
           (WIZ.idx===3) ? "Ingresa monto y referencia (y comprobante si aplica)" :
           (WIZ.idx===4) ? "Nombre y WhatsApp son obligatorios" :
