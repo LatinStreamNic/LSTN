@@ -93,11 +93,11 @@ display:flex;justify-content:space-around;padding:10px;
 <h2>Bienvenido a Latin Store 💱</h2>
 <p>Selecciona tu moneda</p>
 
-<button onclick="setCurrency('USD',1)">USD</button>
-<button onclick="setCurrency('C$',37.5)">C$</button>
-<button onclick="setCurrency('₡',525)">₡</button>
-<button onclick="setCurrency('$',17.31)">MXN</button>
-<button onclick="setCurrency('€',1.2)">EUR</button>
+<button onclick="setCurrency('USD',1)"> $ = Dolares</button>
+<button onclick="setCurrency('C$',37.5)"> C$ = Cordobas</button>
+<button onclick="setCurrency('₡',525)">₡ = Colones</button>
+<button onclick="setCurrency('$',17.31)">MXN = Pesos</button>
+<button onclick="setCurrency('€',1.2)">EUR = EURO</button>
 </div>
 
 <div class="header">MEMBRESIAS DISPONIBLES</div>
@@ -222,7 +222,7 @@ let price=selected.price*rate;
 
 let msg=`Hola, Me Gustaria realizar la siguiente compra.
 
- *Producto seleccionado*
+ ✨ *Producto seleccionado*🔥
 • Artículo: ${selected.name}
 • membresía: ${selected.plan}
 • Categoría: ${selected.cat}
