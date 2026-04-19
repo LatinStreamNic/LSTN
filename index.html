@@ -11,231 +11,336 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Poppins',sans-serif;background:#0f0f0f;color:#fff;}
 
+/* WELCOME */
 .welcome{
-position:fixed;width:100%;height:100%;
-background:#0f0f0f;display:flex;flex-direction:column;
-align-items:center;justify-content:center;z-index:999;
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:#0f0f0f;
+display:flex;flex-direction:column;
+align-items:center;justify-content:center;
+z-index:999;
 text-align:center;
+padding:20px;
 }
 .welcome button{
-margin:5px;padding:10px 20px;border:none;
-border-radius:10px;background:#ff0000;color:#fff;cursor:pointer;
+margin:6px;
+padding:12px 20px;
+border:none;
+border-radius:10px;
+background:#ff0000;
+color:#fff;
+cursor:pointer;
+width:200px;
 }
 
+/* HEADER */
 .header{
 position:sticky;top:0;
-background:rgba(15,15,15,0.9);
-backdrop-filter:blur(10px);
-padding:15px;text-align:center;font-weight:600;
+background:rgba(15,15,15,0.95);
+padding:15px;
+text-align:center;
+font-weight:600;
+z-index:10;
 }
 
-.container{padding:20px;}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:15px;}
+/* CONTENEDOR */
+.container{
+padding:20px;
+max-width:1200px;
+margin:auto;
+}
 
-.card{background:#1c1c1c;border-radius:18px;overflow:hidden;cursor:pointer;}
-.card img{width:100%;height:160px;object-fit:cover;transition:0.5s;}
-.card:hover img{transform:scale(1.1);}
+/* SECCIÓN */
+.section{margin-bottom:40px;}
+.section h3{
+margin-bottom:15px;
+font-size:18px;
+border-left:4px solid #ff0000;
+padding-left:10px;
+}
 
+/* CARRUSEL */
+.carousel{
+overflow:hidden;
+position:relative;
+}
+.track{
+display:flex;
+gap:15px;
+will-change:transform;
+}
+
+
+
+
+
+
+
+/* CARD */
+.card{
+min-width:180px;
+background:#1c1c1c;
+border-radius:18px;
+overflow:hidden;
+cursor:pointer;
+transition:0.3s;
+flex-shrink:0;
+}
+.card:hover{transform:scale(1.05);}
+.card img{
+width:100%;
+height:160px;
+object-fit:cover;
+}
+
+/* INFO */
 .info{padding:12px;}
-.info p{font-size:13px;opacity:0.8;}
-.info span{display:block;margin-top:5px;font-weight:600;}
-
-.btn{
-margin-top:8px;width:100%;padding:8px;border:none;
-border-radius:12px;background:#ff0000;color:#fff;cursor:pointer;
+.info p{font-size:14px;}
+.info span{font-size:12px;opacity:0.7;}
+.price{
+margin-top:6px;
+font-weight:600;
+color:#00ffae;
 }
 
+/* MODAL */
 .modal{
-position:fixed;top:0;left:0;width:100%;height:100%;
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
 background:rgba(0,0,0,0.9);
-display:none;align-items:center;justify-content:center;
-z-index:100;
+display:none;
+align-items:center;
+justify-content:center;
+z-index:1000;
 }
-
 .modal-content{
 background:#1c1c1c;
 padding:20px;
 border-radius:20px;
-max-width:400px;
 width:90%;
+max-width:420px;
 text-align:center;
 }
-
-
-
-
-
-
-/* Agregado */
-
-.modal{
-position:fixed;top:0;left:0;width:100%;height:100%;
-background:rgba(0,0,0,0.85);
-display:none;align-items:center;justify-content:center;
-z-index:100;
-animation:fadeIn 0.3s ease;
-}
-
-.modal-content{
-background:#1c1c1c;
-padding:20px;
-border-radius:25px;
-max-width:400px;
-width:90%;
-text-align:center;
-animation:zoomIn 0.35s ease;
-}
-
-.price-big{
-font-size:28px;
-font-weight:700;
-margin-top:10px;
-}
-
-@keyframes fadeIn{
-from{opacity:0;}
-to{opacity:1;}
-}
-
-@keyframes zoomIn{
-from{transform:scale(0.8);opacity:0;}
-to{transform:scale(1);opacity:1;}
-}
-
-
-
-
-
-
-
-
-
-
 .modal img{
 width:100%;
 border-radius:12px;
 margin-bottom:15px;
 }
-
-.close{
-position:absolute;top:20px;right:20px;
-font-size:25px;cursor:pointer;
+.price-big{
+font-size:28px;
+font-weight:700;
+margin-top:10px;
+}
+.btn{
+margin-top:15px;
+width:100%;
+padding:12px;
+border:none;
+border-radius:12px;
+background:linear-gradient(45deg,#ff0000,#ff4d4d);
+color:#fff;
+font-weight:600;
+cursor:pointer;
 }
 
-.nav{
-position:fixed;bottom:15px;left:50%;transform:translateX(-50%);
-width:90%;background:#1c1c1c;border-radius:25px;
-display:flex;justify-content:space-around;padding:10px;
+/* RESPONSIVE */
+@media(min-width:768px){
+.card{min-width:220px;}
+}
+@media(min-width:1024px){
+.card{min-width:250px;}
 }
 </style>
 </head>
 
+<audio id="bgMusic" loop>
+  <source src="" type="audio/mpeg">
+</audio>
+
 <body>
 
+<!-- WELCOME -->
 <div class="welcome" id="welcome">
 <h2>BIENVENIDOS A LATIN STORE</h2>
 <p>Selecciona tu moneda</p>
 
-<button onclick="setCurrency('USD',1)">U$ = Dólares</button>
-<button onclick="setCurrency('C$',37.5)">C$ = Córdobas</button>
+<button onclick="setCurrency('USD',1)">U$ = Dolares</button>
+<button onclick="setCurrency('C$',37.5)">C$ = Cordobas</button>
 <button onclick="setCurrency('₡',525)">₡ = Colones</button>
-<button onclick="setCurrency('$',17.31)">MXN = Peso Mexicano</button>
-<button onclick="setCurrency('€',1.5)">€ = Euro</button>
+<button onclick="setCurrency('$',17.31)">$ = Peso MX</button>
+<button onclick="setCurrency('€',1.0)">€ = Euro</button>
 </div>
 
 <div class="header">MEMBRESIAS DISPONIBLES</div>
 
-<div class="container">
-<div class="grid" id="products"></div>
-</div>
+<div class="container" id="store"></div>
 
+<!-- MODAL -->
 <div class="modal" id="modal">
-<div class="close" onclick="closeModal()">✖</div>
-
 <div class="modal-content">
 <img id="modalImg">
 <h3 id="modalTitle"></h3>
-<div id="modalDesc"></div>
-<br>
+<p id="modalText"></p>
+<div id="modalPrice"></div>
 <button class="btn" onclick="buyNow()">Contratar ahora</button>
 </div>
-</div>
-
-<div class="nav">
-<div>Inicio</div>
-<div>Buscar</div>
-<div>Favoritos</div>
-<div>Perfil</div>
 </div>
 
 <script>
 let currency='USD';
 let rate=1;
+let selected=null;
 
 const products=[
 
-{name:'Tele-Latino',plan:'1 mes',cat:'6 Dispositivos',price:7.18,img:'img/TL1MES.png'},
-{name:'Tele-Latino',plan:'2 meses',cat:'6 Dispositivos',price:14.36,img:'img/TL2MESES.png'},
-{name:'Tele-Latino',plan:'3 meses',cat:'6 Dispositivos',price:21.54,img:'img/TL3MESES.png'},
-{name:'Tele-Latino',plan:'6 meses',cat:'6 Dispositivos',price:40.20,img:'img/TL6MESES.png'},
-{name:'Tele-Latino',plan:'9 meses',cat:'6 Dispositivos',price:55.00,img:'img/TL9MESES.png'},
-{name:'Tele-Latino',plan:'12 meses',cat:'6 Dispositivos',price:75.90,img:'img/TL12MESES.png'},
+{name:'Tele-Latino',plan:'Membresia 1 mes',cat:'6 Dispositivos',price:7.18,img:'img/TL1MES.png'},
+{name:'Tele-Latino',plan:'Membresia 2 meses',cat:'6 Dispositivos',price:14.36,img:'img/TL2MESES.png'},
+{name:'Tele-Latino',plan:'Membresia 3 meses',cat:'6 Dispositivos',price:21.54,img:'img/TL3MESES.png'},
+{name:'Tele-Latino',plan:'Membresia 6 meses',cat:'6 Dispositivos',price:40.20,img:'img/TL6MESES.png'},
+{name:'Tele-Latino',plan:'Membresia 9 meses',cat:'6 Dispositivos',price:55.00,img:'img/TL9MESES.png'},
+{name:'Tele-Latino',plan:'Membresia 12 meses',cat:'6 Dispositivos',price:75.90,img:'img/TL12MESES.png'},
 
-{name:'Tele-Latino',plan:'1 mes',cat:'1 Dispositivo',price:4.05,img:'img/TLXCONEXION1MES.png'},
-{name:'Tele-Latino',plan:'3 meses',cat:'1 Dispositivo',price:12.15,img:'img/TLXCONEXION3MESES.png'},
-{name:'Tele-Latino',plan:'6 meses',cat:'1 Dispositivo',price:24.30,img:'img/TLXCONEXION6MESES.png'},
-{name:'Tele-Latino',plan:'12 meses',cat:'1 Dispositivo',price:48.00,img:'img/TLXCONEXION12MESES.png'},
+{name:'Tele-Latino',plan:'Membresia 1 mes',cat:'1 Dispositivos',price:4.05,img:'img/TLXCONEXION1MES.png'},
+{name:'Tele-Latino',plan:'Membresia 3 meses',cat:'1 Dispositivos',price:12.15,img:'img/TLXCONEXION3MESES.png'},
+{name:'Tele-Latino',plan:'Membresia 6 meses',cat:'1 Dispositivos',price:24.30,img:'img/TLXCONEXION6MESES.png'},
+{name:'Tele-Latino',plan:'Membresia 12 meses',cat:'1 Dispositivos',price:48.60,img:'img/TLXCONEXION12MESES.png'},
 
-{name:'GravicsoTV',plan:'1 mes',cat:'3 Dispositivos',price:10,img:'img/GVS1MES.png'},
-{name:'GravicsoTV',plan:'2 meses',cat:'3 Dispositivos',price:20,img:'img/GVS2MESES.png'},
-{name:'GravicsoTV',plan:'3 meses',cat:'3 Dispositivos',price:30,img:'img/GVS3MESES.png'},
-{name:'GravicsoTV',plan:'6 meses',cat:'3 Dispositivos',price:60,img:'img/GVS6MESES.png'},
-{name:'GravicsoTV',plan:'9 meses',cat:'3 Dispositivos',price:70,img:'img/GVS9MESES.png'},
-{name:'GravicsoTV',plan:'12 meses',cat:'3 Dispositivos',price:90,img:'img/GVS12MESES.png'},
+{name:'GravicsoTV',plan:'Membresia 1 mes',cat:'3 Dispositivos',price:10.00,img:'img/GVS1MES.png'},
+{name:'GravicsoTV',plan:'Membresia 2 meses',cat:'3 Dispositivos',price:20.00,img:'img/GVS2MESES.png'},
+{name:'GravicsoTV',plan:'Membresia 3 meses',cat:'3 Dispositivos',price:30.00,img:'img/GVS3MESES.png'},
+{name:'GravicsoTV',plan:'Membresia 6 meses',cat:'3 Dispositivos',price:60.00,img:'img/GVS6MESES.png'},
+{name:'GravicsoTV',plan:'Membresia 9 meses',cat:'3 Dispositivos',price:70.00,img:'img/GVS9MESES.png'},
+{name:'GravicsoTV',plan:'Membresia 12 meses',cat:'3 Dispositivos',price:90.00,img:'img/GVS12MESES.png'},
 
-{name:'GravicsoTV',plan:'1 mes',cat:'1 Dispositivo',price:5,img:'img/GVSXCONEXION1MES.png'},
-{name:'GravicsoTV',plan:'3 meses',cat:'1 Dispositivo',price:15,img:'img/GVSXCONEXION3MESES.png'},
-{name:'GravicsoTV',plan:'6 meses',cat:'1 Dispositivo',price:30,img:'img/GVSXCONEXION6MESES.png'},
-{name:'GravicsoTV',plan:'12 meses',cat:'1 Dispositivo',price:60,img:'img/GVSXCONEXION12MESES.png'},
+{name:'GravicsoTV',plan:'Membresia 1 mes',cat:'1 Dispositivos',price:5.00,img:'img/GVSXCONEXION1MES.png'},
+{name:'GravicsoTV',plan:'Membresia 3 meses',cat:'1 Dispositivos',price:15.00,img:'img/GVSXCONEXION3MESES.png'},
+{name:'GravicsoTV',plan:'Membresia 6 meses',cat:'1 Dispositivos',price:30.00,img:'img/GVSXCONEXION6MESES.png'},
+{name:'GravicsoTV',plan:'Membresia 12 meses',cat:'1 Dispositivos',price:60.00,img:'img/GVSXCONEXION12MESES.png'},
 
-{name:'Veltix',plan:'1 mes',cat:'3 Dispositivos',price:9,img:'img/VLT1MES.png'},
-{name:'Veltix',plan:'2 meses',cat:'3 Dispositivos',price:18,img:'img/VLT2MESES.png'},
-{name:'Veltix',plan:'3 meses',cat:'3 Dispositivos',price:26,img:'img/VLT3MESES.png'},
-{name:'Veltix',plan:'6 meses',cat:'3 Dispositivos',price:48,img:'img/VLT6MESES.png'},
-{name:'Veltix',plan:'9 meses',cat:'3 Dispositivos',price:70.75,img:'img/VLT9MESES.png'},
-{name:'Veltix',plan:'12 meses',cat:'3 Dispositivos',price:85.86,img:'img/VLT12MESES.png'},
+{name:'Veltix',plan:'Membresia 1 mes',cat:'3 Dispositivos',price:9.00,img:'img/VLT1MES.png'},
+{name:'Veltix',plan:'Membresia 2 meses',cat:'3 Dispositivos',price:18.00,img:'img/VLT2MESES.png'},
+{name:'Veltix',plan:'Membresia 3 meses',cat:'3 Dispositivos',price:26.00,img:'img/VLT3MESES.png'},
+{name:'Veltix',plan:'Membresia 6 meses',cat:'3 Dispositivos',price:48.00,img:'img/VLT6MESES.png'},
+{name:'Veltix',plan:'Membresia 9 meses',cat:'3 Dispositivos',price:70.00,img:'img/VLT9MESES.png'},
+{name:'Veltix',plan:'Membresia 12 meses',cat:'3 Dispositivos',price:85.00,img:'img/VLT12MESES.png'},
 
-{name:'Veltix',plan:'1 mes',cat:'1 Dispositivo',price:5,img:'img/VLTXCONEXION1MES.png'},
-{name:'Veltix',plan:'3 meses',cat:'1 Dispositivo',price:15,img:'img/VLTXCONEXION3MESES.png'},
-{name:'Veltix',plan:'6 meses',cat:'1 Dispositivo',price:30,img:'img/VLTXCONEXION6MESES.png'},
-{name:'Veltix',plan:'12 meses',cat:'1 Dispositivo',price:60,img:'img/VLTXCONEXION12MESES.png'}
+{name:'Veltix',plan:'Membresia 1 mes',cat:'1 Dispositivos',price:4.50,img:'img/VLTXCONEXION1MES.png'},
+{name:'Veltix',plan:'Membresia 3 meses',cat:'1 Dispositivos',price:13.00,img:'img/VLTXCONEXION3MESES.png'},
+{name:'Veltix',plan:'Membresia 6 meses',cat:'1 Dispositivos',price:26.00,img:'img/VLTXCONEXION6MESES.png'},
+{name:'Veltix',plan:'Membresia 12 meses',cat:'1 Dispositivos',price:54.00,img:'img/VLTXCONEXION12MESES.png'},
 ];
 
 function format(p){return currency+' '+p.toFixed(2);}
 
+
+// Editado 
+
+//function setCurrency(c,r){
+//currency=c;rate=r;
+//document.getElementById('welcome').style.display='none';
+//loadProducts();
+//}
+ 
 function setCurrency(c,r){
-currency=c;rate=r;
-document.getElementById('welcome').style.display='none';
-loadProducts();
+  currency = c;
+  rate = r;
+
+  document.getElementById('welcome').style.display='none';
+
+  // 🔊 INICIAR MÚSICA
+  const music = document.getElementById('bgMusic');
+  music.volume = 0.5; // opcional (0 a 1)
+  music.play().catch(()=>{}); // evita errores del navegador
+
+  loadProducts();
 }
+
+
+
+
+
+
+
+
+
+
 
 function loadProducts(){
-let html='';
+let sections={};
+
 products.forEach((p,i)=>{
+if(!sections[p.name]) sections[p.name]=[];
+sections[p.name].push({...p,index:i});
+});
+
+let html='';
+
+for(let s in sections){
 html+=`
-<div class="card" onclick="openModal(${i})">
+<div class="section">
+<h3>${s}</h3>
+<div class="carousel">
+<div class="track" id="track-${s}">
+`;
+
+sections[s].forEach(p=>{
+let price=p.price*rate;
+html+=`
+<div class="card" onclick="openModal(${p.index})">
 <img src="${p.img}">
 <div class="info">
-<p>${p.name}</p>
-<span>${p.plan} - ${p.cat}</span>
-<button class="btn">Ver</button>
+<p>${p.plan}</p>
+<span>${p.cat}</span>
+<div class="price">${format(price)}</div>
 </div>
-</div>`;
+</div>
+`;
 });
-document.getElementById('products').innerHTML=html;
+
+html+=`</div></div></div>`;
 }
 
-let selected;
+document.getElementById('store').innerHTML=html;
+
+  // nuevo cambio
+
+document.querySelectorAll('.track').forEach(track => {
+
+  // DUPLICA CONTENIDO PARA LOOP REAL
+  track.innerHTML += track.innerHTML;
+
+  let pos = 0;
+  let speed = 0.4;
+  let isPaused = false;
+
+  function animate(){
+    if(!isPaused){
+      pos -= speed;
+      track.style.transform = `translateX(${pos}px)`;
+
+      // 🔥 LOOP PERFECTO
+      if(Math.abs(pos) >= track.scrollWidth / 2){
+        pos = 0;
+      }
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+
+  // 🛑 PAUSA EN HOVER (PC)
+  track.addEventListener('mouseenter', () => isPaused = true);
+  track.addEventListener('mouseleave', () => isPaused = false);
+
+  // 📱 PAUSA EN TOUCH (MÓVIL)
+  track.addEventListener('touchstart', () => isPaused = true);
+  track.addEventListener('touchend', () => isPaused = false);
+
+});
+
+
+}
 
 function openModal(i){
 selected=products[i];
@@ -243,20 +348,13 @@ document.getElementById('modal').style.display='flex';
 
 let price=selected.price*rate;
 
-// 🔥 SOLO MESES + DISPOSITIVOS
-document.getElementById('modalTitle').innerText =
+document.getElementById('modalTitle').innerText = selected.name;
+document.getElementById('modalText').innerText =
 `${selected.plan} - ${selected.cat}`;
 
-document.getElementById('modalImg').src=selected.img;
-
-// 💎 PRECIO GRANDE
-document.getElementById('modalDesc').innerHTML = `
-<div class="price-big">${format(price)}</div>
-`;
-}
-
-function closeModal(){
-document.getElementById('modal').style.display='none';
+document.getElementById('modalImg').src = selected.img;
+document.getElementById('modalPrice').innerHTML =
+`<div class="price-big">${format(price)}</div>`;
 }
 
 function buyNow(){
