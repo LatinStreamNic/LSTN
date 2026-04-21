@@ -11,247 +11,115 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Poppins',sans-serif;background:#0f0f0f;color:#fff;}
 
-/* WELCOME */
-.welcome{
-position:fixed;top:0;left:0;width:100%;height:100%;
-background:#0f0f0f;
-display:flex;flex-direction:column;
-align-items:center;justify-content:center;
-z-index:999;text-align:center;padding:20px;
-}
-.welcome button{
-margin:6px;padding:12px 20px;border:none;
-border-radius:10px;background:#ff0000;color:#fff;
-cursor:pointer;width:200px;
-}
+.welcome{position:fixed;top:0;left:0;width:100%;height:100%;background:#0f0f0f;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;text-align:center;padding:20px;}
 
-/* HEADER */
-.header{
-position:sticky;top:0;
-background:rgba(15,15,15,0.95);
-padding:15px;text-align:center;font-weight:600;
-z-index:10;
-}
+.welcome button{margin:6px;padding:12px 20px;border:none;border-radius:10px;background:#ff0000;color:#fff;cursor:pointer;width:200px;}
 
-/* CONTENEDOR */
+.header{position:sticky;top:0;background:rgba(15,15,15,0.95);padding:15px 20px;font-weight:600;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.header-title{flex:1;text-align:center;}
+
+.cart-toggle{position:relative;border:none;background:#1c1c1c;color:#fff;padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:600;min-width:92px;}
+
+.cart-count{position:absolute;top:-8px;right:-8px;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:#ff0000;color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center;font-weight:700;}
+
 .container{padding:20px;max-width:1200px;margin:auto;}
-
-/* SECCIÓN */
 .section{margin-bottom:40px;}
-.section h3{
-margin-bottom:15px;font-size:18px;
-border-left:4px solid #ff0000;padding-left:10px;
-}
 
-/* CARRUSEL */
+.section h3{margin-bottom:15px;font-size:18px;border-left:4px solid #ff0000;padding-left:10px;}
 .carousel{overflow:hidden;position:relative;}
 .track{display:flex;gap:15px;will-change:transform;}
 
-/* CARD */
-.card{
-min-width:180px;background:#1c1c1c;
-border-radius:18px;overflow:hidden;
-cursor:pointer;transition:0.3s;
-flex-shrink:0;position:relative;
-}
+.card{min-width:180px;background:#1c1c1c;border-radius:18px;overflow:hidden;cursor:pointer;transition:0.3s;flex-shrink:0;position:relative;}
 .card:hover{transform:scale(1.05);}
 .card img{width:100%;height:160px;object-fit:cover;}
+.card-discount{position:absolute;top:10px;right:10px;background:linear-gradient(45deg,#ff0000,#ff4d4d);color:#fff;font-size:11px;font-weight:700;padding:5px 10px;border-radius:999px;letter-spacing:0.5px;box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:2;}
 
-.card-discount{
-position:absolute;
-top:10px;
-right:10px;
-background:linear-gradient(45deg,#ff0000,#ff4d4d);
-color:#fff;
-font-size:11px;
-font-weight:700;
-padding:5px 10px;
-border-radius:999px;
-letter-spacing:0.5px;
-box-shadow:0 4px 12px rgba(0,0,0,0.3);
-z-index:2;
-}
-
-/* INFO */
 .info{padding:12px;}
 .info p{font-size:14px;}
 .info span{font-size:12px;opacity:0.7;}
 .price{margin-top:6px;font-weight:600;color:#00ffae;}
+.card-saving-box{margin-top:8px;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 10px;border-radius:12px;background:linear-gradient(90deg,#181818,#222);font-size:11px;color:#f5d0d0;}
+.card-saving-pill{background:#ff0000;color:#fff;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap;}
 
-.card-saving-box{
-margin-top:8px;
+.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:none;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(8px);padding:16px;overflow-y:auto;}
+.modal-content{position:relative;background:#121212;padding:20px;border-radius:20px;width:90%;max-width:420px;text-align:center;box-shadow:0 0 30px rgba(255,0,0,0.25);animation:fadeIn 0.3s ease;}
+.cart-modal-content{max-width:520px;text-align:left;}
+@keyframes fadeIn{from{transform:scale(0.9);opacity:0;}to{transform:scale(1);opacity:1;}}
+
+.modal img{width:100%;height:auto;max-height:420px;object-fit:contain;border-radius:12px;margin-bottom:10px;background:#111;display:block;}
+.modal h2{font-size:22px;margin:8px 0;}
+.modal-sub{font-size:14px;opacity:0.7;}
+.modal-desc{font-size:13px;opacity:0.85;margin:8px 0;line-height:1.4;}
+.price-row{display:flex;align-items:center;justify-content:center;gap:10px;margin:10px 0;}
+.price-big{font-size:32px;font-weight:700;color:#00ffae;margin:0;transform:translateX(-6px);}
+.old-price{text-decoration:line-through;opacity:0.45;font-size:14px;position:relative;top:2px;white-space:nowrap;}
+.discount-bar{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding:10px 14px;border-radius:14px;background:linear-gradient(90deg,#1a1a1a,#222);font-size:13px;opacity:0.95;gap:10px;}
+.discount-pill{background:#ff0000;color:#fff;padding:6px 10px;border-radius:999px;font-weight:700;font-size:12px;box-shadow:0 4px 10px rgba(0,0,0,0.3);white-space:nowrap;}
+.benefits{font-size:13px;text-align:left;margin:10px 0;opacity:0.85;}
+.btn-buy,.btn-secondary,.btn-danger{margin-top:15px;width:100%;padding:14px;border:none;border-radius:12px;font-weight:700;font-size:16px;cursor:pointer;transition:0.3s;}
+.btn-buy{background:linear-gradient(45deg,#ff0000,#ff4d4d);color:#fff;}
+.btn-secondary{background:#242424;color:#fff;}
+.btn-danger{background:#2a1010;color:#ffb3b3;border:1px solid #4d1c1c;}
+.btn-buy:hover,.btn-secondary:hover,.btn-danger:hover{transform:scale(1.01);}
+.close-btn{position:absolute;top:10px;right:15px;background:none;border:none;color:#fff;font-size:22px;cursor:pointer;}
+
+.cart-list{display:flex;flex-direction:column;gap:12px;margin:16px 0;max-height:320px;overflow:auto;padding-right:4px;}
+.cart-item{background:#1a1a1a;border:1px solid #262626;border-radius:16px;padding:12px;display:grid;grid-template-columns:72px 1fr auto;gap:12px;align-items:center;}
+.cart-item img{width:72px;height:72px;object-fit:contain;background:#101010;border-radius:10px;margin:0;}
+.cart-item-title{font-size:14px;font-weight:600;margin-bottom:4px;}
+.cart-item-meta{font-size:12px;opacity:0.75;line-height:1.4;}
+.cart-item-price{font-size:13px;font-weight:700;color:#00ffae;margin-top:6px;}
+.icon-btn{border:none;background:#2a1010;color:#ffb3b3;padding:8px 10px;border-radius:10px;cursor:pointer;font-size:12px;}
+.coupon-box{background:#171717;border:1px solid #262626;border-radius:16px;padding:14px;margin-top:12px;}
+.coupon-box label{display:block;font-size:13px;margin-bottom:8px;opacity:0.9;}
+.coupon-row{display:flex;gap:8px;}
+.coupon-row input{flex:1;padding:12px 14px;border-radius:12px;border:1px solid #333;background:#101010;color:#fff;outline:none;}
+.coupon-help{font-size:11px;opacity:0.6;margin-top:8px;}
+.summary-box{background:#171717;border:1px solid #262626;border-radius:16px;padding:14px;margin-top:14px;}
+.summary-line{display:flex;justify-content:space-between;gap:12px;font-size:14px;margin-bottom:8px;}
+.summary-line.total{font-size:18px;font-weight:700;color:#00ffae;margin-top:8px;padding-top:10px;border-top:1px solid #2f2f2f;}
+.coupon-status{margin-top:10px;font-size:12px;}
+.coupon-ok{color:#9df7ba;}
+.coupon-error{color:#ff9f9f;}
+.empty-cart{text-align:center;padding:20px 10px;opacity:0.8;}
+
+
+
+
+.cart-actions{
 display:flex;
-justify-content:space-between;
-align-items:center;
-gap:8px;
-padding:8px 10px;
-border-radius:12px;
-background:linear-gradient(90deg,#181818,#222);
-font-size:11px;
-color:#f5d0d0;
-}
-.card-saving-pill{
-background:#ff0000;
-color:#fff;
-padding:4px 8px;
-border-radius:999px;
-font-size:11px;
-font-weight:700;
-white-space:nowrap;
-}
-
-/* MODAL */
-.modal{
-position:fixed;
-top:0;left:0;width:100%;height:100%;
-background:rgba(0,0,0,0.85);
-display:none;align-items:center;justify-content:center;
-z-index:1000;
-backdrop-filter:blur(8px);
-}
-
-.modal-content{
-position:relative;
-background:#121212;
-padding:20px;
-border-radius:20px;
-width:90%;
-max-width:420px;
-text-align:center;
-box-shadow:0 0 30px rgba(255,0,0,0.25);
-animation:fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn{
-from{transform:scale(0.9);opacity:0;}
-to{transform:scale(1);opacity:1;}
-}
-
-.modal img{
-width:100%;
-height:auto;
-max-height:420px;
-object-fit:contain;
-border-radius:12px;
-margin-bottom:10px;
-background:#111;
-display:block;
-}
-
-.modal h2{
-font-size:22px;
-margin:8px 0;
-}
-
-.modal-sub{
-font-size:14px;
-opacity:0.7;
-}
-
-.modal-desc{
-font-size:13px;
-opacity:0.85;
-margin:8px 0;
-line-height:1.4;
-}
-
-.price-row{
-display:flex;
-align-items:center;
-justify-content:center;
+flex-direction:row;
 gap:10px;
-margin:10px 0;
+margin-top:14px;
 }
 
-.price-big{
-font-size:32px;
-font-weight:700;
-color:#00ffae;
-margin:0;
-transform:translateX(-6px);
-}
-
-.old-price{
-text-decoration:line-through;
-opacity:0.45;
+.cart-actions button{
+flex:1;
+padding:12px;
 font-size:14px;
-position:relative;
-top:2px;
-white-space:nowrap;
 }
 
-.discount-bar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-top:10px;
-padding:10px 14px;
-border-radius:14px;
-background:linear-gradient(90deg,#1a1a1a,#222);
-font-size:13px;
-opacity:0.95;
-gap:10px;
-}
 
-.discount-pill{
-background:#ff0000;
-color:#fff;
-padding:6px 10px;
-border-radius:999px;
-font-weight:700;
-font-size:12px;
-box-shadow:0 4px 10px rgba(0,0,0,0.3);
-white-space:nowrap;
-}
 
-.benefits{
-font-size:13px;
-text-align:left;
-margin:10px 0;
-opacity:0.85;
-}
 
-.btn-buy{
-margin-top:15px;
-width:100%;
-padding:14px;
-border:none;
-border-radius:12px;
-background:linear-gradient(45deg,#ff0000,#ff4d4d);
-color:#fff;
-font-weight:700;
-font-size:16px;
-cursor:pointer;
-transition:0.3s;
-}
-.btn-buy:hover{transform:scale(1.05);}
 
-.close-btn{
-position:absolute;
-top:10px;
-right:15px;
-background:none;
-border:none;
-color:#fff;
-font-size:22px;
-cursor:pointer;
-}
 
-@media(min-width:768px){
-.card{min-width:220px;}
-}
-@media(min-width:1024px){
-.card{min-width:250px;}
-}
+
+
+
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:#171717;color:#fff;padding:12px 16px;border-radius:14px;border:1px solid #2c2c2c;box-shadow:0 10px 30px rgba(0,0,0,0.35);opacity:0;pointer-events:none;transition:0.25s;z-index:1200;font-size:14px;text-align:center;max-width:92%;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+@media(min-width:768px){.card{min-width:220px;}}
+@media(min-width:1024px){.card{min-width:250px;}}
 </style>
 </head>
-
 <body>
 
 <div class="welcome" id="welcome">
 <h3>BIENVENIDOS A LATIN STORE</h3>
 <p>Selecciona tu moneda</p>
-
 <button onclick="setCurrency('USD',1)">U$</button>
 <button onclick="setCurrency('C$',37.5)">C$</button>
 <button onclick="setCurrency('₡',525)">₡</button>
@@ -259,35 +127,68 @@ cursor:pointer;
 <button onclick="setCurrency('€',1)">€</button>
 </div>
 
-<div class="header">MEMBRESIAS DISPONIBLES</div>
+<div class="header">
+  <div style="width:92px;"></div>
+  <div class="header-title">MEMBRESIAS DISPONIBLES</div>
+  <button class="cart-toggle" onclick="openCart()">🛒 Carrito<span class="cart-count" id="cartCount">0</span></button>
+</div>
+
 <div class="container" id="store"></div>
 
-<!-- MODAL -->
 <div class="modal" id="modal">
   <div class="modal-content">
-
     <button class="close-btn" onclick="closeModal()">✕</button>
-
     <img id="modalImg" alt="">
     <h2 id="modalTitle"></h2>
     <p id="modalText" class="modal-sub"></p>
     <p id="modalDesc" class="modal-desc"></p>
-
     <div id="modalPrice"></div>
-
-    <div class="benefits">
-      <p></p>
-    </div>
-
-    <button class="btn-buy" onclick="buyNow()">🔥 Contratar ahora</button>
-
+    <div class="benefits"><p id="modalBenefitText"></p></div>
+    <button class="btn-buy" onclick="addSelectedToCart()">🛒 Agregar al carrito</button>
   </div>
 </div>
+
+<div class="modal" id="cartModal">
+  <div class="modal-content cart-modal-content">
+    <button class="close-btn" onclick="closeCart()">✕</button>
+    <h2 style="text-align:center;">🛒 carrito</h2>
+    <p class="modal-sub" style="text-align:center;">productos agregados.</p>
+    <div id="cartList" class="cart-list"></div>
+    <div class="coupon-box">
+      <label for="couponInput">Cupón de descuento</label>
+      <div class="coupon-row">
+        <input id="couponInput" type="text" placeholder="Ej: LATIN10">
+        <button class="btn-secondary" style="width:auto;margin-top:0;padding:12px 16px;" onclick="applyCoupon()">Aplicar</button>
+      </div>
+      <div class="coupon-help"></div>
+      <div id="couponStatus" class="coupon-status"></div>
+    </div>
+    <div class="summary-box">
+      <div class="summary-line"><span>Subtotal</span><span id="cartSubtotal">USD 0.00</span></div>
+      <div class="summary-line"><span>Descuento cupón</span><span id="cartCouponDiscount">USD 0.00</span></div>
+      <div class="summary-line total"><span>Total</span><span id="cartTotal">USD 0.00</span></div>
+    </div>
+    <div class="cart-actions">
+      <button class="btn-danger" onclick="clearCart()">Vaciar carrito</button>
+      <button class="btn-buy" onclick="sendCartToWhatsApp()"> Contratar Ahora</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
 
 <script>
 let currency='USD';
 let rate=1;
 let selected=null;
+let cart=[];
+let appliedCoupon=null;
+
+const coupons={
+  'LATINGVS':{type:'percent',value:10,label:'5% de descuento'},
+  'MJ':{type:'percent',value:10,label:'10% de descuento'},
+  'VIP':{type:'fixed',value:20,label:'20 de descuento fijo'}
+};
 
 const products=[
 {name:'Tele-Latino',plan:'1 mes',cat:'6 Dispositivos',price:7.18,oldPrice:7.18,img:'img/TL1MES.png',desc:'Acceso completo a TV, deportes y películas.'},
@@ -328,97 +229,36 @@ const products=[
 {name:'VeltixTV',plan:'12 meses',cat:'1 Dispositivos',price:60.00,oldPrice:60.00,img:'img/VLTXCONEXION12MESES.png',desc:'Plan anual individual con mejor ahorro.'}
 ];
 
-function format(p){
-  return currency + ' ' + p.toFixed(2);
-}
+function format(p){return currency + ' ' + p.toFixed(2);}
+function hasDiscount(product){return typeof product.oldPrice === 'number' && product.oldPrice > product.price;}
+function getDiscountPercent(product){if(!hasDiscount(product)) return 0; return Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100);}
+function getSavings(product){if(!hasDiscount(product)) return 0; return (product.oldPrice - product.price) * rate;}
 
-function hasDiscount(product){
-  return typeof product.oldPrice === 'number' && product.oldPrice > product.price;
-}
-
-function getDiscountPercent(product){
-  if(!hasDiscount(product)) return 0;
-  return Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100);
-}
-
-function getSavings(product){
-  if(!hasDiscount(product)) return 0;
-  return (product.oldPrice - product.price) * rate;
-}
-
-function setCurrency(c,r){
-  currency=c;
-  rate=r;
-  document.getElementById('welcome').style.display='none';
-  loadProducts();
-}
+function setCurrency(c,r){currency=c; rate=r; document.getElementById('welcome').style.display='none'; loadProducts(); updateCartUI();}
 
 function renderCardExtra(p){
   if(!hasDiscount(p)) return '';
-  return `<div class="card-saving-box">
-    <span>Ahorras ${format(getSavings(p))}</span>
-    <span class="card-saving-pill">-${getDiscountPercent(p)}%</span>
-  </div>`;
+  return `<div class="card-saving-box"><span>Ahorras ${format(getSavings(p))}</span><span class="card-saving-pill">-${getDiscountPercent(p)}%</span></div>`;
 }
 
 function loadProducts(){
   let sections={};
-
-  products.forEach((p,i)=>{
-    if(!sections[p.name]) sections[p.name]=[];
-    sections[p.name].push({...p,index:i});
-  });
-
+  products.forEach((p,i)=>{ if(!sections[p.name]) sections[p.name]=[]; sections[p.name].push({...p,index:i}); });
   let html='';
-
   for(let s in sections){
-    html+=`
-    <div class="section">
-      <h3>${s}</h3>
-      <div class="carousel">
-        <div class="track" id="track-${s.replace(/\s+/g,'-')}">`;
-
+    html+=`<div class="section"><h3>${s}</h3><div class="carousel"><div class="track" id="track-${s.replace(/\s+/g,'-')}">`;
     sections[s].forEach(p=>{
-      const price=p.price*rate;
-      const discountPercent=getDiscountPercent(p);
-
-      html+=`
-      <div class="card" onclick="openModal(${p.index})">
-        ${discountPercent > 0 ? `<div class="card-discount">OFERTA</div>` : ''}
-        <img src="${p.img}" alt="${p.name} ${p.plan}">
-        <div class="info">
-          <p>${p.plan}</p>
-          <span>${p.cat}</span>
-          <div class="price">${format(price)}</div>
-          ${renderCardExtra(p)}
-        </div>
-      </div>`;
+      const price=p.price*rate; const discountPercent=getDiscountPercent(p);
+      html+=`<div class="card" onclick="openModal(${p.index})">${discountPercent > 0 ? `<div class="card-discount">OFERTA</div>` : ''}<img src="${p.img}" alt="${p.name} ${p.plan}"><div class="info"><p>${p.plan}</p><span>${p.cat}</span><div class="price">${format(price)}</div>${renderCardExtra(p)}</div></div>`;
     });
-
     html+=`</div></div></div>`;
   }
-
   document.getElementById('store').innerHTML=html;
-
   document.querySelectorAll('.track').forEach(track=>{
     track.innerHTML += track.innerHTML;
-
-    let pos=0;
-    let speed=0.4;
-    let isPaused=false;
-
-    function animate(){
-      if(!isPaused){
-        pos -= speed;
-        track.style.transform = `translateX(${pos}px)`;
-        if(Math.abs(pos) >= track.scrollWidth / 2){
-          pos = 0;
-        }
-      }
-      requestAnimationFrame(animate);
-    }
+    let pos=0, speed=0.4, isPaused=false;
+    function animate(){ if(!isPaused){ pos -= speed; track.style.transform = `translateX(${pos}px)`; if(Math.abs(pos) >= track.scrollWidth / 2){ pos = 0; } } requestAnimationFrame(animate); }
     animate();
-
     track.addEventListener('mouseenter',()=>isPaused=true);
     track.addEventListener('mouseleave',()=>isPaused=false);
     track.addEventListener('touchstart',()=>isPaused=true,{passive:true});
@@ -428,76 +268,110 @@ function loadProducts(){
 
 function openModal(i){
   selected=products[i];
-
   const price=selected.price*rate;
   const discountActive=hasDiscount(selected);
   const original=discountActive ? selected.oldPrice*rate : null;
-
   document.getElementById('modal').style.display='flex';
   document.getElementById('modalImg').src=selected.img;
   document.getElementById('modalImg').alt=`${selected.name} ${selected.plan}`;
   document.getElementById('modalTitle').innerText=selected.name;
   document.getElementById('modalText').innerText=`${selected.plan} - ${selected.cat}`;
   document.getElementById('modalDesc').innerText=selected.desc || '';
-
+  document.getElementById('modalBenefitText').innerText='Añadir producto al carrito.';
   if(discountActive){
     const discountPercent = getDiscountPercent(selected);
     const savings = original - price;
-
-    document.getElementById('modalPrice').innerHTML=`
-      <div class="price-row">
-        <div class="price-big">${format(price)}</div>
-        <div class="old-price">${format(original)}</div>
-      </div>
-
-      <div class="discount-bar">
-        <span>Ahorras ${format(savings)}</span>
-        <span class="discount-pill">-${discountPercent}% OFF</span>
-      </div>
-    `;
+    document.getElementById('modalPrice').innerHTML=`<div class="price-row"><div class="price-big">${format(price)}</div><div class="old-price">${format(original)}</div></div><div class="discount-bar"><span>Ahorras ${format(savings)}</span><span class="discount-pill">-${discountPercent}% OFF</span></div>`;
   } else {
-    document.getElementById('modalPrice').innerHTML=`
-      <div class="price-row">
-        <div class="price-big">${format(price)}</div>
-      </div>
-    `;
+    document.getElementById('modalPrice').innerHTML=`<div class="price-row"><div class="price-big">${format(price)}</div></div>`;
   }
 }
 
-function closeModal(){
-  document.getElementById('modal').style.display='none';
-}
+function closeModal(){document.getElementById('modal').style.display='none';}
+function showToast(text){const toast=document.getElementById('toast'); toast.textContent=text; toast.classList.add('show'); clearTimeout(showToast._timer); showToast._timer=setTimeout(()=>toast.classList.remove('show'),2200);}
 
-document.getElementById('modal').addEventListener('click', function(e){
-  if(e.target.id === 'modal'){
-    closeModal();
-  }
-});
-
-function buyNow(){
+function addSelectedToCart(){
   if(!selected) return;
+  const existingIndex = cart.findIndex(item => item.name===selected.name && item.plan===selected.plan && item.cat===selected.cat);
+  if(existingIndex >= 0){ cart[existingIndex].qty += 1; }
+  else { cart.push({name:selected.name,plan:selected.plan,cat:selected.cat,price:selected.price,oldPrice:selected.oldPrice,img:selected.img,desc:selected.desc || '',qty:1}); }
+  closeModal();
+  updateCartUI();
+  showToast('Producto agregado al carrito.');
+}
 
+function openCart(){ renderCart(); document.getElementById('cartModal').style.display='flex'; }
+function closeCart(){ document.getElementById('cartModal').style.display='none'; }
+function removeFromCart(index){ cart.splice(index,1); if(cart.length===0){ appliedCoupon=null; document.getElementById('couponInput').value=''; } updateCartUI(); renderCart(); }
+function clearCart(){ cart=[]; appliedCoupon=null; const input=document.getElementById('couponInput'); if(input) input.value=''; updateCartUI(); renderCart(); showToast('Carrito vaciado.'); }
+function getCartSubtotal(){ return cart.reduce((sum,item)=>sum + (item.price * item.qty * rate), 0); }
+function getCouponDiscountAmount(subtotal){ if(!appliedCoupon) return 0; const coupon = coupons[appliedCoupon]; if(!coupon) return 0; let discount = 0; if(coupon.type === 'percent'){ discount = subtotal * (coupon.value / 100); } else if(coupon.type === 'fixed'){ discount = coupon.value * rate; } return Math.min(discount, subtotal); }
+
+function applyCoupon(){
+  const input=document.getElementById('couponInput');
+  const code=(input.value || '').trim().toUpperCase();
+  const status=document.getElementById('couponStatus');
+  if(cart.length===0){ appliedCoupon=null; status.className='coupon-status coupon-error'; status.textContent='Agrega al menos un producto al carrito antes de aplicar un cupón.'; updateCartUI(); return; }
+  if(!code){ appliedCoupon=null; status.className='coupon-status'; status.textContent=''; updateCartUI(); return; }
+  if(coupons[code]){ appliedCoupon=code; status.className='coupon-status coupon-ok'; status.textContent=`Cupón aplicado: ${code} (${coupons[code].label}).`; }
+  else { appliedCoupon=null; status.className='coupon-status coupon-error'; status.textContent='Cupón no válido.'; }
+  updateCartUI();
+}
+
+function updateCartCount(){ const count = cart.reduce((sum,item)=>sum + item.qty, 0); document.getElementById('cartCount').textContent = count; }
+function updateCartUI(){
+  updateCartCount();
+  const subtotal = getCartSubtotal();
+  const couponDiscount = getCouponDiscountAmount(subtotal);
+  const total = subtotal - couponDiscount;
+  const subtotalEl=document.getElementById('cartSubtotal');
+  const discountEl=document.getElementById('cartCouponDiscount');
+  const totalEl=document.getElementById('cartTotal');
+  if(subtotalEl) subtotalEl.textContent = format(subtotal);
+  if(discountEl) discountEl.textContent = '-' + format(couponDiscount);
+  if(totalEl) totalEl.textContent = format(total);
+}
+
+function renderCart(){
+  const list=document.getElementById('cartList');
+  const status=document.getElementById('couponStatus');
+  const input=document.getElementById('couponInput');
+  if(input){ input.value = appliedCoupon || ''; }
+  if(cart.length===0){
+    list.innerHTML = `<div class="empty-cart"><p>No has agregado productos todavía.</p><p style="margin-top:8px;opacity:0.7;">Abre un producto y pulsa “Agregar al carrito”.</p></div>`;
+    if(status){ status.className='coupon-status'; status.textContent=''; }
+    updateCartUI();
+    return;
+  }
+  list.innerHTML = cart.map((item,index)=>{
+    const linePrice = item.price * item.qty * rate;
+    return `<div class="cart-item"><img src="${item.img}" alt="${item.name} ${item.plan}"><div><div class="cart-item-title">${item.name}</div><div class="cart-item-meta">${item.plan} • ${item.cat}</div><div class="cart-item-meta">${item.desc || ''}</div><div class="cart-item-meta">Cantidad: ${item.qty}</div><div class="cart-item-price">${format(linePrice)}</div></div><button class="icon-btn" onclick="removeFromCart(${index})">Quitar</button></div>`;
+  }).join('');
+  if(status && appliedCoupon && coupons[appliedCoupon]){ status.className='coupon-status coupon-ok'; status.textContent=`Cupón aplicado: ${appliedCoupon} (${coupons[appliedCoupon].label}).`; }
+  else if(status && !appliedCoupon){ status.className='coupon-status'; status.textContent=''; }
+  updateCartUI();
+}
+
+function sendCartToWhatsApp(){
+  if(cart.length===0){ showToast('Tu carrito está vacío.'); return; }
   const now=new Date().toLocaleString();
-  const finalPrice=selected.price*rate;
-  const discountActive=hasDiscount(selected);
-  const standardPrice=discountActive ? selected.oldPrice*rate : finalPrice;
-  const discountAmount=discountActive ? (standardPrice-finalPrice) : 0;
-
-  const msg=`Hola, Me Gustaria realizar la siguiente compra.
-
-✨*Producto seleccionado*🔥
-• Plataforma: ${selected.name}
-• Membresía: ${selected.plan}
-• Simultaneo: ${selected.cat}
-• Precio estándar: ${format(standardPrice)}
-• Descuento: ${format(discountAmount)}
-• Precio Final: ${format(finalPrice)}
-• Hora de orden: ${now}
-
-Quedo atento a los pasos para completar la compra.`;
-
+  const subtotal = getCartSubtotal();
+  const couponDiscount = getCouponDiscountAmount(subtotal);
+  const total = subtotal - couponDiscount;
+  const lines = cart.map((item,idx)=>{
+    const linePrice = item.price * item.qty * rate;
+    return `${idx+1}. ${item.name}\n• Membresía: ${item.plan}\n• Simultaneo: ${item.cat}\n• Cantidad: ${item.qty}\n• Subtotal artículo: ${format(linePrice)}`;
+  }).join('\n\n');
+  const couponLine = appliedCoupon && coupons[appliedCoupon]
+    ? `• Cupón aplicado: ${appliedCoupon} (${coupons[appliedCoupon].label})\n• Descuento cupón: ${format(couponDiscount)}`
+    : `• Cupón aplicado: Ninguno\n• Descuento cupón: ${format(0)}`;
+  const msg=`Hola, Me Gustaria realizar la siguiente compra.\n\n🛒 *Detalles del Producto*\n\n${lines}\n\n💰 *Resumen del pedido*\n• Subtotal: ${format(subtotal)}\n${couponLine}\n• Total final: ${format(total)}\n• Hora de orden: ${now}\n\nQuedo atento a los pasos para completar la compra.`;
   window.open(`https://wa.me/50588581031?text=${encodeURIComponent(msg)}`);
 }
+
+document.getElementById('modal').addEventListener('click', function(e){ if(e.target.id === 'modal'){ closeModal(); } });
+document.getElementById('cartModal').addEventListener('click', function(e){ if(e.target.id === 'cartModal'){ closeCart(); } });
+updateCartUI();
 </script>
 
 </body>
