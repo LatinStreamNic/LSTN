@@ -69,11 +69,70 @@ body{font-family:'Poppins',sans-serif;background:#0f0f0f;color:#fff;}
 .cart-item-title{font-size:14px;font-weight:600;margin-bottom:4px;}
 .cart-item-meta{font-size:12px;opacity:0.75;line-height:1.4;}
 .cart-item-price{font-size:13px;font-weight:700;color:#00ffae;margin-top:6px;}
+.cart-item-old-price{font-size:11px;opacity:0.5;text-decoration:line-through;margin-top:4px;}
+.cart-item-discount{
+display:inline-flex;
+align-items:center;
+gap:8px;
+margin-top:6px;
+padding:6px 8px;
+border-radius:10px;
+background:linear-gradient(90deg,#181818,#222);
+font-size:11px;
+color:#f5d0d0;
+}
+.cart-item-discount strong{
+background:#ff0000;
+color:#fff;
+padding:3px 7px;
+border-radius:999px;
+font-size:10px;
+}
 .icon-btn{border:none;background:#2a1010;color:#ffb3b3;padding:8px 10px;border-radius:10px;cursor:pointer;font-size:12px;}
-.coupon-box{background:#171717;border:1px solid #262626;border-radius:16px;padding:14px;margin-top:12px;}
+
+
+.coupon-box{
+background:#171717;
+border:1px solid #262626;
+border-radius:14px;
+padding:10px;
+margin-top:10px;
+}
+
+.coupon-box label{
+font-size:12px;
+margin-bottom:6px;
+}
+
+.coupon-row{
+display:flex;
+gap:6px;
+}
+
+.coupon-row input{
+flex:1;
+padding:8px 10px;
+border-radius:10px;
+border:1px solid #333;
+background:#101010;
+color:#fff;
+font-size:12px;
+}
+
+.coupon-row button{
+padding:8px 12px !important;
+font-size:12px !important;
+border-radius:10px;
+}
+
+.coupon-help{
+font-size:10px;
+margin-top:6px;
+}
+
 .coupon-box label{display:block;font-size:13px;margin-bottom:8px;opacity:0.9;}
 .coupon-row{display:flex;gap:8px;}
-.coupon-row input{flex:1;padding:12px 14px;border-radius:12px;border:1px solid #333;background:#101010;color:#fff;outline:none;}
+
 .coupon-help{font-size:11px;opacity:0.6;margin-top:8px;}
 .summary-box{background:#171717;border:1px solid #262626;border-radius:16px;padding:14px;margin-top:14px;}
 .summary-line{display:flex;justify-content:space-between;gap:12px;font-size:14px;margin-bottom:8px;}
@@ -119,12 +178,12 @@ font-size:14px;
 
 <div class="welcome" id="welcome">
 <h3>BIENVENIDOS A LATIN STORE</h3>
-<p>Selecciona tu moneda</p>
-<button onclick="setCurrency('USD',1)">U$</button>
-<button onclick="setCurrency('C$',37.5)">C$</button>
-<button onclick="setCurrency('₡',525)">₡</button>
-<button onclick="setCurrency('MXN',18.31)">MXN</button>
-<button onclick="setCurrency('€',1)">€</button>
+<p>Selecciona tu Moneda</p>
+<button onclick="setCurrency('USD',1)">U$ = Dolares</button>
+<button onclick="setCurrency('C$',37.5)">C$ = Cordobas</button>
+<button onclick="setCurrency('₡',525)">₡ = Colones</button>
+<button onclick="setCurrency('MXN',18.31)">$ = Peso MX</button>
+<button onclick="setCurrency('€',1)">€ = Euro</button>
 </div>
 
 <div class="header">
@@ -157,17 +216,22 @@ font-size:14px;
     <div class="coupon-box">
       <label for="couponInput">Cupón de descuento</label>
       <div class="coupon-row">
-        <input id="couponInput" type="text" placeholder="Ej: LATIN10">
+        <input id="couponInput" type="text" placeholder="Ej: LATIN">
         <button class="btn-secondary" style="width:auto;margin-top:0;padding:12px 16px;" onclick="applyCoupon()">Aplicar</button>
       </div>
       <div class="coupon-help"></div>
       <div id="couponStatus" class="coupon-status"></div>
     </div>
+
+
     <div class="summary-box">
-      <div class="summary-line"><span>Subtotal</span><span id="cartSubtotal">USD 0.00</span></div>
-      <div class="summary-line"><span>Descuento cupón</span><span id="cartCouponDiscount">USD 0.00</span></div>
-      <div class="summary-line total"><span>Total</span><span id="cartTotal">USD 0.00</span></div>
-    </div>
+  <div class="summary-line"><span>Subtotal estándar</span><span id="cartSubtotalStandard">USD 0.00</span></div>
+  <div class="summary-line"><span>Descuento productos</span><span id="cartProductDiscount">USD 0.00</span></div>
+  <div class="summary-line"><span>Descuento cupón</span><span id="cartCouponDiscount">USD 0.00</span></div>
+  <div class="summary-line total"><span>Total</span><span id="cartTotal">USD 0.00</span></div>
+</div>
+
+
     <div class="cart-actions">
       <button class="btn-danger" onclick="clearCart()">Vaciar carrito</button>
       <button class="btn-buy" onclick="sendCartToWhatsApp()"> Contratar Ahora</button>
@@ -185,9 +249,9 @@ let cart=[];
 let appliedCoupon=null;
 
 const coupons={
-  'LATINGVS':{type:'percent',value:10,label:'5% de descuento'},
-  'MJ':{type:'percent',value:10,label:'10% de descuento'},
-  'VIP':{type:'fixed',value:20,label:'20 de descuento fijo'}
+  '':{type:'percent',value:10,label:'5% de descuento'},
+  '':{type:'percent',value:10,label:'10% de descuento'},
+  '':{type:'fixed',value:20,label:'20 de descuento fijo'}
 };
 
 const products=[
@@ -228,6 +292,19 @@ const products=[
 {name:'VeltixTV',plan:'6 meses',cat:'1 Dispositivos',price:30.00,oldPrice:30.00,img:'img/VLTXCONEXION6MESES.png',desc:'Excelente costo para servicio individual prolongado.'},
 {name:'VeltixTV',plan:'12 meses',cat:'1 Dispositivos',price:60.00,oldPrice:60.00,img:'img/VLTXCONEXION12MESES.png',desc:'Plan anual individual con mejor ahorro.'}
 ];
+
+
+
+function getProductDiscountAmount(){
+  return cart.reduce((sum, item) => {
+    const hasItemDiscount = typeof item.oldPrice === 'number' && item.oldPrice > item.price;
+    if(!hasItemDiscount) return sum;
+
+    return sum + ((item.oldPrice - item.price) * item.qty * rate);
+  }, 0);
+}
+
+
 
 function format(p){return currency + ' ' + p.toFixed(2);}
 function hasDiscount(product){return typeof product.oldPrice === 'number' && product.oldPrice > product.price;}
@@ -277,7 +354,7 @@ function openModal(i){
   document.getElementById('modalTitle').innerText=selected.name;
   document.getElementById('modalText').innerText=`${selected.plan} - ${selected.cat}`;
   document.getElementById('modalDesc').innerText=selected.desc || '';
-  document.getElementById('modalBenefitText').innerText='Añadir producto al carrito.';
+  document.getElementById('modalBenefitText').innerText='';
   if(discountActive){
     const discountPercent = getDiscountPercent(selected);
     const savings = original - price;
@@ -301,10 +378,15 @@ function addSelectedToCart(){
 }
 
 function openCart(){ renderCart(); document.getElementById('cartModal').style.display='flex'; }
+
 function closeCart(){ document.getElementById('cartModal').style.display='none'; }
+
 function removeFromCart(index){ cart.splice(index,1); if(cart.length===0){ appliedCoupon=null; document.getElementById('couponInput').value=''; } updateCartUI(); renderCart(); }
+
 function clearCart(){ cart=[]; appliedCoupon=null; const input=document.getElementById('couponInput'); if(input) input.value=''; updateCartUI(); renderCart(); showToast('Carrito vaciado.'); }
+
 function getCartSubtotal(){ return cart.reduce((sum,item)=>sum + (item.price * item.qty * rate), 0); }
+
 function getCouponDiscountAmount(subtotal){ if(!appliedCoupon) return 0; const coupon = coupons[appliedCoupon]; if(!coupon) return 0; let discount = 0; if(coupon.type === 'percent'){ discount = subtotal * (coupon.value / 100); } else if(coupon.type === 'fixed'){ discount = coupon.value * rate; } return Math.min(discount, subtotal); }
 
 function applyCoupon(){
@@ -319,15 +401,23 @@ function applyCoupon(){
 }
 
 function updateCartCount(){ const count = cart.reduce((sum,item)=>sum + item.qty, 0); document.getElementById('cartCount').textContent = count; }
+
 function updateCartUI(){
   updateCartCount();
-  const subtotal = getCartSubtotal();
-  const couponDiscount = getCouponDiscountAmount(subtotal);
-  const total = subtotal - couponDiscount;
-  const subtotalEl=document.getElementById('cartSubtotal');
-  const discountEl=document.getElementById('cartCouponDiscount');
-  const totalEl=document.getElementById('cartTotal');
-  if(subtotalEl) subtotalEl.textContent = format(subtotal);
+
+  const subtotalFinal = getCartSubtotal();
+  const productDiscount = getProductDiscountAmount();
+  const subtotalStandard = subtotalFinal + productDiscount;
+  const couponDiscount = getCouponDiscountAmount(subtotalFinal);
+  const total = subtotalFinal - couponDiscount;
+
+  const subtotalStandardEl = document.getElementById('cartSubtotalStandard');
+  const productDiscountEl = document.getElementById('cartProductDiscount');
+  const discountEl = document.getElementById('cartCouponDiscount');
+  const totalEl = document.getElementById('cartTotal');
+
+  if(subtotalStandardEl) subtotalStandardEl.textContent = format(subtotalStandard);
+  if(productDiscountEl) productDiscountEl.textContent = '-' + format(productDiscount);
   if(discountEl) discountEl.textContent = '-' + format(couponDiscount);
   if(totalEl) totalEl.textContent = format(total);
 }
@@ -345,7 +435,11 @@ function renderCart(){
   }
   list.innerHTML = cart.map((item,index)=>{
     const linePrice = item.price * item.qty * rate;
-    return `<div class="cart-item"><img src="${item.img}" alt="${item.name} ${item.plan}"><div><div class="cart-item-title">${item.name}</div><div class="cart-item-meta">${item.plan} • ${item.cat}</div><div class="cart-item-meta">${item.desc || ''}</div><div class="cart-item-meta">Cantidad: ${item.qty}</div><div class="cart-item-price">${format(linePrice)}</div></div><button class="icon-btn" onclick="removeFromCart(${index})">Quitar</button></div>`;
+    const hasItemDiscount = typeof item.oldPrice === 'number' && item.oldPrice > item.price;
+    const lineOldPrice = hasItemDiscount ? item.oldPrice * item.qty * rate : linePrice;
+    const itemDiscountPercent = hasItemDiscount ? Math.round(((item.oldPrice - item.price) / item.oldPrice) * 100) : 0;
+    const itemSavings = hasItemDiscount ? (lineOldPrice - linePrice) : 0;
+    return `<div class="cart-item"><img src="${item.img}" alt="${item.name} ${item.plan}"><div><div class="cart-item-title">${item.name}</div><div class="cart-item-meta">${item.plan} • ${item.cat}</div><div class="cart-item-meta">${item.desc || ''}</div><div class="cart-item-meta">Cantidad: ${item.qty}</div><div class="cart-item-price">${format(linePrice)}</div>${hasItemDiscount ? `<div class="cart-item-old-price">${format(lineOldPrice)}</div><div class="cart-item-discount"><span>Ahorras ${format(itemSavings)}</span><strong>-${itemDiscountPercent}%</strong></div>` : ``}</div><button class="icon-btn" onclick="removeFromCart(${index})">Quitar</button></div>`;
   }).join('');
   if(status && appliedCoupon && coupons[appliedCoupon]){ status.className='coupon-status coupon-ok'; status.textContent=`Cupón aplicado: ${appliedCoupon} (${coupons[appliedCoupon].label}).`; }
   else if(status && !appliedCoupon){ status.className='coupon-status'; status.textContent=''; }
@@ -360,7 +454,10 @@ function sendCartToWhatsApp(){
   const total = subtotal - couponDiscount;
   const lines = cart.map((item,idx)=>{
     const linePrice = item.price * item.qty * rate;
-    return `${idx+1}. ${item.name}\n• Membresía: ${item.plan}\n• Simultaneo: ${item.cat}\n• Cantidad: ${item.qty}\n• Subtotal artículo: ${format(linePrice)}`;
+    const hasItemDiscount = typeof item.oldPrice === 'number' && item.oldPrice > item.price;
+    const lineOldPrice = hasItemDiscount ? item.oldPrice * item.qty * rate : linePrice;
+    const itemDiscountAmount = hasItemDiscount ? (lineOldPrice - linePrice) : 0;
+    return `${idx+1}. ${item.name}\n• Membresía: ${item.plan}\n• Simultaneo: ${item.cat}\n• Cantidad: ${item.qty}\n• Precio estándar: ${format(lineOldPrice)}\n• Descuento del artículo: ${format(itemDiscountAmount)}\n• Subtotal artículo: ${format(linePrice)}`;
   }).join('\n\n');
   const couponLine = appliedCoupon && coupons[appliedCoupon]
     ? `• Cupón aplicado: ${appliedCoupon} (${coupons[appliedCoupon].label})\n• Descuento cupón: ${format(couponDiscount)}`
