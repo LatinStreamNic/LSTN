@@ -203,7 +203,7 @@ font-size:14px;
     <p id="modalDesc" class="modal-desc"></p>
     <div id="modalPrice"></div>
     <div class="benefits"><p id="modalBenefitText"></p></div>
-    <button class="btn-buy" onclick="addSelectedToCart()">🛒 Agregar al carrito</button>
+    <button class="btn-buy" onclick="addSelectedToCart()">Agregar al carrito</button>
   </div>
 </div>
 
@@ -211,7 +211,7 @@ font-size:14px;
   <div class="modal-content cart-modal-content">
     <button class="close-btn" onclick="closeCart()">✕</button>
     <h2 style="text-align:center;">🛒 carrito</h2>
-    <p class="modal-sub" style="text-align:center;">productos agregados.</p>
+    <p class="modal-sub" style="text-align:center;"></p>
     <div id="cartList" class="cart-list"></div>
     <div class="coupon-box">
       <label for="couponInput">Cupón de descuento</label>
@@ -226,8 +226,8 @@ font-size:14px;
 
     <div class="summary-box">
   <div class="summary-line"><span>Subtotal estándar</span><span id="cartSubtotalStandard">USD 0.00</span></div>
-  <div class="summary-line"><span>Descuento productos</span><span id="cartProductDiscount">USD 0.00</span></div>
-  <div class="summary-line"><span>Descuento cupón</span><span id="cartCouponDiscount">USD 0.00</span></div>
+  <div class="summary-line"><span>Desc. productos</span><span id="cartProductDiscount">USD 0.00</span></div>
+  <div class="summary-line"><span>Desc. cupón</span><span id="cartCouponDiscount">USD 0.00</span></div>
   <div class="summary-line total"><span>Total</span><span id="cartTotal">USD 0.00</span></div>
 </div>
 
@@ -249,9 +249,9 @@ let cart=[];
 let appliedCoupon=null;
 
 const coupons={
-  '':{type:'percent',value:10,label:'5% de descuento'},
+  'DESCUENTO':{type:'percent',value:10,label:'10% de descuento'},
   '':{type:'percent',value:10,label:'10% de descuento'},
-  '':{type:'fixed',value:20,label:'20 de descuento fijo'}
+  '':{type:'fixed',value:10,label:'10 de descuento fijo'}
 };
 
 const products=[
@@ -428,7 +428,7 @@ function renderCart(){
   const input=document.getElementById('couponInput');
   if(input){ input.value = appliedCoupon || ''; }
   if(cart.length===0){
-    list.innerHTML = `<div class="empty-cart"><p>No has agregado productos todavía.</p><p style="margin-top:8px;opacity:0.7;">Abre un producto y pulsa “Agregar al carrito”.</p></div>`;
+    list.innerHTML = `<div class="empty-cart"><p>Abre un producto y pulsa “Agregar al carrito”.</p><p style="margin-top:8px;opacity:0.7;"></p></div>`;
     if(status){ status.className='coupon-status'; status.textContent=''; }
     updateCartUI();
     return;
