@@ -38,6 +38,14 @@ img{pointer-events:none;-webkit-user-drag:none;user-drag:none;-webkit-touch-call
 .card img{width:100%;height:160px;object-fit:cover;}
 .card-discount{position:absolute;top:10px;right:10px;background:linear-gradient(45deg,#ff0000,#ff4d4d);color:#fff;font-size:11px;font-weight:700;padding:5px 10px;border-radius:999px;letter-spacing:0.5px;box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:2;}
 
+.card.out-stock{opacity:0.55;filter:grayscale(1);}
+.card.out-stock:hover{transform:none;}
+.stock-badge{position:absolute;top:10px;left:10px;background:#555;color:#fff;font-size:11px;font-weight:700;padding:5px 10px;border-radius:999px;letter-spacing:0.5px;box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:4;}
+.btn-buy.disabled{background:#444;color:#ddd;cursor:not-allowed;opacity:0.75;}
+.btn-buy.disabled:hover{transform:none;}
+.stock-modal-text{margin-top:10px;font-size:13px;color:#ffb3b3;font-weight:600;}
+
+
 .info{padding:12px;}
 .info p{font-size:14px;}
 .info span{font-size:12px;opacity:0.7;}
@@ -193,7 +201,7 @@ font-size:14px;
 
 <div class="header">
   <div style="width:92px;"></div>
-  <div class="header-title">MEMBRESIAS DISPONIBLES</div>
+  <div class="header-title">MEMBRESIAS</div>
   <button class="cart-toggle" onclick="openCart()">🛒 Carrito<span class="cart-count" id="cartCount">0</span></button>
 </div>
 
@@ -208,6 +216,7 @@ font-size:14px;
     <p id="modalDesc" class="modal-desc"></p>
     <div id="modalPrice"></div>
     <div class="benefits"><p id="modalBenefitText"></p></div>
+    <div id="modalStockText" class="stock-modal-text"></div>
     <button class="btn-buy" onclick="addSelectedToCart()">Agregar al carrito</button>
   </div>
 </div>
@@ -295,50 +304,52 @@ const coupons={
 };
 
 const products=[
+// Para marcar un producto como agotado, agrega available:false al producto. Ejemplo:
+// {name:'Producto',plan:'1 mes',cat:'1 Dispositivo',price:0,oldPrice:0,img:'img/imagen.png',desc:'Descripción',available:false},
 
-{name:'Stella TV',plan:'1 mes',cat:'3 Dispositivos',price:8.00,oldPrice:8.00,img:'img/STLTV1MES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox'},
-{name:'Stella TV',plan:'2 meses',cat:'3 Dispositivos',price:16.00,oldPrice:16.00,img:'img/STLTV2MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox'},
-{name:'Stella TV',plan:'3 meses',cat:'3 Dispositivos',price:24.00,oldPrice:24.00,img:'img/STLTV3MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox'},
-{name:'Stella TV',plan:'6 meses',cat:'3 Dispositivos',price:48.00,oldPrice:48.00,img:'img/STLTV6MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox'},
-{name:'Stella TV',plan:'9 meses ',cat:'3 Dispositivos',price:72.00,oldPrice:72.00,img:'img/STLTV9MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox'},
-{name:'Stella TV',plan:'12 meses',cat:'3 Dispositivos',price:87.00,oldPrice:87.00,img:'img/STLTV12MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox'},
+{name:'Stella TV',plan:'1 mes',cat:'3 Dispositivos',price:8.00,oldPrice:8.00,img:'img/STLTV1MES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:false},
+{name:'Stella TV',plan:'2 meses',cat:'3 Dispositivos',price:16.00,oldPrice:16.00,img:'img/STLTV2MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:false},
+{name:'Stella TV',plan:'3 meses',cat:'3 Dispositivos',price:24.00,oldPrice:24.00,img:'img/STLTV3MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:false},
+{name:'Stella TV',plan:'6 meses',cat:'3 Dispositivos',price:48.00,oldPrice:48.00,img:'img/STLTV6MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:false},
+{name:'Stella TV',plan:'9 meses ',cat:'3 Dispositivos',price:72.00,oldPrice:72.00,img:'img/STLTV9MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:false},
+{name:'Stella TV',plan:'12 meses',cat:'3 Dispositivos',price:87.00,oldPrice:87.00,img:'img/STLTV12MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:false},
 
-{name:'Tele-Latino',plan:'1 mes',cat:'6 Dispositivos',price:7.18,oldPrice:7.18,img:'img/TL1MES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TV Box'},
-{name:'Tele-Latino',plan:'2 meses',cat:'6 Dispositivos',price:14.36,oldPrice:14.36,img:'img/TL2MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox'},
-{name:'Tele-Latino',plan:'3 meses',cat:'6 Dispositivos',price:21.54,oldPrice:21.54,img:'img/TL3MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox'},
-{name:'Tele-Latino',plan:'6 meses',cat:'6 Dispositivos',price:40.20,oldPrice:40.20,img:'img/TL6MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox'},
-{name:'Tele-Latino',plan:'9 meses',cat:'6 Dispositivos',price:55.00,oldPrice:55.00,img:'img/TL9MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox'},
-{name:'Tele-Latino',plan:'12 meses +2 Extra🎁',cat:'6 Dispositivos',price:75.90,oldPrice:75.90,img:'img/TL12MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox'},
+{name:'Tele-Latino',plan:'1 mes',cat:'6 Dispositivos',price:7.18,oldPrice:7.18,img:'img/TL1MES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TV Box', available:true},
+{name:'Tele-Latino',plan:'2 meses',cat:'6 Dispositivos',price:14.36,oldPrice:14.36,img:'img/TL2MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Tele-Latino',plan:'3 meses',cat:'6 Dispositivos',price:21.54,oldPrice:21.54,img:'img/TL3MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Tele-Latino',plan:'6 meses',cat:'6 Dispositivos',price:40.20,oldPrice:40.20,img:'img/TL6MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Tele-Latino',plan:'9 meses',cat:'6 Dispositivos',price:55.00,oldPrice:55.00,img:'img/TL9MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Tele-Latino',plan:'12 meses +2 Extra🎁',cat:'6 Dispositivos',price:75.90,oldPrice:75.90,img:'img/TL12MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 
-{name:'Tele-Latino',plan:'1 mes',cat:'1 Dispositivos',price:4.05,oldPrice:4.05,img:'img/TLXCONEXION1MES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox'},
-{name:'Tele-Latino',plan:'3 meses',cat:'1 Dispositivos',price:12.15,oldPrice:12.15,img:'img/TLXCONEXION3MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox'},
-{name:'Tele-Latino',plan:'6 meses',cat:'1 Dispositivos',price:24.30,oldPrice:24.30,img:'img/TLXCONEXION6MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox'},
-{name:'Tele-Latino',plan:'12 meses',cat:'1 Dispositivos',price:48.60,oldPrice:48.60,img:'img/TLXCONEXION12MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox'},
+{name:'Tele-Latino',plan:'1 mes',cat:'1 Dispositivos',price:4.05,oldPrice:4.05,img:'img/TLXCONEXION1MES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Tele-Latino',plan:'3 meses',cat:'1 Dispositivos',price:12.15,oldPrice:12.15,img:'img/TLXCONEXION3MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Tele-Latino',plan:'6 meses',cat:'1 Dispositivos',price:24.30,oldPrice:24.30,img:'img/TLXCONEXION6MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Tele-Latino',plan:'12 meses',cat:'1 Dispositivos',price:48.60,oldPrice:48.60,img:'img/TLXCONEXION12MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 
-{name:'GravicsoTV',plan:'1 mes',cat:'3 Dispositivos',price:10.00,oldPrice:10.00,img:'img/GVS1MES.png',desc:'Compatible con iOS,RokuTV, SamsungTV, LGTV y AndroidTV'},
-{name:'GravicsoTV',plan:'2 meses',cat:'3 Dispositivos',price:20.00,oldPrice:20.00,img:'img/GVS2MESES.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV'},
-{name:'GravicsoTV',plan:'3 meses +1 Extra🎁',cat:'3 Dispositivos',price:30.00,oldPrice:30.00,img:'img/GVS3MESES.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV'},
-{name:'GravicsoTV',plan:'6 meses +2 Extra🎁',cat:'3 Dispositivos',price:60.00,oldPrice:60.00,img:'img/GVS6MESES.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV'},
-{name:'GravicsoTV',plan:'9 meses +3 Extra🎁',cat:'3 Dispositivos',price:76.50,oldPrice:76.50,img:'img/GVS9MESES.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV'},
-{name:'GravicsoTV',plan:'12 meses +3 Extra🎁',cat:'3 Dispositivos',price:90.00,oldPrice:90.00,img:'img/GVS12MESES.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV'},
-{name:'GravicsoTV',plan:'18 meses +5 Extra🎁',cat:'3 Dispositivos',price:160.00,oldPrice:160.00,img:'img/GVS18MESES.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV'},
+{name:'GravicsoTV',plan:'1 mes',cat:'3 Dispositivos',price:10.00,oldPrice:10.00,img:'img/GVS1MES.png',desc:'Compatible con iOS,RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'GravicsoTV',plan:'2 meses',cat:'3 Dispositivos',price:20.00,oldPrice:20.00,img:'img/GVS2MESES.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'GravicsoTV',plan:'3 meses +1 Extra🎁',cat:'3 Dispositivos',price:30.00,oldPrice:30.00,img:'img/GVS3MESES.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'GravicsoTV',plan:'6 meses +2 Extra🎁',cat:'3 Dispositivos',price:60.00,oldPrice:60.00,img:'img/GVS6MESES.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'GravicsoTV',plan:'9 meses +3 Extra🎁',cat:'3 Dispositivos',price:76.50,oldPrice:76.50,img:'img/GVS9MESES.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'GravicsoTV',plan:'12 meses +3 Extra🎁',cat:'3 Dispositivos',price:90.00,oldPrice:90.00,img:'img/GVS12MESES.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'GravicsoTV',plan:'18 meses +5 Extra🎁',cat:'3 Dispositivos',price:160.00,oldPrice:160.00,img:'img/GVS18MESES.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
 
-{name:'GravicsoTV',plan:'1 mes',cat:'1 Dispositivos',price:5.00,oldPrice:5.00,img:'img/GVSXCONEXION1MES.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV'},
-{name:'GravicsoTV',plan:'3 meses',cat:'1 Dispositivos',price:15.00,oldPrice:15.00,img:'img/GVSXCONEXION3MESES.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV'},
-{name:'GravicsoTV',plan:'6 meses',cat:'1 Dispositivos',price:30.00,oldPrice:30.00,img:'img/GVSXCONEXION6MESES.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV'},
-{name:'GravicsoTV',plan:'12 meses',cat:'1 Dispositivos',price:60.00,oldPrice:60.00,img:'img/GVSXCONEXION12MESES.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV'},
+{name:'GravicsoTV',plan:'1 mes',cat:'1 Dispositivos',price:5.00,oldPrice:5.00,img:'img/GVSXCONEXION1MES.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'GravicsoTV',plan:'3 meses',cat:'1 Dispositivos',price:15.00,oldPrice:15.00,img:'img/GVSXCONEXION3MESES.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'GravicsoTV',plan:'6 meses',cat:'1 Dispositivos',price:30.00,oldPrice:30.00,img:'img/GVSXCONEXION6MESES.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'GravicsoTV',plan:'12 meses',cat:'1 Dispositivos',price:60.00,oldPrice:60.00,img:'img/GVSXCONEXION12MESES.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
 
-{name:'VeltixTV',plan:'1 mes',cat:'3 Dispositivos',price:9.00,oldPrice:9.00,img:'img/VLT1MES.png',desc:'Disfrútalo en Fire TVStick, tu celular, Smart TV Android y TV Box'},
-{name:'VeltixTV',plan:'2 meses',cat:'3 Dispositivos',price:18.00,oldPrice:18.00,img:'img/VLT2MESES.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox'},
-{name:'VeltixTV',plan:'3 meses',cat:'3 Dispositivos',price:26.00,oldPrice:26.00,img:'img/VLT3MESES.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox'},
-{name:'VeltixTV',plan:'6 meses',cat:'3 Dispositivos',price:48.00,oldPrice:48.00,img:'img/VLT6MESES.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox'},
-{name:'VeltixTV',plan:'9 meses',cat:'3 Dispositivos',price:70.50,oldPrice:70.50,img:'img/VLT9MESES.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox'},
-{name:'VeltixTV',plan:'12 meses +2 Extra🎁',cat:'3 Dispositivos',price:85.00,oldPrice:85.00,img:'img/VLT12MESES.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox'},
+{name:'VeltixTV',plan:'1 mes',cat:'3 Dispositivos',price:9.00,oldPrice:9.00,img:'img/VLT1MES.png',desc:'Disfrútalo en Fire TVStick, tu celular, Smart TV Android y TV Box', available:true},
+{name:'VeltixTV',plan:'2 meses',cat:'3 Dispositivos',price:18.00,oldPrice:18.00,img:'img/VLT2MESES.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
+{name:'VeltixTV',plan:'3 meses',cat:'3 Dispositivos',price:26.00,oldPrice:26.00,img:'img/VLT3MESES.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
+{name:'VeltixTV',plan:'6 meses',cat:'3 Dispositivos',price:48.00,oldPrice:48.00,img:'img/VLT6MESES.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
+{name:'VeltixTV',plan:'9 meses',cat:'3 Dispositivos',price:70.50,oldPrice:70.50,img:'img/VLT9MESES.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
+{name:'VeltixTV',plan:'12 meses +2 Extra🎁',cat:'3 Dispositivos',price:85.00,oldPrice:85.00,img:'img/VLT12MESES.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
 
-{name:'VeltixTV',plan:'1 mes',cat:'1 Dispositivos',price:5.00,oldPrice:5.00,img:'img/VLTXCONEXION1MES.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox'},
-{name:'VeltixTV',plan:'3 meses',cat:'1 Dispositivos',price:15.00,oldPrice:15.00,img:'img/VLTXCONEXION3MESES.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox'},
-{name:'VeltixTV',plan:'6 meses',cat:'1 Dispositivos',price:30.00,oldPrice:30.00,img:'img/VLTXCONEXION6MESES.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox'},
-{name:'VeltixTV',plan:'12 meses',cat:'1 Dispositivos',price:60.00,oldPrice:60.00,img:'img/VLTXCONEXION12MESES.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox'}, 
+{name:'VeltixTV',plan:'1 mes',cat:'1 Dispositivos',price:5.00,oldPrice:5.00,img:'img/VLTXCONEXION1MES.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
+{name:'VeltixTV',plan:'3 meses',cat:'1 Dispositivos',price:15.00,oldPrice:15.00,img:'img/VLTXCONEXION3MESES.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
+{name:'VeltixTV',plan:'6 meses',cat:'1 Dispositivos',price:30.00,oldPrice:30.00,img:'img/VLTXCONEXION6MESES.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
+{name:'VeltixTV',plan:'12 meses',cat:'1 Dispositivos',price:60.00,oldPrice:60.00,img:'img/VLTXCONEXION12MESES.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true}, 
 ];
 
 
@@ -374,7 +385,7 @@ function loadProducts(){
     html+=`<div class="section"><h3>${s}</h3><div class="carousel"><div class="track" id="track-${s.replace(/\s+/g,'-')}">`;
     sections[s].forEach(p=>{
       const price=p.price*rate; const discountPercent=getDiscountPercent(p);
-      html+=`<div class="card" onclick="openModal(${p.index})">${discountPercent > 0 ? `<div class="card-discount">OFERTA</div>` : ''}<div class="protected-img"><img src="${p.img}" alt="${p.name} ${p.plan}" draggable="false" loading="lazy" oncontextmenu="return false;"></div><div class="info"><p>${p.plan}</p><span>${p.cat}</span><div class="price">${format(price)}</div>${renderCardExtra(p)}</div></div>`;
+      html+=`<div class="card ${p.available === false ? 'out-stock' : ''}" onclick="openModal(${p.index})">${p.available === false ? `<div class="stock-badge">AGOTADO</div>` : ''}${discountPercent > 0 ? `<div class="card-discount">OFERTA</div>` : ''}<div class="protected-img"><img src="${p.img}" alt="${p.name} ${p.plan}" draggable="false" loading="lazy" oncontextmenu="return false;"></div><div class="info"><p>${p.plan}</p><span>${p.cat}</span><div class="price">${p.available === false ? 'Agotado' : format(price)}</div>${renderCardExtra(p)}</div></div>`;
     });
     html+=`</div></div></div>`;
   }
@@ -410,6 +421,20 @@ function openModal(i){
   } else {
     document.getElementById('modalPrice').innerHTML=`<div class="price-row"><div class="price-big">${format(price)}</div></div>`;
   }
+
+  const buyBtn = document.querySelector('#modal .btn-buy');
+  const stockText = document.getElementById('modalStockText');
+  if(selected.available === false){
+    buyBtn.textContent = 'Producto agotado';
+    buyBtn.classList.add('disabled');
+    buyBtn.disabled = true;
+    stockText.textContent = 'Este producto no está disponible por el momento.';
+  } else {
+    buyBtn.textContent = 'Agregar al carrito';
+    buyBtn.classList.remove('disabled');
+    buyBtn.disabled = false;
+    stockText.textContent = '';
+  }
 }
 
 function closeModal(){document.getElementById('modal').style.display='none';}
@@ -417,6 +442,7 @@ function showToast(text){const toast=document.getElementById('toast'); toast.tex
 
 function addSelectedToCart(){
   if(!selected) return;
+  if(selected.available === false){ showToast('Este producto está agotado.'); return; }
   const existingIndex = cart.findIndex(item => item.name===selected.name && item.plan===selected.plan && item.cat===selected.cat);
   if(existingIndex >= 0){ cart[existingIndex].qty += 1; }
   else { cart.push({name:selected.name,plan:selected.plan,cat:selected.cat,price:selected.price,oldPrice:selected.oldPrice,img:selected.img,desc:selected.desc || '',qty:1}); }
