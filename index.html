@@ -298,7 +298,7 @@ let cart=[];
 let appliedCoupon=null;
 
 const coupons={
-  'DESCUENTO':{type:'percent',value:10,label:'10% de descuento'},
+  'STELLA10':{type:'percent',value:10,label:'10% de descuento'},
   '':{type:'percent',value:10,label:'10% de descuento'},
   '':{type:'fixed',value:10,label:'10 de descuento fijo'}
 };
@@ -307,12 +307,12 @@ const products=[
 // Para marcar un producto como agotado, agrega available:false al producto. Ejemplo:
 // {name:'Producto',plan:'1 mes',cat:'1 Dispositivo',price:0,oldPrice:0,img:'img/imagen.png',desc:'Descripción',available:false},
 
-{name:'Stella TV',plan:'1 mes',cat:'3 Dispositivos',price:8.00,oldPrice:8.00,img:'img/STLTV1MES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:false},
-{name:'Stella TV',plan:'2 meses',cat:'3 Dispositivos',price:16.00,oldPrice:16.00,img:'img/STLTV2MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:false},
-{name:'Stella TV',plan:'3 meses',cat:'3 Dispositivos',price:24.00,oldPrice:24.00,img:'img/STLTV3MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:false},
-{name:'Stella TV',plan:'6 meses',cat:'3 Dispositivos',price:48.00,oldPrice:48.00,img:'img/STLTV6MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:false},
-{name:'Stella TV',plan:'9 meses ',cat:'3 Dispositivos',price:72.00,oldPrice:72.00,img:'img/STLTV9MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:false},
-{name:'Stella TV',plan:'12 meses',cat:'3 Dispositivos',price:87.00,oldPrice:87.00,img:'img/STLTV12MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:false},
+{name:'Stella TV',plan:'1 mes',cat:'3 Dispositivos',price:8.00,oldPrice:8.00,img:'img/STLTV1MES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Stella TV',plan:'2 meses',cat:'3 Dispositivos',price:16.00,oldPrice:16.00,img:'img/STLTV2MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Stella TV',plan:'3 meses',cat:'3 Dispositivos',price:24.00,oldPrice:24.00,img:'img/STLTV3MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Stella TV',plan:'6 meses',cat:'3 Dispositivos',price:48.00,oldPrice:48.00,img:'img/STLTV6MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Stella TV',plan:'9 meses ',cat:'3 Dispositivos',price:72.00,oldPrice:72.00,img:'img/STLTV9MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Stella TV',plan:'12 meses',cat:'3 Dispositivos',price:87.00,oldPrice:87.00,img:'img/STLTV12MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 
 {name:'Tele-Latino',plan:'1 mes',cat:'6 Dispositivos',price:7.18,oldPrice:7.18,img:'img/TL1MES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TV Box', available:true},
 {name:'Tele-Latino',plan:'2 meses',cat:'6 Dispositivos',price:14.36,oldPrice:14.36,img:'img/TL2MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
