@@ -196,10 +196,110 @@ font-size:14px;
 
 
 
+.wcdev-inline-brand{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  justify-content:center;
+}
+.wcdev-mark{
+  width:34px;
+  height:34px;
+  border-radius:11px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  color:#0b0b0b;
+  font-size:14px;
+  font-weight:800;
+  letter-spacing:-1px;
+  background:linear-gradient(135deg,#fff6b0 0%,#d4af37 42%,#7a5a10 100%);
+  box-shadow:0 0 16px rgba(212,175,55,.28), inset 0 1px 0 rgba(255,255,255,.55);
+  border:1px solid rgba(255,217,97,.55);
+}
+.wcdev-text{
+  display:inline-flex;
+  flex-direction:column;
+  align-items:flex-start;
+  line-height:1.05;
+}
+.wcdev-name{
+  color:#d4af37;
+  font-size:15px;
+  font-weight:800;
+  letter-spacing:2px;
+}
+.wcdev-sub{
+  color:#b9b9b9;
+  font-size:9px;
+  letter-spacing:1.2px;
+  text-transform:uppercase;
+}
+.header-brand-strip{
+  max-width:1200px;
+  margin:12px auto 0;
+  padding:0 20px;
+}
+.header-brand-card{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  background:linear-gradient(90deg,rgba(18,18,18,.95),rgba(26,22,10,.92),rgba(18,18,18,.95));
+  border:1px solid rgba(212,175,55,.18);
+  border-radius:18px;
+  padding:12px 14px;
+  box-shadow:0 12px 30px rgba(0,0,0,.28);
+}
+.header-brand-card p{
+  font-size:12px;
+  color:#c9c9c9;
+  line-height:1.35;
+  text-align:right;
+}
+.footer{
+  margin:34px auto 0;
+  padding:30px 18px 32px;
+  text-align:center;
+  font-size:12px;
+  color:#a8a8a8;
+  background:radial-gradient(circle at top,rgba(212,175,55,.12),transparent 34%),linear-gradient(180deg,#101010,#070707);
+  border-top:1px solid rgba(212,175,55,.18);
+}
+.footer-logo{
+  margin:0 auto 14px;
+  display:flex;
+  justify-content:center;
+}
+.footer-card{
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 16px;
+  border-radius:20px;
+  background:rgba(18,18,18,.78);
+  border:1px solid rgba(212,175,55,.2);
+  box-shadow:0 0 22px rgba(212,175,55,.08);
+}
+.footer-card .wcdev-mark{width:42px;height:42px;border-radius:14px;font-size:16px;}
+.footer-card .wcdev-name{font-size:18px;}
+.footer p{margin:5px 0;line-height:1.5;}
+.footer-brand{color:#fff;font-weight:700;letter-spacing:.3px;}
+.footer-link{color:#f0c85b;text-decoration:none;font-weight:700;cursor:pointer;}
+.footer-link:hover{text-decoration:underline;}
+.footer-dev{font-size:11px;opacity:.82;margin-top:10px;}
+.footer-dev strong{color:#d4af37;font-weight:800;letter-spacing:2px;}
+.footer-dev span{display:block;margin-top:2px;color:#aaa;font-size:10px;letter-spacing:.9px;text-transform:uppercase;}
+.privacy-content{text-align:left;max-width:520px;}
+.privacy-content h2{text-align:center;margin-bottom:8px;}
+.privacy-content p{font-size:13px;line-height:1.55;opacity:.86;margin:10px 0;}
+.privacy-list{font-size:13px;line-height:1.55;opacity:.86;margin:10px 0 0 18px;}
+.privacy-list li{margin-bottom:6px;}
+
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:#171717;color:#fff;padding:12px 16px;border-radius:14px;border:1px solid #2c2c2c;box-shadow:0 10px 30px rgba(0,0,0,0.35);opacity:0;pointer-events:none;transition:0.25s;z-index:1200;font-size:14px;text-align:center;max-width:92%;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
-@media(max-width:520px){.header{padding:12px 10px;gap:8px;}.header-title{font-size:13px;line-height:1.2;}.currency-change{font-size:12px;padding:9px 10px;}.cart-toggle{font-size:12px;min-width:82px;padding:9px 10px;}}
+@media(max-width:520px){.header{padding:12px 10px;gap:8px;}.header-title{font-size:13px;line-height:1.2;}.currency-change{font-size:12px;padding:9px 10px;}.cart-toggle{font-size:12px;min-width:82px;padding:9px 10px;}.header-brand-strip{padding:0 12px;margin-top:10px;}.header-brand-card{flex-direction:column;align-items:center;text-align:center;padding:12px;}.header-brand-card p{text-align:center;font-size:11px;}.wcdev-name{font-size:13px;}.wcdev-sub{font-size:8px;}.footer-card{padding:10px 12px;}}
 @media(min-width:768px){.card{min-width:220px;}}
 @media(min-width:1024px){.card{min-width:250px;}}
 </style>
@@ -209,6 +309,7 @@ font-size:14px;
 <div class="welcome" id="welcome">
   <div class="welcome-card">
     <div class="welcome-badge">LATIN STREAM NIC</div>
+
     <h3></h3>
     <p>Elige tu moneda preferida para ver los precios de las membresías.</p>
     <div class="welcome-trust"></div>
@@ -236,13 +337,13 @@ font-size:14px;
       </button>
     </div>
 
-    <div class="welcome-footer">Puedes cambiar la moneda al volver a cargar la página.</div>
+    <div class="welcome-footer">Tu selección se guarda automáticamente. Puedes cambiarla desde el encabezado.</div>
   </div>
 </div>
 
 <div class="header">
   <button class="currency-change" onclick="showCurrencySelector()" id="currencyChangeBtn">🌎 USD</button>
-  <div class="header-title">Membresías</div>
+  <div class="header-title">Planes y Membresías</div>
   <button class="cart-toggle" onclick="openCart()">🛒 Carrito<span class="cart-count" id="cartCount">0</span></button>
 </div>
 
@@ -293,6 +394,29 @@ font-size:14px;
     </div>
   </div>
 </div>
+
+<div class="modal" id="privacyModal">
+  <div class="modal-content privacy-content">
+    <button class="close-btn" onclick="closePrivacyModal()">✕</button>
+    <h2>Aviso de privacidad</h2>
+    <p>En Latin Stream respetamos la privacidad de nuestros clientes. La información compartida durante una compra se utiliza únicamente para gestionar pedidos, confirmar pagos y brindar soporte.</p>
+    <ul class="privacy-list">
+      <li>No solicitamos datos bancarios sensibles dentro de la web.</li>
+      <li>Los pedidos se finalizan mediante WhatsApp para atención directa.</li>
+      <li>La información del cliente no se vende ni se comparte con terceros para fines publicitarios.</li>
+      <li>El usuario puede solicitar aclaración o eliminación de sus datos de contacto escribiendo por WhatsApp.</li>
+    </ul>
+    <button class="btn-buy" onclick="closePrivacyModal()">Entendido</button>
+  </div>
+</div>
+
+<footer class="footer">
+  
+
+  <p><span class="footer-brand">Copyright © 2026 Latin Stream Nic</span>. Todos los derechos reservados.</p>
+  <p><a class="footer-link" onclick="openPrivacyModal()">Aviso de privacidad</a></p>
+  <p class="footer-dev">Diseñada y Desarrollada por <strong>WCDEV</strong><span></span></p>
+</footer>
 
 <div class="toast" id="toast"></div>
 
@@ -351,7 +475,7 @@ const coupons={
     value:10,
     label:'10% de descuento',
     minSubtotal:5,
-    appliesToDiscounted:true
+    appliesToDiscounted:false
   },
   'LATIN':{
     type:'percent',
@@ -373,8 +497,6 @@ const products=[
 // Para marcar un producto como agotado, agrega available:false al producto. Ejemplo:
 // {name:'Producto',plan:'1 mes',cat:'1 Dispositivo',price:0,oldPrice:0,img:'img/imagen.png',desc:'Descripción',available:false},
 
-{name:'Stella TV',plan:'Demo 24 hrs',cat:'2 Dispositivos',price:0.00,oldPrice:1.00,img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
-
 {name:'Stella TV',plan:'1 mes',cat:'3 Dispositivos',price:6.90,oldPrice:9.00,img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 {name:'Stella TV',plan:'2 meses',cat:'3 Dispositivos',price:13.90,oldPrice:18.00,img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 {name:'Stella TV',plan:'3 meses',cat:'3 Dispositivos',price:18.90,oldPrice:27.00,img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
@@ -384,8 +506,6 @@ const products=[
 
 {name:'Stella TV',plan:'1 mes',cat:'1 Dispositivos',price:3.30,oldPrice:5.00,img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 {name:'Stella TV',plan:'12 meses',cat:'1 Dispositivos',price:38.40,oldPrice:60.00,img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
-
-{name:'WeibTV (GVS)',plan:'Demo 2hrs',cat:'1 Dispositivos',price:0.00,oldPrice:1.00,img:'img/GVSTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 
 {name:'WeibTV (GVS)',plan:'1 mes',cat:'3 Dispositivos',price:6.80,oldPrice:10.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
 {name:'WeibTV (GVS)',plan:'2 meses',cat:'3 Dispositivos',price:13.60,oldPrice:20.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
@@ -411,8 +531,6 @@ const products=[
 {name:'Tele-Latino',plan:'3 meses',cat:'1 Dispositivos',price:9.075,oldPrice:12.15,img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 {name:'Tele-Latino',plan:'6 meses',cat:'1 Dispositivos',price:18.15,oldPrice:24.30,img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 {name:'Tele-Latino',plan:'12 meses',cat:'1 Dispositivos',price:33.53,oldPrice:48.60,img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
-
-{name:'VeltixTV',plan:'Demo 1hrs',cat:'1 Dispositivos',price:0.00,oldPrice:1.00,img:'img/VLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 
 {name:'VeltixTV',plan:'1 mes',cat:'3 Dispositivos',price:5.50,oldPrice:9.00,img:'img/VLTV.png',desc:'Disfrútalo en Fire TVStick, tu celular, Smart TV Android y TV Box', available:true},
 {name:'VeltixTV',plan:'2 meses',cat:'3 Dispositivos',price:11.00,oldPrice:18.00,img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
@@ -731,6 +849,9 @@ function renderCart(){
   updateCartUI();
 }
 
+function openPrivacyModal(){ document.getElementById('privacyModal').style.display='flex'; }
+function closePrivacyModal(){ document.getElementById('privacyModal').style.display='none'; }
+
 function sendCartToWhatsApp(){
   if(cart.length===0){ showToast('Tu carrito está vacío.'); return; }
   const now=new Date().toLocaleString();
@@ -753,6 +874,7 @@ function sendCartToWhatsApp(){
 
 document.getElementById('modal').addEventListener('click', function(e){ if(e.target.id === 'modal'){ closeModal(); } });
 document.getElementById('cartModal').addEventListener('click', function(e){ if(e.target.id === 'cartModal'){ closeCart(); } });
+document.getElementById('privacyModal').addEventListener('click', function(e){ if(e.target.id === 'privacyModal'){ closePrivacyModal(); } });
 loadSavedCurrency();
 updateCartUI();
 </script>
