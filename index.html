@@ -15,14 +15,30 @@ img{pointer-events:none;-webkit-user-drag:none;user-drag:none;-webkit-touch-call
 .protected-img::after{content:'';position:absolute;inset:0;z-index:3;background:transparent;}
 .protected-img img{display:block;}
 
-.welcome{position:fixed;top:0;left:0;width:100%;height:100%;background:#0f0f0f;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;text-align:center;padding:20px;}
-
-.welcome button{margin:6px;padding:12px 20px;border:none;border-radius:10px;background:#ff0000;color:#fff;cursor:pointer;width:200px;}
+.welcome{position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at top,#2a0505 0%,#0f0f0f 42%,#070707 100%);display:flex;align-items:center;justify-content:center;z-index:999;text-align:center;padding:20px;overflow:hidden;opacity:1;visibility:visible;transition:opacity .35s ease,visibility .35s ease;}
+.welcome.hide{opacity:0;visibility:hidden;pointer-events:none;}
+.welcome::before{content:'';position:absolute;width:280px;height:280px;border-radius:50%;background:rgba(255,0,0,0.18);filter:blur(55px);top:-80px;right:-70px;}
+.welcome::after{content:'';position:absolute;width:220px;height:220px;border-radius:50%;background:rgba(0,255,174,0.08);filter:blur(55px);bottom:-80px;left:-70px;}
+.welcome-card{position:relative;z-index:2;width:100%;max-width:440px;background:rgba(18,18,18,0.88);border:1px solid rgba(255,255,255,0.08);border-radius:28px;padding:26px 20px;box-shadow:0 24px 70px rgba(0,0,0,0.55),0 0 35px rgba(255,0,0,0.16);backdrop-filter:blur(12px);}
+.welcome-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,0,0,0.14);border:1px solid rgba(255,0,0,0.35);color:#ffb3b3;padding:7px 12px;border-radius:999px;font-size:12px;font-weight:700;margin-bottom:14px;letter-spacing:0.4px;}
+.welcome h3{font-size:24px;line-height:1.15;margin-bottom:8px;text-transform:uppercase;}
+.welcome p{font-size:13px;opacity:0.75;margin-bottom:18px;}
+.currency-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:14px;}
+.currency-btn{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:14px 15px;border:none;border-radius:16px;background:linear-gradient(135deg,#1b1b1b,#111);color:#fff;cursor:pointer;border:1px solid rgba(255,255,255,0.08);transition:0.25s;box-shadow:0 8px 18px rgba(0,0,0,0.25);}
+.currency-btn:hover{transform:translateY(-2px);border-color:rgba(255,0,0,0.55);box-shadow:0 10px 24px rgba(255,0,0,0.18);}
+.currency-main{display:flex;align-items:center;gap:12px;text-align:left;}
+.currency-symbol{width:42px;height:42px;border-radius:14px;background:linear-gradient(45deg,#ff0000,#ff4d4d);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;box-shadow:0 8px 20px rgba(255,0,0,0.25);}
+.currency-name{display:block;font-size:14px;font-weight:700;}
+.currency-note{display:block;font-size:11px;opacity:0.6;margin-top:2px;}
+.currency-arrow{font-size:18px;opacity:0.55;}
+.welcome-footer{margin-top:16px;font-size:11px;opacity:0.55;line-height:1.5;}
 
 .header{position:sticky;top:0;background:rgba(15,15,15,0.95);padding:15px 20px;font-weight:600;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:12px;}
 .header-title{flex:1;text-align:center;}
 
 .cart-toggle{position:relative;border:none;background:#1c1c1c;color:#fff;padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:600;min-width:92px;}
+.currency-change{border:1px solid rgba(255,255,255,0.1);background:#181818;color:#fff;padding:10px 12px;border-radius:12px;cursor:pointer;font-weight:600;font-size:13px;white-space:nowrap;}
+.currency-change:hover{background:#242424;}
 
 .cart-count{position:absolute;top:-8px;right:-8px;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:#ff0000;color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center;font-weight:700;}
 
@@ -183,6 +199,7 @@ font-size:14px;
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:#171717;color:#fff;padding:12px 16px;border-radius:14px;border:1px solid #2c2c2c;box-shadow:0 10px 30px rgba(0,0,0,0.35);opacity:0;pointer-events:none;transition:0.25s;z-index:1200;font-size:14px;text-align:center;max-width:92%;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
+@media(max-width:520px){.header{padding:12px 10px;gap:8px;}.header-title{font-size:13px;line-height:1.2;}.currency-change{font-size:12px;padding:9px 10px;}.cart-toggle{font-size:12px;min-width:82px;padding:9px 10px;}}
 @media(min-width:768px){.card{min-width:220px;}}
 @media(min-width:1024px){.card{min-width:250px;}}
 </style>
@@ -190,18 +207,42 @@ font-size:14px;
 <body>
 
 <div class="welcome" id="welcome">
-<h3>BIENVENIDOS A LATIN STORE</h3>
-<p>Seleccione la Moneda de tu preferencia</p>
-<button onclick="setCurrency('USD',1)">U$ = Dolares</button>
-<button onclick="setCurrency('C$',37.5)">C$ = Cordobas</button>
-<button onclick="setCurrency('₡',525)">₡ = Colones</button>
-<button onclick="setCurrency('MXN',18.31)">$ = Peso MX</button>
-<button onclick="setCurrency('€',1)">€ = Euro</button>
+  <div class="welcome-card">
+    <div class="welcome-badge">LATIN STREAM NIC</div>
+    <h3></h3>
+    <p>Elige tu moneda preferida para ver los precios de las membresías.</p>
+    <div class="welcome-trust"></div>
+
+    <div class="currency-grid">
+      <button class="currency-btn" onclick="setCurrency('USD',1)">
+        <span class="currency-main"><span class="currency-symbol">U$</span><span><span class="currency-name">Dólares</span><span class="currency-note">Moneda principal</span></span></span>
+        <span class="currency-arrow">›</span>
+      </button>
+      <button class="currency-btn" onclick="setCurrency('C$',37.5)">
+        <span class="currency-main"><span class="currency-symbol">C$</span><span><span class="currency-name">Córdobas</span><span class="currency-note">Nicaragua</span></span></span>
+        <span class="currency-arrow">›</span>
+      </button>
+      <button class="currency-btn" onclick="setCurrency('₡',525)">
+        <span class="currency-main"><span class="currency-symbol">₡</span><span><span class="currency-name">Colones</span><span class="currency-note">Costa Rica</span></span></span>
+        <span class="currency-arrow">›</span>
+      </button>
+      <button class="currency-btn" onclick="setCurrency('MXN',18.31)">
+        <span class="currency-main"><span class="currency-symbol">$</span><span><span class="currency-name">Peso mexicano</span><span class="currency-note">México</span></span></span>
+        <span class="currency-arrow">›</span>
+      </button>
+      <button class="currency-btn" onclick="setCurrency('€',1)">
+        <span class="currency-main"><span class="currency-symbol">€</span><span><span class="currency-name">Euro</span><span class="currency-note">Europa</span></span></span>
+        <span class="currency-arrow">›</span>
+      </button>
+    </div>
+
+    <div class="welcome-footer">Puedes cambiar la moneda al volver a cargar la página.</div>
+  </div>
 </div>
 
 <div class="header">
-  <div style="width:92px;"></div>
-  <div class="header-title">MEMBRESIAS</div>
+  <button class="currency-change" onclick="showCurrencySelector()" id="currencyChangeBtn">🌎 USD</button>
+  <div class="header-title">Membresías</div>
   <button class="cart-toggle" onclick="openCart()">🛒 Carrito<span class="cart-count" id="cartCount">0</span></button>
 </div>
 
@@ -298,58 +339,100 @@ let cart=[];
 let appliedCoupon=null;
 
 const coupons={
-  'STELLA10':{type:'percent',value:10,label:'10% de descuento'},
-  '':{type:'percent',value:10,label:'10% de descuento'},
-  '':{type:'fixed',value:10,label:'10 de descuento fijo'}
+  'LATINSTREAM':{
+    type:'percent',
+    value:10,
+    label:'10% de descuento',
+    minSubtotal:5,
+    appliesToDiscounted:true
+  },
+  'VERANO':{
+    type:'percent',
+    value:10,
+    label:'10% de descuento',
+    minSubtotal:5,
+    appliesToDiscounted:true
+  },
+  'LATIN':{
+    type:'percent',
+    value:5,
+    label:'5% de descuento',
+    minSubtotal:5,
+    appliesToDiscounted:false
+  },
+  'VIP20':{
+    type:'percent',
+    value:15,
+    label:'15% de descuento',
+    minSubtotal:70,
+    appliesToDiscounted:false
+  }
 };
 
 const products=[
 // Para marcar un producto como agotado, agrega available:false al producto. Ejemplo:
 // {name:'Producto',plan:'1 mes',cat:'1 Dispositivo',price:0,oldPrice:0,img:'img/imagen.png',desc:'Descripción',available:false},
 
-{name:'Stella TV',plan:'1 mes',cat:'3 Dispositivos',price:8.00,oldPrice:8.00,img:'img/STLTV1MES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
-{name:'Stella TV',plan:'2 meses',cat:'3 Dispositivos',price:16.00,oldPrice:16.00,img:'img/STLTV2MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
-{name:'Stella TV',plan:'3 meses',cat:'3 Dispositivos',price:24.00,oldPrice:24.00,img:'img/STLTV3MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
-{name:'Stella TV',plan:'6 meses',cat:'3 Dispositivos',price:48.00,oldPrice:48.00,img:'img/STLTV6MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
-{name:'Stella TV',plan:'9 meses ',cat:'3 Dispositivos',price:72.00,oldPrice:72.00,img:'img/STLTV9MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
-{name:'Stella TV',plan:'12 meses',cat:'3 Dispositivos',price:87.00,oldPrice:87.00,img:'img/STLTV12MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Stella TV',plan:'Demo 24 hrs',cat:'2 Dispositivos',price:0.00,oldPrice:1.00,img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 
-{name:'Tele-Latino',plan:'1 mes',cat:'6 Dispositivos',price:7.18,oldPrice:7.18,img:'img/TL1MES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TV Box', available:true},
-{name:'Tele-Latino',plan:'2 meses',cat:'6 Dispositivos',price:14.36,oldPrice:14.36,img:'img/TL2MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
-{name:'Tele-Latino',plan:'3 meses',cat:'6 Dispositivos',price:21.54,oldPrice:21.54,img:'img/TL3MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
-{name:'Tele-Latino',plan:'6 meses',cat:'6 Dispositivos',price:40.20,oldPrice:40.20,img:'img/TL6MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
-{name:'Tele-Latino',plan:'9 meses',cat:'6 Dispositivos',price:55.00,oldPrice:55.00,img:'img/TL9MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
-{name:'Tele-Latino',plan:'12 meses +2 Extra🎁',cat:'6 Dispositivos',price:75.90,oldPrice:75.90,img:'img/TL12MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Stella TV',plan:'1 mes',cat:'3 Dispositivos',price:6.90,oldPrice:9.00,img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Stella TV',plan:'2 meses',cat:'3 Dispositivos',price:13.90,oldPrice:18.00,img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Stella TV',plan:'3 meses',cat:'3 Dispositivos',price:18.90,oldPrice:27.00,img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Stella TV',plan:'6 meses',cat:'3 Dispositivos',price:36.90,oldPrice:54.00,img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Stella TV',plan:'9 meses ',cat:'3 Dispositivos',price:51.90,oldPrice:81.00,img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Stella TV',plan:'12 meses',cat:'3 Dispositivos',price:60.90,oldPrice:94.70,img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 
-{name:'Tele-Latino',plan:'1 mes',cat:'1 Dispositivos',price:4.05,oldPrice:4.05,img:'img/TLXCONEXION1MES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
-{name:'Tele-Latino',plan:'3 meses',cat:'1 Dispositivos',price:12.15,oldPrice:12.15,img:'img/TLXCONEXION3MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
-{name:'Tele-Latino',plan:'6 meses',cat:'1 Dispositivos',price:24.30,oldPrice:24.30,img:'img/TLXCONEXION6MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
-{name:'Tele-Latino',plan:'12 meses',cat:'1 Dispositivos',price:48.60,oldPrice:48.60,img:'img/TLXCONEXION12MESES.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Stella TV',plan:'1 mes',cat:'1 Dispositivos',price:3.30,oldPrice:5.00,img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Stella TV',plan:'12 meses',cat:'1 Dispositivos',price:38.40,oldPrice:60.00,img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 
-{name:'GravicsoTV',plan:'1 mes',cat:'3 Dispositivos',price:10.00,oldPrice:10.00,img:'img/GVS1MES.png',desc:'Compatible con iOS,RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-{name:'GravicsoTV',plan:'2 meses',cat:'3 Dispositivos',price:20.00,oldPrice:20.00,img:'img/GVS2MESES.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-{name:'GravicsoTV',plan:'3 meses +1 Extra🎁',cat:'3 Dispositivos',price:30.00,oldPrice:30.00,img:'img/GVS3MESES.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-{name:'GravicsoTV',plan:'6 meses +2 Extra🎁',cat:'3 Dispositivos',price:60.00,oldPrice:60.00,img:'img/GVS6MESES.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-{name:'GravicsoTV',plan:'9 meses +3 Extra🎁',cat:'3 Dispositivos',price:76.50,oldPrice:76.50,img:'img/GVS9MESES.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-{name:'GravicsoTV',plan:'12 meses +3 Extra🎁',cat:'3 Dispositivos',price:90.00,oldPrice:90.00,img:'img/GVS12MESES.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-{name:'GravicsoTV',plan:'18 meses +5 Extra🎁',cat:'3 Dispositivos',price:160.00,oldPrice:160.00,img:'img/GVS18MESES.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'Demo 2hrs',cat:'1 Dispositivos',price:0.00,oldPrice:1.00,img:'img/GVSTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 
-{name:'GravicsoTV',plan:'1 mes',cat:'1 Dispositivos',price:5.00,oldPrice:5.00,img:'img/GVSXCONEXION1MES.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-{name:'GravicsoTV',plan:'3 meses',cat:'1 Dispositivos',price:15.00,oldPrice:15.00,img:'img/GVSXCONEXION3MESES.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-{name:'GravicsoTV',plan:'6 meses',cat:'1 Dispositivos',price:30.00,oldPrice:30.00,img:'img/GVSXCONEXION6MESES.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-{name:'GravicsoTV',plan:'12 meses',cat:'1 Dispositivos',price:60.00,oldPrice:60.00,img:'img/GVSXCONEXION12MESES.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'1 mes',cat:'3 Dispositivos',price:6.80,oldPrice:10.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'2 meses',cat:'3 Dispositivos',price:13.60,oldPrice:20.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'3 meses',cat:'3 Dispositivos',price:19.50,oldPrice:30.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'6 meses',cat:'3 Dispositivos',price:37.80,oldPrice:60.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'9 meses',cat:'3 Dispositivos',price:45.90,oldPrice:76.50,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'12 meses',cat:'3 Dispositivos',price:52.20,oldPrice:90.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'18 meses',cat:'3 Dispositivos',price:88.00,oldPrice:160.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
 
-{name:'VeltixTV',plan:'1 mes',cat:'3 Dispositivos',price:9.00,oldPrice:9.00,img:'img/VLT1MES.png',desc:'Disfrútalo en Fire TVStick, tu celular, Smart TV Android y TV Box', available:true},
-{name:'VeltixTV',plan:'2 meses',cat:'3 Dispositivos',price:18.00,oldPrice:18.00,img:'img/VLT2MESES.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
-{name:'VeltixTV',plan:'3 meses',cat:'3 Dispositivos',price:26.00,oldPrice:26.00,img:'img/VLT3MESES.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
-{name:'VeltixTV',plan:'6 meses',cat:'3 Dispositivos',price:48.00,oldPrice:48.00,img:'img/VLT6MESES.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
-{name:'VeltixTV',plan:'9 meses',cat:'3 Dispositivos',price:70.50,oldPrice:70.50,img:'img/VLT9MESES.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
-{name:'VeltixTV',plan:'12 meses +2 Extra🎁',cat:'3 Dispositivos',price:85.00,oldPrice:85.00,img:'img/VLT12MESES.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
+{name:'WeibTV (GVS)',plan:'1 mes',cat:'1 Dispositivo',price:3.40,oldPrice:5.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'3 meses',cat:'1 Dispositivo',price:9.75,oldPrice:15.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'6 meses',cat:'1 Dispositivo',price:18.90,oldPrice:30.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'12 meses',cat:'1 Dispositivo',price:34.80,oldPrice:60.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
 
-{name:'VeltixTV',plan:'1 mes',cat:'1 Dispositivos',price:5.00,oldPrice:5.00,img:'img/VLTXCONEXION1MES.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
-{name:'VeltixTV',plan:'3 meses',cat:'1 Dispositivos',price:15.00,oldPrice:15.00,img:'img/VLTXCONEXION3MESES.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
-{name:'VeltixTV',plan:'6 meses',cat:'1 Dispositivos',price:30.00,oldPrice:30.00,img:'img/VLTXCONEXION6MESES.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
-{name:'VeltixTV',plan:'12 meses',cat:'1 Dispositivos',price:60.00,oldPrice:60.00,img:'img/VLTXCONEXION12MESES.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true}, 
+{name:'Tele-Latino',plan:'1 mes',cat:'6 Dispositivos',price:5.20,oldPrice:7.18,img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TV Box', available:true},
+{name:'Tele-Latino',plan:'2 meses',cat:'6 Dispositivos',price:10.40,oldPrice:14.36,img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Tele-Latino',plan:'3 meses',cat:'6 Dispositivos',price:15.60,oldPrice:21.54,img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Tele-Latino',plan:'6 meses',cat:'6 Dispositivos',price:29.00,oldPrice:40.20,img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Tele-Latino',plan:'9 meses',cat:'6 Dispositivos',price:39.50,oldPrice:55.00,img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Tele-Latino',plan:'12 meses',cat:'6 Dispositivos',price:52.00,oldPrice:75.90,img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+
+{name:'Tele-Latino',plan:'1 mes',cat:'1 Dispositivos',price:3.025,oldPrice:4.05,img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Tele-Latino',plan:'3 meses',cat:'1 Dispositivos',price:9.075,oldPrice:12.15,img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Tele-Latino',plan:'6 meses',cat:'1 Dispositivos',price:18.15,oldPrice:24.30,img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Tele-Latino',plan:'12 meses',cat:'1 Dispositivos',price:33.53,oldPrice:48.60,img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+
+{name:'VeltixTV',plan:'Demo 1hrs',cat:'1 Dispositivos',price:0.00,oldPrice:1.00,img:'img/VLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+
+{name:'VeltixTV',plan:'1 mes',cat:'3 Dispositivos',price:5.50,oldPrice:9.00,img:'img/VLTV.png',desc:'Disfrútalo en Fire TVStick, tu celular, Smart TV Android y TV Box', available:true},
+{name:'VeltixTV',plan:'2 meses',cat:'3 Dispositivos',price:11.00,oldPrice:18.00,img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
+{name:'VeltixTV',plan:'3 meses',cat:'3 Dispositivos',price:16.50,oldPrice:26.00,img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
+{name:'VeltixTV',plan:'6 meses',cat:'3 Dispositivos',price:33.00,oldPrice:48.00,img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
+{name:'VeltixTV',plan:'9 meses',cat:'3 Dispositivos',price:49.50,oldPrice:70.50,img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
+{name:'VeltixTV',plan:'12 meses',cat:'3 Dispositivos',price:66.00,oldPrice:85.00,img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
+
+{name:'VeltixTV',plan:'1 mes',cat:'1 Dispositivos',price:3.62,oldPrice:5.00,img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
+{name:'VeltixTV',plan:'3 meses',cat:'1 Dispositivos',price:10.86,oldPrice:15.00,img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
+{name:'VeltixTV',plan:'6 meses',cat:'1 Dispositivos',price:21.73,oldPrice:30.00,img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
+{name:'VeltixTV',plan:'12 meses',cat:'1 Dispositivos',price:43.45,oldPrice:60.00,img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true}, 
+
+{name:'+Streaming',plan:'1 mes',cat:'1 Dispositivo',price:5.00,oldPrice:5.00,img:'img/Netflix.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:false},
+{name:'+Streaming',plan:'1 mes',cat:'1 Dispositivo',price:3.90,oldPrice:3.90,img:'img/amazon.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:false},
+{name:'+Streaming',plan:'1 mes',cat:'1 Dispositivo',price:4.26,oldPrice:4.26,img:'img/Max.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:false},
+{name:'+Streaming',plan:'1 mes',cat:'1 Dispositivo',price:3.20,oldPrice:5.00,img:'img/YouTube.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'+Streaming',plan:'1 mes',cat:'1 Dispositivo',price:4.06,oldPrice:4.06,img:'img/Paramount.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:false},
+{name:'+Streaming',plan:'1 mes',cat:'1 Dispositivo',price:3.5,oldPrice:4.6,img:'img/Spotify.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:false},
+
 ];
 
 
@@ -370,7 +453,52 @@ function hasDiscount(product){return typeof product.oldPrice === 'number' && pro
 function getDiscountPercent(product){if(!hasDiscount(product)) return 0; return Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100);}
 function getSavings(product){if(!hasDiscount(product)) return 0; return (product.oldPrice - product.price) * rate;}
 
-function setCurrency(c,r){currency=c; rate=r; document.getElementById('welcome').style.display='none'; loadProducts(); updateCartUI();}
+function setCurrency(c,r){
+  currency=c;
+  rate=r;
+  localStorage.setItem('latinStoreCurrency', JSON.stringify({currency:c, rate:r}));
+  const welcome = document.getElementById('welcome');
+  if(welcome){
+    welcome.classList.add('hide');
+    setTimeout(()=>{ welcome.style.display='none'; }, 360);
+  }
+  updateCurrencyButton();
+  loadProducts();
+  updateCartUI();
+}
+
+function showCurrencySelector(){
+  const welcome = document.getElementById('welcome');
+  if(!welcome) return;
+  welcome.style.display='flex';
+  requestAnimationFrame(()=>welcome.classList.remove('hide'));
+}
+
+function updateCurrencyButton(){
+  const btn = document.getElementById('currencyChangeBtn');
+  if(btn) btn.textContent = `🌎 ${currency}`;
+}
+
+function loadSavedCurrency(){
+  try{
+    const saved = JSON.parse(localStorage.getItem('latinStoreCurrency') || 'null');
+    if(saved && saved.currency && typeof saved.rate === 'number'){
+      currency = saved.currency;
+      rate = saved.rate;
+      const welcome = document.getElementById('welcome');
+      if(welcome){
+        welcome.classList.add('hide');
+        welcome.style.display='none';
+      }
+      updateCurrencyButton();
+      loadProducts();
+      updateCartUI();
+      return true;
+    }
+  }catch(e){}
+  updateCurrencyButton();
+  return false;
+}
 
 function renderCardExtra(p){
   if(!hasDiscount(p)) return '';
@@ -461,16 +589,94 @@ function clearCart(){ cart=[]; appliedCoupon=null; const input=document.getEleme
 
 function getCartSubtotal(){ return cart.reduce((sum,item)=>sum + (item.price * item.qty * rate), 0); }
 
-function getCouponDiscountAmount(subtotal){ if(!appliedCoupon) return 0; const coupon = coupons[appliedCoupon]; if(!coupon) return 0; let discount = 0; if(coupon.type === 'percent'){ discount = subtotal * (coupon.value / 100); } else if(coupon.type === 'fixed'){ discount = coupon.value * rate; } return Math.min(discount, subtotal); }
+function getCouponEligibleSubtotal(coupon){
+  if(!coupon) return 0;
+
+  return cart.reduce((sum,item)=>{
+    const hasItemDiscount = typeof item.oldPrice === 'number' && item.oldPrice > item.price;
+
+    if(hasItemDiscount && coupon.appliesToDiscounted === false){
+      return sum;
+    }
+
+    return sum + (item.price * item.qty * rate);
+  }, 0);
+}
+
+function getCouponDiscountAmount(subtotal){
+  if(!appliedCoupon) return 0;
+
+  const coupon = coupons[appliedCoupon];
+  if(!coupon) return 0;
+
+  const minSubtotal = (coupon.minSubtotal || 0) * rate;
+  if(subtotal < minSubtotal) return 0;
+
+  const eligibleSubtotal = getCouponEligibleSubtotal(coupon);
+  if(eligibleSubtotal <= 0) return 0;
+
+  let discount = 0;
+  if(coupon.type === 'percent'){
+    discount = eligibleSubtotal * (coupon.value / 100);
+  } else if(coupon.type === 'fixed'){
+    discount = coupon.value * rate;
+  }
+
+  return Math.min(discount, eligibleSubtotal);
+}
+
+function getCouponValidationMessage(code){
+  const coupon = coupons[code];
+  if(!coupon) return {ok:false,text:'Cupón no válido.'};
+
+  const subtotal = getCartSubtotal();
+  const minSubtotal = (coupon.minSubtotal || 0) * rate;
+
+  if(subtotal < minSubtotal){
+    return {ok:false,text:`Este cupón requiere una compra mínima de ${format(minSubtotal)}.`};
+  }
+
+  const eligibleSubtotal = getCouponEligibleSubtotal(coupon);
+  if(eligibleSubtotal <= 0){
+    return {ok:false,text:'Este cupón no aplica porque los productos del carrito ya tienen oferta activa.'};
+  }
+
+  return {ok:true,text:`Cupón aplicado: ${code} (${coupon.label}).`};
+}
 
 function applyCoupon(){
   const input=document.getElementById('couponInput');
   const code=(input.value || '').trim().toUpperCase();
   const status=document.getElementById('couponStatus');
-  if(cart.length===0){ appliedCoupon=null; status.className='coupon-status coupon-error'; status.textContent='Agrega al menos un producto al carrito antes de aplicar un cupón.'; updateCartUI(); return; }
-  if(!code){ appliedCoupon=null; status.className='coupon-status'; status.textContent=''; updateCartUI(); return; }
-  if(coupons[code]){ appliedCoupon=code; status.className='coupon-status coupon-ok'; status.textContent=`Cupón aplicado: ${code} (${coupons[code].label}).`; }
-  else { appliedCoupon=null; status.className='coupon-status coupon-error'; status.textContent='Cupón no válido.'; }
+
+  if(cart.length===0){
+    appliedCoupon=null;
+    status.className='coupon-status coupon-error';
+    status.textContent='Agrega al menos un producto al carrito antes de aplicar un cupón.';
+    updateCartUI();
+    return;
+  }
+
+  if(!code){
+    appliedCoupon=null;
+    status.className='coupon-status';
+    status.textContent='';
+    updateCartUI();
+    return;
+  }
+
+  const validation = getCouponValidationMessage(code);
+
+  if(validation.ok){
+    appliedCoupon=code;
+    status.className='coupon-status coupon-ok';
+    status.textContent=validation.text;
+  } else {
+    appliedCoupon=null;
+    status.className='coupon-status coupon-error';
+    status.textContent=validation.text;
+  }
+
   updateCartUI();
 }
 
@@ -515,7 +721,12 @@ function renderCart(){
     const itemSavings = hasItemDiscount ? (lineOldPrice - linePrice) : 0;
     return `<div class="cart-item"><div class="protected-img"><img src="${item.img}" alt="${item.name} ${item.plan}" draggable="false" loading="lazy" oncontextmenu="return false;"></div><div><div class="cart-item-title">${item.name}</div><div class="cart-item-meta">${item.plan} • ${item.cat}</div><div class="cart-item-meta">${item.desc || ''}</div><div class="cart-item-meta">Cantidad: ${item.qty}</div><div class="cart-item-price">${format(linePrice)}</div>${hasItemDiscount ? `<div class="cart-item-old-price">${format(lineOldPrice)}</div><div class="cart-item-discount"><span>Ahorras ${format(itemSavings)}</span><strong>-${itemDiscountPercent}%</strong></div>` : ``}</div><button class="icon-btn" onclick="removeFromCart(${index})">Quitar</button></div>`;
   }).join('');
-  if(status && appliedCoupon && coupons[appliedCoupon]){ status.className='coupon-status coupon-ok'; status.textContent=`Cupón aplicado: ${appliedCoupon} (${coupons[appliedCoupon].label}).`; }
+  if(status && appliedCoupon && coupons[appliedCoupon]){
+    const validation = getCouponValidationMessage(appliedCoupon);
+    status.className = validation.ok ? 'coupon-status coupon-ok' : 'coupon-status coupon-error';
+    status.textContent = validation.text;
+    if(!validation.ok){ appliedCoupon = null; if(input){ input.value=''; } }
+  }
   else if(status && !appliedCoupon){ status.className='coupon-status'; status.textContent=''; }
   updateCartUI();
 }
@@ -542,6 +753,7 @@ function sendCartToWhatsApp(){
 
 document.getElementById('modal').addEventListener('click', function(e){ if(e.target.id === 'modal'){ closeModal(); } });
 document.getElementById('cartModal').addEventListener('click', function(e){ if(e.target.id === 'cartModal'){ closeCart(); } });
+loadSavedCurrency();
 updateCartUI();
 </script>
 
