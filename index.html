@@ -465,16 +465,16 @@ let appliedCoupon=null;
 const coupons={
   'LATINSTREAM':{
     type:'percent',
-    value:10,
-    label:'10% de descuento',
-    minSubtotal:5,
-    appliesToDiscounted:true
+    value:15,
+    label:'15% de descuento',
+    minSubtotal:7,
+    appliesToDiscounted:false
   },
-  'VERANO':{
+  'mama':{
     type:'percent',
-    value:10,
-    label:'10% de descuento',
-    minSubtotal:5,
+    value:23,
+    label:'23% de descuento',
+    minSubtotal:7,
     appliesToDiscounted:false
   },
   'LATIN':{
@@ -488,7 +488,7 @@ const coupons={
     type:'percent',
     value:15,
     label:'15% de descuento',
-    minSubtotal:70,
+    minSubtotal:80,
     appliesToDiscounted:false
   }
 };
@@ -497,52 +497,60 @@ const products=[
 // Para marcar un producto como agotado, agrega available:false al producto. Ejemplo:
 // {name:'Producto',plan:'1 mes',cat:'1 Dispositivo',price:0,oldPrice:0,img:'img/imagen.png',desc:'Descripción',available:false},
 
-{name:'Stella TV',plan:'1 mes',cat:'3 Dispositivos',price:6.90,oldPrice:9.00,img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:false},
-{name:'Stella TV',plan:'2 meses',cat:'3 Dispositivos',price:13.90,oldPrice:18.00,img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:false},
-{name:'Stella TV',plan:'3 meses',cat:'3 Dispositivos',price:18.90,oldPrice:27.00,img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:false},
-{name:'Stella TV',plan:'6 meses',cat:'3 Dispositivos',price:36.90,oldPrice:54.00,img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
-{name:'Stella TV',plan:'9 meses ',cat:'3 Dispositivos',price:51.90,oldPrice:81.00,img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:false},
-{name:'Stella TV',plan:'12 meses',cat:'3 Dispositivos',price:60.90,oldPrice:94.70,img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Stella TV',plan:'1 mes',cat:'3 Dispositivos',price:9.00,oldPrice:9.00,img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Stella TV',plan:'2 meses',cat:'3 Dispositivos',price:18.00,oldPrice:18.00,img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Stella TV',plan:'3 meses',cat:'3 Dispositivos',price:27.00,oldPrice:27.00,img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Stella TV',plan:'6 meses',cat:'3 Dispositivos',price:54.00,oldPrice:54.00,img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Stella TV',plan:'9 meses ',cat:'3 Dispositivos',price:81.00,oldPrice:81.00,img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Stella TV',plan:'12 meses +2 Extra🎁',cat:'3 Dispositivos',price:94.70,oldPrice:94.70,img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 
-{name:'Stella TV',plan:'1 mes',cat:'1 Dispositivos',price:3.30,oldPrice:5.00,img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
-{name:'Stella TV',plan:'12 meses',cat:'1 Dispositivos',price:38.40,oldPrice:60.00,img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Stella TV',plan:'1 mes',cat:'1 Dispositivos',price:5.00,oldPrice:5.00,img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Stella TV',plan:'12 meses',cat:'1 Dispositivos',price:60.00,oldPrice:60.00,img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 
-{name:'WeibTV (GVS)',plan:'1 mes',cat:'3 Dispositivos',price:6.80,oldPrice:10.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:false},
-{name:'WeibTV (GVS)',plan:'2 meses',cat:'3 Dispositivos',price:13.60,oldPrice:20.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:false},
-{name:'WeibTV (GVS)',plan:'3 meses',cat:'3 Dispositivos',price:19.50,oldPrice:30.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-{name:'WeibTV (GVS)',plan:'6 meses',cat:'3 Dispositivos',price:37.80,oldPrice:60.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-{name:'WeibTV (GVS)',plan:'9 meses',cat:'3 Dispositivos',price:45.90,oldPrice:76.50,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-{name:'WeibTV (GVS)',plan:'12 meses',cat:'3 Dispositivos',price:52.20,oldPrice:90.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-{name:'WeibTV (GVS)',plan:'18 meses',cat:'3 Dispositivos',price:88.00,oldPrice:160.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:false},
+{name:'WeibTV (GVS)',plan:'1 mes',cat:'1 Dispositivo',price:5.00,oldPrice:5.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'3 meses',cat:'1 Dispositivo',price:15.00,oldPrice:15.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'6 meses',cat:'1 Dispositivo',price:30.00,oldPrice:30.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'12 meses',cat:'1 Dispositivo',price:60.00,oldPrice:60.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+  
+{name:'WeibTV (GVS)',plan:'1 mes',cat:'3 Dispositivos',price:10.00,oldPrice:10.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'2 meses',cat:'3 Dispositivos',price:20.00,oldPrice:20.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'3 meses +1 Extra🎁 ',cat:'3 Dispositivos',price:30.00,oldPrice:30.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'6 meses +2 Extra🎁 ',cat:'3 Dispositivos',price:60.00,oldPrice:60.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'9 meses',cat:'3 Dispositivos',price:76.50,oldPrice:76.50,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'12 meses +3 Extra🎁',cat:'3 Dispositivos',price:90.00,oldPrice:90.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'18 meses +5 Extra🎁',cat:'3 Dispositivos',price:160.00,oldPrice:160.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
 
-{name:'WeibTV (GVS)',plan:'1 mes',cat:'1 Dispositivo',price:3.40,oldPrice:5.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:false},
-{name:'WeibTV (GVS)',plan:'3 meses',cat:'1 Dispositivo',price:9.75,oldPrice:15.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-{name:'WeibTV (GVS)',plan:'6 meses',cat:'1 Dispositivo',price:18.90,oldPrice:30.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-{name:'WeibTV (GVS)',plan:'12 meses',cat:'1 Dispositivo',price:24.99,oldPrice:60.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-
-{name:'Tele-Latino',plan:'1 mes',cat:'6 Dispositivos',price:5.20,oldPrice:7.18,img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TV Box', available:true},
-{name:'Tele-Latino',plan:'2 meses',cat:'6 Dispositivos',price:10.40,oldPrice:14.36,img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
-{name:'Tele-Latino',plan:'3 meses',cat:'6 Dispositivos',price:15.60,oldPrice:21.54,img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
-{name:'Tele-Latino',plan:'6 meses',cat:'6 Dispositivos',price:29.00,oldPrice:40.20,img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
-{name:'Tele-Latino',plan:'9 meses',cat:'6 Dispositivos',price:39.50,oldPrice:55.00,img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
-{name:'Tele-Latino',plan:'12 meses',cat:'6 Dispositivos',price:52.00,oldPrice:75.90,img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'WeibTV (GVS)',plan:'1 mes',cat:'5 Dispositivos',price:15.00,oldPrice:15.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'2 meses',cat:'5 Dispositivos',price:30.00,oldPrice:30.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'3 meses +1 Extra🎁 ',cat:'5 Dispositivos',price:45.00,oldPrice:45.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'6 meses +2 Extra🎁 ',cat:'5 Dispositivos',price:90.00,oldPrice:90.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'9 meses',cat:'5 Dispositivos',price:135.00,oldPrice:135.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'12 meses +3 Extra🎁',cat:'5 Dispositivos',price:180.00,oldPrice:180.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'18 meses +5 Extra🎁',cat:'5 Dispositivos',price:270.00,oldPrice:270.00,img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+  
+{name:'Tele-Latino',plan:'1 mes',cat:'3 TV & 3 Celular',price:7.18,oldPrice:7.18,img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TV Box', available:true},
+{name:'Tele-Latino',plan:'2 meses',cat:'3 TV & 3 Celular',price:14.36,oldPrice:14.36,img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Tele-Latino',plan:'3 meses',cat:'3 TV & 3 Celular',price:21.54,oldPrice:21.54,img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Tele-Latino',plan:'6 meses',cat:'3 TV & 3 Celular',price:40.20,oldPrice:40.20,img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Tele-Latino',plan:'9 meses',cat:'3 TV & 3 Celular',price:55.00,oldPrice:55.00,img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Tele-Latino',plan:'12 meses +2 Extra🎁 ',cat:'3 TV & 3 Celular',price:75.90,oldPrice:75.90,img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 
 {name:'Tele-Latino',plan:'1 mes',cat:'1 Dispositivos',price:3.025,oldPrice:4.05,img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 {name:'Tele-Latino',plan:'3 meses',cat:'1 Dispositivos',price:9.075,oldPrice:12.15,img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 {name:'Tele-Latino',plan:'6 meses',cat:'1 Dispositivos',price:18.15,oldPrice:24.30,img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 {name:'Tele-Latino',plan:'12 meses',cat:'1 Dispositivos',price:33.53,oldPrice:48.60,img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 
-{name:'VeltixTV',plan:'1 mes',cat:'3 Dispositivos',price:5.50,oldPrice:9.00,img:'img/VLTV.png',desc:'Disfrútalo en Fire TVStick, tu celular, Smart TV Android y TV Box', available:true},
-{name:'VeltixTV',plan:'2 meses',cat:'3 Dispositivos',price:11.00,oldPrice:18.00,img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
-{name:'VeltixTV',plan:'3 meses',cat:'3 Dispositivos',price:16.50,oldPrice:26.00,img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
-{name:'VeltixTV',plan:'6 meses',cat:'3 Dispositivos',price:33.00,oldPrice:48.00,img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
-{name:'VeltixTV',plan:'9 meses',cat:'3 Dispositivos',price:49.50,oldPrice:70.50,img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
-{name:'VeltixTV',plan:'12 meses',cat:'3 Dispositivos',price:66.00,oldPrice:85.00,img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
+{name:'VeltixTV',plan:'1 mes',cat:'3 Dispositivos',price:8.00,oldPrice:8.00,img:'img/VLTV.png',desc:'Disfrútalo en Fire TVStick, tu celular, Smart TV Android y TV Box', available:true},
+{name:'VeltixTV',plan:'2 meses',cat:'3 Dispositivos',price:16.00,oldPrice:16.00,img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
+{name:'VeltixTV',plan:'3 meses',cat:'3 Dispositivos',price:24.00,oldPrice:24.00,img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
+{name:'VeltixTV',plan:'6 meses',cat:'3 Dispositivos',price:48.00,oldPrice:48.00,img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
+{name:'VeltixTV',plan:'9 meses',cat:'3 Dispositivos',price:72.00,oldPrice:72.00,img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
+{name:'VeltixTV',plan:'12 meses',cat:'3 Dispositivos',price:87.00,oldPrice:88.00,img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
 
-{name:'VeltixTV',plan:'1 mes',cat:'1 Dispositivos',price:3.62,oldPrice:5.00,img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
-{name:'VeltixTV',plan:'3 meses',cat:'1 Dispositivos',price:10.86,oldPrice:15.00,img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
-{name:'VeltixTV',plan:'6 meses',cat:'1 Dispositivos',price:21.73,oldPrice:30.00,img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
-{name:'VeltixTV',plan:'12 meses',cat:'1 Dispositivos',price:43.45,oldPrice:60.00,img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true}, 
+{name:'VeltixTV',plan:'1 mes',cat:'1 Dispositivos',price:5.00,oldPrice:5.00,img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
+{name:'VeltixTV',plan:'3 meses',cat:'1 Dispositivos',price:15.00,oldPrice:15.00,img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
+{name:'VeltixTV',plan:'6 meses',cat:'1 Dispositivos',price:30.00,oldPrice:30.00,img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
+{name:'VeltixTV',plan:'12 meses',cat:'1 Dispositivos',price:60.00,oldPrice:60.00,img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true}, 
 
 {name:'+Streaming',plan:'1 mes',cat:'1 Dispositivo',price:5.00,oldPrice:5.00,img:'img/Netflix.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:false},
 {name:'+Streaming',plan:'1 mes',cat:'1 Dispositivo',price:3.90,oldPrice:3.90,img:'img/amazon.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:false},
