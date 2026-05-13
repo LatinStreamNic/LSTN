@@ -722,6 +722,11 @@ font-size:14px;
   }
 }
 
+
+body.modal-open{
+  overflow:hidden !important;
+}
+
 </style>
 </head>
 <body>
@@ -772,7 +777,9 @@ font-size:14px;
       <span>Cupón</span>
       <strong>MAMA30</strong>
     </div>
-    <button class="mom-popup-btn" onclick="closeMomPopup()">Ver planes</button>
+    <button class="mom-popup-btn" onclick="copyMomCoupon()">
+  Copiar cupón
+</button>
   </div>
 </div>
 
@@ -1411,7 +1418,10 @@ function scrollToMemberships(){
   if(store){ store.scrollIntoView({behavior:'smooth', block:'start'}); }
 }
 
-function closeModal(){document.getElementById('modal').style.display='none';}
+function closeModal(){
+  document.getElementById('modal').style.display='none';
+  document.body.classList.remove('modal-open');
+}
 function showToast(text){const toast=document.getElementById('toast'); toast.textContent=text; toast.classList.add('show'); clearTimeout(showToast._timer); showToast._timer=setTimeout(()=>toast.classList.remove('show'),2200);}
 
 function addSelectedToCart(){
@@ -1528,7 +1538,7 @@ function getCouponValidationMessage(code){
     return {ok:false,text:'Este cupón no aplica porque los productos del carrito ya tienen oferta activa.'};
   }
 
-  return {ok:true,text:`Cupón aplicado: ${code}. El porcentaje se calcula según el producto y los dispositivos seleccionados.`};
+  return {ok:true,text:`Cupón aplicado: ${code}.`};
 }
 
 function applyCoupon(){
@@ -1662,6 +1672,29 @@ function closeMomPopup(){
     sessionStorage.setItem('momPopupClosed','1');
   }
 }
+
+function copyMomCoupon(){
+  const coupon = 'MAMA30';
+
+  navigator.clipboard.writeText(coupon).then(() => {
+
+    const couponInput = document.getElementById('couponInput');
+
+    if(couponInput){
+      couponInput.value = coupon;
+    }
+
+    appliedCoupon = coupon;
+
+    closeMomPopup();
+
+    showToast('Cupón MAMA30 copiado correctamente 🎉');
+
+  }).catch(() => {
+    showToast('No se pudo copiar el cupón');
+  });
+}
+
 
 function showMomPopupOnce(){
   const popup = document.getElementById('momPopup');
