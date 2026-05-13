@@ -632,8 +632,9 @@ font-size:14px;
 .header-actions{display:flex;align-items:center;gap:10px;}
 .header-icon-btn{width:44px;height:44px;border:none;border-radius:999px;background:rgba(255,255,255,.08);color:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.25s;}
 .header-icon-btn:hover{background:rgba(255,255,255,.14);transform:translateY(-1px);}
+
 .hero-stream{position:relative;min-height:560px;margin-bottom:28px;overflow:hidden;background:#090909;}
-.hero-stream::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#050505 0%,rgba(5,5,5,.84) 28%,rgba(5,5,5,.48) 62%,rgba(5,5,5,.72) 100%),linear-gradient(180deg,rgba(0,0,0,.16) 0%,rgba(0,0,0,.42) 52%,#0f0f0f 100%),url('img/movie-posters.png');background-size:cover;background-position:center;opacity:.98;filter:saturate(1.05) contrast(1.03);animation:heroBgZoom 18s ease-in-out infinite alternate;}
+.hero-stream::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#050505 0%,rgba(5,5,5,.84) 28%,rgba(5,5,5,.48) 62%,rgba(5,5,5,.72) 100%),linear-gradient(180deg,rgba(0,0,0,.16) 0%,rgba(0,0,0,.42) 52%,#0f0f0f 100%),url('../img/movie-posters.png');background-size:cover;background-position:center;opacity:.98;filter:saturate(1.05) contrast(1.03);animation:heroBgZoom 18s ease-in-out infinite alternate;}
 .hero-stream::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 72% 15%,rgba(212,175,55,.20),transparent 30%),radial-gradient(circle at 18% 88%,rgba(255,0,0,.18),transparent 32%);pointer-events:none;}
 .hero-content{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:145px 22px 62px;display:grid;grid-template-columns:minmax(0,680px);align-items:end;gap:24px;}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;width:max-content;padding:8px 12px;border-radius:999px;background:rgba(255,0,0,.16);border:1px solid rgba(255,0,0,.32);color:#ffb3b3;font-size:12px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;margin-bottom:18px;}
