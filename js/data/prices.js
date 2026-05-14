@@ -3,79 +3,25 @@ const officialDevicePrices={
   'Stella TV|1 mes': {
     '1 Dispositivo': {price:4.75, oldPrice:5.00, available:true},
     '2 Dispositivos': {price:6.30, oldPrice:7.00, available:false},
-    '3 Dispositivos': {price:8.10, oldPrice:9.00, available:true},
+    '3 Dispositivos': {price:7.65, oldPrice:9.00, available:true},
   },
 
   'Stella TV|2 meses': {
     '1 Dispositivo': {price:9.50, oldPrice:10.00, available:true},
     '2 Dispositivos': {price:12.76, oldPrice:14.18, available:false},
-    '3 Dispositivos': {price:16.20, oldPrice:18.00, available:true},
-  },
-
-  'Stella TV|3 meses': {
-    '1 Dispositivo': {price:14.25, oldPrice:15.00, available:true},
-    '2 Dispositivos': {price:18.90, oldPrice:21.00, available:false},
-    '3 Dispositivos': {price:24.30, oldPrice:27.00, available:true},
-  },
-
-  'Stella TV|6 meses': {
-    '1 Dispositivo': {price:28.50, oldPrice:30.00, available:true},
-    '2 Dispositivos': {price:37.80, oldPrice:42.00, available:false},
-    '3 Dispositivos': {price:48.60, oldPrice:54.00, available:true},
-  },
-
-  'Stella TV|9 meses': {
-    '1 Dispositivo': {price:42.75, oldPrice:45.00, available:true},
-    '2 Dispositivos': {price:56.70, oldPrice:63.00, available:false},
-    '3 Dispositivos': {price:72.90, oldPrice:81.00, available:true},
-  },
-
-  'Stella TV|12 meses': {
-    '1 Dispositivo': {price:57.00, oldPrice:60.00, available:true},
-    '2 Dispositivos': {price:75.60, oldPrice:84.00, available:false},
-    '3 Dispositivos': {price:86.40, oldPrice:96.00, available:true},
+    '3 Dispositivos': {price:15.30, oldPrice:18.00, available:true},
   },
 
   'WeibTV (GVS)|1 mes': {
     '1 Dispositivo': {price:4.75, oldPrice:5.00, available:true},
-    '3 Dispositivos': {price:9.00, oldPrice:10.00, available:true},
-    '5 Dispositivos': {price:11.25, oldPrice:15.00, available:true},
+    '3 Dispositivos': {price:8.50, oldPrice:10.00, available:true},
+    '5 Dispositivos': {price:12.00, oldPrice:15.00, available:true},
   },
 
   'WeibTV (GVS)|2 meses': {
     '1 Dispositivo': {price:9.50, oldPrice:10.00, available:true},
-    '3 Dispositivos': {price:18.00, oldPrice:20.00, available:true},
-    '5 Dispositivos': {price:22.50, oldPrice:30.00, available:true},
-  },
-
-  'WeibTV (GVS)|3 meses': {
-    '1 Dispositivo': {price:14.25, oldPrice:15.00, available:true},
-    '3 Dispositivos': {price:27.00, oldPrice:30.00, available:true},
-    '5 Dispositivos': {price:33.75, oldPrice:45.00, available:true},
-  },
-
-  'WeibTV (GVS)|6 meses': {
-    '1 Dispositivo': {price:28.50, oldPrice:30.00, available:true},
-    '3 Dispositivos': {price:54.00, oldPrice:60.00, available:true},
-    '5 Dispositivos': {price:67.50, oldPrice:90.00, available:true},
-  },
-
-  'WeibTV (GVS)|9 meses': {
-    '1 Dispositivo': {price:42.75, oldPrice:45.00, available:true},
-    '3 Dispositivos': {price:68.85, oldPrice:76.50, available:true},
-    '5 Dispositivos': {price:101.25, oldPrice:135.00, available:true},
-  },
-
-  'WeibTV (GVS)|12 meses': {
-    '1 Dispositivo': {price:57.00, oldPrice:60.00, available:true},
-    '3 Dispositivos': {price:81.00, oldPrice:90.00, available:true},
-    '5 Dispositivos': {price:135.00, oldPrice:180.00, available:true},
-  },
-
-  'WeibTV (GVS)|18 meses': {
-    '1 Dispositivo': {price:85.50, oldPrice:90.00, available:true},
-    '3 Dispositivos': {price:144.00, oldPrice:160.00, available:true},
-    '5 Dispositivos': {price:202.50, oldPrice:270.00, available:true},
+    '3 Dispositivos': {price:17.00, oldPrice:20.00, available:true},
+    '5 Dispositivos': {price:24.00, oldPrice:30.00, available:true},
   },
 
   'Tele-Latino|1 mes': {
@@ -88,60 +34,16 @@ const officialDevicePrices={
     '6 Dispositivos': {price:12.21, oldPrice:14.36, available:true},
   },
 
-  'Tele-Latino|3 meses': {
-    '1 Dispositivo': {price:11.54, oldPrice:12.15, available:true},
-    '6 Dispositivos': {price:18.31, oldPrice:21.54, available:true},
-  },
-
-  'Tele-Latino|6 meses': {
-    '1 Dispositivo': {price:23.09, oldPrice:24.30, available:true},
-    '6 Dispositivos': {price:34.17, oldPrice:40.20, available:true},
-  },
-
-  'Tele-Latino|9 meses': {
-    '1 Dispositivo': {price:34.63, oldPrice:36.45, available:true},
-    '6 Dispositivos': {price:46.75, oldPrice:55.00, available:true},
-  },
-
-  'Tele-Latino|12 meses': {
-    '1 Dispositivo': {price:46.17, oldPrice:48.60, available:true},
-    '6 Dispositivos': {price:64.52, oldPrice:75.90, available:true},
-  },
-
   'VeltixTV|1 mes': {
     '1 Dispositivo': {price:4.75, oldPrice:5.00, available:true},
     '2 Dispositivos': {price:5.85, oldPrice:6.50, available:true},
-    '3 Dispositivos': {price:7.20, oldPrice:8.00, available:true},
+    '3 Dispositivos': {price:6.80, oldPrice:8.00, available:true},
   },
 
   'VeltixTV|2 meses': {
     '1 Dispositivo': {price:9.50, oldPrice:10.00, available:true},
     '2 Dispositivos': {price:11.70, oldPrice:13.00, available:true},
-    '3 Dispositivos': {price:14.40, oldPrice:16.00, available:true},
-  },
-
-  'VeltixTV|3 meses': {
-    '1 Dispositivo': {price:14.25, oldPrice:15.00, available:true},
-    '2 Dispositivos': {price:17.55, oldPrice:19.50, available:true},
-    '3 Dispositivos': {price:21.60, oldPrice:24.00, available:true},
-  },
-
-  'VeltixTV|6 meses': {
-    '1 Dispositivo': {price:28.50, oldPrice:30.00, available:true},
-    '2 Dispositivos': {price:35.10, oldPrice:39.00, available:true},
-    '3 Dispositivos': {price:43.20, oldPrice:48.00, available:true},
-  },
-
-  'VeltixTV|9 meses': {
-    '1 Dispositivo': {price:42.75, oldPrice:45.00, available:true},
-    '2 Dispositivos': {price:52.65, oldPrice:58.50, available:true},
-    '3 Dispositivos': {price:64.80, oldPrice:72.00, available:true},
-  },
-
-  'VeltixTV|12 meses': {
-    '1 Dispositivo': {price:57.00, oldPrice:60.00, available:true},
-    '2 Dispositivos': {price:70.20, oldPrice:78.00, available:true},
-    '3 Dispositivos': {price:86.40, oldPrice:96.00, available:true},
-  },
+    '3 Dispositivos': {price:13.60, oldPrice:16.00, available:true},
+  }
 
 };
