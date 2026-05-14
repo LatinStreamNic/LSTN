@@ -63,7 +63,7 @@ function closeMomPopup(){
 }
 
 function copyMomCoupon(){
-  const coupon = 'MAMA';
+  const coupon = 'MAMA30';
 
   navigator.clipboard.writeText(coupon).then(() => {
 
@@ -77,7 +77,7 @@ function copyMomCoupon(){
 
     closeMomPopup();
 
-    showToast('Cupón MAMA copiado correctamente 🎉');
+    showToast('Cupón MAMA30 copiado correctamente 🎉');
 
   }).catch(() => {
     showToast('No se pudo copiar el cupón');
