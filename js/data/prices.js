@@ -68,15 +68,15 @@ const officialDevicePrices={
   },
   'Tele-Latino|1 mes': {
     '1 Dispositivo': {price:4.05, oldPrice:4.05, available:true},
-    '6 Dispositivos': {price:7.18, oldPrice:7.18, available:true},
+    '6 Dispositivos': {price:7.20, oldPrice:7.20, available:true},
   },
   'Tele-Latino|2 meses': {
     '1 Dispositivo': {price:8.10, oldPrice:8.10, available:true},
-    '6 Dispositivos': {price:14.36, oldPrice:14.36, available:true},
+    '6 Dispositivos': {price:14.80, oldPrice:14.80, available:true},
   },
   'Tele-Latino|3 meses': {
     '1 Dispositivo': {price:12.15, oldPrice:12.15, available:true},
-    '6 Dispositivos': {price:21.54, oldPrice:21.54, available:true},
+    '6 Dispositivos': {price:21.60, oldPrice:21.60, available:true},
   },
   'Tele-Latino|6 meses': {
     '1 Dispositivo': {price:24.30, oldPrice:24.30, available:true},
