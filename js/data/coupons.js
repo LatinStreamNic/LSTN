@@ -54,8 +54,8 @@ const couponDeviceDiscounts={
       '5 Dispositivos':40},
 
       'Tele-Latino':{
-      '1 Dispositivo':10,
-      '6 Dispositivos':30},
+      '1 Dispositivo':15,
+      '6 Dispositivos':25},
 
       'VeltixTV':{
       '1 Dispositivo':15,
