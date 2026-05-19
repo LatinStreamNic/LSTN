@@ -9,13 +9,13 @@ const products=[
 {name:'Stella TV',plan:'9 meses ',cat:'3 Dispositivos',img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 {name:'Stella TV',plan:'12 meses ',cat:'3 Dispositivos',img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 
-{name:'WeibTV (GVS)',plan:'1 mes',cat:'3 Dispositivos',img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-{name:'WeibTV (GVS)',plan:'2 meses',cat:'3 Dispositivos',img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-{name:'WeibTV (GVS)',plan:'3 meses',cat:'3 Dispositivos',img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-{name:'WeibTV (GVS)',plan:'6 meses',cat:'3 Dispositivos',img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-{name:'WeibTV (GVS)',plan:'9 meses',cat:'3 Dispositivos',img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV yAndroidTV', available:true},
-{name:'WeibTV (GVS)',plan:'12 meses',cat:'3 Dispositivos',img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-{name:'WeibTV (GVS)',plan:'18 meses',cat:'3 Dispositivos',img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'1 mes',cat:'3 Dispositivos',img:'img/GVSTV1.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'2 meses',cat:'3 Dispositivos',img:'img/GVSTV2.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'3 meses',cat:'3 Dispositivos',img:'img/GVSTV3.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'6 meses',cat:'3 Dispositivos',img:'img/GVSTV6.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'9 meses',cat:'3 Dispositivos',img:'img/GVSTV9.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV yAndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'12 meses',cat:'3 Dispositivos',img:'img/GVSTV12.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'18 meses',cat:'3 Dispositivos',img:'img/GVSTV18.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
 
 
 {name:'Tele-Latino',plan:'1 mes',cat:'3 TV & 3 Celular',img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TV Box', available:true},
