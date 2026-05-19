@@ -18,12 +18,12 @@ const products=[
 {name:'WeibTV (GVS)',plan:'18 meses',cat:'3 Dispositivos',img:'img/GVSTV18.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
 
 
-{name:'Tele-Latino',plan:'1 mes',cat:'3 TV & 3 Celular',img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TV Box', available:true},
-{name:'Tele-Latino',plan:'2 meses',cat:'3 TV & 3 Celular',img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
-{name:'Tele-Latino',plan:'3 meses',cat:'3 TV & 3 Celular',img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
-{name:'Tele-Latino',plan:'6 meses',cat:'3 TV & 3 Celular',img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
-{name:'Tele-Latino',plan:'9 meses',cat:'3 TV & 3 Celular',img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
-{name:'Tele-Latino',plan:'12 meses',cat:'3 TV & 3 Celular',img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Tele-Latino',plan:'1 mes',cat:'3 TV & 3 Celular',img:'img/TLNTV1.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TV Box', available:true},
+{name:'Tele-Latino',plan:'2 meses',cat:'3 TV & 3 Celular',img:'img/TLNTV2.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Tele-Latino',plan:'3 meses',cat:'3 TV & 3 Celular',img:'img/TLNTV3.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Tele-Latino',plan:'6 meses',cat:'3 TV & 3 Celular',img:'img/TLNTV6.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Tele-Latino',plan:'9 meses',cat:'3 TV & 3 Celular',img:'img/TLNTV9.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Tele-Latino',plan:'12 meses',cat:'3 TV & 3 Celular',img:'img/TLNTV12.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 
 {name:'VeltixTV',plan:'1 mes',cat:'3 Dispositivos',img:'img/VLTV.png',desc:'Disfrútalo en Fire TVStick, tu celular, Smart TV Android y TV Box', available:true},
 {name:'VeltixTV',plan:'2 meses',cat:'3 Dispositivos',img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
