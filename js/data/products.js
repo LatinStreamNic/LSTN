@@ -2,12 +2,12 @@ const products=[
 // Para marcar un producto como agotado, agrega available:false al producto. Ejemplo:
 // {name:'Producto',plan:'1 mes',cat:'1 Dispositivo',price:0,oldPrice:0,img:'img/imagen.png',desc:'Descripción',available:false},
 
-{name:'Stella TV',plan:'1 mes',cat:'3 Dispositivos',img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
-{name:'Stella TV',plan:'2 meses',cat:'3 Dispositivos',img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
-{name:'Stella TV',plan:'3 meses',cat:'3 Dispositivos',img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
-{name:'Stella TV',plan:'6 meses',cat:'3 Dispositivos',img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
-{name:'Stella TV',plan:'9 meses ',cat:'3 Dispositivos',img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
-{name:'Stella TV',plan:'12 meses ',cat:'3 Dispositivos',img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Stella TV',plan:'1 mes',cat:'3 Dispositivos',img:'img/STLTV1.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Stella TV',plan:'2 meses',cat:'3 Dispositivos',img:'img/STLTV2.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Stella TV',plan:'3 meses',cat:'3 Dispositivos',img:'img/STLTV3.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Stella TV',plan:'6 meses',cat:'3 Dispositivos',img:'img/STLTV6.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Stella TV',plan:'9 meses ',cat:'3 Dispositivos',img:'img/STLTV9.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Stella TV',plan:'12 meses ',cat:'3 Dispositivos',img:'img/STLTV12.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 
 {name:'WeibTV (GVS)',plan:'1 mes',cat:'3 Dispositivos',img:'img/GVSTV1.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
 {name:'WeibTV (GVS)',plan:'2 meses',cat:'3 Dispositivos',img:'img/GVSTV2.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
