@@ -25,12 +25,12 @@ const products=[
 {name:'Tele-Latino',plan:'9 meses',cat:'3 TV & 3 Celular',img:'img/TLNTV9.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 {name:'Tele-Latino',plan:'12 meses',cat:'3 TV & 3 Celular',img:'img/TLNTV12.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 
-{name:'VeltixTV',plan:'1 mes',cat:'3 Dispositivos',img:'img/VLTV.png',desc:'Disfrútalo en Fire TVStick, tu celular, Smart TV Android y TV Box', available:true},
-{name:'VeltixTV',plan:'2 meses',cat:'3 Dispositivos',img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
-{name:'VeltixTV',plan:'3 meses',cat:'3 Dispositivos',img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
-{name:'VeltixTV',plan:'6 meses',cat:'3 Dispositivos',img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
-{name:'VeltixTV',plan:'9 meses',cat:'3 Dispositivos',img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
-{name:'VeltixTV',plan:'12 meses',cat:'3 Dispositivos',img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
+{name:'VeltixTV',plan:'1 mes',cat:'3 Dispositivos',img:'img/VLTV1.png',desc:'Disfrútalo en Fire TVStick, tu celular, Smart TV Android y TV Box', available:true},
+{name:'VeltixTV',plan:'2 meses',cat:'3 Dispositivos',img:'img/VLTV2.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
+{name:'VeltixTV',plan:'3 meses',cat:'3 Dispositivos',img:'img/VLTV3.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
+{name:'VeltixTV',plan:'6 meses',cat:'3 Dispositivos',img:'img/VLTV6.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
+{name:'VeltixTV',plan:'9 meses',cat:'3 Dispositivos',img:'img/VLTV9.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
+{name:'VeltixTV',plan:'12 meses',cat:'3 Dispositivos',img:'img/VLTV12.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
 
 {name:'+Streaming',plan:'1 mes',cat:'1 Dispositivo',img:'img/Netflix.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:false},
 {name:'+Streaming',plan:'1 mes',cat:'1 Dispositivo',img:'img/amazon.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:false},
