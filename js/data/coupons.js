@@ -49,7 +49,7 @@ const couponDeviceDiscounts={
       '3 Dispositivos':35},
 
       'WeibTV (GVS)':{
-      '1 Dispositivo':10, 
+      '1 Dispositivo':15, 
       '3 Dispositivos':35,
       '5 Dispositivos':40},
 
@@ -63,7 +63,7 @@ const couponDeviceDiscounts={
       '3 Dispositivos':35},
 
       '+Streaming':{
-        '1 Dispositivo':10,
+        '1 Dispositivo':15,
         '2 Dispositivos':20,
         '3 Dispositivos':30}
     }
