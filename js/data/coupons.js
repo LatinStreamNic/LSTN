@@ -1,7 +1,7 @@
 const coupons={
   'LATINSTREAM':{
     type:'percent',
-    value:15,
+    value:0,
     label:'',
     minSubtotal:7,
     appliesToDiscounted:false,
@@ -9,7 +9,7 @@ const coupons={
   },
   'MAMA':{
     type:'percent',
-    value:30,
+    value:0,
     label:'',
     minSubtotal:0,
     appliesToDiscounted:false,
