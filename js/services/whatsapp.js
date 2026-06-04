@@ -16,6 +16,6 @@ function sendCartToWhatsApp(){
   const couponLine = appliedCoupon && coupons[appliedCoupon]
     ? `• Cupón aplicado: ${appliedCoupon} (${coupons[appliedCoupon].label})\n• Desc. cupón: ${format(couponDiscount)}`
     : `• Cupón aplicado: Ninguno\n• Desc. cupón: ${format(0)}`;
-  const msg=`Hola, me gustaría realizar la siguiente compra.\n\n🎁 Descuento Día de las Madres\n\n🛒 *Detalles del Producto*\n\n${lines}\n\n💰 *Resumen del pedido*\n• Subtotal: ${format(subtotal)}\n${couponLine}\n• Total final: ${format(total)}\n• Hora de orden: ${now}\n\nQuedo atento a los pasos para completar la compra.`;
+  const msg=`Hola, me gustaría realizar la siguiente compra.\n\n🎁 Descuentos Mundial 2026\n\n🛒 *Detalles del Producto*\n\n${lines}\n\n💰 *Resumen del pedido*\n• Subtotal: ${format(subtotal)}\n${couponLine}\n• Total final: ${format(total)}\n• Hora de orden: ${now}\n\nQuedo atento a los pasos para completar la compra.`;
   window.open(`https://wa.me/50588581031?text=${encodeURIComponent(msg)}`);
 }
