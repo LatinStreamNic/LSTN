@@ -34,7 +34,7 @@ const coupons={
 };
 
 const couponDeviceDiscounts={
-  'MAMA':{
+  'Munsial2026':{
     defaultByDevice:{
       '1 Dispositivo':10,
       '2 Dispositivos':15,
