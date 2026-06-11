@@ -17,10 +17,10 @@ const coupons={
   },
   'MUNDIAL2026':{
     type:'percent',
-    value:20,
+    value:5,
     label:'',
-    minSubtotal:7,
-    appliesToDiscounted:false,
+    minSubtotal:10,
+    appliesToDiscounted:true,
     useDeviceDiscount:false
   },
   'VIP20':{
