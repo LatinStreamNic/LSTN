@@ -72,7 +72,7 @@ const couponDeviceDiscounts={
     defaultByDevice:{'1 Dispositivo':5,'2 Dispositivos':10,'3 Dispositivos':15,'5 Dispositivos':18,'6 Dispositivos':15}
   },
   'MUNDIAL2026':{
-    defaultByDevice:{'1 Dispositivo':0,'2 Dispositivos':0,'3 Dispositivos':25,'5 Dispositivos':35,'6 Dispositivos':25}
+    defaultByDevice:{'1 Dispositivo':0,'2 Dispositivos':0,'3 Dispositivos':5,'5 Dispositivos':7,'6 Dispositivos':5}
   },
   'VIP20':{
     defaultByDevice:{'1 Dispositivo':0,'2 Dispositivos':0,'3 Dispositivos':0,'5 Dispositivos':0,'6 Dispositivos':0}
