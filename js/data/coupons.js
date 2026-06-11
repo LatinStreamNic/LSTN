@@ -21,7 +21,7 @@ const coupons={
     label:'',
     minSubtotal:10,
     appliesToDiscounted:true,
-    useDeviceDiscount:false
+    useDeviceDiscount:true
   },
   'VIP20':{
     type:'percent',
