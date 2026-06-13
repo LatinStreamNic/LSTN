@@ -6,7 +6,7 @@ const products=[
 {name:'WeibTV+Veltix',plan:'2 meses',cat:'3 Dispositivos',img:'img/PromoWEIB-VELTIX.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
 {name:'WeibTV+Veltix',plan:'3 meses',cat:'3 Dispositivos',img:'img/PromoWEIB-VELTIX.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
 {name:'WeibTV+Veltix',plan:'6 meses',cat:'3 Dispositivos',img:'img/PromoWEIB-VELTIX.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-{name:'WeibTV+Veltix',plan:'9 meses',cat:'3 Dispositivos',img:'imgPromoWEIB-VELTIX.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV+Veltix',plan:'9 meses',cat:'3 Dispositivos',img:'img/PromoWEIB-VELTIX.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
 {name:'WeibTV+Veltix',plan:'12 meses',cat:'3 Dispositivos',img:'img/PromoWEIB-VELTIX.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
 {name:'WeibTV+Veltix',plan:'18 meses',cat:'3 Dispositivos',img:'img/PromoWEIB-VELTIX.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
 
