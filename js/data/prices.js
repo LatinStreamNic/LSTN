@@ -5,7 +5,7 @@ const officialDevicePrices={
     '3 Dispositivos': {price:10.00, oldPrice:18.00, available:true},
     '5 Dispositivos': {price:15.00, oldPrice:23.00, available:true},
   },
-  'eibTV+Veltix|2 meses': {
+  'WeibTV+Veltix|2 meses': {
     '3 Dispositivos': {price:20.00, oldPrice:36.00, available:true},
     '5 Dispositivos': {price:30.00, oldPrice:46.00, available:true},
   },
@@ -30,7 +30,6 @@ const officialDevicePrices={
     '5 Dispositivos': {price:270.00, oldPrice:414.00, available:true},
   },
 
-  
   
   'Stella TV|1 mes': {
     '1 Dispositivo': {price:4.50, oldPrice:5.00, available:false},
