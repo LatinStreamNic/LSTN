@@ -1,6 +1,37 @@
 
 const officialDevicePrices={
 
+  'WeibTV+Veltix|1 mes': {
+    '3 Dispositivos': {price:10.00, oldPrice:18.00, available:true},
+    '5 Dispositivos': {price:15.00, oldPrice:23.00, available:true},
+  },
+  'eibTV+Veltix|2 meses': {
+    '3 Dispositivos': {price:20.00, oldPrice:36.00, available:true},
+    '5 Dispositivos': {price:30.00, oldPrice:46.00, available:true},
+  },
+  'WeibTV+Veltix|3 meses': {
+    '3 Dispositivos': {price:30.00, oldPrice:54.00, available:true},
+    '5 Dispositivos': {price:45.00, oldPrice:69.00, available:true},
+  },
+  'WeibTV+Veltix|6 meses': {
+    '3 Dispositivos': {price:60.00, oldPrice:108.00, available:true},
+    '5 Dispositivos': {price:90.00, oldPrice:138.00, available:true},
+  },
+  'WeibTV+Veltix|9 meses': {
+    '3 Dispositivos': {price:76.60, oldPrice:148.60, available:true},
+    '5 Dispositivos': {price:135.00, oldPrice:207.00, available:true},
+  },
+  'WeibTV+Veltix|12 meses': {
+    '3 Dispositivos': {price:90.00, oldPrice:186.00, available:true},
+    '5 Dispositivos': {price:180.00, oldPrice:276.00, available:true},
+  },
+  'WeibTV+Veltix|18 meses': {
+    '3 Dispositivos': {price:160.00, oldPrice:304.00, available:true},
+    '5 Dispositivos': {price:270.00, oldPrice:414.00, available:true},
+  },
+
+  
+  
   'Stella TV|1 mes': {
     '1 Dispositivo': {price:4.50, oldPrice:5.00, available:false},
     '2 Dispositivos': {price:5.95, oldPrice:7.00, available:false},
