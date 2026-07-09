@@ -40,7 +40,7 @@ const couponDeviceDiscounts={
       '2 Dispositivos':3,
       '3 Dispositivos':5,
       '5 Dispositivos':7,
-      '6 Dispositivos':5
+      '4 Dispositivos':5
     },
     products:{
       'Stella TV':{
@@ -55,7 +55,7 @@ const couponDeviceDiscounts={
 
       'Tele-Latino':{
       '1 Dispositivo':0,
-      '6 Dispositivos':5},
+      '4 Dispositivos':5},
 
       'VeltixTV':{
       '1 Dispositivo':4,
