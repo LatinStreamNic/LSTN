@@ -1,13 +1,13 @@
 const coupons={
   'LATINSTREAM':{
     type:'percent',
-    value:0,
+    value:15,
     label:'',
-    minSubtotal:7,
+    minSubtotal:25,
     appliesToDiscounted:false,
     useDeviceDiscount:true
   },
-  'MAMA':{
+  'iuiu':{
     type:'percent',
     value:0,
     label:'',
@@ -15,7 +15,7 @@ const coupons={
     appliesToDiscounted:false,
     useDeviceDiscount:false
   },
-  'MUNDIAL2026':{
+  'uiuyi':{
     type:'percent',
     value:5,
     label:'',
@@ -34,7 +34,7 @@ const coupons={
 };
 
 const couponDeviceDiscounts={
-  'MUNDIAL2026':{
+  '98876':{
     defaultByDevice:{
       '1 Dispositivo':0,
       '2 Dispositivos':3,
@@ -71,7 +71,7 @@ const couponDeviceDiscounts={
   'LATINSTREAM':{
     defaultByDevice:{'1 Dispositivo':5,'2 Dispositivos':10,'3 Dispositivos':15,'5 Dispositivos':18,'6 Dispositivos':15}
   },
-  'MUNDIAL2026':{
+  '902026':{
     defaultByDevice:{'1 Dispositivo':0,'2 Dispositivos':0,'3 Dispositivos':5,'5 Dispositivos':7,'6 Dispositivos':5}
   },
   'VIP20':{
