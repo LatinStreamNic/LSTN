@@ -63,7 +63,7 @@ function closeMomPopup(){
 }
 
 function copyMomCoupon(){
-  const coupon = 'Mundial2026';
+  const coupon = 'LatinStream';
 
   navigator.clipboard.writeText(coupon).then(() => {
 
@@ -77,16 +77,16 @@ function copyMomCoupon(){
 
     closeMomPopup();
 
-    showToast('Cupón Mundial2026 copiado correctamente 🎉');
+    showToast('Cupón copiado correctamente 🎉');
 
   }).catch(() => {
     showToast('No se pudo copiar el cupón');
   });
 }
 
-function showMomPopupOnce(){
-  const popup = document.getElementById('momPopup');
-  if(!popup) return;
-  if(sessionStorage.getItem('momPopupClosed') === '1') return;
-  setTimeout(()=>popup.classList.add('show'), 650);
-}
+//function showMomPopupOnce(){
+  //const popup = document.getElementById('momPopup');
+  //if(!popup) return;
+  //if(sessionStorage.getItem('momPopupClosed') === '1') return;
+ // setTimeout(()=>popup.classList.add('show'), 650);
+//}
