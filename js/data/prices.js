@@ -161,3 +161,9 @@ const officialDevicePrices={
   },
 
 };
+
+// Restaurar todos los precios a oldPrice
+Object.values(officialDevicePrices).forEach(plan => {
+  Object.values(plan).forEach(device => {
+    device.price = device.oldPrice;
+  });
