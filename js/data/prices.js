@@ -120,7 +120,7 @@ const officialDevicePrices={
   },
   'Tele-Latino|12 meses': {
     '1 Dispositivo': {price:48.60, oldPrice:48.60, available:true},
-    '4 Dispositivos': {price:75.90, oldPrice:96.00, available:true},
+    '4 Dispositivos': {price:70.90, oldPrice:96.00, available:true},
   },
 
   'VeltixTV|1 mes': {
