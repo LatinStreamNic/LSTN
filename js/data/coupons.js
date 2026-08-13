@@ -1,9 +1,9 @@
 const coupons={
-  'LATINSTREAM':{
+  'ClienteVip':{
     type:'percent',
-    value:15,
+    value:20,
     label:'',
-    minSubtotal:25,
+    minSubtotal:5,
     appliesToDiscounted:false,
     useDeviceDiscount:true
   },
@@ -37,30 +37,30 @@ const couponDeviceDiscounts={
   '98876':{
     defaultByDevice:{
       '1 Dispositivo':0,
-      '2 Dispositivos':3,
-      '3 Dispositivos':5,
-      '5 Dispositivos':7,
-      '4 Dispositivos':5
+      '2 Dispositivos':5,
+      '3 Dispositivos':20,
+      '5 Dispositivos':20,
+      '4 Dispositivos':20
     },
     products:{
       'Stella TV':{
       '1 Dispositivo':0,
-      '2 Dispositivos':3,
-      '3 Dispositivos':5},
+      '2 Dispositivos':5,
+      '3 Dispositivos':20},
 
       'WeibTV (GVS)':{
       '1 Dispositivo':0, 
-      '3 Dispositivos':3,
-      '5 Dispositivos':7},
+      '3 Dispositivos':20,
+      '5 Dispositivos':20},
 
       'Tele-Latino':{
       '1 Dispositivo':0,
-      '4 Dispositivos':5},
+      '4 Dispositivos':20},
 
       'VeltixTV':{
-      '1 Dispositivo':4,
+      '1 Dispositivo':0,
       '2 Dispositivos':5,
-      '3 Dispositivos':7},
+      '3 Dispositivos':20},
 
       '+Streaming':{
         '1 Dispositivo':0,
