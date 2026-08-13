@@ -34,7 +34,7 @@ const coupons={
 };
 
 const couponDeviceDiscounts={
-  'ClirnteVip':{
+  'ClienteVip':{
     defaultByDevice:{
       '1 Dispositivo':0,
       '2 Dispositivos':5,
