@@ -68,7 +68,7 @@ const couponDeviceDiscounts={
         '3 Dispositivos':0}
     }
   },
-  'ClirnteVip':{
+  'ClienteVip':{
     defaultByDevice:{'1 Dispositivo':0,'2 Dispositivos':5,'3 Dispositivos':20,'5 Dispositivos':20,'6 Dispositivos':20}
   },
   '902026':{
