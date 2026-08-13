@@ -1,117 +1,285 @@
 function addSelectedToCart(){
-  if(!selected) return;
+
+  if(!selected){
+    return;
+  }
 
   if(selected.available === false){
     showToast('Este producto está agotado.');
     return;
   }
 
+
+  /*
+  |--------------------------------------------------------------------------
+  | OBTENER EL TIPO DE DISPOSITIVO
+  |--------------------------------------------------------------------------
+  */
+
+  const deviceLabel =
+    selected.deviceLabel ||
+    selected.cat ||
+    '';
+
+
+  /*
+  |--------------------------------------------------------------------------
+  | BUSCAR SI YA EXISTE EN EL CARRITO
+  |--------------------------------------------------------------------------
+  */
+
   const existingIndex = cart.findIndex(
     item =>
       item.name === selected.name &&
       item.plan === selected.plan &&
-      item.cat === selected.cat
+      normalizeCouponText(item.deviceLabel || item.cat) ===
+      normalizeCouponText(deviceLabel)
   );
 
+
   if(existingIndex >= 0){
+
     cart[existingIndex].qty += 1;
+
   } else {
+
     cart.push({
-      name:selected.name,
-      plan:selected.plan,
-      cat:selected.deviceLabel || selected.cat,
-      price:selected.price,
-      oldPrice:selected.oldPrice,
-      img:selected.img,
-      desc:selected.desc || '',
-      qty:1
+
+      name: selected.name,
+
+      plan: selected.plan,
+
+      cat: deviceLabel,
+
+      deviceLabel: deviceLabel,
+
+      price: selected.price,
+
+      oldPrice: selected.oldPrice,
+
+      img: selected.img,
+
+      desc: selected.desc || '',
+
+      qty: 1
+
     });
+
   }
 
+
   closeModal();
+
   updateCartUI();
+
   showToast('Producto agregado al carrito.');
 }
 
 
+
 function openCart(){
+
   renderCart();
-  document.getElementById('cartModal').style.display='flex';
+
+  const modal =
+    document.getElementById('cartModal');
+
+  if(modal){
+    modal.style.display = 'flex';
+  }
+
 }
+
 
 
 function closeCart(){
-  document.getElementById('cartModal').style.display='none';
+
+  const modal =
+    document.getElementById('cartModal');
+
+  if(modal){
+    modal.style.display = 'none';
+  }
+
 }
+
 
 
 function removeFromCart(index){
-  cart.splice(index,1);
 
-  if(cart.length===0){
-    appliedCoupon=null;
+  cart.splice(index, 1);
 
-    const input=document.getElementById('couponInput');
+
+  if(cart.length === 0){
+
+    appliedCoupon = null;
+
+    const input =
+      document.getElementById('couponInput');
 
     if(input){
-      input.value='';
+      input.value = '';
     }
+
   }
 
+
   updateCartUI();
+
   renderCart();
+
 }
+
 
 
 function clearCart(){
-  cart=[];
-  appliedCoupon=null;
 
-  const input=document.getElementById('couponInput');
+  cart = [];
+
+  appliedCoupon = null;
+
+
+  const input =
+    document.getElementById('couponInput');
+
 
   if(input){
-    input.value='';
+    input.value = '';
   }
 
+
   updateCartUI();
+
   renderCart();
+
   showToast('Carrito vaciado.');
+
 }
 
+
+
+/*
+|--------------------------------------------------------------------------
+| NORMALIZAR TEXTO
+|--------------------------------------------------------------------------
+|
+| Sirve para evitar errores por:
+|
+| ClienteVip
+| CLIENTEVIP
+| clientevip
+|
+| También elimina espacios innecesarios.
+|
+*/
+
+function normalizeCouponText(value){
+
+  return String(value || '')
+    .trim()
+    .toLowerCase();
+
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| SUBTOTAL DEL CARRITO
+|--------------------------------------------------------------------------
+*/
 
 function getCartSubtotal(){
+
   return cart.reduce(
-    (sum,item)=>sum + (item.price * item.qty * rate),
+
+    (sum, item) =>
+      sum +
+      (
+        Number(item.price || 0) *
+        Number(item.qty || 0) *
+        rate
+      ),
+
     0
+
   );
+
 }
 
 
+
+/*
+|--------------------------------------------------------------------------
+| SUBTOTAL ELEGIBLE PARA CUPÓN
+|--------------------------------------------------------------------------
+*/
+
 function getCouponEligibleSubtotal(coupon){
-  if(!coupon) return 0;
 
-  return cart.reduce((sum,item)=>{
+  if(!coupon){
+    return 0;
+  }
 
-    const itemEligible = isItemEligibleForCoupon(item, coupon);
+
+  return cart.reduce((sum, item)=>{
+
+    const itemEligible =
+      isItemEligibleForCoupon(
+        item,
+        coupon
+      );
+
 
     if(!itemEligible){
       return sum;
     }
 
-    return sum + (item.price * item.qty * rate);
+
+    return sum +
+      (
+        Number(item.price || 0) *
+        Number(item.qty || 0) *
+        rate
+      );
 
   }, 0);
+
 }
 
 
+
+/*
+|--------------------------------------------------------------------------
+| VALIDAR SI PRODUCTO ACEPTA CUPÓN
+|--------------------------------------------------------------------------
+*/
+
 function isItemEligibleForCoupon(item, coupon){
+
   if(!item || !coupon){
     return false;
   }
 
+
+  const price =
+    Number(item.price || 0);
+
+
+  const oldPrice =
+    Number(item.oldPrice || 0);
+
+
   const hasItemDiscount =
-    typeof item.oldPrice === 'number' &&
-    item.oldPrice > item.price;
+    oldPrice > 0 &&
+    oldPrice > price;
+
+
+  /*
+  |--------------------------------------------------------------------------
+  | Si el producto ya tiene descuento y el cupón NO permite combinar ofertas
+  |--------------------------------------------------------------------------
+  */
 
   if(
     hasItemDiscount &&
@@ -120,14 +288,26 @@ function isItemEligibleForCoupon(item, coupon){
     return false;
   }
 
+
   return true;
+
 }
+
 
 
 /*
 |--------------------------------------------------------------------------
-| BUSCAR CUPÓN SIN IMPORTAR MAYÚSCULAS / MINÚSCULAS
+| BUSCAR CUPÓN
 |--------------------------------------------------------------------------
+|
+| No diferencia entre mayúsculas y minúsculas.
+|
+| ClienteVip
+| CLIENTEVIP
+| clientevip
+|
+| Todos funcionarán.
+|
 */
 
 function findCouponCode(enteredCode){
@@ -136,20 +316,135 @@ function findCouponCode(enteredCode){
     return null;
   }
 
-  const normalizedCode = enteredCode
-    .trim()
-    .toLowerCase();
+
+  if(
+    typeof coupons === 'undefined' ||
+    !coupons
+  ){
+    return null;
+  }
+
+
+  const normalizedCode =
+    normalizeCouponText(enteredCode);
+
 
   return Object.keys(coupons).find(
+
     couponCode =>
-      couponCode.toLowerCase() === normalizedCode
+      normalizeCouponText(couponCode) ===
+      normalizedCode
+
   ) || null;
+
 }
 
 
+
+/*
+|--------------------------------------------------------------------------
+| BUSCAR PRODUCTO EN CONFIGURACIÓN DEL CUPÓN
+|--------------------------------------------------------------------------
+*/
+
+function findCouponProductConfig(products, productName){
+
+  if(!products || !productName){
+    return null;
+  }
+
+
+  const normalizedProduct =
+    normalizeCouponText(productName);
+
+
+  const productKey =
+    Object.keys(products).find(
+
+      key =>
+        normalizeCouponText(key) ===
+        normalizedProduct
+
+    );
+
+
+  if(!productKey){
+    return null;
+  }
+
+
+  return products[productKey];
+
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| BUSCAR PORCENTAJE SEGÚN DISPOSITIVO
+|--------------------------------------------------------------------------
+*/
+
+function findDeviceDiscount(deviceRates, deviceLabel){
+
+  if(!deviceRates || !deviceLabel){
+    return null;
+  }
+
+
+  const normalizedDevice =
+    normalizeCouponText(deviceLabel);
+
+
+  const deviceKey =
+    Object.keys(deviceRates).find(
+
+      key =>
+        normalizeCouponText(key) ===
+        normalizedDevice
+
+    );
+
+
+  if(!deviceKey){
+    return null;
+  }
+
+
+  const value =
+    Number(deviceRates[deviceKey]);
+
+
+  if(Number.isNaN(value)){
+    return null;
+  }
+
+
+  return value;
+
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| OBTENER PORCENTAJE DEL CUPÓN PARA UN PRODUCTO
+|--------------------------------------------------------------------------
+*/
+
 function getCouponItemPercent(code, item){
 
-  const coupon = coupons[code];
+  if(
+    typeof coupons === 'undefined' ||
+    !coupons
+  ){
+    return 0;
+  }
+
+
+  const coupon =
+    coupons[code];
+
 
   if(
     !coupon ||
@@ -163,106 +458,188 @@ function getCouponItemPercent(code, item){
   |--------------------------------------------------------------------------
   | CUPÓN NORMAL
   |--------------------------------------------------------------------------
-  |
-  | Si no utiliza descuentos diferentes por dispositivo,
-  | aplica directamente el porcentaje general.
-  |
   */
 
   if(!coupon.useDeviceDiscount){
-    return Number(coupon.value || 0);
+
+    return Number(
+      coupon.value || 0
+    );
+
   }
 
 
   /*
   |--------------------------------------------------------------------------
-  | CUPÓN CON DESCUENTO POR DISPOSITIVO
+  | OBTENER CONFIGURACIÓN
   |--------------------------------------------------------------------------
   */
 
   const config =
-    couponDeviceDiscounts[code] || {};
+
+    (
+      typeof couponDeviceDiscounts !== 'undefined' &&
+      couponDeviceDiscounts
+    )
+
+    ? couponDeviceDiscounts[code] || {}
+
+    : {};
+
+
+  const productName =
+    item.name || '';
+
+
+  const deviceLabel =
+    item.deviceLabel ||
+    item.cat ||
+    '';
+
+
+  /*
+  |--------------------------------------------------------------------------
+  | PRIORIDAD 1
+  |--------------------------------------------------------------------------
+  |
+  | Buscar descuento específico por producto.
+  |
+  */
 
   const productRates =
-    (
-      config.products &&
-      config.products[item.name]
-    )
-      ? config.products[item.name]
-      : null;
-
-  const deviceLabel = item.cat;
+    findCouponProductConfig(
+      config.products,
+      productName
+    );
 
 
-  /*
-  |--------------------------------------------------------------------------
-  | PRIORIDAD 1:
-  | Porcentaje específico para el producto
-  |--------------------------------------------------------------------------
-  */
+  if(productRates){
 
-  if(
-    productRates &&
-    typeof productRates[deviceLabel] === 'number'
-  ){
-    return productRates[deviceLabel];
+    const productDeviceDiscount =
+      findDeviceDiscount(
+        productRates,
+        deviceLabel
+      );
+
+
+    if(productDeviceDiscount !== null){
+
+      return productDeviceDiscount;
+
+    }
+
   }
 
 
   /*
   |--------------------------------------------------------------------------
-  | PRIORIDAD 2:
-  | Porcentaje general según cantidad de dispositivos
+  | PRIORIDAD 2
   |--------------------------------------------------------------------------
+  |
+  | Buscar porcentaje general según dispositivo.
+  |
   */
 
-  if(
-    config.defaultByDevice &&
-    typeof config.defaultByDevice[deviceLabel] === 'number'
-  ){
-    return config.defaultByDevice[deviceLabel];
+  const defaultDeviceDiscount =
+    findDeviceDiscount(
+      config.defaultByDevice,
+      deviceLabel
+    );
+
+
+  if(defaultDeviceDiscount !== null){
+
+    return defaultDeviceDiscount;
+
   }
 
 
   /*
   |--------------------------------------------------------------------------
-  | PRIORIDAD 3:
-  | Porcentaje general del cupón
+  | PRIORIDAD 3
   |--------------------------------------------------------------------------
+  |
+  | Usar porcentaje general del cupón.
+  |
   */
 
-  return Number(coupon.value || 0);
+  return Number(
+    coupon.value || 0
+  );
+
 }
 
 
+
+/*
+|--------------------------------------------------------------------------
+| DESCUENTO DEL CUPÓN POR PRODUCTO
+|--------------------------------------------------------------------------
+*/
+
 function getCouponItemDiscount(code, item){
 
-  const coupon = coupons[code];
-
   if(
-    !coupon ||
-    !isItemEligibleForCoupon(item, coupon)
+    typeof coupons === 'undefined' ||
+    !coupons
   ){
     return 0;
   }
 
+
+  const coupon =
+    coupons[code];
+
+
+  if(
+    !coupon ||
+    !isItemEligibleForCoupon(
+      item,
+      coupon
+    )
+  ){
+    return 0;
+  }
+
+
   const lineSubtotal =
-    item.price *
-    item.qty *
+
+    Number(item.price || 0) *
+
+    Number(item.qty || 0) *
+
     rate;
+
 
   if(coupon.type === 'percent'){
 
     const percent =
-      getCouponItemPercent(code, item);
+      getCouponItemPercent(
+        code,
+        item
+      );
+
 
     return lineSubtotal *
-      (percent / 100);
+      (
+        percent /
+        100
+      );
+
   }
 
+
   return 0;
+
 }
 
+
+
+/*
+|--------------------------------------------------------------------------
+| DESCUENTO TOTAL DEL CUPÓN
+|--------------------------------------------------------------------------
+*/
 
 function getCouponDiscountAmount(subtotal){
 
@@ -270,8 +647,18 @@ function getCouponDiscountAmount(subtotal){
     return 0;
   }
 
+
+  if(
+    typeof coupons === 'undefined' ||
+    !coupons
+  ){
+    return 0;
+  }
+
+
   const coupon =
     coupons[appliedCoupon];
+
 
   if(!coupon){
     return 0;
@@ -279,7 +666,11 @@ function getCouponDiscountAmount(subtotal){
 
 
   const minSubtotal =
-    Number(coupon.minSubtotal || 0) *
+
+    Number(
+      coupon.minSubtotal || 0
+    ) *
+
     rate;
 
 
@@ -289,7 +680,9 @@ function getCouponDiscountAmount(subtotal){
 
 
   const eligibleSubtotal =
-    getCouponEligibleSubtotal(coupon);
+    getCouponEligibleSubtotal(
+      coupon
+    );
 
 
   if(eligibleSubtotal <= 0){
@@ -300,23 +693,48 @@ function getCouponDiscountAmount(subtotal){
   let discount = 0;
 
 
+  /*
+  |--------------------------------------------------------------------------
+  | PORCENTAJE
+  |--------------------------------------------------------------------------
+  */
+
   if(coupon.type === 'percent'){
 
     discount = cart.reduce(
-      (sum,item)=>
+
+      (sum, item) =>
+
         sum +
+
         getCouponItemDiscount(
           appliedCoupon,
           item
         ),
+
       0
+
     );
 
-  } else if(coupon.type === 'fixed'){
+  }
+
+
+  /*
+  |--------------------------------------------------------------------------
+  | VALOR FIJO
+  |--------------------------------------------------------------------------
+  */
+
+  else if(coupon.type === 'fixed'){
 
     discount =
-      Number(coupon.value || 0) *
+
+      Number(
+        coupon.value || 0
+      ) *
+
       rate;
+
   }
 
 
@@ -324,18 +742,43 @@ function getCouponDiscountAmount(subtotal){
     discount,
     eligibleSubtotal
   );
+
 }
 
 
+
+/*
+|--------------------------------------------------------------------------
+| VALIDACIÓN DEL CUPÓN
+|--------------------------------------------------------------------------
+*/
+
 function getCouponValidationMessage(code){
 
-  const coupon = coupons[code];
+  if(
+    typeof coupons === 'undefined' ||
+    !coupons
+  ){
+
+    return {
+      ok:false,
+      text:'No se pudo cargar la configuración de cupones.'
+    };
+
+  }
+
+
+  const coupon =
+    coupons[code];
+
 
   if(!coupon){
+
     return {
       ok:false,
       text:'Cupón no válido.'
     };
+
   }
 
 
@@ -344,39 +787,71 @@ function getCouponValidationMessage(code){
 
 
   const minSubtotal =
-    Number(coupon.minSubtotal || 0) *
+
+    Number(
+      coupon.minSubtotal || 0
+    ) *
+
     rate;
 
+
+  /*
+  |--------------------------------------------------------------------------
+  | COMPRA MÍNIMA
+  |--------------------------------------------------------------------------
+  */
 
   if(subtotal < minSubtotal){
 
     return {
+
       ok:false,
+
       text:
         `Este cupón requiere una compra mínima de ${format(minSubtotal)}.`
+
     };
+
   }
 
 
+  /*
+  |--------------------------------------------------------------------------
+  | PRODUCTOS ELEGIBLES
+  |--------------------------------------------------------------------------
+  */
+
   const eligibleSubtotal =
-    getCouponEligibleSubtotal(coupon);
+    getCouponEligibleSubtotal(
+      coupon
+    );
 
 
   if(eligibleSubtotal <= 0){
 
     return {
+
       ok:false,
+
       text:
         'Este cupón no aplica porque los productos del carrito ya tienen oferta activa.'
+
     };
+
   }
 
 
   return {
+
     ok:true,
-    text:`Cupón aplicado: ${code}.`
+
+    text:
+      `Cupón aplicado: ${code}.`
+
   };
+
 }
+
 
 
 /*
@@ -388,10 +863,15 @@ function getCouponValidationMessage(code){
 function applyCoupon(){
 
   const input =
-    document.getElementById('couponInput');
+    document.getElementById(
+      'couponInput'
+    );
+
 
   const status =
-    document.getElementById('couponStatus');
+    document.getElementById(
+      'couponStatus'
+    );
 
 
   if(!input || !status){
@@ -401,7 +881,30 @@ function applyCoupon(){
 
   /*
   |--------------------------------------------------------------------------
-  | VALIDAR CARRITO
+  | VERIFICAR QUE coupons.js ESTÉ CARGADO
+  |--------------------------------------------------------------------------
+  */
+
+  if(
+    typeof coupons === 'undefined'
+  ){
+
+    appliedCoupon = null;
+
+    status.className =
+      'coupon-status coupon-error';
+
+    status.textContent =
+      'Error: no se cargó la configuración de cupones.';
+
+    return;
+
+  }
+
+
+  /*
+  |--------------------------------------------------------------------------
+  | CARRITO VACÍO
   |--------------------------------------------------------------------------
   */
 
@@ -415,21 +918,31 @@ function applyCoupon(){
     status.textContent =
       'Agrega al menos un producto al carrito antes de aplicar un cupón.';
 
+
     updateCartUI();
 
     return;
+
   }
 
 
   /*
   |--------------------------------------------------------------------------
-  | LEER CÓDIGO
+  | OBTENER CÓDIGO INTRODUCIDO
   |--------------------------------------------------------------------------
   */
 
   const enteredCode =
-    (input.value || '').trim();
+    String(
+      input.value || ''
+    ).trim();
 
+
+  /*
+  |--------------------------------------------------------------------------
+  | CAMPO VACÍO
+  |--------------------------------------------------------------------------
+  */
 
   if(!enteredCode){
 
@@ -438,13 +951,16 @@ function applyCoupon(){
     status.className =
       'coupon-status';
 
-    status.textContent = '';
+    status.textContent =
+      '';
+
 
     updateCartUI();
 
     renderCart();
 
     return;
+
   }
 
 
@@ -452,23 +968,19 @@ function applyCoupon(){
   |--------------------------------------------------------------------------
   | BUSCAR CUPÓN
   |--------------------------------------------------------------------------
-  |
-  | Esto permite:
-  |
-  | ClienteVip
-  | clientevip
-  | CLIENTEVIP
-  | ClIeNtEvIp
-  |
-  | y siempre encontrará la clave real:
-  |
-  | ClienteVip
-  |
   */
 
   const code =
-    findCouponCode(enteredCode);
+    findCouponCode(
+      enteredCode
+    );
 
+
+  /*
+  |--------------------------------------------------------------------------
+  | NO EXISTE
+  |--------------------------------------------------------------------------
+  */
 
   if(!code){
 
@@ -480,11 +992,11 @@ function applyCoupon(){
     status.textContent =
       'Cupón no válido.';
 
+
     updateCartUI();
 
-    renderCart();
-
     return;
+
   }
 
 
@@ -495,61 +1007,106 @@ function applyCoupon(){
   */
 
   const validation =
-    getCouponValidationMessage(code);
+    getCouponValidationMessage(
+      code
+    );
 
 
   if(validation.ok){
 
-    appliedCoupon = code;
+    appliedCoupon =
+      code;
+
 
     /*
     |--------------------------------------------------------------------------
-    | Mostrar el nombre oficial del cupón
+    | Mostrar nombre oficial
     |--------------------------------------------------------------------------
     */
 
-    input.value = code;
+    input.value =
+      code;
+
 
     status.className =
       'coupon-status coupon-ok';
 
+
     status.textContent =
       validation.text;
 
-  } else {
+  }
 
-    appliedCoupon = null;
+  else {
+
+    appliedCoupon =
+      null;
+
 
     status.className =
       'coupon-status coupon-error';
 
+
     status.textContent =
       validation.text;
+
   }
 
+
+  /*
+  |--------------------------------------------------------------------------
+  | ACTUALIZAR CARRITO
+  |--------------------------------------------------------------------------
+  */
 
   updateCartUI();
 
   renderCart();
+
 }
 
+
+
+/*
+|--------------------------------------------------------------------------
+| CONTADOR DEL CARRITO
+|--------------------------------------------------------------------------
+*/
 
 function updateCartCount(){
 
   const count =
     cart.reduce(
-      (sum,item)=>sum + item.qty,
+
+      (sum, item) =>
+        sum +
+        Number(item.qty || 0),
+
       0
+
     );
 
+
   const cartCount =
-    document.getElementById('cartCount');
+    document.getElementById(
+      'cartCount'
+    );
+
 
   if(cartCount){
-    cartCount.textContent = count;
+    cartCount.textContent =
+      count;
   }
+
 }
 
+
+
+/*
+|--------------------------------------------------------------------------
+| ACTUALIZAR TOTALES
+|--------------------------------------------------------------------------
+*/
 
 function updateCartUI(){
 
@@ -605,34 +1162,62 @@ function updateCartUI(){
 
 
   if(subtotalStandardEl){
+
     subtotalStandardEl.textContent =
-      format(subtotalStandard);
+      format(
+        subtotalStandard
+      );
+
   }
 
 
   if(productDiscountEl){
+
     productDiscountEl.textContent =
-      '-' + format(productDiscount);
+      '-' +
+      format(
+        productDiscount
+      );
+
   }
 
 
   if(discountEl){
+
     discountEl.textContent =
-      '-' + format(couponDiscount);
+      '-' +
+      format(
+        couponDiscount
+      );
+
   }
 
 
   if(totalEl){
+
     totalEl.textContent =
-      format(total);
+      format(
+        total
+      );
+
   }
+
 }
 
+
+
+/*
+|--------------------------------------------------------------------------
+| MOSTRAR CARRITO
+|--------------------------------------------------------------------------
+*/
 
 function renderCart(){
 
   const list =
-    document.getElementById('cartList');
+    document.getElementById(
+      'cartList'
+    );
 
 
   const status =
@@ -654,13 +1239,18 @@ function renderCart(){
 
   /*
   |--------------------------------------------------------------------------
-  | MOSTRAR CUPÓN ACTIVO
+  | CUPÓN ACTIVO
   |--------------------------------------------------------------------------
   */
 
-  if(input){
+  if(
+    input &&
+    appliedCoupon
+  ){
+
     input.value =
-      appliedCoupon || '';
+      appliedCoupon;
+
   }
 
 
@@ -673,12 +1263,22 @@ function renderCart(){
   if(cart.length === 0){
 
     list.innerHTML = `
+
       <div class="empty-cart">
+
         <p>
           Abre un producto y pulsa “Agregar al carrito”.
         </p>
-        <p style="margin-top:8px;opacity:0.7;"></p>
+
+        <p
+          style="
+            margin-top:8px;
+            opacity:0.7;
+          "
+        ></p>
+
       </div>
+
     `;
 
 
@@ -687,13 +1287,16 @@ function renderCart(){
       status.className =
         'coupon-status';
 
-      status.textContent = '';
+      status.textContent =
+        '';
+
     }
 
 
     updateCartUI();
 
     return;
+
   }
 
 
@@ -703,91 +1306,164 @@ function renderCart(){
   |--------------------------------------------------------------------------
   */
 
-  list.innerHTML =
-    cart.map((item,index)=>{
+  list.innerHTML = cart.map(
+    (item, index)=>{
 
 
       const linePrice =
-        item.price *
-        item.qty *
+
+        Number(item.price || 0) *
+
+        Number(item.qty || 0) *
+
         rate;
 
 
+      const oldPrice =
+        Number(
+          item.oldPrice || 0
+        );
+
+
+      const price =
+        Number(
+          item.price || 0
+        );
+
+
       const hasItemDiscount =
-        typeof item.oldPrice === 'number' &&
-        item.oldPrice > item.price;
+
+        oldPrice > 0 &&
+
+        oldPrice > price;
 
 
       const lineOldPrice =
+
         hasItemDiscount
-          ? item.oldPrice *
-            item.qty *
-            rate
-          : linePrice;
+
+        ? oldPrice *
+          Number(item.qty || 0) *
+          rate
+
+        : linePrice;
 
 
       const itemDiscountPercent =
+
         hasItemDiscount
-          ? Math.round(
+
+        ? Math.round(
+
+            (
               (
-                (
-                  item.oldPrice -
-                  item.price
-                ) /
-                item.oldPrice
-              ) *
-              100
-            )
-          : 0;
+                oldPrice -
+                price
+              ) /
+
+              oldPrice
+
+            ) *
+
+            100
+
+          )
+
+        : 0;
 
 
       const itemSavings =
+
         hasItemDiscount
-          ? (
-              lineOldPrice -
-              linePrice
-            )
-          : 0;
+
+        ? lineOldPrice -
+          linePrice
+
+        : 0;
 
 
       const couponPercent =
+
         appliedCoupon
-          ? getCouponItemPercent(
-              appliedCoupon,
-              item
-            )
-          : 0;
+
+        ? getCouponItemPercent(
+            appliedCoupon,
+            item
+          )
+
+        : 0;
 
 
       const couponItemDiscount =
+
         appliedCoupon
-          ? getCouponItemDiscount(
-              appliedCoupon,
-              item
-            )
-          : 0;
+
+        ? getCouponItemDiscount(
+            appliedCoupon,
+            item
+          )
+
+        : 0;
 
 
-      const couponHtml =
-        couponItemDiscount > 0
+      /*
+      |--------------------------------------------------------------------------
+      | INFORMACIÓN DEL CUPÓN
+      |--------------------------------------------------------------------------
+      */
 
-        ? `
-          <div class="cart-item-discount">
-            <span>
+      let couponHtml = '';
+
+
+      if(
+        appliedCoupon &&
+        coupons[appliedCoupon]
+      ){
+
+        if(couponItemDiscount > 0){
+
+          couponHtml = `
+
+            <div class="cart-item-discount">
+
+              <span>
+                Cupón ${appliedCoupon}:
+                -${format(couponItemDiscount)}
+              </span>
+
+              <strong>
+                ${couponPercent}%
+              </strong>
+
+            </div>
+
+          `;
+
+        }
+
+        else if(
+          coupons[appliedCoupon]
+            .useDeviceDiscount
+        ){
+
+          couponHtml = `
+
+            <div class="cart-item-meta">
+
               Cupón ${appliedCoupon}:
-              -${format(couponItemDiscount)}
-            </span>
+              0% para ${item.deviceLabel || item.cat}
 
-            <strong>
-              ${couponPercent}%
-            </strong>
-          </div>
-        `
+            </div>
 
-        : '';
+          `;
+
+        }
+
+      }
 
 
       return `
+
         <div class="cart-item">
 
           <div class="protected-img">
@@ -806,52 +1482,78 @@ function renderCart(){
           <div>
 
             <div class="cart-item-title">
+
               ${item.name}
+
             </div>
 
 
             <div class="cart-item-meta">
-              ${item.plan} • ${item.cat}
+
+              ${item.plan}
+              •
+              ${item.deviceLabel || item.cat}
+
             </div>
 
 
             <div class="cart-item-meta">
+
               ${item.desc || ''}
+
             </div>
 
 
             <div class="cart-item-meta">
-              Cantidad: ${item.qty}
+
+              Cantidad:
+              ${item.qty}
+
             </div>
 
 
             <div class="cart-item-price">
+
               ${format(linePrice)}
+
             </div>
 
 
             ${
+
               hasItemDiscount
 
               ? `
+
                 <div class="cart-item-old-price">
+
                   ${format(lineOldPrice)}
+
                 </div>
+
 
                 <div class="cart-item-discount">
 
                   <span>
-                    Ahorras ${format(itemSavings)}
+
+                    Ahorras
+                    ${format(itemSavings)}
+
                   </span>
 
+
                   <strong>
+
                     -${itemDiscountPercent}%
+
                   </strong>
 
                 </div>
+
               `
 
               : ''
+
             }
 
 
@@ -864,18 +1566,23 @@ function renderCart(){
             class="icon-btn"
             onclick="removeFromCart(${index})"
           >
+
             Quitar
+
           </button>
 
         </div>
+
       `;
 
-    }).join('');
+    }
+
+  ).join('');
 
 
   /*
   |--------------------------------------------------------------------------
-  | REVALIDAR CUPÓN ACTIVO
+  | REVALIDAR CUPÓN
   |--------------------------------------------------------------------------
   */
 
@@ -892,9 +1599,12 @@ function renderCart(){
 
 
     status.className =
+
       validation.ok
-        ? 'coupon-status coupon-ok'
-        : 'coupon-status coupon-error';
+
+      ? 'coupon-status coupon-ok'
+
+      : 'coupon-status coupon-error';
 
 
     status.textContent =
@@ -905,12 +1615,16 @@ function renderCart(){
 
       appliedCoupon = null;
 
+
       if(input){
-        input.value='';
+        input.value = '';
       }
+
     }
 
-  } else if(
+  }
+
+  else if(
     status &&
     !appliedCoupon
   ){
@@ -918,9 +1632,13 @@ function renderCart(){
     status.className =
       'coupon-status';
 
-    status.textContent = '';
+
+    status.textContent =
+      '';
+
   }
 
 
   updateCartUI();
+
 }
