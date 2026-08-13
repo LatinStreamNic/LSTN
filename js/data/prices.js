@@ -65,7 +65,7 @@ const officialDevicePrices={
   'WeibTV (GVS)|1 mes': {
     '1 Dispositivo': {price:5.00, oldPrice:5.00, available:true},
     '3 Dispositivos': {price:10.00, oldPrice:10.00, available:true},
-    '5 Dispositivos': {price:15.00, oldPrice:15.00, available:false},
+    '5 Dispositivos': {price:15.00, oldPrice:15.00, available:true},
   },
   'WeibTV (GVS)|2 meses': {
     '1 Dispositivo': {price:10.00, oldPrice:10.00, available:true},
