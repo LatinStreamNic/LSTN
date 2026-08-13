@@ -3,8 +3,8 @@ const coupons={
     type:'percent',
     value:20,
     label:'',
-    minSubtotal:5,
-    appliesToDiscounted:false,
+    minSubtotal:0,
+    appliesToDiscounted:true,
     useDeviceDiscount:true
   },
   'iuiu':{
@@ -34,7 +34,7 @@ const coupons={
 };
 
 const couponDeviceDiscounts={
-  '98876':{
+  'ClirnteVip':{
     defaultByDevice:{
       '1 Dispositivo':0,
       '2 Dispositivos':5,
@@ -69,7 +69,7 @@ const couponDeviceDiscounts={
     }
   },
   'ClirnteVip':{
-    defaultByDevice:{'1 Dispositivo':0,'2 Dispositivos':5,'3 Dispositivos':15,'5 Dispositivos':18,'6 Dispositivos':20}
+    defaultByDevice:{'1 Dispositivo':0,'2 Dispositivos':5,'3 Dispositivos':20,'5 Dispositivos':20,'6 Dispositivos':20}
   },
   '902026':{
     defaultByDevice:{'1 Dispositivo':0,'2 Dispositivos':0,'3 Dispositivos':5,'5 Dispositivos':7,'6 Dispositivos':5}
