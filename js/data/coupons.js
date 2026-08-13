@@ -4,7 +4,7 @@ const coupons = {
     type: 'percent',
     value: 20,
     label: '',
-    minSubtotal: 0,
+    minSubtotal: 5,
     appliesToDiscounted: true,
     useDeviceDiscount: true
   },
@@ -23,6 +23,15 @@ const coupons = {
     value: 5,
     label: '',
     minSubtotal: 10,
+    appliesToDiscounted: true,
+    useDeviceDiscount: true
+  },
+
+  '902026': {
+    type: 'percent',
+    value: 0,
+    label: '',
+    minSubtotal: 0,
     appliesToDiscounted: true,
     useDeviceDiscount: true
   },
@@ -88,24 +97,30 @@ const couponDeviceDiscounts = {
 
 
   '902026': {
+
     defaultByDevice: {
       '1 Dispositivo': 0,
       '2 Dispositivos': 0,
       '3 Dispositivos': 5,
+      '4 Dispositivos': 0,
       '5 Dispositivos': 7,
       '6 Dispositivos': 5
     }
+
   },
 
 
   'VIP20': {
+
     defaultByDevice: {
       '1 Dispositivo': 0,
       '2 Dispositivos': 0,
       '3 Dispositivos': 0,
+      '4 Dispositivos': 0,
       '5 Dispositivos': 0,
       '6 Dispositivos': 0
     }
+
   }
 
 };
