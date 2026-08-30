@@ -167,112 +167,64 @@ const officialDevicePrices={
    Descuento según duración + dispositivos
 ========================================================= */
 
+/* =========================================================
+   PROMOCIÓN MASAYA 187 ANIVERSARIO
+   Vigencia: 31 agosto - 02 octubre 2026
+========================================================= */
+
 const masaya187Discounts = {
-
-  '1 mes': {
-    1: 0.10,
-    2: 0.15,
-    3: 0.25,
-    4: 0.25,
-    5: 0.25
-  },
-
-  '2 meses': {
-    1: 0.10,
-    2: 0.15,
-    3: 0.25,
-    4: 0.25,
-    5: 0.25
-  },
-
-  '3 meses': {
-    1: 0.10,
-    2: 0.15,
-    3: 0.25,
-    4: 0.25,
-    5: 0.25
-  },
-
-  '6 meses': {
-    1: 0.10,
-    2: 0.15,
-    3: 0.25,
-    4: 0.25,
-    5: 0.25
-  },
-
-  '9 meses': {
-    1: 0.10,
-    2: 0.15,
-    3: 0.25,
-    4: 0.25,
-    5: 0.25
-  },
-
-  '12 meses': {
-    1: 0.10,
-    2: 0.15,
-    3: 0.25,
-    4: 0.25,
-    5: 0.25
-  },
-
-  '18 meses': {
-    1: 0.10,
-    2: 0.15,
-    3: 0.25,
-    4: 0.25,
-    5: 0.25
-  }
-
+  1: 0.10, // 10%
+  2: 0.15, // 15%
+  3: 0.25, // 25%
+  4: 0.25, // 25%
+  5: 0.25  // 25%
 };
+
+
+/* =========================================================
+   FECHAS DE LA PROMOCIÓN
+========================================================= */
+
+const promoStart = new Date('2026-08-31T00:00:00');
+const promoEnd   = new Date('2026-10-02T23:59:59');
+
+const now = new Date();
+
+const masayaPromoActive =
+  now >= promoStart &&
+  now <= promoEnd;
 
 
 /* =========================================================
    APLICAR PROMOCIÓN
 ========================================================= */
 
-Object.entries(officialDevicePrices).forEach(([key, devices]) => {
+if (masayaPromoActive) {
 
-  const duration = key.split('|')[1];
+  Object.entries(officialDevicePrices).forEach(([key, devices]) => {
 
-  const durationDiscounts = masaya187Discounts[duration];
+    Object.entries(devices).forEach(([deviceName, plan]) => {
 
-  if (!durationDiscounts) return;
+      if (!plan.available) return;
 
+      const deviceCount = parseInt(deviceName);
 
-  Object.entries(devices).forEach(([deviceName, plan]) => {
+      const discount = masaya187Discounts[deviceCount];
 
-    if (!plan.available) return;
+      if (discount === undefined) return;
 
+      const basePrice = plan.oldPrice ?? plan.price;
 
-    // Extraer cantidad de dispositivos
-    // "3 Dispositivos" → 3
-    const deviceCount = parseInt(deviceName);
+      plan.oldPrice = basePrice;
 
+      plan.price = Number(
+        (basePrice * (1 - discount)).toFixed(2)
+      );
 
-    const discount = durationDiscounts[deviceCount];
+      plan.discount = Math.round(discount * 100);
 
-    if (discount === undefined) return;
-
-
-    // Precio oficial
-    const basePrice = plan.oldPrice ?? plan.price;
-
-
-    // Mantener precio original
-    plan.oldPrice = basePrice;
-
-
-    // Aplicar promoción
-    plan.price = Number(
-      (basePrice * (1 - discount)).toFixed(2)
-    );
-
-
-    // Opcional: guardar porcentaje
-    plan.discount = Math.round(discount * 100);
+    });
 
   });
 
-});
+}
