@@ -163,51 +163,115 @@ const officialDevicePrices={
 };
 
 /* =========================================================
-   PROMOCIÓN: MASAYA 187 ANIVERSARIO
-   Vigencia: 31 Agosto - 02 Octubre 2026
+   PROMOCIÓN MASAYA 187 ANIVERSARIO
+   Descuento según duración + dispositivos
 ========================================================= */
 
 const masaya187Discounts = {
-  '1 mes': 0.10,       // 10%
-  '2 meses': 0.10,     // 10%
-  '3 meses': 0.15,     // 15%
-  '6 meses': 0.20,     // 20%
-  '9 meses': 0.25,     // 25%
-  '12 meses': 0.30,    // 30%
-  '18 meses': 0.35     // 35%
+
+  '1 mes': {
+    1: 0.10,
+    2: 0.15,
+    3: 0.25,
+    4: 0.25,
+    5: 0.25
+  },
+
+  '2 meses': {
+    1: 0.10,
+    2: 0.15,
+    3: 0.25,
+    4: 0.25,
+    5: 0.25
+  },
+
+  '3 meses': {
+    1: 0.10,
+    2: 0.15,
+    3: 0.25,
+    4: 0.25,
+    5: 0.25
+  },
+
+  '6 meses': {
+    1: 0.10,
+    2: 0.15,
+    3: 0.25,
+    4: 0.25,
+    5: 0.25
+  },
+
+  '9 meses': {
+    1: 0.10,
+    2: 0.15,
+    3: 0.25,
+    4: 0.25,
+    5: 0.25
+  },
+
+  '12 meses': {
+    1: 0.10,
+    2: 0.15,
+    3: 0.25,
+    4: 0.25,
+    5: 0.25
+  },
+
+  '18 meses': {
+    1: 0.10,
+    2: 0.15,
+    3: 0.25,
+    4: 0.25,
+    5: 0.25
+  }
+
 };
 
 
 /* =========================================================
-   APLICAR DESCUENTOS
+   APLICAR PROMOCIÓN
 ========================================================= */
 
 Object.entries(officialDevicePrices).forEach(([key, devices]) => {
 
-  // Ejemplo:
-  // "Stella TV|12 meses"
   const duration = key.split('|')[1];
 
-  const discount = masaya187Discounts[duration];
+  const durationDiscounts = masaya187Discounts[duration];
 
-  // Si esa duración no tiene promoción, no hacemos nada
-  if (!discount) return;
+  if (!durationDiscounts) return;
 
-  Object.values(devices).forEach(plan => {
 
-    // No aplicar descuento a productos no disponibles
+  Object.entries(devices).forEach(([deviceName, plan]) => {
+
     if (!plan.available) return;
 
-    // oldPrice será siempre el precio oficial/base
+
+    // Extraer cantidad de dispositivos
+    // "3 Dispositivos" → 3
+    const deviceCount = parseInt(deviceName);
+
+
+    const discount = durationDiscounts[deviceCount];
+
+    if (discount === undefined) return;
+
+
+    // Precio oficial
     const basePrice = plan.oldPrice ?? plan.price;
+
 
     // Mantener precio original
     plan.oldPrice = basePrice;
 
-    // Aplicar descuento promocional
+
+    // Aplicar promoción
     plan.price = Number(
       (basePrice * (1 - discount)).toFixed(2)
     );
+
+
+    // Opcional: guardar porcentaje
+    plan.discount = Math.round(discount * 100);
 
   });
 
