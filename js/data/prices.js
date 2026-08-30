@@ -162,3 +162,53 @@ const officialDevicePrices={
 
 };
 
+/* =========================================================
+   PROMOCIÓN: MASAYA 187 ANIVERSARIO
+   Vigencia: 31 Agosto - 02 Octubre 2026
+========================================================= */
+
+const masaya187Discounts = {
+  '1 mes': 0.10,       // 10%
+  '2 meses': 0.10,     // 10%
+  '3 meses': 0.15,     // 15%
+  '6 meses': 0.20,     // 20%
+  '9 meses': 0.25,     // 25%
+  '12 meses': 0.30,    // 30%
+  '18 meses': 0.35     // 35%
+};
+
+
+/* =========================================================
+   APLICAR DESCUENTOS
+========================================================= */
+
+Object.entries(officialDevicePrices).forEach(([key, devices]) => {
+
+  // Ejemplo:
+  // "Stella TV|12 meses"
+  const duration = key.split('|')[1];
+
+  const discount = masaya187Discounts[duration];
+
+  // Si esa duración no tiene promoción, no hacemos nada
+  if (!discount) return;
+
+  Object.values(devices).forEach(plan => {
+
+    // No aplicar descuento a productos no disponibles
+    if (!plan.available) return;
+
+    // oldPrice será siempre el precio oficial/base
+    const basePrice = plan.oldPrice ?? plan.price;
+
+    // Mantener precio original
+    plan.oldPrice = basePrice;
+
+    // Aplicar descuento promocional
+    plan.price = Number(
+      (basePrice * (1 - discount)).toFixed(2)
+    );
+
+  });
+
+});
