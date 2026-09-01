@@ -32,33 +32,33 @@ const officialDevicePrices={
 
   
   'Stella TV|1 mes': {
-    '1 Dispositivo': {price:5.00, oldPrice:5.00, available:true},
-    '2 Dispositivos': {price:7.00, oldPrice:7.00, available:true},
+    '1 Dispositivo': {price:5.00, oldPrice:5.00, available:false},
+    '2 Dispositivos': {price:7.00, oldPrice:7.00, available:false},
     '3 Dispositivos': {price:9.00, oldPrice:9.00, available:true},
   },
   'Stella TV|2 meses': {
-    '1 Dispositivo': {price:10.00, oldPrice:10.00, available:true},
-    '2 Dispositivos': {price:14.18, oldPrice:14.18, available:true},
+    '1 Dispositivo': {price:10.00, oldPrice:10.00, available:false},
+    '2 Dispositivos': {price:14.18, oldPrice:14.18, available:false},
     '3 Dispositivos': {price:18.00, oldPrice:18.00, available:true},
   },
   'Stella TV|3 meses': {
-    '1 Dispositivo': {price:15.00, oldPrice:15.00, available:true},
-    '2 Dispositivos': {price:21.00, oldPrice:21.00, available:true},
+    '1 Dispositivo': {price:15.00, oldPrice:15.00, available:false},
+    '2 Dispositivos': {price:21.00, oldPrice:21.00, available:false},
     '3 Dispositivos': {price:27.00, oldPrice:27.00, available:true},
   },
   'Stella TV|6 meses': {
-    '1 Dispositivo': {price:30.00, oldPrice:30.00, available:true},
-    '2 Dispositivos': {price:42.00, oldPrice:42.00, available:true},
+    '1 Dispositivo': {price:30.00, oldPrice:30.00, available:false},
+    '2 Dispositivos': {price:42.00, oldPrice:42.00, available:false},
     '3 Dispositivos': {price:54.00, oldPrice:54.00, available:true},
   },
   'Stella TV|9 meses': {
-    '1 Dispositivo': {price:45.00, oldPrice:45.00, available:true},
-    '2 Dispositivos': {price:63.00, oldPrice:63.00, available:true},
+    '1 Dispositivo': {price:45.00, oldPrice:45.00, available:false},
+    '2 Dispositivos': {price:63.00, oldPrice:63.00, available:false},
     '3 Dispositivos': {price:81.00, oldPrice:81.00, available:true},
   },
   'Stella TV|12 meses': {
-    '1 Dispositivo': {price:60.00, oldPrice:60.00, available:true},
-    '2 Dispositivos': {price:84.00, oldPrice:84.00, available:true},
+    '1 Dispositivo': {price:60.00, oldPrice:60.00, available:false},
+    '2 Dispositivos': {price:84.00, oldPrice:84.00, available:false},
     '3 Dispositivos': {price:96.00, oldPrice:96.00, available:true},
   },
 
@@ -99,27 +99,27 @@ const officialDevicePrices={
   },
 
   'Tele-Latino|1 mes': {
-    '1 Dispositivo': {price:4.05, oldPrice:4.05, available:true},
+    '1 Dispositivo': {price:4.05, oldPrice:4.05, available:false},
     '4 Dispositivos': {price:7.20, oldPrice:8.00, available:true},
   },
   'Tele-Latino|2 meses': {
-    '1 Dispositivo': {price:8.10, oldPrice:8.10, available:true},
+    '1 Dispositivo': {price:8.10, oldPrice:8.10, available:false},
     '4 Dispositivos': {price:14.40, oldPrice:16.00, available:true},
   },
   'Tele-Latino|3 meses': {
-    '1 Dispositivo': {price:12.15, oldPrice:12.15, available:true},
+    '1 Dispositivo': {price:12.15, oldPrice:12.15, available:false},
     '4 Dispositivos': {price:21.60, oldPrice:24.00, available:true},
   },
   'Tele-Latino|6 meses': {
-    '1 Dispositivo': {price:24.30, oldPrice:24.30, available:true},
+    '1 Dispositivo': {price:24.30, oldPrice:24.30, available:false},
     '4 Dispositivos': {price:40.20, oldPrice:48.00, available:true},
   },
   'Tele-Latino|9 meses': {
-    '1 Dispositivo': {price:36.45, oldPrice:36.45, available:true},
+    '1 Dispositivo': {price:36.45, oldPrice:36.45, available:false},
     '4 Dispositivos': {price:55.00, oldPrice:72.00, available:true},
   },
   'Tele-Latino|12 meses': {
-    '1 Dispositivo': {price:48.60, oldPrice:48.60, available:true},
+    '1 Dispositivo': {price:48.60, oldPrice:48.60, available:false},
     '4 Dispositivos': {price:70.90, oldPrice:96.00, available:true},
   },
 
@@ -173,8 +173,8 @@ const officialDevicePrices={
 ========================================================= */
 
 const masaya187Discounts = {
-  1: 0.10, // 10%
-  2: 0.15, // 15%
+  1: 0.15, // 10%
+  2: 0.20, // 15%
   3: 0.25, // 25%
   4: 0.25, // 25%
   5: 0.25  // 25%
