@@ -1,0 +1,68 @@
+LATIN STREAM NIC · REDISEÑO ESTILO IA-CONSCIENTE
+=================================================
+
+Base funcional conservada desde Web LatinStream:
+- Catálogo y productos.
+- Precios oficiales por dispositivo.
+- Conversión de moneda.
+- Carrito de compras.
+- Cupones existentes.
+- Envío de pedido por WhatsApp.
+- Modal de producto.
+- Aviso de privacidad.
+- Imágenes y verificación.
+- CNAME: www.latinstream.store
+
+Cambios visuales:
+- Interfaz clara inspirada en IA-Consciente V1.5.
+- Paleta azul institucional con acento Latin Stream.
+- Header fijo y navegación responsive.
+- Hero dividido con imagen y bloque informativo.
+- Catálogo convertido de carrusel automático a cuadrícula responsive.
+- Tarjetas, modales, carrito, selector de moneda y footer rediseñados.
+- Sección "Cómo comprar" y bloque de soporte integrados.
+- Adaptación para escritorio, tablet y móvil.
+
+Cupón aniversario187:
+- Válido solamente el 02/09/2026.
+- 10% adicional sobre el precio vigente.
+- Solo para 3, 4 y 5 dispositivos.
+- Compatible con productos que ya tengan precio promocional.
+- Popup de promoción visible únicamente el 02/09/2026.
+
+V2 · Movimiento y profundidad visual
+- Barra de progreso durante el scroll.
+- Entrada animada del hero.
+- Parallax sutil en imagen principal.
+- Brillo y movimiento ambiental en hero.
+- Scroll reveal progresivo para títulos, catálogo, tarjetas, proceso, soporte y footer.
+- Stagger de tarjetas para evitar aparición plana.
+- Fondos y separadores diferenciados entre secciones.
+- Entrada diagonal a la sección oscura de proceso de compra.
+- Microanimaciones en tarjetas, imágenes, iconos y botones.
+- Respeta prefers-reduced-motion para accesibilidad.
+
+
+V3 EXPERIENCIA DE TIENDA
+- Carrito lateral en escritorio y bottom sheet en móvil.
+- Filtros dinámicos por servicio y dispositivos.
+- Sección destacada calculada desde catálogo real.
+- Barra de navegación inferior móvil.
+- Scroll spy ampliado con Ofertas.
+- Tarjetas con microinteracciones y acento por servicio.
+- Transición animada de precios al cambiar moneda.
+- Animación visual al agregar productos al carrito.
+- Asistente flotante de WhatsApp contextual.
+- Mantiene lógica de cupones, incluido aniversario187 del 02/09/2026.
+
+
+V3.1 - Pulido visual
+- Sección destacada más compacta y con mejor contraste.
+- Tarjeta central con mayor jerarquía visual.
+- Selección destacada evita imágenes repetidas cuando hay alternativas.
+- Textos y badges orientados al comprador.
+- Overlay inferior reforzado para legibilidad.
+- Header translúcido con blur y estado activo más claro.
+- Scroll Spy reescrito para marcar la sección real durante scroll/hash.
+- WhatsApp permanece expandido más tiempo y tiene entrada contextual.
+- Corte hacia Cómo comprar más visible.

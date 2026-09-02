@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Latin Stream Nic: membresías de entretenimiento digital con selección de dispositivos, carrito y atención directa por WhatsApp.">
+  <title>Latin Stream Nic · Membresías digitales</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Selector inicial de moneda -->
+<div class="welcome" id="welcome" role="dialog" aria-modal="true" aria-labelledby="currencyTitle">
+  <div class="welcome-card">
+    <div class="welcome-brand">
+      <span class="brand-symbol"><i class="fa-solid fa-play" aria-hidden="true"></i></span>
+      <div>
+        <strong>Latin Stream Nic</strong>
+        <small>Entretenimiento digital</small>
+      </div>
+    </div>
+
+    <div class="welcome-eyebrow"><span></span> Configuración inicial</div>
+    <h2 id="currencyTitle">Elige cómo quieres ver los precios.</h2>
+    <p>La moneda se guarda automáticamente y puedes cambiarla cuando quieras desde el encabezado.</p>
+
+    <div class="currency-grid">
+      <button class="currency-btn" onclick="setCurrency('USD',1)">
+        <span class="currency-main"><span class="currency-symbol">U$</span><span><span class="currency-name">Dólares</span><span class="currency-note">Moneda principal</span></span></span>
+        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+      </button>
+      <button class="currency-btn" onclick="setCurrency('C$',37.5)">
+        <span class="currency-main"><span class="currency-symbol">C$</span><span><span class="currency-name">Córdobas</span><span class="currency-note">Nicaragua</span></span></span>
+        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+      </button>
+      <button class="currency-btn" onclick="setCurrency('₡',525)">
+        <span class="currency-main"><span class="currency-symbol">₡</span><span><span class="currency-name">Colones</span><span class="currency-note">Costa Rica</span></span></span>
+        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+      </button>
+      <button class="currency-btn" onclick="setCurrency('MXN',18.31)">
+        <span class="currency-main"><span class="currency-symbol">$</span><span><span class="currency-name">Peso mexicano</span><span class="currency-note">México</span></span></span>
+        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+      </button>
+      <button class="currency-btn" onclick="setCurrency('€',1)">
+        <span class="currency-main"><span class="currency-symbol">€</span><span><span class="currency-name">Euro</span><span class="currency-note">Europa</span></span></span>
+        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <div class="welcome-footer"><i class="fa-solid fa-shield-halved"></i> Tu preferencia queda guardada en este dispositivo.</div>
+  </div>
+</div>
+
+<!-- Promoción especial -->
+<div class="mom-popup" id="momPopup" aria-hidden="true">
+  <div class="mom-popup-card">
+    <button class="mom-popup-close" onclick="closeMomPopup()" aria-label="Cerrar">✕</button>
+    <div class="promo-kicker">02 · SEPTIEMBRE · 2026</div>
+    <span class="promo-icon"><i class="fa-solid fa-gift"></i></span>
+    <h2>Masaya celebra 187 años</h2>
+    <p>Usa el cupón especial y recibe un 10 % adicional en planes de 3, 4 y 5 dispositivos.</p>
+    <div class="mom-popup-coupon">
+      <span>Cupón</span>
+      <strong>aniversario187</strong>
+    </div>
+    <button class="mom-popup-btn" onclick="copyMomCoupon()"><i class="fa-regular fa-copy"></i> Copiar cupón</button>
+    <small>Válido únicamente el 02 de septiembre de 2026.</small>
+  </div>
+</div>
+
+<!-- Encabezado -->
+<header class="site-header" id="siteHeader">
+  <div class="header-container">
+    <a href="#inicio" class="site-brand" aria-label="Ir al inicio de Latin Stream">
+      <span class="brand-symbol"><i class="fa-solid fa-play" aria-hidden="true"></i></span>
+      <span class="brand-content">
+        <strong><span>Latin</span> Stream</strong>
+        <small>Membresías digitales</small>
+      </span>
+    </a>
+
+    <nav class="main-navigation" id="mainNavigation" aria-label="Navegación principal">
+      <a href="#inicio" class="navigation-link active">Inicio</a>
+      <a href="#ofertas" class="navigation-link">Ofertas</a>
+      <a href="#membresias" class="navigation-link">Membresías</a>
+      <a href="#como-comprar" class="navigation-link">Cómo comprar</a>
+      <a href="#soporte" class="navigation-link">Soporte</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="currency-change" onclick="showCurrencySelector()" id="currencyChangeBtn" aria-label="Cambiar moneda">USD</button>
+      <button class="cart-toggle" onclick="openCart()"><i class="fa-solid fa-bag-shopping"></i><span class="cart-label">Carrito</span><span class="cart-count" id="cartCount">0</span></button>
+      <button class="mobile-menu-button" id="menuToggle" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+<main>
+  <!-- Hero inspirado en la estructura de IA-Consciente -->
+  <section class="hero-stream" id="inicio">
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="hero-eyebrow"><span class="hero-eyebrow-line"></span><span>Entretenimiento digital</span></div>
+        <h1 class="hero-title">Tus membresías favoritas, <span>en un solo lugar.</span></h1>
+        <p class="hero-text">Compara planes, elige la cantidad de dispositivos y arma tu pedido desde una experiencia más clara, rápida y organizada.</p>
+        <div class="hero-actions">
+          <button class="hero-primary-button" onclick="scrollToMemberships()">Explorar membresías <i class="fa-solid fa-arrow-down"></i></button>
+          <button class="hero-secondary-button" onclick="openCart()"><i class="fa-solid fa-bag-shopping"></i> Ver carrito</button>
+        </div>
+        <div class="hero-topics">
+          <span>Precios por dispositivo</span><span class="hero-topic-separator"></span><span>Compra por WhatsApp</span><span class="hero-topic-separator"></span><span>Soporte directo</span>
+        </div>
+      </div>
+
+      <div class="hero-media">
+        <div class="hero-image-wrapper protected-img">
+          <img src="img/movie-posters.png" alt="Catálogo de entretenimiento disponible en Latin Stream" draggable="false" oncontextmenu="return false;">
+        </div>
+        <div class="hero-media-caption">
+          <span class="media-caption-number">01</span>
+          <div><strong>Elige. Configura. Contrata.</strong><p>Todo el proceso se organiza desde la web y finaliza con atención directa por WhatsApp.</p></div>
+        </div>
+        <div class="hero-media-accent" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <div class="hero-footer">
+      <div class="hero-footer-container">
+        <p>Consulta opciones disponibles y precios actualizados según tu moneda.</p>
+        <a href="#membresias">Ver catálogo <i class="fa-solid fa-arrow-down-long"></i></a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Selección destacada -->
+  <section class="featured-section" id="ofertas">
+    <div class="featured-container">
+      <div class="featured-heading">
+        <div>
+          <div class="section-eyebrow light"><span></span> Ofertas y recomendados</div>
+          <h2>Ofertas seleccionadas para ti.</h2>
+        </div>
+        <p>Planes seleccionados por precio, duración y opciones de dispositivos para ayudarte a elegir más rápido.</p>
+      </div>
+      <div class="featured-grid" id="featuredProducts"></div>
+    </div>
+  </section>
+
+  <!-- Catálogo -->
+  <section class="catalog-shell" id="membresias">
+    <div class="section-intro">
+      <div class="section-eyebrow"><span></span> Catálogo</div>
+      <div class="section-intro-grid">
+        <h2>Encuentra el plan que se adapta a tus dispositivos.</h2>
+        <p>Selecciona una membresía para consultar duraciones, disponibilidad, promociones y cantidad de dispositivos.</p>
+      </div>
+    </div>
+
+    <div class="catalog-toolbar" id="catalogToolbar">
+      <div class="filter-block">
+        <span class="filter-label">Servicio</span>
+        <div class="filter-chips" id="categoryFilters"></div>
+      </div>
+      <div class="filter-block device-filter-block">
+        <span class="filter-label">Dispositivos</span>
+        <div class="filter-chips" id="deviceFilters">
+          <button type="button" class="filter-chip active" data-device-filter="all">Todos</button>
+          <button type="button" class="filter-chip" data-device-filter="1">1</button>
+          <button type="button" class="filter-chip" data-device-filter="2">2</button>
+          <button type="button" class="filter-chip" data-device-filter="3plus">3+</button>
+        </div>
+      </div>
+      <div class="filter-results" id="filterResults" aria-live="polite"></div>
+    </div>
+    <div class="container" id="store"></div>
+  </section>
+
+  <!-- Cómo comprar -->
+  <section class="process-section" id="como-comprar">
+    <div class="process-container">
+      <div class="section-eyebrow light"><span></span> Proceso de compra</div>
+      <div class="process-heading">
+        <h2>De la selección a WhatsApp en cuatro pasos.</h2>
+        <p>La tienda organiza tu pedido y calcula descuentos antes de enviarlo para atención.</p>
+      </div>
+      <div class="process-grid">
+        <article class="process-card"><span>01</span><i class="fa-regular fa-rectangle-list"></i><h3>Elige tu plan</h3><p>Abre una membresía y revisa sus opciones.</p></article>
+        <article class="process-card"><span>02</span><i class="fa-solid fa-tv"></i><h3>Define dispositivos</h3><p>Selecciona la cantidad de conexiones que necesitas.</p></article>
+        <article class="process-card"><span>03</span><i class="fa-solid fa-bag-shopping"></i><h3>Revisa el carrito</h3><p>Confirma precios, ofertas y cupones disponibles.</p></article>
+        <article class="process-card"><span>04</span><i class="fa-brands fa-whatsapp"></i><h3>Contrata</h3><p>Envía el pedido preparado a nuestro WhatsApp.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Soporte -->
+  <section class="support-section" id="soporte">
+    <div class="support-container">
+      <div>
+        <div class="section-eyebrow"><span></span> Atención directa</div>
+        <h2>¿Necesitas ayuda antes de comprar?</h2>
+        <p>Puedes preparar tu pedido en la tienda o escribirnos directamente para aclarar compatibilidad, dispositivos o disponibilidad.</p>
+      </div>
+      <a class="support-button" href="https://wa.me/50588581031" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Contactar por WhatsApp</a>
+    </div>
+  </section>
+</main>
+
+<!-- Modal de producto -->
+<div class="modal" id="modal">
+  <div class="modal-content product-modal-content">
+    <button class="close-btn" onclick="closeModal()" aria-label="Cerrar">✕</button>
+    <div class="modal-layout">
+      <div class="protected-img modal-product-media"><img id="modalImg" alt="" draggable="false" oncontextmenu="return false;"></div>
+      <div class="modal-product-info">
+        <div class="modal-eyebrow">Detalle de membresía</div>
+        <h2 id="modalTitle"></h2>
+        <p id="modalText" class="modal-sub"></p>
+        <p id="modalDesc" class="modal-desc"></p>
+        <div id="modalPrice"></div>
+        <div class="benefits"><p id="modalBenefitText"></p></div>
+        <div id="modalStockText" class="stock-modal-text"></div>
+        <button class="btn-buy" onclick="addSelectedToCart()"><i class="fa-solid fa-bag-shopping"></i> Agregar al carrito</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Carrito -->
+<div class="modal cart-drawer-modal" id="cartModal">
+  <div class="modal-content cart-modal-content cart-drawer-panel">
+    <button class="close-btn" onclick="closeCart()" aria-label="Cerrar">✕</button>
+    <div class="cart-heading"><span class="cart-heading-icon"><i class="fa-solid fa-bag-shopping"></i></span><div><div class="modal-eyebrow">Tu pedido</div><h2>Carrito de compra</h2><p class="modal-sub">Revisa tus planes antes de contratar.</p></div></div>
+    <div id="cartList" class="cart-list"></div>
+
+    <div class="coupon-box">
+      <label for="couponInput">Cupón de descuento</label>
+      <div class="coupon-row">
+        <input id="couponInput" type="text" placeholder="Ingresa tu cupón">
+        <button class="btn-secondary" onclick="applyCoupon()">Aplicar</button>
+      </div>
+      <div id="couponStatus" class="coupon-status"></div>
+    </div>
+
+    <div class="summary-box">
+      <div class="summary-line"><span>Subtotal estándar</span><span id="cartSubtotalStandard">USD 0.00</span></div>
+      <div class="summary-line"><span>Desc. productos</span><span id="cartProductDiscount">USD 0.00</span></div>
+      <div class="summary-line"><span>Desc. cupón</span><span id="cartCouponDiscount">USD 0.00</span></div>
+      <div class="summary-line total"><span>Total</span><span id="cartTotal">USD 0.00</span></div>
+    </div>
+
+    <div class="cart-actions">
+      <button class="btn-danger" onclick="clearCart()"><i class="fa-regular fa-trash-can"></i> Vaciar</button>
+      <button class="btn-buy" onclick="sendCartToWhatsApp()"><i class="fa-brands fa-whatsapp"></i> Contratar ahora</button>
+    </div>
+  </div>
+</div>
+
+<!-- Privacidad -->
+<div class="modal" id="privacyModal">
+  <div class="modal-content privacy-content">
+    <button class="close-btn" onclick="closePrivacyModal()" aria-label="Cerrar">✕</button>
+    <div class="modal-eyebrow">Información</div>
+    <h2>Aviso de privacidad</h2>
+    <p>En Latin Stream respetamos la privacidad de nuestros clientes. La información compartida durante una compra se utiliza únicamente para gestionar pedidos, confirmar pagos y brindar soporte.</p>
+    <ul class="privacy-list">
+      <li>No solicitamos datos bancarios sensibles dentro de la web.</li>
+      <li>Los pedidos se finalizan mediante WhatsApp para atención directa.</li>
+      <li>La información del cliente no se vende ni se comparte con terceros para fines publicitarios.</li>
+      <li>El usuario puede solicitar aclaración o eliminación de sus datos de contacto escribiendo por WhatsApp.</li>
+    </ul>
+    <button class="btn-buy" onclick="closePrivacyModal()">Entendido</button>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-brand-block">
+      <span class="brand-symbol"><i class="fa-solid fa-play"></i></span>
+      <div><strong>Latin Stream Nic</strong><span>Entretenimiento digital</span></div>
+    </div>
+    <div class="footer-links"><a href="#membresias">Membresías</a><a href="#como-comprar">Cómo comprar</a><button onclick="openPrivacyModal()">Privacidad</button></div>
+    <div class="footer-copy"><p>Copyright © 2026 Latin Stream Nic. Todos los derechos reservados.</p><p>Diseñada y desarrollada por <strong>WCDEV</strong></p></div>
+  </div>
+</footer>
+
+
+<!-- Accesos móviles -->
+<nav class="mobile-dock" aria-label="Accesos rápidos">
+  <a href="#inicio" class="mobile-dock-link active" data-section="inicio"><i class="fa-solid fa-house"></i><span>Inicio</span></a>
+  <a href="#ofertas" class="mobile-dock-link" data-section="ofertas"><i class="fa-solid fa-bolt"></i><span>Ofertas</span></a>
+  <a href="#membresias" class="mobile-dock-link" data-section="membresias"><i class="fa-solid fa-border-all"></i><span>Productos</span></a>
+  <button type="button" class="mobile-dock-link mobile-cart-link" onclick="openCart()"><span class="dock-icon-wrap"><i class="fa-solid fa-bag-shopping"></i><b id="mobileCartCount">0</b></span><span>Carrito</span></button>
+  <a href="https://wa.me/50588581031" target="_blank" rel="noopener" class="mobile-dock-link"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></a>
+</nav>
+
+<a class="whatsapp-helper" href="https://wa.me/50588581031" target="_blank" rel="noopener" aria-label="Contactar a Latin Stream por WhatsApp">
+  <span class="whatsapp-helper-copy"><strong>¿Necesitas ayuda?</strong><small>Escríbenos por WhatsApp</small></span>
+  <span class="whatsapp-helper-icon"><i class="fa-brands fa-whatsapp"></i></span>
+</a>
+
+<div class="toast" id="toast"></div>
+
+<!-- Core -->
+<script src="js/core/state.js"></script>
+<script src="js/core/utils.js"></script>
+<!-- Data -->
+<script src="js/data/products.js"></script>
+<script src="js/data/prices.js"></script>
+<script src="js/data/coupons.js"></script>
+<!-- Services -->
+<script src="js/services/currency.js"></script>
+<script src="js/services/cart.js"></script>
+<script src="js/services/whatsapp.js"></script>
+<!-- UI -->
+<script src="js/ui/catalog.js"></script>
+<script src="js/ui/modal.js"></script>
+<!-- App -->
+<script src="js/app.js"></script>
+</body>
+</html>
