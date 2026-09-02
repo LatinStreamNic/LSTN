@@ -1,0 +1,57 @@
+<section class="section v2-calculator-section section-dark" id="cotizador">
+  <div class="container">
+    <div class="section-heading light reveal">
+      <div class="eyebrow"><span></span> Cotizador interactivo</div>
+      <h2>Calcula una referencia antes de escribirnos.</h2>
+      <p>Selecciona el tipo de proyecto y los extras. El resultado es estimado y sirve para orientar la conversación inicial.</p>
+    </div>
+
+    <div class="v2-calculator reveal">
+      <div class="v2-calc-form">
+        <div class="v2-field">
+          <label for="calcType">Tipo de sitio</label>
+          <select id="calcType">
+            <option value="landing">Landing Page — C$3,500</option>
+            <option value="portfolio">Portafolio / Marca personal — C$5,000</option>
+            <option value="professional" selected>Web Profesional — C$6,500</option>
+            <option value="booking">Servicios / Reservas — C$8,500</option>
+            <option value="catalog">Catálogo Pro — C$9,500</option>
+            <option value="store">Tienda Online — C$14,500</option>
+          </select>
+        </div>
+
+        <div class="v2-calc-row">
+          <div class="v2-field"><label for="calcExtraPages">Páginas adicionales</label><div class="v2-stepper"><button type="button" data-step="pages" data-dir="-1">−</button><input id="calcExtraPages" type="number" min="0" max="20" value="0"><button type="button" data-step="pages" data-dir="1">+</button></div><small>C$600 cada una</small></div>
+          <div class="v2-field"><label for="calcProductBlocks">Bloques extra de 10 productos</label><div class="v2-stepper"><button type="button" data-step="products" data-dir="-1">−</button><input id="calcProductBlocks" type="number" min="0" max="20" value="0"><button type="button" data-step="products" data-dir="1">+</button></div><small>C$500 por bloque</small></div>
+        </div>
+
+        <div class="v2-addon-title">Funciones opcionales</div>
+        <div class="v2-addon-grid">
+          <label><input type="checkbox" class="calc-addon" value="businessEmail" data-price="500"><span><i class="fa-solid fa-envelope"></i><b>Correo empresarial</b><small>+ C$500/año</small></span></label>
+          <label><input type="checkbox" class="calc-addon" value="copywriting" data-price="1200"><span><i class="fa-solid fa-pen-nib"></i><b>Redacción de contenido</b><small>+ C$1,200</small></span></label>
+          <label><input type="checkbox" class="calc-addon" value="advancedSeo" data-price="1500"><span><i class="fa-solid fa-magnifying-glass-chart"></i><b>SEO ampliado</b><small>+ C$1,500</small></span></label>
+          <label><input type="checkbox" class="calc-addon" value="bookingModule" data-price="1800"><span><i class="fa-regular fa-calendar-check"></i><b>Módulo de reservas</b><small>+ C$1,800</small></span></label>
+          <label><input type="checkbox" class="calc-addon" value="payments" data-price="2500"><span><i class="fa-solid fa-credit-card"></i><b>Integración de pagos</b><small>desde + C$2,500</small></span></label>
+          <label><input type="checkbox" class="calc-addon" value="admin" data-price="3000"><span><i class="fa-solid fa-user-gear"></i><b>Panel administrativo</b><small>desde + C$3,000</small></span></label>
+          <label><input type="checkbox" class="calc-addon" value="multilang" data-price="1800"><span><i class="fa-solid fa-language"></i><b>Segundo idioma</b><small>desde + C$1,800</small></span></label>
+          <label><input type="checkbox" class="calc-addon" value="analytics" data-price="800"><span><i class="fa-solid fa-chart-line"></i><b>Analítica configurada</b><small>+ C$800</small></span></label>
+        </div>
+
+        <div class="v2-field v2-maintenance-select"><label for="calcMaintenance">Mantenimiento mensual opcional</label><select id="calcMaintenance"><option value="0">Sin mantenimiento mensual</option><option value="700">Básico — C$700/mes</option><option value="1200">Negocio — C$1,200/mes</option><option value="2000">E-commerce — C$2,000/mes</option></select></div>
+      </div>
+
+      <aside class="v2-calc-summary">
+        <span class="v2-summary-kicker">ESTIMADO</span>
+        <h3 id="calcPlanName">Web Profesional</h3>
+        <div class="v2-total"><small>Proyecto desde</small><strong id="calcTotal">C$ 6,500</strong></div>
+        <div class="v2-monthly"><span>Mantenimiento</span><b id="calcMonthly">No seleccionado</b></div>
+        <div class="v2-breakdown" id="calcBreakdown"></div>
+        <button class="btn btn-primary btn-full" type="button" id="sendCalc"><i class="fa-brands fa-whatsapp"></i> Cotizar este estimado</button>
+        <button class="v2-reset" type="button" id="resetCalc"><i class="fa-solid fa-rotate-left"></i> Restablecer</button>
+        <p><i class="fa-solid fa-circle-info"></i> No es una factura ni precio definitivo. Integraciones externas, licencias, contenido especial y alcance técnico pueden modificar la cotización.</p>
+      </aside>
+    </div>
+
+    <div class="v2-free-consult reveal"><i class="fa-regular fa-comments"></i><div><b>Cotización y orientación inicial sin costo</b><span>Si no sabes qué paquete elegir, cuéntanos qué necesita tu negocio y te orientamos.</span></div><a href="#contacto">Hablar del proyecto</a></div>
+  </div>
+</section>
