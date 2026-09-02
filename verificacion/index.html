@@ -1,0 +1,1031 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sistema de Verificación — Panel (Excel)</title>
+
+  <!-- SheetJS (XLSX) -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+  <style>
+    :root{
+      --bg0:#0a0c10;
+      --bg1:#0f1219;
+      --card:#131826;
+      --card2:#121724;
+      --border:#364152;
+      --text:#eef2f6;
+      --muted:#a8b3c3;
+      --muted2:#7f8da3;
+      --danger:#6b1218;
+      --dangerBorder:#a03a43;
+      --ok:#0f3b2b;
+      --okBorder:#1c7a57;
+      --warn:#3b2a0f;
+      --warnBorder:#a57a2a;
+      --chip:#1a2233;
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --radius:18px;
+      --radius2:22px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{ box-sizing:border-box }
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(800px 500px at 15% 10%, rgba(255,180,120,.10), transparent 60%),
+        radial-gradient(700px 450px at 85% 20%, rgba(110,160,255,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      min-height:100vh;
+      padding:18px;
+    }
+    .wrap{ max-width:1400px; margin:0 auto; display:flex; flex-direction:column; gap:14px; }
+    .topbar{
+      background: linear-gradient(180deg, rgba(22,27,39,.90), rgba(18,22,32,.90));
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:14px 16px;
+      display:flex; gap:12px; flex-wrap:wrap;
+      align-items:center; justify-content:space-between;
+    }
+    .title{ display:flex; flex-direction:column; gap:2px; }
+    .title h1{ margin:0; font-size:16px; letter-spacing:.3px; }
+    .title .sub{ margin:0; font-size:12.5px; color:var(--muted); }
+    .rightbar{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:flex-end; }
+    .pill{
+      background: rgba(26,34,51,.70);
+      border:1px solid rgba(54,65,82,.95);
+      padding:8px 10px;
+      border-radius:999px;
+      display:flex; gap:8px; align-items:center;
+      color:var(--muted);
+      font-size:12.5px;
+      white-space:nowrap;
+    }
+    .panel{
+      background: linear-gradient(180deg, rgba(18,22,32,.90), rgba(14,18,26,.90));
+      border:1px solid var(--border);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      padding:14px;
+      overflow:hidden;
+    }
+    .row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:12px;
+    }
+    .controls{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    button, .btnlike{
+      appearance:none;
+      border:1px solid rgba(54,65,82,.95);
+      background: rgba(26,34,51,.70);
+      color: var(--text);
+      padding:10px 12px;
+      border-radius:14px;
+      cursor:pointer;
+      font-weight:750;
+      font-size:13px;
+    }
+    button:hover{ filter:brightness(1.08) }
+    button.danger{ border-color: rgba(160,58,67,.95); background: rgba(107,18,24,.30); }
+    button.ok{ border-color: rgba(28,122,87,.95); background: rgba(15,59,43,.30); }
+    button.warn{ border-color: rgba(165,122,42,.95); background: rgba(59,42,15,.30); }
+
+    input[type="file"]{ display:none; }
+    .tabs{
+      display:flex; gap:8px; flex-wrap:wrap;
+      margin: 0 0 10px 0;
+    }
+    .tab{
+      padding:9px 11px;
+      border-radius:999px;
+      border:1px solid rgba(54,65,82,.95);
+      background: rgba(19,24,38,.65);
+      color: var(--muted);
+      font-weight:800;
+      font-size:13px;
+      cursor:pointer;
+      user-select:none;
+    }
+    .tab.active{
+      color: var(--text);
+      background: rgba(26,34,51,.85);
+      border-color: rgba(140,160,190,.55);
+    }
+
+    .filters{
+      display:flex; gap:10px; flex-wrap:wrap;
+      align-items:center; justify-content:space-between;
+      margin-bottom:10px;
+    }
+    .filters .left, .filters .right{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .field{
+      display:flex; gap:8px; align-items:center;
+      background: rgba(19,24,38,.55);
+      border:1px solid rgba(54,65,82,.6);
+      padding:8px 10px;
+      border-radius:14px;
+      color: var(--muted);
+      font-size:13px;
+    }
+    .field input, .field select{
+      background: transparent;
+      border:none;
+      outline:none;
+      color: var(--text);
+      font-size:13px;
+      min-width: 180px;
+    }
+    .field select{ min-width: 160px; }
+
+    .tableWrap{
+      border:1px solid rgba(54,65,82,.55);
+      border-radius: 16px;
+      overflow:auto;
+      background: rgba(10,12,16,.25);
+    }
+
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      min-width: 980px;
+    }
+    thead th{
+      position:sticky; top:0;
+      background: rgba(19,24,38,.92);
+      border-bottom:1px solid rgba(54,65,82,.8);
+      padding:10px 10px;
+      text-align:left;
+      font-size:12.5px;
+      color:#c6d2e2;
+      letter-spacing:.2px;
+      white-space:nowrap;
+      z-index:3;
+    }
+    tbody td{
+      border-bottom:1px solid rgba(54,65,82,.35);
+      padding:8px 10px;
+      font-size:13px;
+      vertical-align:middle;
+      white-space:nowrap;
+    }
+    tbody tr:hover td{ background: rgba(26,34,51,.18); }
+
+    .cellEdit{
+      display:inline-block;
+      min-width: 120px;
+      padding:6px 8px;
+      border-radius:10px;
+      border:1px solid transparent;
+    }
+    .cellEdit[contenteditable="true"]:focus{
+      outline:none;
+      border-color: rgba(140,160,190,.45);
+      background: rgba(26,34,51,.25);
+    }
+    .mono{ font-family:var(--mono); }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:6px 10px;
+      border-radius:999px;
+      font-weight:800;
+      font-size:12px;
+      border:1px solid rgba(54,65,82,.7);
+      background: rgba(26,34,51,.25);
+      color: var(--muted);
+    }
+    .badge.ok{ border-color: rgba(28,122,87,.75); background: rgba(15,59,43,.25); color:#bfead9; }
+    .badge.warn{ border-color: rgba(165,122,42,.75); background: rgba(59,42,15,.25); color:#ffe4b3; }
+    .badge.danger{ border-color: rgba(160,58,67,.75); background: rgba(107,18,24,.25); color:#ffd3d6; }
+
+    .smallnote{
+      margin-top:10px;
+      color: var(--muted2);
+      font-size:12px;
+      line-height:1.35;
+    }
+
+    .actionsCol{ display:flex; gap:8px; align-items:center; }
+    .iconBtn{
+      padding:8px 10px;
+      border-radius:12px;
+      font-size:12.5px;
+      font-weight:900;
+    }
+
+    @media (max-width: 900px){
+      body{ padding:12px; }
+      table{ min-width: 920px; }
+      .field input{ min-width: 140px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <div class="topbar">
+      <div class="title">
+        <h1>🔎 Sistema de Verificación de Cuentas</h1>
+        <p class="sub">Panel local (GitHub Pages) • Importa/edita/exporta Excel • Guarda en este navegador</p>
+      </div>
+
+      <div class="rightbar">
+        <div class="pill">🕒 <span id="lastCheck">Última consulta: —</span></div>
+        <div class="pill">💾 <span id="storageInfo">Sin datos cargados</span></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="row">
+        <div class="controls">
+          <label class="btnlike" for="fileInput">📥 Importar Excel (.xlsx)</label>
+          <input id="fileInput" type="file" accept=".xlsx,.xls" />
+
+          <button class="ok" id="btnExport">📤 Exportar Excel</button>
+          <button class="warn" id="btnAdd">➕ Nuevo usuario</button>
+          <button class="danger" id="btnClear">🧹 Borrar datos del navegador</button>
+        </div>
+
+        <div class="controls">
+          <button id="btnRecalc">🔁 Recalcular ALERTA/DIAS</button>
+          <button id="btnNotify">📢 Notificar vencidos</button><button id="btnSave">💾 Guardar</button>
+        </div>
+      </div>
+
+      <div class="tabs">
+        <div class="tab active" data-tab="Tele-Latino">Tele-Latino</div>
+        <div class="tab" data-tab="IPTV">IPTV</div>
+      </div>
+
+      <div class="filters">
+        <div class="left">
+          <div class="field">🔎 Buscar:
+            <input id="search" type="text" placeholder="Nombre, usuario, celular, plataforma…" />
+          </div>
+
+          <div class="field">📌 Estado:
+            <select id="statusFilter">
+              <option value="all">Todos</option>
+              <option value="activos">Activos</option>
+              <option value="porvencer">Por vencer (≤7 días)</option>
+              <option value="vencidos">Vencidos</option>
+              <option value="sinfecha">Sin expiración</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="right">
+          <div class="field">📄 Registros: <span id="count">0</span></div>
+        </div>
+      </div>
+
+      <div class="tableWrap">
+        <table id="table">
+          <thead id="thead"></thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+
+      <div class="smallnote">
+        ⚠️ Este panel guarda la información en <b>localStorage</b> del navegador (este dispositivo). Para respaldo, usa “Exportar Excel”.
+        Si editas <b>USUARIO/CLAVE</b>, recuerda que queda guardado localmente en este equipo.
+      </div>
+    </div>
+  </div>
+
+<script>
+/** =============================
+ *  Config / Estado
+ *  ============================= */
+const LS_KEY = "verif_panel_data_v1";
+const SHEETS = ["Tele-Latino", "IPTV"];
+
+let appState = {
+  activeSheet: "Tele-Latino",
+  // Cada hoja: { headers: string[], rows: object[] }
+  data: {
+    "Tele-Latino": { headers: [], rows: [] },
+    "IPTV": { headers: [], rows: [] }
+  }
+};
+
+// Columnas típicas de fecha (se detectan por nombre)
+const DATE_KEYS = ["ACTIVACION", "RENOVACION", "EXPIRACIÓN", "EXPIRACION"];
+
+// Derivadas
+const KEY_ALERTA = "ALERTA";
+const KEY_DIAS = "DIAS";
+
+/** =============================
+ *  Utilidades
+ *  ============================= */
+function nowStamp(){
+  const d = new Date();
+  const pad = n => String(n).padStart(2,'0');
+  return `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+function parseExcelDate(v){
+  // XLSX puede dar Date, number (serial), o string
+  if(!v) return null;
+  if(v instanceof Date && !isNaN(v)) return v;
+  if(typeof v === "number"){
+    // XLSX.SSF.parse_date_code?
+    const o = XLSX.SSF.parse_date_code(v);
+    if(o && o.y){
+      return new Date(o.y, o.m-1, o.d);
+    }
+  }
+  if(typeof v === "string"){
+    // Acepta dd/mm/yyyy o yyyy-mm-dd
+    const s = v.trim();
+    const m1 = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+    if(m1){
+      const dd = +m1[1], mm = +m1[2], yy = +m1[3];
+      const dt = new Date(yy, mm-1, dd);
+      return isNaN(dt) ? null : dt;
+    }
+    const m2 = s.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if(m2){
+      const yy = +m2[1], mm = +m2[2], dd = +m2[3];
+      const dt = new Date(yy, mm-1, dd);
+      return isNaN(dt) ? null : dt;
+    }
+  }
+  return null;
+}
+function fmtDDMMYYYY(d){
+  if(!d || !(d instanceof Date) || isNaN(d)) return "";
+  const pad = n => String(n).padStart(2,"0");
+  return `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()}`;
+}
+function fmtYYYYMMDD(d){
+  if(!d || !(d instanceof Date) || isNaN(d)) return "";
+  const pad = n => String(n).padStart(2,"0");
+  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+}
+function daysDiffFromToday(expDate){
+  const d = parseExcelDate(expDate);
+  if(!d) return null;
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  const x = new Date(d);
+  x.setHours(0,0,0,0);
+  const ms = x - today;
+  return Math.round(ms / (1000*60*60*24));
+}
+function alertaFromDays(days){
+  if(days === null || days === undefined) return "Sin fecha de expiración";
+  if(days < 0) return `Vencido hace ${Math.abs(days)} días`;
+  if(days === 0) return `Vence hoy`;
+  return `Le quedan ${days} días`;
+}
+function statusClass(days){
+  if(days === null) return "warn";
+  if(days < 0) return "danger";
+  if(days <= 7) return "warn";
+  return "ok";
+}
+function normalizeHeader(h){
+  if(h === null || h === undefined) return "";
+  return String(h).trim();
+}
+function isDateHeader(h){
+  const HH = normalizeHeader(h).toUpperCase();
+  return DATE_KEYS.some(k => HH.includes(k));
+}
+function safeKey(h){
+  // clave interna: header tal cual (mantener)
+  return normalizeHeader(h);
+}
+
+/** =============================
+ *  Cargar / Guardar localStorage
+ *  ============================= */
+function loadFromLocal(){
+  try{
+    const raw = localStorage.getItem(LS_KEY);
+    if(!raw) return false;
+    const obj = JSON.parse(raw);
+    if(!obj || !obj.data) return false;
+    appState = obj;
+    return true;
+  }catch(e){
+    console.warn(e);
+    return false;
+  }
+}
+function saveToLocal(){
+  localStorage.setItem(LS_KEY, JSON.stringify(appState));
+  updateStorageInfo();
+}
+function clearLocal(){
+  localStorage.removeItem(LS_KEY);
+  appState = {
+    activeSheet: "Tele-Latino",
+    data: { "Tele-Latino": { headers: [], rows: [] }, "IPTV": { headers: [], rows: [] } }
+  };
+  updateStorageInfo();
+}
+
+/** =============================
+ *  Importar Excel
+ *  ============================= */
+function detectHeaderAndData(ws){
+  // Busca la fila de encabezados (contiene "NOMBRE" y/o "USUARIO")
+  const range = XLSX.utils.decode_range(ws["!ref"]);
+  let headerRow = null;
+
+  for(let r=range.s.r; r<=Math.min(range.e.r, range.s.r+80); r++){
+    let rowVals = [];
+    for(let c=range.s.c; c<=Math.min(range.e.c, range.s.c+40); c++){
+      const cell = ws[XLSX.utils.encode_cell({r,c})];
+      rowVals.push(cell ? cell.v : null);
+    }
+    const joined = rowVals.map(v => (v??"").toString().toUpperCase());
+    if(joined.includes("NOMBRE") && (joined.includes("USUARIO") || joined.includes("CLAVE") || joined.includes("CELULAR"))){
+      headerRow = r;
+      break;
+    }
+  }
+  if(headerRow === null){
+    return { headers: [], rows: [] };
+  }
+
+  // Extrae headers desde primer no-vacío, hasta 3 vacíos seguidos
+  let headers = [];
+  let started = false;
+  let emptyStreak = 0;
+
+  for(let c=range.s.c; c<=range.e.c; c++){
+    const cell = ws[XLSX.utils.encode_cell({r:headerRow,c})];
+    const v = cell ? normalizeHeader(cell.v) : "";
+    if(!started){
+      if(v){
+        started = true;
+        headers.push(v);
+        emptyStreak = 0;
+      }
+      continue;
+    }else{
+      if(v){
+        headers.push(v);
+        emptyStreak = 0;
+      }else{
+        emptyStreak++;
+        if(emptyStreak >= 3) break;
+        headers.push(""); // mantener posición (opcional)
+      }
+    }
+  }
+
+  // Limpia headers vacíos intermedios (si quedaron)
+  // Conserva solo headers con texto (para tabla)
+  headers = headers.map(h => normalizeHeader(h)).filter(h => h);
+
+  // Lee filas desde headerRow+1 hasta que NOMBRE esté vacío
+  const rows = [];
+  for(let r=headerRow+1; r<=range.e.r; r++){
+    // si primera columna de headers (usualmente NOMBRE) está vacía => cortar
+    const firstHeader = headers[0];
+    const firstColIndex = findColIndexByHeader(ws, headerRow, firstHeader, range);
+    const firstCell = ws[XLSX.utils.encode_cell({r, c:firstColIndex})];
+    const firstVal = firstCell ? firstCell.v : null;
+    if(firstVal === null || firstVal === undefined || String(firstVal).trim() === ""){
+      // permitir algunas filas vacías al final -> cortar directo
+      break;
+    }
+
+    const obj = {};
+    for(const h of headers){
+      const colIndex = findColIndexByHeader(ws, headerRow, h, range);
+      const cell = ws[XLSX.utils.encode_cell({r, c:colIndex})];
+      let v = cell ? cell.v : "";
+      // Normaliza fechas si parecen fecha
+      if(isDateHeader(h)){
+        const d = parseExcelDate(v);
+        v = d ? fmtDDMMYYYY(d) : (v ? String(v) : "");
+      }
+      obj[safeKey(h)] = (v === null || v === undefined) ? "" : String(v);
+    }
+    rows.push(obj);
+  }
+
+  return { headers, rows };
+
+  function findColIndexByHeader(ws, headerRow, headerText, range){
+    const target = normalizeHeader(headerText).toUpperCase();
+    for(let c=range.s.c; c<=range.e.c; c++){
+      const cell = ws[XLSX.utils.encode_cell({r:headerRow,c})];
+      const v = cell ? normalizeHeader(cell.v).toUpperCase() : "";
+      if(v === target) return c;
+    }
+    // fallback: si no encontró, usa la primera columna
+    return range.s.c;
+  }
+}
+
+function importWorkbook(file){
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const data = new Uint8Array(e.target.result);
+    const wb = XLSX.read(data, { type:"array", cellDates:true });
+
+    for(const sheetName of SHEETS){
+      const ws = wb.Sheets[sheetName];
+      if(!ws) continue;
+
+      const parsed = detectHeaderAndData(ws);
+
+      // Asegura que existan ALERTA y DIAS en headers (si no vienen)
+      let headers = parsed.headers.slice();
+      if(!headers.includes(KEY_ALERTA)) headers.push(KEY_ALERTA);
+      if(!headers.includes(KEY_DIAS)) headers.push(KEY_DIAS);
+
+      // Recalcula derivados
+      const rows = parsed.rows.map(r => {
+        const rr = {...r};
+        recalcRow(rr, headers);
+        return rr;
+      });
+
+      appState.data[sheetName] = { headers, rows };
+    }
+
+    saveToLocal();
+    render();
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+/** =============================
+ *  Recalcular derivados
+ *  ============================= */
+function getExpirationKey(headers){
+  // Preferencia: "EXPIRACIÓN" / "EXPIRACION" (si hay más de una, usa la primera)
+  const candidates = headers.filter(h => normalizeHeader(h).toUpperCase().includes("EXPIR"));
+  return candidates.length ? candidates[0] : null;
+}
+function recalcRow(rowObj, headers){
+  const expKey = getExpirationKey(headers);
+  if(!expKey){
+    rowObj[KEY_DIAS] = "";
+    rowObj[KEY_ALERTA] = "Sin columna de expiración";
+    return;
+  }
+  const days = daysDiffFromToday(rowObj[expKey]);
+  rowObj[KEY_DIAS] = (days === null) ? "" : String(days);
+  rowObj[KEY_ALERTA] = alertaFromDays(days);
+}
+function recalcAll(){
+  const {headers, rows} = appState.data[appState.activeSheet];
+  rows.forEach(r => recalcRow(r, headers));
+  saveToLocal();
+  renderBody(); // sólo refrescar cuerpo
+}
+
+/** =============================
+ *  Render
+ *  ============================= */
+function render(){
+  // Tabs UI
+  document.querySelectorAll(".tab").forEach(t => {
+    t.classList.toggle("active", t.dataset.tab === appState.activeSheet);
+  });
+  renderTable();
+  updateCounts();
+  updateStorageInfo();
+}
+function renderTable(){
+  renderHead();
+  renderBody();
+}
+function renderHead(){
+  const {headers} = appState.data[appState.activeSheet];
+  const thead = document.getElementById("thead");
+  if(!headers.length){
+    thead.innerHTML = `<tr><th>Sin datos</th></tr>`;
+    return;
+  }
+  const cols = headers.slice();
+  cols.unshift("ACCIONES"); // primera columna fija
+  thead.innerHTML = `<tr>${cols.map(h => `<th>${escapeHtml(h)}</th>`).join("")}</tr>`;
+}
+function renderBody(){
+  const tbody = document.getElementById("tbody");
+  const {headers, rows} = appState.data[appState.activeSheet];
+
+  if(!headers.length || !rows.length){
+    tbody.innerHTML = `<tr><td style="padding:14px; color:#a8b3c3">Importa un Excel para ver datos.</td></tr>`;
+    updateCounts();
+    return;
+  }
+
+  const search = document.getElementById("search").value.trim().toLowerCase();
+  const filter = document.getElementById("statusFilter").value;
+
+  const expKey = getExpirationKey(headers);
+
+  const filtered = rows.filter((r) => {
+    // search
+    if(search){
+      const blob = headers.map(h => (r[h] ?? "")).join(" ").toLowerCase();
+      if(!blob.includes(search)) return false;
+    }
+
+    // status filter
+    const days = expKey ? daysDiffFromToday(r[expKey]) : null;
+    if(filter === "activos"){
+      return (days !== null && days > 7);
+    }
+    if(filter === "porvencer"){
+      return (days !== null && days >= 0 && days <= 7);
+    }
+    if(filter === "vencidos"){
+      return (days !== null && days < 0);
+    }
+    if(filter === "sinfecha"){
+      return (days === null);
+    }
+    return true;
+  });
+
+  tbody.innerHTML = filtered.map((r, idx) => {
+    const badge = renderBadgeFromRow(r, headers);
+    const cells = headers.map(h => renderCell(r, h, headers));
+    const rowIndex = getRowIndex(rows, r);
+    const actions = `
+      <div class="actionsCol">
+        <button class="iconBtn" title="Notificar WhatsApp" onclick="notifyRow(${rowIndex})">📱</button>
+        <button class="iconBtn danger" title="Eliminar" onclick="deleteRow(${rowIndex})">🗑</button>
+      </div>`;
+    return `<tr>
+      <td>${actions}</td>
+      ${cells.join("")}
+    </tr>`;
+  }).join("");
+
+  updateCounts(filtered.length);
+}
+function getRowIndex(rows, rowRef){
+  // referencia por objeto (misma instancia)
+  return rows.indexOf(rowRef);
+}
+function renderBadgeFromRow(row, headers){
+  const expKey = getExpirationKey(headers);
+  const days = expKey ? daysDiffFromToday(row[expKey]) : null;
+  const cls = statusClass(days);
+  const label = (days === null) ? "SIN FECHA" : (days < 0 ? "VENCIDO" : (days <= 7 ? "POR VENCER" : "ACTIVO"));
+  return `<span class="badge ${cls}">${label}</span>`;
+}
+function renderCell(row, header, headers){
+  // Para ALERTA, mostrará badge + texto
+  if(normalizeHeader(header).toUpperCase() === KEY_ALERTA){
+    const expKey = getExpirationKey(headers);
+    const days = expKey ? daysDiffFromToday(row[expKey]) : null;
+    const cls = statusClass(days);
+    const txt = row[header] ?? "";
+    return `<td>
+      ${renderBadgeFromRow(row, headers)}
+      <span style="margin-left:8px; color:#e9edf3; font-weight:750">${escapeHtml(txt)}</span>
+    </td>`;
+  }
+
+  // DIAS: mono
+  if(normalizeHeader(header).toUpperCase() === KEY_DIAS){
+    return `<td><span class="cellEdit mono" contenteditable="true"
+      data-h="${escapeAttr(header)}"
+      oninput="onEditCell(event)">${escapeHtml(row[header] ?? "")}</span></td>`;
+  }
+
+  // Fechas: input date + texto
+  if(isDateHeader(header)){
+    const v = row[header] ?? "";
+    const d = parseExcelDate(v);
+    const iso = d ? fmtYYYYMMDD(d) : "";
+    return `<td>
+      <input type="date" value="${escapeAttr(iso)}" data-h="${escapeAttr(header)}"
+        onchange="onEditDate(event)" style="
+          background: rgba(26,34,51,.25);
+          border:1px solid rgba(54,65,82,.45);
+          border-radius:10px;
+          color:#eef2f6;
+          padding:6px 8px;
+          font-weight:750;
+          font-size:12.5px;
+        "/>
+      <span class="mono" style="margin-left:8px; color:#a8b3c3; font-size:12px;">${escapeHtml(d ? fmtDDMMYYYY(d) : "")}</span>
+    </td>`;
+  }
+
+  // Normal editable cell
+  const extra = (normalizeHeader(header).toUpperCase().includes("USUARIO") || normalizeHeader(header).toUpperCase().includes("CLAVE"))
+    ? " mono" : "";
+  return `<td><span class="cellEdit${extra}" contenteditable="true"
+    data-h="${escapeAttr(header)}"
+    oninput="onEditCell(event)">${escapeHtml(row[header] ?? "")}</span></td>`;
+}
+function updateCounts(n){
+  const {rows} = appState.data[appState.activeSheet];
+  document.getElementById("count").textContent = (n !== undefined) ? String(n) : String(rows.length);
+}
+function updateStorageInfo(){
+  const total = SHEETS.reduce((acc, s) => acc + (appState.data[s].rows?.length || 0), 0);
+  document.getElementById("storageInfo").textContent = total ? `${total} registros guardados` : "Sin datos cargados";
+}
+
+/** =============================
+ *  Edición (eventos)
+ *  ============================= */
+let dirty = false;
+
+function markDirty(){
+  dirty = true;
+}
+function onEditCell(ev){
+  const el = ev.target;
+  const header = el.dataset.h;
+  // Necesitamos ubicar la fila (tr index) dentro del filtrado: mejor usar dataset de row id, pero aquí simplificamos:
+  // Re-render completo al guardar; para mantener simple, actualizamos leyendo la tabla visible y sincronizando por índice visible.
+  markDirty();
+  syncFromDom();
+}
+function onEditDate(ev){
+  const input = ev.target;
+  const header = input.dataset.h;
+  const iso = input.value; // yyyy-mm-dd
+  markDirty();
+  syncFromDom();
+}
+function syncFromDom(){
+  // sincroniza tbody visible con rows originales por posición visible en el filtro actual (mismo orden)
+  const tbody = document.getElementById("tbody");
+  const {headers, rows} = appState.data[appState.activeSheet];
+  if(!rows.length) return;
+
+  // reconstruye la lista filtrada igual que renderBody()
+  const search = document.getElementById("search").value.trim().toLowerCase();
+  const filter = document.getElementById("statusFilter").value;
+  const expKey = getExpirationKey(headers);
+
+  const filtered = rows.filter((r) => {
+    if(search){
+      const blob = headers.map(h => (r[h] ?? "")).join(" ").toLowerCase();
+      if(!blob.includes(search)) return false;
+    }
+    const days = expKey ? daysDiffFromToday(r[expKey]) : null;
+    if(filter === "activos") return (days !== null && days > 7);
+    if(filter === "porvencer") return (days !== null && days >= 0 && days <= 7);
+    if(filter === "vencidos") return (days !== null && days < 0);
+    if(filter === "sinfecha") return (days === null);
+    return true;
+  });
+
+  const domRows = Array.from(tbody.querySelectorAll("tr"));
+  domRows.forEach((tr, i) => {
+    const model = filtered[i];
+    if(!model) return;
+    // inputs date
+    const dateInputs = tr.querySelectorAll('input[type="date"]');
+    dateInputs.forEach(inp => {
+      const h = inp.dataset.h;
+      const iso = inp.value || "";
+      if(iso){
+        const d = parseExcelDate(iso);
+        model[h] = d ? fmtDDMMYYYY(d) : "";
+      }else{
+        model[h] = "";
+      }
+    });
+    // spans editable
+    const edits = tr.querySelectorAll('span.cellEdit[contenteditable="true"]');
+    edits.forEach(sp => {
+      const h = sp.dataset.h;
+      model[h] = (sp.innerText ?? "").trim();
+    });
+    // recalcula
+    recalcRow(model, headers);
+  });
+}
+
+function deleteRow(index){
+  const {rows} = appState.data[appState.activeSheet];
+  if(index < 0) return;
+  if(!confirm("¿Eliminar este registro?")) return;
+  rows.splice(index, 1);
+  markDirty();
+  saveToLocal();
+  render();
+}
+
+/** =============================
+ *  Agregar usuario
+ *  ============================= */
+function addRow(){
+  const {headers, rows} = appState.data[appState.activeSheet];
+  if(!headers.length){
+    alert("Primero importa el Excel para obtener encabezados.");
+    return;
+  }
+  const obj = {};
+  headers.forEach(h => obj[h] = "");
+  // Defaults razonables
+  const expKey = getExpirationKey(headers);
+  if(expKey) obj[expKey] = "";
+  recalcRow(obj, headers);
+  rows.unshift(obj); // arriba
+  markDirty();
+  saveToLocal();
+  render();
+}
+
+/** =============================
+ *  Exportar Excel
+ *  ============================= */
+function exportExcel(){
+  // Genera un workbook NUEVO con datos (no conserva formato/fórmulas del original)
+  const wb = XLSX.utils.book_new();
+
+  for(const sheetName of SHEETS){
+    const {headers, rows} = appState.data[sheetName];
+    if(!headers.length){
+      // crea hoja vacía con un mensaje
+      const ws = XLSX.utils.aoa_to_sheet([["SIN DATOS"]]);
+      XLSX.utils.book_append_sheet(wb, ws, sheetName);
+      continue;
+    }
+
+    const aoa = [];
+    aoa.push(headers);
+
+    rows.forEach(r => {
+      const row = headers.map(h => {
+        // Fechas en texto dd/mm/yyyy (igual a como se ve en tu Excel)
+        return r[h] ?? "";
+      });
+      aoa.push(row);
+    });
+
+    const ws = XLSX.utils.aoa_to_sheet(aoa);
+    // anchos básicos
+    ws["!cols"] = headers.map(h => ({ wch: Math.min(Math.max(h.length, 12), 28) }));
+    XLSX.utils.book_append_sheet(wb, ws, sheetName);
+  }
+
+  XLSX.writeFile(wb, `Gestion_Cuentas_Export_${Date.now()}.xlsx`);
+}
+
+
+function notifyRow(index){
+  const {headers, rows} = appState.data[appState.activeSheet];
+  const row = rows[index];
+  if(!row) return;
+
+  const celularKey = headers.find(h => h.toUpperCase().includes("CELULAR"));
+  const nombreKey = headers.find(h => h.toUpperCase().includes("NOMBRE"));
+
+  const nombre = nombreKey ? (row[nombreKey] || "Cliente") : "Cliente";
+  let numero = celularKey ? String(row[celularKey] || "").replace(/\D/g,'') : "";
+
+  if(!numero){
+    alert("Este cliente no tiene número de celular.");
+    return;
+  }
+
+  const expKey = getExpirationKey(headers);
+  const days = expKey ? daysDiffFromToday(row[expKey]) : null;
+
+  let mensaje = "";
+
+  if(days === null){
+      mensaje =
+      `Hola ${nombre}. No encontramos una fecha de vencimiento registrada para tu membresía. Si deseas verificar tu servicio, contáctanos.`;
+  }else if(days < 0){
+      mensaje =
+      `Hola ${nombre}. Tu membresía ha vencido hace ${Math.abs(days)} día(s). Para continuar disfrutando del servicio, puedes renovarla cuando gustes.`;
+  }else if(days <= 7){
+      mensaje =
+      `Hola ${nombre}. Tu membresía vence en ${days} día(s). Te recomendamos renovarla para evitar interrupciones en el servicio.`;
+  }else{
+      mensaje =
+      `Hola ${nombre}. Tu membresía se encuentra activa y aún te quedan ${days} día(s) de servicio.`;
+  }
+
+  window.open(`https://wa.me/505${numero}?text=${encodeURIComponent(mensaje)}`,'_blank');
+}
+
+function notifyExpired(){
+  const {headers, rows} = appState.data[appState.activeSheet];
+  const expKey = getExpirationKey(headers);
+  if(!expKey){
+    alert("No existe columna de expiración.");
+    return;
+  }
+
+  const lista = rows.filter(r => {
+      const d = daysDiffFromToday(r[expKey]);
+      return d !== null && d <= 7;
+  });
+
+  if(!lista.length){
+      alert("No hay clientes vencidos o próximos a vencer.");
+      return;
+  }
+
+  alert(`Se encontraron ${lista.length} clientes vencidos o por vencer. Utiliza el botón 📱 de cada registro para enviar el mensaje.`);
+}
+
+
+/** =============================
+ *  Helpers HTML escaping
+ *  ============================= */
+function escapeHtml(s){
+  return String(s ?? "").replace(/[&<>"']/g, m => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"
+  }[m]));
+}
+function escapeAttr(s){
+  return escapeHtml(s).replace(/"/g, "&quot;");
+}
+
+/** =============================
+ *  Eventos UI
+ *  ============================= */
+document.getElementById("fileInput").addEventListener("change", (e) => {
+  const f = e.target.files?.[0];
+  if(!f) return;
+  importWorkbook(f);
+  e.target.value = "";
+});
+
+document.getElementById("btnExport").addEventListener("click", () => {
+  syncFromDom();
+  saveToLocal();
+  exportExcel();
+});
+
+document.getElementById("btnAdd").addEventListener("click", () => addRow());
+
+document.getElementById("btnClear").addEventListener("click", () => {
+  if(!confirm("Esto borrará los datos guardados en este navegador. ¿Continuar?")) return;
+  clearLocal();
+  render();
+});
+
+document.getElementById("btnRecalc").addEventListener("click", () => {
+  syncFromDom();
+  recalcAll();
+});
+
+document.getElementById("btnNotify").addEventListener("click", () => notifyExpired());
+
+document.getElementById("btnSave").addEventListener("click", () => {
+  syncFromDom();
+  saveToLocal();
+  dirty = false;
+  alert("Guardado en este navegador.");
+});
+
+document.getElementById("search").addEventListener("input", () => renderBody());
+document.getElementById("statusFilter").addEventListener("change", () => renderBody());
+
+document.querySelectorAll(".tab").forEach(t => {
+  t.addEventListener("click", () => {
+    // guarda cambios de la vista actual
+    syncFromDom();
+    if(dirty) saveToLocal();
+
+    appState.activeSheet = t.dataset.tab;
+    saveToLocal();
+    render();
+  });
+});
+
+// Inicialización
+(function init(){
+  document.getElementById("lastCheck").textContent = `Última consulta: ${nowStamp()}`;
+  const loaded = loadFromLocal();
+  updateStorageInfo();
+  render();
+})();
+</script>
+</body>
+</html>
