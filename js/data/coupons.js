@@ -1,0 +1,152 @@
+const coupons = {
+
+
+  'aniversario187': {
+    type: 'percent',
+    value: 0,
+    label: 'Aniversario 187 de Masaya',
+    minSubtotal: 0,
+    appliesToDiscounted: true,
+    useDeviceDiscount: true,
+    validOn: '2026-09-02',
+    eligibleDevices: ['3 Dispositivos', '4 Dispositivos', '5 Dispositivos']
+  },
+
+
+  'ClienteVip': {
+    type: 'percent',
+    value: 20,
+    label: '',
+    minSubtotal: 5,
+    appliesToDiscounted: true,
+    useDeviceDiscount: true
+  },
+
+  'iuiu': {
+    type: 'percent',
+    value: 0,
+    label: '',
+    minSubtotal: 0,
+    appliesToDiscounted: false,
+    useDeviceDiscount: false
+  },
+
+  'uiuyi': {
+    type: 'percent',
+    value: 5,
+    label: '',
+    minSubtotal: 10,
+    appliesToDiscounted: true,
+    useDeviceDiscount: true
+  },
+
+  '902026': {
+    type: 'percent',
+    value: 0,
+    label: '',
+    minSubtotal: 0,
+    appliesToDiscounted: true,
+    useDeviceDiscount: true
+  },
+
+  'VIP20': {
+    type: 'percent',
+    value: 15,
+    label: '',
+    minSubtotal: 80,
+    appliesToDiscounted: false,
+    useDeviceDiscount: false
+  }
+
+};
+
+
+const couponDeviceDiscounts = {
+
+
+  'aniversario187': {
+    defaultByDevice: {
+      '1 Dispositivo': 0,
+      '2 Dispositivos': 0,
+      '3 Dispositivos': 10,
+      '4 Dispositivos': 10,
+      '5 Dispositivos': 10,
+      '6 Dispositivos': 0
+    }
+  },
+
+
+  'ClienteVip': {
+
+    defaultByDevice: {
+      '1 Dispositivo': 0,
+      '2 Dispositivos': 5,
+      '3 Dispositivos': 20,
+      '4 Dispositivos': 20,
+      '5 Dispositivos': 20,
+      '6 Dispositivos': 20
+    },
+
+    products: {
+
+      'Stella TV': {
+        '1 Dispositivo': 0,
+        '2 Dispositivos': 5,
+        '3 Dispositivos': 20
+      },
+
+      'WeibTV (GVS)': {
+        '1 Dispositivo': 0,
+        '3 Dispositivos': 20,
+        '5 Dispositivos': 20
+      },
+
+      'Tele-Latino': {
+        '1 Dispositivo': 0,
+        '4 Dispositivos': 20
+      },
+
+      'VeltixTV': {
+        '1 Dispositivo': 0,
+        '2 Dispositivos': 5,
+        '3 Dispositivos': 20
+      },
+
+      '+Streaming': {
+        '1 Dispositivo': 0,
+        '2 Dispositivos': 0,
+        '3 Dispositivos': 0
+      }
+
+    }
+  },
+
+
+  '902026': {
+
+    defaultByDevice: {
+      '1 Dispositivo': 0,
+      '2 Dispositivos': 0,
+      '3 Dispositivos': 5,
+      '4 Dispositivos': 0,
+      '5 Dispositivos': 7,
+      '6 Dispositivos': 5
+    }
+
+  },
+
+
+  'VIP20': {
+
+    defaultByDevice: {
+      '1 Dispositivo': 0,
+      '2 Dispositivos': 0,
+      '3 Dispositivos': 0,
+      '4 Dispositivos': 0,
+      '5 Dispositivos': 0,
+      '6 Dispositivos': 0
+    }
+
+  }
+
+};
