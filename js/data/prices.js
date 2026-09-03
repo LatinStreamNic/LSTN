@@ -1,34 +1,27 @@
 
 const officialDevicePrices={
 
-  'WeibTV+Veltix|1 mes': {
-    '3 Dispositivos': {price:18.00, oldPrice:18.00, available:true},
-    '5 Dispositivos': {price:23.00, oldPrice:23.00, available:true},
-  },
-  'WeibTV+Veltix|2 meses': {
-    '3 Dispositivos': {price:36.00, oldPrice:36.00, available:true},
-    '5 Dispositivos': {price:46.00, oldPrice:46.00, available:true},
-  },
-  'WeibTV+Veltix|3 meses': {
-    '3 Dispositivos': {price:54.00, oldPrice:54.00, available:true},
-    '5 Dispositivos': {price:69.00, oldPrice:69.00, available:true},
-  },
-  'WeibTV+Veltix|6 meses': {
-    '3 Dispositivos': {price:108.00, oldPrice:108.00, available:true},
-    '5 Dispositivos': {price:138.00, oldPrice:138.00, available:true},
-  },
-  'WeibTV+Veltix|9 meses': {
-    '3 Dispositivos': {price:148.60, oldPrice:148.60, available:true},
-    '5 Dispositivos': {price:207.00, oldPrice:207.00, available:true},
-  },
-  'WeibTV+Veltix|12 meses': {
-    '3 Dispositivos': {price:186.00, oldPrice:186.00, available:true},
-    '5 Dispositivos': {price:276.00, oldPrice:276.00, available:true},
-  },
-  'WeibTV+Veltix|18 meses': {
-    '3 Dispositivos': {price:304.00, oldPrice:304.00, available:true},
-    '5 Dispositivos': {price:414.00, oldPrice:414.00, available:true},
-  },
+'Ibo+WeibTV|1 mes': {
+  '1 Dispositivo': {price:8.00, oldPrice:9.00, available:true},
+},
+'Ibo+WeibTV|2 meses': {
+  '1 Dispositivo': {price:13.00, oldPrice:14.00, available:true},
+},
+'Ibo+WeibTV|3 meses': {
+  '1 Dispositivo': {price:18.00, oldPrice:19.00, available:true},
+},
+'Ibo+WeibTV|6 meses': {
+  '1 Dispositivo': {price:33.00, oldPrice:34.00, available:true},
+},
+'Ibo+WeibTV|9 meses': {
+  '1 Dispositivo': {price:48.00, oldPrice:49.00, available:true},
+},
+'Ibo+WeibTV|12 meses': {
+  '1 Dispositivo': {price:63.00, oldPrice:64.00, available:true},
+},
+'Ibo+WeibTV|18 meses': {
+  '1 Dispositivo': {price:94.00, oldPrice:96.00, available:true},
+},
 
   
   'Stella TV|1 mes': {
