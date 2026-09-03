@@ -2,16 +2,16 @@ const products=[
 // Para marcar un producto como agotado, agrega available:false al producto. Ejemplo:
 // {name:'Producto',plan:'1 mes',cat:'1 Dispositivo',price:0,oldPrice:0,img:'img/imagen.png',desc:'Descripción',available:false},
 
-{name:'WeibTV+Veltix',plan:'1 mes',cat:'3 Dispositivos',img:'img/PromoWEIB-VELTIX.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-{name:'WeibTV+Veltix',plan:'2 meses',cat:'3 Dispositivos',img:'img/PromoWEIB-VELTIX.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-{name:'WeibTV+Veltix',plan:'3 meses',cat:'3 Dispositivos',img:'img/PromoWEIB-VELTIX.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-{name:'WeibTV+Veltix',plan:'6 meses',cat:'3 Dispositivos',img:'img/PromoWEIB-VELTIX.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-{name:'WeibTV+Veltix',plan:'9 meses',cat:'3 Dispositivos',img:'img/PromoWEIB-VELTIX.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-{name:'WeibTV+Veltix',plan:'12 meses',cat:'3 Dispositivos',img:'img/PromoWEIB-VELTIX.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-{name:'WeibTV+Veltix',plan:'18 meses',cat:'3 Dispositivos',img:'img/PromoWEIB-VELTIX.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'Ibo+WeibTV',plan:'1 mes',cat:'1 Dispositivos',img:'img/PromoWEIB.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'Ibo+WeibTV',plan:'2 meses',cat:'1 Dispositivo',img:'img/PromoWEIB.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'Ibo+WeibTV',plan:'3 meses',cat:'1 Dispositivo',img:'img/PromoWEIB.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'Ibo+WeibTV',plan:'6 meses',cat:'1 Dispositivo',img:'img/PromoWEIB.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'Ibo+WeibTV',plan:'9 meses',cat:'1 Dispositivo',img:'img/PromoWEIB.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'Ibo+WeibTV',plan:'12 meses',cat:'1 Dispositivo',img:'img/PromoWEIB.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'Ibo+WeibTV',plan:'18 meses',cat:'1 Dispositivo',img:'img/PromoWEIB.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
 
 
-  {name:'Stella TV',plan:'1 mes',cat:'3 Dispositivos',img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Stella TV',plan:'1 mes',cat:'3 Dispositivos',img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 {name:'Stella TV',plan:'2 meses',cat:'3 Dispositivos',img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 {name:'Stella TV',plan:'3 meses',cat:'3 Dispositivos',img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 {name:'Stella TV',plan:'6 meses',cat:'3 Dispositivos',img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
