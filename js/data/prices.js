@@ -93,27 +93,27 @@ const officialDevicePrices={
 
   'Tele-Latino|1 mes': {
     '1 Dispositivo': {price:4.05, oldPrice:4.05, available:false},
-    '4 Dispositivos': {price:7.20, oldPrice:8.00, available:false},
+    '4 Dispositivos': {price:7.20, oldPrice:8.00, available:true},
   },
   'Tele-Latino|2 meses': {
     '1 Dispositivo': {price:8.10, oldPrice:8.10, available:false},
-    '4 Dispositivos': {price:14.40, oldPrice:16.00, available:false},
+    '4 Dispositivos': {price:14.40, oldPrice:16.00, available:true},
   },
   'Tele-Latino|3 meses': {
     '1 Dispositivo': {price:12.15, oldPrice:12.15, available:false},
-    '4 Dispositivos': {price:21.60, oldPrice:24.00, available:false},
+    '4 Dispositivos': {price:21.60, oldPrice:24.00, available:true},
   },
   'Tele-Latino|6 meses': {
     '1 Dispositivo': {price:24.30, oldPrice:24.30, available:false},
-    '4 Dispositivos': {price:40.20, oldPrice:48.00, available:false},
+    '4 Dispositivos': {price:40.20, oldPrice:48.00, available:true},
   },
   'Tele-Latino|9 meses': {
     '1 Dispositivo': {price:36.45, oldPrice:36.45, available:false},
-    '4 Dispositivos': {price:55.00, oldPrice:72.00, available:false},
+    '4 Dispositivos': {price:55.00, oldPrice:72.00, available:true},
   },
   'Tele-Latino|12 meses': {
     '1 Dispositivo': {price:48.60, oldPrice:48.60, available:false},
-    '4 Dispositivos': {price:70.90, oldPrice:96.00, available:false},
+    '4 Dispositivos': {price:70.90, oldPrice:96.00, available:true},
   },
 
   'VeltixTV|1 mes': {
