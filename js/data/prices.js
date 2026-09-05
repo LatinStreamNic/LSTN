@@ -182,8 +182,8 @@ const masaya187Discounts = {
    FECHAS DE LA PROMOCIÓN
 ========================================================= */
 
-const promoStart = new Date('2026-08-31T00:00:00');
-const promoEnd   = new Date('2026-10-02T23:59:59');
+const promoStart = new Date('2026-09-05T00:00:00');
+const promoEnd   = new Date('2026-09-06T23:59:59');
 
 const now = new Date();
 
