@@ -173,6 +173,13 @@ const officialDevicePrices={
     '1 Dispositivo': {price:3.45, oldPrice:3.45, available:true},
   },
 
+ 'Netflix|1 mes': {
+    '1 Dispositivo': {price:4.50, oldPrice:5.00, available:false},
+    '2 Dispositivos': {price:8.50, oldPrice:10.00, available:false},
+    '3 Dispositivos': {price:12.00, oldPrice:15.00, available:false},
+  '5 Dispositivos': {price:20.00, oldPrice:20.00, available:false},
+  },
+
   '+Streaming|1 mes': {
     '1 Dispositivo': {price:4.50, oldPrice:5.00, available:false},
     '2 Dispositivos': {price:8.50, oldPrice:10.00, available:false},
