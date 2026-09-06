@@ -2,15 +2,6 @@ const products=[
 // Para marcar un producto como agotado, agrega available:false al producto. Ejemplo:
 // {name:'Producto',plan:'1 mes',cat:'1 Dispositivo',price:0,oldPrice:0,img:'img/imagen.png',desc:'Descripción',available:false},
 
-{name:'Ibo+WeibTV',plan:'1 mes',cat:'3 Dispositivos',img:'img/PromoWEIB.png',desc:'WeibTV mediante IBO Player. Disfruta TV en vivo, películas y series en Smart TV Samsung y LG, Android TV, Roku TV, TV Box, TV Stick y dispositivos iOS.', available:true},
-{name:'Ibo+WeibTV',plan:'2 meses',cat:'3 Dispositivos',img:'img/PromoWEIB.png',desc:'WeibTV mediante IBO Player. Disfruta TV en vivo, películas y series en Smart TV Samsung y LG, Android TV, Roku TV, TV Box, TV Stick y dispositivos iOS.', available:true},
-{name:'Ibo+WeibTV',plan:'3 meses',cat:'3 Dispositivos',img:'img/PromoWEIB.png',desc:'WeibTV mediante IBO Player. Disfruta TV en vivo, películas y series en Smart TV Samsung y LG, Android TV, Roku TV, TV Box, TV Stick y dispositivos iOS.', available:true},
-{name:'Ibo+WeibTV',plan:'6 meses',cat:'3 Dispositivos',img:'img/PromoWEIB.png',desc:'WeibTV mediante IBO Player. Disfruta TV en vivo, películas y series en Smart TV Samsung y LG, Android TV, Roku TV, TV Box, TV Stick y dispositivos iOS.', available:true},
-{name:'Ibo+WeibTV',plan:'9 meses',cat:'3 Dispositivos',img:'img/PromoWEIB.png',desc:'WeibTV mediante IBO Player. Disfruta TV en vivo, películas y series en Smart TV Samsung y LG, Android TV, Roku TV, TV Box, TV Stick y dispositivos iOS.', available:true},
-{name:'Ibo+WeibTV',plan:'12 meses',cat:'3 Dispositivos',img:'img/PromoWEIB.png',desc:'WeibTV mediante IBO Player. Disfruta TV en vivo, películas y series en Smart TV Samsung y LG, Android TV, Roku TV, TV Box, TV Stick y dispositivos iOS.', available:true},
-{name:'Ibo+WeibTV',plan:'18 meses',cat:'3 Dispositivos',img:'img/PromoWEIB.png',desc:'WeibTV mediante IBO Player. Disfruta TV en vivo, películas y series en Smart TV Samsung y LG, Android TV, Roku TV, TV Box, TV Stick y dispositivos iOS.', available:true},
-
-
 {name:'Stella TV',plan:'1 mes',cat:'3 Dispositivos',img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 {name:'Stella TV',plan:'2 meses',cat:'3 Dispositivos',img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 {name:'Stella TV',plan:'3 meses',cat:'3 Dispositivos',img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
@@ -18,14 +9,29 @@ const products=[
 {name:'Stella TV',plan:'9 meses ',cat:'3 Dispositivos',img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 {name:'Stella TV',plan:'12 meses ',cat:'3 Dispositivos',img:'img/STLTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
 
-{name:'WeibTV (GVS)',plan:'1 mes',cat:'3 Dispositivos',img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-{name:'WeibTV (GVS)',plan:'2 meses',cat:'3 Dispositivos',img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-{name:'WeibTV (GVS)',plan:'3 meses',cat:'3 Dispositivos',img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-{name:'WeibTV (GVS)',plan:'6 meses',cat:'3 Dispositivos',img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-{name:'WeibTV (GVS)',plan:'9 meses',cat:'3 Dispositivos',img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV yAndroidTV', available:true},
-{name:'WeibTV (GVS)',plan:'12 meses',cat:'3 Dispositivos',img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
-{name:'WeibTV (GVS)',plan:'18 meses',cat:'3 Dispositivos',img:'img/GVSTV.png',desc:'Compatible con iOS, RokuTV, SamsungTV, LGTV y AndroidTV', available:true},
+{name:'WeibTV (GVS)',plan:'1 mes',cat:'3 Dispositivos',img:'img/GVSTV.png',desc:'Compatible con Android TV, Google TV, Celulares Android, TV Box, Fire TV OS', available:true},
+{name:'WeibTV (GVS)',plan:'2 meses',cat:'3 Dispositivos',img:'img/GVSTV.png',desc:'Compatible con Android TV, Google TV, Celulares Android, TV Box, Fire TV OS', available:true},
+{name:'WeibTV (GVS)',plan:'3 meses',cat:'3 Dispositivos',img:'img/GVSTV.png',desc:'Compatible con Android TV, Google TV, Celulares Android, TV Box, Fire TV OS', available:true},
+{name:'WeibTV (GVS)',plan:'6 meses',cat:'3 Dispositivos',img:'img/GVSTV.png',desc:'Compatible con Android TV, Google TV, Celulares Android, TV Box, Fire TV OS', available:true},
+{name:'WeibTV (GVS)',plan:'9 meses',cat:'3 Dispositivos',img:'img/GVSTV.png',desc:'Compatible con Android TV, Google TV, Celulares Android, TV Box, Fire TV OS', available:true},
+{name:'WeibTV (GVS)',plan:'12 meses',cat:'3 Dispositivos',img:'img/GVSTV.png',desc:'Compatible con Android TV, Google TV, Celulares Android, TV Box, Fire TV OS', available:true},
+{name:'WeibTV (GVS)',plan:'18 meses',cat:'3 Dispositivos',img:'img/GVSTV.png',desc:'Compatible con Android TV, Google TV, Celulares Android, TV Box, Fire TV OS', available:true},  
+  
+{name:'Ibo+WeibTV',plan:'1 mes',cat:'3 Dispositivos',img:'img/PromoWEIB.png',desc:'WeibTV mediante IBO Player. Disfruta en Smart TV Samsung y LG, Android TV y dispositivos iOS.', available:true},
+{name:'Ibo+WeibTV',plan:'2 meses',cat:'3 Dispositivos',img:'img/PromoWEIB.png',desc:'WeibTV mediante IBO Player. Disfruta en Smart TV Samsung y LG, Android TV y dispositivos iOS.', available:true},
+{name:'Ibo+WeibTV',plan:'3 meses',cat:'3 Dispositivos',img:'img/PromoWEIB.png',desc:'WeibTV mediante IBO Player. Disfruta en Smart TV Samsung y LG, Android TV y dispositivos iOS.', available:true},
+{name:'Ibo+WeibTV',plan:'6 meses',cat:'3 Dispositivos',img:'img/PromoWEIB.png',desc:'WeibTV mediante IBO Player. Disfruta en Smart TV Samsung y LG, Android TV y dispositivos iOS.', available:true},
+{name:'Ibo+WeibTV',plan:'9 meses',cat:'3 Dispositivos',img:'img/PromoWEIB.png',desc:'WeibTV mediante IBO Player. Disfruta en Smart TV Samsung y LG, Android TV y dispositivos iOS.', available:true},
+{name:'Ibo+WeibTV',plan:'12 meses',cat:'3 Dispositivos',img:'img/PromoWEIB.png',desc:'WeibTV mediante IBO Player. Disfruta en Smart TV Samsung y LG, Android TV y dispositivos iOS.', available:true},
+{name:'Ibo+WeibTV',plan:'18 meses',cat:'3 Dispositivos',img:'img/PromoWEIB.png',desc:'WeibTV mediante IBO Player. Disfruta en Smart TV Samsung y LG, Android TV y dispositivos iOS.', available:true},
 
+{name:'GVS',plan:'1 mes',cat:'3 Dispositivos',img:'img/GvsRoku.png',desc:'WeibTV. Disfruta en Roku atraves de GVS.', available:true},
+{name:'GVS',plan:'2 meses',cat:'3 Dispositivos',img:'img/GvsRoku.png',desc:'WeibTV. Disfruta en Roku atraves de GVS', available:true},
+{name:'GVS',plan:'3 meses',cat:'3 Dispositivos',img:'img/GvsRoku.png',desc:'WeibTV. Disfruta en Roku atraves de GVS', available:true},
+{name:'GVS',plan:'6 meses',cat:'3 Dispositivos',img:'img/GvsRoku.png',desc:'WeibTV. Disfruta en Roku atraves de GVS', available:true},
+{name:'GVS',plan:'9 meses',cat:'3 Dispositivos',img:'img/GvsRoku.png',desc:'WeibTV. Disfruta en Roku atraves de GVS', available:true},
+{name:'GVS',plan:'12 meses',cat:'3 Dispositivos',img:'img/GvsRoku.png',desc:'WeibTV. Disfruta en Roku atraves de GVS', available:true},
+{name:'GVS',plan:'18 meses',cat:'3 Dispositivos',img:'img/GvsRoku.png',desc:'WeibTV. Disfruta en Roku atraves de GVS', available:true},
 
 {name:'Tele-Latino',plan:'1 mes',cat:'3 TV & 3 Celular',img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TV Box', available:true},
 {name:'Tele-Latino',plan:'2 meses',cat:'3 TV & 3 Celular',img:'img/TLNTV.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
@@ -42,8 +48,8 @@ const products=[
 {name:'VeltixTV',plan:'12 meses',cat:'3 Dispositivos',img:'img/VLTV.png',desc:'Disfrútalo en FireTV Stick, tu celular, Smart TV Android y TVBox', available:true},
 
 {name:'Spotify',plan:'1 mes',cat:'1 Dispositivo',img:'img/Spotify.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:true},
+{name:'Netflix',plan:'1 mes',cat:'1 Dispositivo',img:'img/Netflix.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:false},
 
-{name:'+Streaming',plan:'1 mes',cat:'1 Dispositivo',img:'img/Netflix.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:false},
 {name:'+Streaming',plan:'1 mes',cat:'1 Dispositivo',img:'img/amazon.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:false},
 {name:'+Streaming',plan:'1 mes',cat:'1 Dispositivo',img:'img/Max.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:false},
 {name:'+Streaming',plan:'1 mes',cat:'1 Dispositivo',img:'img/YouTube.png',desc:'Compatible con FireTV Stick, dispositivos móviles, Smart TV Android y TVBox', available:false},
