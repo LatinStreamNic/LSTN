@@ -1,30 +1,8 @@
 
 const officialDevicePrices={
 
-'Ibo+WeibTV|1 mes': {
-  '1 Dispositivo': {price:8.00, oldPrice:9.00, available:true},
-},
-'Ibo+WeibTV|2 meses': {
-  '1 Dispositivo': {price:13.00, oldPrice:14.00, available:true},
-},
-'Ibo+WeibTV|3 meses': {
-  '1 Dispositivo': {price:18.00, oldPrice:19.00, available:true},
-},
-'Ibo+WeibTV|6 meses': {
-  '1 Dispositivo': {price:33.00, oldPrice:34.00, available:true},
-},
-'Ibo+WeibTV|9 meses': {
-  '1 Dispositivo': {price:48.00, oldPrice:49.00, available:true},
-},
-'Ibo+WeibTV|12 meses': {
-  '1 Dispositivo': {price:63.00, oldPrice:64.00, available:true},
-},
-'Ibo+WeibTV|18 meses': {
-  '1 Dispositivo': {price:94.00, oldPrice:96.00, available:true},
-},
 
-  
-  'Stella TV|1 mes': {
+ 'Stella TV|1 mes': {
     '1 Dispositivo': {price:5.00, oldPrice:5.00, available:false},
     '2 Dispositivos': {price:7.00, oldPrice:7.00, available:false},
     '3 Dispositivos': {price:9.00, oldPrice:9.00, available:true},
@@ -90,6 +68,50 @@ const officialDevicePrices={
     '3 Dispositivos': {price:160.00, oldPrice:160.00, available:true},
     '5 Dispositivos': {price:270.00, oldPrice:270.00, available:true},
   },
+  
+'Ibo+WeibTV|1 mes': {
+  '1 Dispositivo': {price:8.00, oldPrice:9.00, available:true},
+},
+'Ibo+WeibTV|2 meses': {
+  '1 Dispositivo': {price:13.00, oldPrice:14.00, available:true},
+},
+'Ibo+WeibTV|3 meses': {
+  '1 Dispositivo': {price:18.00, oldPrice:19.00, available:true},
+},
+'Ibo+WeibTV|6 meses': {
+  '1 Dispositivo': {price:33.00, oldPrice:34.00, available:true},
+},
+'Ibo+WeibTV|9 meses': {
+  '1 Dispositivo': {price:48.00, oldPrice:49.00, available:true},
+},
+'Ibo+WeibTV|12 meses': {
+  '1 Dispositivo': {price:63.00, oldPrice:64.00, available:true},
+},
+'Ibo+WeibTV|18 meses': {
+  '1 Dispositivo': {price:94.00, oldPrice:96.00, available:true},
+},
+
+  'GVS|1 mes': {
+  '1 Dispositivo': {price:8.00, oldPrice:9.00, available:true},
+},
+'GVS|2 meses': {
+  '1 Dispositivo': {price:13.00, oldPrice:14.00, available:true},
+},
+'GVS|3 meses': {
+  '1 Dispositivo': {price:18.00, oldPrice:19.00, available:true},
+},
+'GVS|6 meses': {
+  '1 Dispositivo': {price:33.00, oldPrice:34.00, available:true},
+},
+'GVS|9 meses': {
+  '1 Dispositivo': {price:48.00, oldPrice:49.00, available:true},
+},
+'GVS|12 meses': {
+  '1 Dispositivo': {price:63.00, oldPrice:64.00, available:true},
+},
+'GVS|18 meses': {
+  '1 Dispositivo': {price:94.00, oldPrice:96.00, available:true},
+},
 
   'Tele-Latino|1 mes': {
     '1 Dispositivo': {price:4.05, oldPrice:4.05, available:false},
