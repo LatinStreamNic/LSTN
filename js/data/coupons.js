@@ -15,9 +15,9 @@ const coupons = {
 
   'ClienteVip': {
     type: 'percent',
-    value: 20,
+    value: 25,
     label: '',
-    minSubtotal: 5,
+    minSubtotal: 7,
     appliesToDiscounted: true,
     useDeviceDiscount: true
   },
@@ -81,10 +81,10 @@ const couponDeviceDiscounts = {
     defaultByDevice: {
       '1 Dispositivo': 0,
       '2 Dispositivos': 5,
-      '3 Dispositivos': 20,
-      '4 Dispositivos': 20,
-      '5 Dispositivos': 20,
-      '6 Dispositivos': 20
+      '3 Dispositivos': 25,
+      '4 Dispositivos': 25,
+      '5 Dispositivos': 25,
+      '6 Dispositivos': 25
     },
 
     products: {
