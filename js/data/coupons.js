@@ -5,7 +5,7 @@ const coupons = {
     type: 'percent',
     value: 0,
     label: 'Aniversario 187 de Masaya',
-    minSubtotal: 0,
+    minSubtotal: 7,
     appliesToDiscounted: true,
     useDeviceDiscount: true,
     validOn: '2026-09-02',
@@ -68,9 +68,9 @@ const couponDeviceDiscounts = {
     defaultByDevice: {
       '1 Dispositivo': 0,
       '2 Dispositivos': 0,
-      '3 Dispositivos': 10,
-      '4 Dispositivos': 10,
-      '5 Dispositivos': 10,
+      '3 Dispositivos': 25,
+      '4 Dispositivos': 25,
+      '5 Dispositivos': 25,
       '6 Dispositivos': 0
     }
   },
