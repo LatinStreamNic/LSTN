@@ -8,7 +8,7 @@ const coupons = {
     minSubtotal: 7,
     appliesToDiscounted: true,
     useDeviceDiscount: true,
-    validOn: '2026-09-02',
+    //validOn: '2026-09-02',
     eligibleDevices: ['3 Dispositivos', '4 Dispositivos', '5 Dispositivos']
   },
 
