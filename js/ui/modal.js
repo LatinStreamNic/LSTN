@@ -4,13 +4,26 @@ function renderModalPrice(){
   const discountActive=hasDiscount(selected);
   const original=discountActive ? Number(selected.oldPrice || 0)*rate : null;
   document.getElementById('modalText').innerText=`${selected.plan} - ${selected.deviceLabel || selected.cat}`;
+  let priceHtml = '';
+
   if(discountActive){
     const discountPercent = getDiscountPercent(selected);
     const savings = original - price;
-    document.getElementById('modalPrice').innerHTML=`<div class="price-row"><div class="price-big">${format(price)}</div><div class="old-price">${format(original)}</div></div><div class="discount-bar"><span>Ahorras ${format(savings)}</span><span class="discount-pill">-${discountPercent}% OFF</span></div>`;
+    priceHtml = `<div class="price-row"><div class="price-big">${format(price)}</div><div class="old-price">${format(original)}</div></div><div class="discount-bar"><span>Ahorras ${format(savings)}</span><span class="discount-pill">-${discountPercent}% OFF</span></div>`;
   } else {
-    document.getElementById('modalPrice').innerHTML=`<div class="price-row"><div class="price-big">${format(price)}</div></div>`;
+    priceHtml = `<div class="price-row"><div class="price-big">${format(price)}</div></div>`;
   }
+
+  const couponOffer = typeof getShowcaseCouponOfferForItem === 'function'
+    ? getShowcaseCouponOfferForItem(selected)
+    : null;
+
+  if(couponOffer){
+    const couponPrice = price * (1 - (couponOffer.percent / 100));
+    priceHtml += `<div class="discount-bar coupon-promo-bar"><span>Con cupón <strong>${couponOffer.code}</strong>: ${format(couponPrice)}</span><span class="discount-pill">-${couponOffer.percent}% EXTRA</span></div>`;
+  }
+
+  document.getElementById('modalPrice').innerHTML = priceHtml;
   const buyBtn = document.querySelector('#modal .btn-buy');
   const stockText = document.getElementById('modalStockText');
   if(selected.available === false){
@@ -58,13 +71,13 @@ function closeMomPopup(){
   const popup = document.getElementById('momPopup');
   if(popup){
     popup.classList.remove('show');
-    sessionStorage.setItem('momPopupClosed','1');
+    sessionStorage.setItem('promoPopupClosed_FiestasPatrias','1');
     popup.setAttribute('aria-hidden','true');
   }
 }
 
 function copyMomCoupon(){
-  const coupon = 'aniversario187';
+  const coupon = 'FiestasPatrias';
   const couponInput = document.getElementById('couponInput');
 
   if(couponInput){
@@ -73,7 +86,7 @@ function copyMomCoupon(){
 
   const finish = () => {
     closeMomPopup();
-    showToast('Cupón aniversario187 copiado.');
+    showToast('Cupón FiestasPatrias copiado.');
   };
 
   if(navigator.clipboard && navigator.clipboard.writeText){
@@ -87,10 +100,12 @@ function showMomPopupOnce(){
   const popup = document.getElementById('momPopup');
   if(!popup) return;
 
-  const now = new Date();
-  const isPromoDay = now.getFullYear() === 2026 && now.getMonth() === 8 && now.getDate() === 2;
-  if(!isPromoDay) return;
-  if(sessionStorage.getItem('momPopupClosed') === '1') return;
+  const couponCode = 'FiestasPatrias';
+  const coupon = (typeof coupons !== 'undefined' && coupons) ? coupons[couponCode] : null;
+  if(!coupon || typeof isCouponDateValid !== 'function' || !isCouponDateValid(coupon)) return;
+
+  const storageKey = `promoPopupClosed_${couponCode}`;
+  if(sessionStorage.getItem(storageKey) === '1') return;
 
   setTimeout(()=>{
     popup.classList.add('show');
