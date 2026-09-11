@@ -1,5 +1,6 @@
 const coupons = {
 
+
   'FiestasPatrias': {
     type: 'percent',
     value: 0,
@@ -7,16 +8,10 @@ const coupons = {
     minSubtotal: 7,
     appliesToDiscounted: true,
     useDeviceDiscount: true,
-
-    // Vigencia: 11 al 18 de septiembre de 2026
     validFrom: '2026-09-10',
     validUntil: '2026-09-18',
-
-    eligibleDevices: [
-      '3 Dispositivos',
-      '4 Dispositivos',
-      '5 Dispositivos'
-    ]
+    eligibleDevices: ['1 Dispositivo','2 Dispositivo','3 Dispositivos', '4 Dispositivos', '5 Dispositivos'],
+    showInCatalog: true
   },
 
 
@@ -26,7 +21,7 @@ const coupons = {
     label: '',
     minSubtotal: 7,
     appliesToDiscounted: true,
-    useDeviceDiscount: false
+    useDeviceDiscount: true
   },
 
   'iuiu': {
@@ -70,10 +65,11 @@ const coupons = {
 
 const couponDeviceDiscounts = {
 
+
   'FiestasPatrias': {
     defaultByDevice: {
       '1 Dispositivo': 0,
-      '2 Dispositivos': 0,
+      '2 Dispositivo': 0,
       '3 Dispositivos': 25,
       '4 Dispositivos': 25,
       '5 Dispositivos': 25,
@@ -86,7 +82,7 @@ const couponDeviceDiscounts = {
 
     defaultByDevice: {
       '1 Dispositivo': 0,
-      '2 Dispositivos': 5,
+      '2 Dispositivo': 5,
       '3 Dispositivos': 25,
       '4 Dispositivos': 25,
       '5 Dispositivos': 25,
@@ -129,6 +125,7 @@ const couponDeviceDiscounts = {
 
 
   '902026': {
+
     defaultByDevice: {
       '1 Dispositivo': 0,
       '2 Dispositivos': 0,
@@ -137,10 +134,12 @@ const couponDeviceDiscounts = {
       '5 Dispositivos': 7,
       '6 Dispositivos': 5
     }
+
   },
 
 
   'VIP20': {
+
     defaultByDevice: {
       '1 Dispositivo': 0,
       '2 Dispositivos': 0,
@@ -149,6 +148,7 @@ const couponDeviceDiscounts = {
       '5 Dispositivos': 0,
       '6 Dispositivos': 0
     }
+
   }
 
 };
