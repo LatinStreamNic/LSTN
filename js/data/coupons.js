@@ -9,7 +9,7 @@ const coupons = {
     useDeviceDiscount: true,
 
     // Vigencia: 11 al 18 de septiembre de 2026
-    validFrom: '2026-09-11',
+    validFrom: '2026-09-10',
     validUntil: '2026-09-18',
 
     eligibleDevices: [
@@ -26,7 +26,7 @@ const coupons = {
     label: '',
     minSubtotal: 7,
     appliesToDiscounted: true,
-    useDeviceDiscount: true
+    useDeviceDiscount: false
   },
 
   'iuiu': {
