@@ -60,16 +60,16 @@
 <div class="mom-popup" id="momPopup" aria-hidden="true">
   <div class="mom-popup-card">
     <button class="mom-popup-close" onclick="closeMomPopup()" aria-label="Cerrar">✕</button>
-    <div class="promo-kicker">02 · SEPTIEMBRE · 2026</div>
+    <div class="promo-kicker">11–18 · SEPTIEMBRE · 2026</div>
     <span class="promo-icon"><i class="fa-solid fa-gift"></i></span>
-    <h2>Masaya celebra 187 años</h2>
-    <p>Usa el cupón especial y recibe un 10 % adicional en planes de 3, 4 y 5 dispositivos.</p>
+    <h2>Promoción Fiestas Patrias</h2>
+    <p>Usa el cupón especial y recibe un 25 % de descuento en planes elegibles de 3, 4 y 5 dispositivos.</p>
     <div class="mom-popup-coupon">
       <span>Cupón</span>
-      <strong>aniversario187</strong>
+      <strong>FiestasPatrias</strong>
     </div>
     <button class="mom-popup-btn" onclick="copyMomCoupon()"><i class="fa-regular fa-copy"></i> Copiar cupón</button>
-    <small>Válido únicamente el 02 de septiembre de 2026.</small>
+    <small>Válido del 11 al 18 de septiembre de 2026.</small>
   </div>
 </div>
 
@@ -257,8 +257,17 @@
 
     <div class="cart-actions">
       <button class="btn-danger" onclick="clearCart()"><i class="fa-regular fa-trash-can"></i> Vaciar</button>
-      <button class="btn-buy" onclick="sendCartToWhatsApp()"><i class="fa-brands fa-whatsapp"></i> Contratar ahora</button>
+      <button class="btn-buy" onclick="openCheckoutOptions()"><i class="fa-solid fa-credit-card"></i> Contratar ahora</button>
     </div>
+  </div>
+</div>
+
+
+<!-- Métodos de pago -->
+<div class="modal checkout-modal" id="checkoutModal" aria-hidden="true">
+  <div class="modal-content checkout-modal-content">
+    <button class="close-btn" onclick="closeCheckoutOptions()" aria-label="Cerrar">✕</button>
+    <div id="checkoutContent"></div>
   </div>
 </div>
 
@@ -271,7 +280,7 @@
     <p>En Latin Stream respetamos la privacidad de nuestros clientes. La información compartida durante una compra se utiliza únicamente para gestionar pedidos, confirmar pagos y brindar soporte.</p>
     <ul class="privacy-list">
       <li>No solicitamos datos bancarios sensibles dentro de la web.</li>
-      <li>Los pedidos se finalizan mediante WhatsApp para atención directa.</li>
+      <li>Los pedidos pueden finalizarse mediante PayPal o mediante una orden generada por WhatsApp, según el método seleccionado.</li>
       <li>La información del cliente no se vende ni se comparte con terceros para fines publicitarios.</li>
       <li>El usuario puede solicitar aclaración o eliminación de sus datos de contacto escribiendo por WhatsApp.</li>
     </ul>
@@ -318,6 +327,7 @@
 <script src="js/services/currency.js"></script>
 <script src="js/services/cart.js"></script>
 <script src="js/services/whatsapp.js"></script>
+<script src="js/services/checkout.js"></script>
 <!-- UI -->
 <script src="js/ui/catalog.js"></script>
 <script src="js/ui/modal.js"></script>
