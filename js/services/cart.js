@@ -225,31 +225,29 @@ function clearCart(){
 */
 function getLocalDateKey(){
   const now = new Date();
-  const y = now.getFullYear();
-  const m = String(now.getMonth() + 1).padStart(2,'0');
-  const d = String(now.getDate()).padStart(2,'0');
-  return `${y}-${m}-${d}`;
-}
 
-function formatCouponDate(dateKey){
-  if(!dateKey) return '';
+  // Las promociones de Latin Stream se validan con la fecha de Nicaragua,
+  // independientemente de la zona horaria configurada en el dispositivo.
+  try{
+    const parts = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/Managua',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    }).formatToParts(now);
 
-  const parts = String(dateKey).split('-');
-  if(parts.length !== 3) return dateKey;
+    const values = {};
+    parts.forEach(part=>{
+      if(part.type !== 'literal') values[part.type] = part.value;
+    });
 
-  const [year, month, day] = parts;
-
-  const months = [
-    'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
-    'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
-  ];
-
-  const monthIndex = Number(month) - 1;
-  const monthName = months[monthIndex];
-
-  if(!monthName) return dateKey;
-
-  return `${Number(day)} de ${monthName} de ${year}`;
+    return `${values.year}-${values.month}-${values.day}`;
+  }catch(e){
+    const y = now.getFullYear();
+    const m = String(now.getMonth() + 1).padStart(2,'0');
+    const d = String(now.getDate()).padStart(2,'0');
+    return `${y}-${m}-${d}`;
+  }
 }
 
 function isCouponDateValid(coupon){
@@ -257,28 +255,54 @@ function isCouponDateValid(coupon){
 
   const today = getLocalDateKey();
 
-  // Cupón válido únicamente en una fecha específica.
+  // Compatibilidad con cupones de un solo día.
   if(coupon.validOn){
     return today === coupon.validOn;
   }
 
-  // Cupón válido dentro de un rango de fechas.
-  if(coupon.validFrom && coupon.validUntil){
-    return today >= coupon.validFrom && today <= coupon.validUntil;
+  // Compatibilidad con promociones por rango de fechas.
+  if(coupon.validFrom && today < coupon.validFrom){
+    return false;
   }
 
-  // Solo fecha de inicio.
-  if(coupon.validFrom){
-    return today >= coupon.validFrom;
+  if(coupon.validUntil && today > coupon.validUntil){
+    return false;
   }
 
-  // Solo fecha de finalización.
-  if(coupon.validUntil){
-    return today <= coupon.validUntil;
-  }
-
-  // Sin restricción de fecha.
   return true;
+}
+
+function formatCouponDateEs(dateKey){
+  if(!dateKey) return '';
+  const [year, month, day] = String(dateKey).split('-').map(Number);
+  if(!year || !month || !day) return dateKey;
+  const months = [
+    'enero','febrero','marzo','abril','mayo','junio',
+    'julio','agosto','septiembre','octubre','noviembre','diciembre'
+  ];
+  return `${day} de ${months[month - 1]} de ${year}`;
+}
+
+function getCouponDateValidationText(coupon){
+  if(!coupon) return 'Este cupón no está disponible en la fecha actual.';
+
+  if(coupon.validOn){
+    return `Este cupón es válido únicamente el ${formatCouponDateEs(coupon.validOn)}.`;
+  }
+
+  if(coupon.validFrom && coupon.validUntil){
+    return `Este cupón es válido del ${formatCouponDateEs(coupon.validFrom)} al ${formatCouponDateEs(coupon.validUntil)}.`;
+  }
+
+  if(coupon.validFrom){
+    return `Este cupón estará disponible a partir del ${formatCouponDateEs(coupon.validFrom)}.`;
+  }
+
+  if(coupon.validUntil){
+    return `Este cupón estuvo disponible hasta el ${formatCouponDateEs(coupon.validUntil)}.`;
+  }
+
+  return 'Este cupón no está disponible en la fecha actual.';
 }
 
 function isCouponDeviceEligible(item, coupon){
@@ -294,6 +318,50 @@ function normalizeCouponText(value){
     .trim()
     .toLowerCase();
 
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| PROMOCIÓN VISIBLE EN CATÁLOGO
+|--------------------------------------------------------------------------
+| Devuelve la mejor promoción marcada con showInCatalog:true para un plan.
+| No modifica el precio base: el descuento real se aplica al usar el cupón.
+*/
+function getShowcaseCouponOfferForItem(item){
+  if(
+    !item ||
+    typeof coupons === 'undefined' ||
+    !coupons
+  ){
+    return null;
+  }
+
+  let bestOffer = null;
+
+  Object.keys(coupons).forEach(code=>{
+    const coupon = coupons[code];
+
+    if(!coupon || coupon.showInCatalog !== true){
+      return;
+    }
+
+    if(!isItemEligibleForCoupon(item, coupon)){
+      return;
+    }
+
+    const percent = getCouponItemPercent(code, item);
+
+    if(percent <= 0){
+      return;
+    }
+
+    if(!bestOffer || percent > bestOffer.percent){
+      bestOffer = { code, coupon, percent };
+    }
+  });
+
+  return bestOffer;
 }
 
 
@@ -913,30 +981,9 @@ function getCouponValidationMessage(code){
   }
 
   if(!isCouponDateValid(coupon)){
-
-    let dateMessage =
-      'Este cupón no está disponible en la fecha actual.';
-
-    if(coupon.validOn){
-      dateMessage =
-        `Este cupón es válido únicamente el ${formatCouponDate(coupon.validOn)}.`;
-    }
-    else if(coupon.validFrom && coupon.validUntil){
-      dateMessage =
-        `Este cupón es válido del ${formatCouponDate(coupon.validFrom)} al ${formatCouponDate(coupon.validUntil)}.`;
-    }
-    else if(coupon.validFrom){
-      dateMessage =
-        `Este cupón estará disponible a partir del ${formatCouponDate(coupon.validFrom)}.`;
-    }
-    else if(coupon.validUntil){
-      dateMessage =
-        `Este cupón estuvo disponible hasta el ${formatCouponDate(coupon.validUntil)}.`;
-    }
-
     return {
       ok:false,
-      text: dateMessage
+      text: getCouponDateValidationText(coupon)
     };
   }
 
