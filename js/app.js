@@ -77,6 +77,7 @@ function bindModalBackdrop(id, closeFn){
 initSiteChrome();
 bindModalBackdrop('modal', closeModal);
 bindModalBackdrop('cartModal', closeCart);
+bindModalBackdrop('checkoutModal', closeCheckoutOptions);
 bindModalBackdrop('privacyModal', closePrivacyModal);
 
 loadSavedCurrency();
@@ -177,10 +178,12 @@ function initCommercePolish(){
 
   document.addEventListener('keydown', event=>{
     if(event.key !== 'Escape') return;
+    const checkoutModal=document.getElementById('checkoutModal');
     const cartModal=document.getElementById('cartModal');
     const productModal=document.getElementById('modal');
     const privacyModal=document.getElementById('privacyModal');
-    if(cartModal && cartModal.classList.contains('show')) closeCart();
+    if(checkoutModal && checkoutModal.classList.contains('show')) closeCheckoutOptions();
+    else if(cartModal && cartModal.classList.contains('show')) closeCart();
     else if(productModal && productModal.style.display === 'flex') closeModal();
     else if(privacyModal && privacyModal.style.display === 'flex') closePrivacyModal();
   });
