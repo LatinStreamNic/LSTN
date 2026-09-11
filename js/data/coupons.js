@@ -1,15 +1,22 @@
 const coupons = {
 
-
-  'aniversario187': {
+  'FiestasPatrias': {
     type: 'percent',
     value: 0,
-    label: 'Aniversario 187 de Masaya',
+    label: 'Fiestas Patrias',
     minSubtotal: 7,
     appliesToDiscounted: true,
     useDeviceDiscount: true,
-    //validOn: '2026-09-02',
-    eligibleDevices: ['3 Dispositivos', '4 Dispositivos', '5 Dispositivos']
+
+    // Vigencia: 11 al 18 de septiembre de 2026
+    validFrom: '2026-09-11',
+    validUntil: '2026-09-18',
+
+    eligibleDevices: [
+      '3 Dispositivos',
+      '4 Dispositivos',
+      '5 Dispositivos'
+    ]
   },
 
 
@@ -63,8 +70,7 @@ const coupons = {
 
 const couponDeviceDiscounts = {
 
-
-  'aniversario187': {
+  'FiestasPatrias': {
     defaultByDevice: {
       '1 Dispositivo': 0,
       '2 Dispositivos': 0,
@@ -123,7 +129,6 @@ const couponDeviceDiscounts = {
 
 
   '902026': {
-
     defaultByDevice: {
       '1 Dispositivo': 0,
       '2 Dispositivos': 0,
@@ -132,12 +137,10 @@ const couponDeviceDiscounts = {
       '5 Dispositivos': 7,
       '6 Dispositivos': 5
     }
-
   },
 
 
   'VIP20': {
-
     defaultByDevice: {
       '1 Dispositivo': 0,
       '2 Dispositivos': 0,
@@ -146,7 +149,6 @@ const couponDeviceDiscounts = {
       '5 Dispositivos': 0,
       '6 Dispositivos': 0
     }
-
   }
 
 };
