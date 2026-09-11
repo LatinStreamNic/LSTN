@@ -135,6 +135,30 @@ function getGroupMaxDiscount(group){
   return Math.max(0, ...group.variants.map(v=>getDiscountPercent(v)));
 }
 
+function getGroupShowcaseCouponOffer(group){
+  if(!group || !Array.isArray(group.variants) || typeof getShowcaseCouponOfferForItem !== 'function'){
+    return null;
+  }
+
+  let bestOffer = null;
+
+  group.variants.forEach(variant=>{
+    if(variant.available === false) return;
+    const offer = getShowcaseCouponOfferForItem(variant);
+    if(offer && (!bestOffer || offer.percent > bestOffer.percent)){
+      bestOffer = offer;
+    }
+  });
+
+  return bestOffer;
+}
+
+function getGroupMaxVisibleDiscount(group){
+  const productDiscount = getGroupMaxDiscount(group);
+  const couponOffer = getGroupShowcaseCouponOffer(group);
+  return Math.max(productDiscount, couponOffer ? couponOffer.percent : 0);
+}
+
 function renderFeaturedProducts(){
   const holder = document.getElementById('featuredProducts');
   if(!holder || !productGroups.length) return;
@@ -156,11 +180,11 @@ function renderFeaturedProducts(){
     }
   };
 
-  const byDiscount = [...available].sort((a,b)=>getGroupMaxDiscount(b)-getGroupMaxDiscount(a));
+  const byDiscount = [...available].sort((a,b)=>getGroupMaxVisibleDiscount(b)-getGroupMaxVisibleDiscount(a));
   const byDuration = [...available].sort((a,b)=>parsePlanMonths(b.plan)-parsePlanMonths(a.plan));
   const byOptions = [...available].sort((a,b)=>b.variants.length-a.variants.length);
 
-  addUniquePick(byDiscount, getGroupMaxDiscount(byDiscount[0])>0 ? 'Oferta especial' : 'Buena opción', 'fa-fire');
+  addUniquePick(byDiscount, getGroupMaxVisibleDiscount(byDiscount[0])>0 ? 'Oferta especial' : 'Buena opción', 'fa-fire');
   addUniquePick(byDuration, 'Recomendado', 'fa-star');
   addUniquePick(byOptions, 'Más dispositivos', 'fa-tv');
   addUniquePick(available, 'Opción destacada', 'fa-sparkles');
@@ -168,7 +192,12 @@ function renderFeaturedProducts(){
 
   holder.innerHTML = picks.slice(0,3).map(({group,label,icon},idx)=>{
     const main = getDefaultVariant(group);
-    const discount = getGroupMaxDiscount(group);
+    const productDiscount = getGroupMaxDiscount(group);
+    const couponOffer = getGroupShowcaseCouponOffer(group);
+    const discount = Math.max(productDiscount, couponOffer ? couponOffer.percent : 0);
+    const discountText = couponOffer
+      ? ` · ${couponOffer.percent}% con cupón ${couponOffer.code}`
+      : (discount > 0 ? ` · Hasta ${discount}% de descuento` : '');
     const deviceText = `${group.variants.length} ${group.variants.length === 1 ? 'opción de dispositivo' : 'opciones de dispositivos'}`;
     return `<article class="featured-card featured-card-${idx+1}" data-brand="${getBrandKey(group.name)}" onclick="openModal(${group.groupIndex})" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openModal(${group.groupIndex});}">
       <div class="featured-card-media protected-img"><img src="${group.img}" alt="${group.name} ${group.plan}" draggable="false" loading="lazy" oncontextmenu="return false;"></div>
@@ -176,7 +205,7 @@ function renderFeaturedProducts(){
       <div class="featured-card-content">
         <div class="featured-badge"><i class="fa-solid ${icon}"></i>${label}</div>
         <div class="featured-card-bottom">
-          <div><span>${group.name}</span><h3>${group.plan}</h3><p>${deviceText}${discount>0 ? ` · Hasta ${discount}% de descuento` : ''}</p></div>
+          <div><span>${group.name}</span><h3>${group.plan}</h3><p>${deviceText}${discountText}</p></div>
           <div class="featured-price">${(!main || main.available === false) ? 'Agotado' : renderAnimatedPrice(Number(main.price || 0),'Desde ')}</div>
         </div>
       </div>
@@ -186,11 +215,15 @@ function renderFeaturedProducts(){
 function renderCatalogCard(group){
   const main = getDefaultVariant(group);
   const discountPercent = getGroupMaxDiscount(group);
+  const couponOffer = getGroupShowcaseCouponOffer(group);
   const available = groupHasAvailable(group);
+  const offerBadge = couponOffer
+    ? `<div class="card-discount">PROMO · ${couponOffer.percent}% · ${couponOffer.code}</div>`
+    : (discountPercent > 0 ? `<div class="card-discount">OFERTA · HASTA ${discountPercent}%</div>` : '');
   return `<article class="card ${!available ? 'out-stock' : ''}" data-brand="${getBrandKey(group.name)}" onclick="openModal(${group.groupIndex})" tabindex="0" role="button" aria-label="Ver ${group.name} ${group.plan}" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openModal(${group.groupIndex});}">
     <div class="card-accent" aria-hidden="true"></div>
     ${!available ? `<div class="stock-badge">AGOTADO</div>` : ''}
-    ${discountPercent > 0 ? `<div class="card-discount">OFERTA · HASTA ${discountPercent}%</div>` : ''}
+    ${offerBadge}
     <div class="protected-img"><img src="${group.img}" alt="${group.name} ${group.plan}" draggable="false" loading="lazy" oncontextmenu="return false;"></div>
     <div class="info">
       <span class="card-service">${group.name}</span>
