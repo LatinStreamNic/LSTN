@@ -231,9 +231,54 @@ function getLocalDateKey(){
   return `${y}-${m}-${d}`;
 }
 
+function formatCouponDate(dateKey){
+  if(!dateKey) return '';
+
+  const parts = String(dateKey).split('-');
+  if(parts.length !== 3) return dateKey;
+
+  const [year, month, day] = parts;
+
+  const months = [
+    'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+    'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
+  ];
+
+  const monthIndex = Number(month) - 1;
+  const monthName = months[monthIndex];
+
+  if(!monthName) return dateKey;
+
+  return `${Number(day)} de ${monthName} de ${year}`;
+}
+
 function isCouponDateValid(coupon){
-  if(!coupon || !coupon.validOn) return true;
-  return getLocalDateKey() === coupon.validOn;
+  if(!coupon) return false;
+
+  const today = getLocalDateKey();
+
+  // Cupón válido únicamente en una fecha específica.
+  if(coupon.validOn){
+    return today === coupon.validOn;
+  }
+
+  // Cupón válido dentro de un rango de fechas.
+  if(coupon.validFrom && coupon.validUntil){
+    return today >= coupon.validFrom && today <= coupon.validUntil;
+  }
+
+  // Solo fecha de inicio.
+  if(coupon.validFrom){
+    return today >= coupon.validFrom;
+  }
+
+  // Solo fecha de finalización.
+  if(coupon.validUntil){
+    return today <= coupon.validUntil;
+  }
+
+  // Sin restricción de fecha.
+  return true;
 }
 
 function isCouponDeviceEligible(item, coupon){
@@ -868,11 +913,30 @@ function getCouponValidationMessage(code){
   }
 
   if(!isCouponDateValid(coupon)){
+
+    let dateMessage =
+      'Este cupón no está disponible en la fecha actual.';
+
+    if(coupon.validOn){
+      dateMessage =
+        `Este cupón es válido únicamente el ${formatCouponDate(coupon.validOn)}.`;
+    }
+    else if(coupon.validFrom && coupon.validUntil){
+      dateMessage =
+        `Este cupón es válido del ${formatCouponDate(coupon.validFrom)} al ${formatCouponDate(coupon.validUntil)}.`;
+    }
+    else if(coupon.validFrom){
+      dateMessage =
+        `Este cupón estará disponible a partir del ${formatCouponDate(coupon.validFrom)}.`;
+    }
+    else if(coupon.validUntil){
+      dateMessage =
+        `Este cupón estuvo disponible hasta el ${formatCouponDate(coupon.validUntil)}.`;
+    }
+
     return {
       ok:false,
-      text: coupon.validOn === '2026-09-02'
-        ? 'Este cupón es válido únicamente el 02 de septiembre de 2026.'
-        : 'Este cupón no está disponible en la fecha actual.'
+      text: dateMessage
     };
   }
 
